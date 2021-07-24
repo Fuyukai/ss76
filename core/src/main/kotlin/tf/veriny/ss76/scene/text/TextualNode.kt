@@ -7,34 +7,6 @@ import tf.veriny.ss76.scene.Scene
  * A single textual node.
  */
 public sealed class TextualNode {
-    /** Superclass for nodes with text. */
-    public abstract class NodeWithText(public val word: String) : TextualNode()
-
-    /** A single word. */
-    public class WordNode(word: String) : NodeWithText(word) {
-        override fun toString(): String {
-            return "WordNode(\"$word\")"
-        }
-    }
-    /** A newline. Forces the renderer to move down one line. */
-    public object Newline : TextualNode()
-
-    /**
-     * A link to another scene, perhaps.
-     *
-     * @param id: The ID of the scene being linked to.
-     */
-    public class LinkNode(
-        public val id: String,
-        public val action: (Scene) -> Unit,
-        text: String,
-        public val skipSeen: Boolean = false
-    ) : NodeWithText(text) {
-        override fun toString(): String {
-            return "LinkNode(link to '$id')"
-        }
-    }
-
     public companion object {
         /**
          * Helper function to split a string into a series of textual nodes.
@@ -70,5 +42,53 @@ public sealed class TextualNode {
 
             return tokens
         }
+    }
+}
+
+
+/** Superclass for nodes with text. */
+public abstract class NodeWithText(public val word: String) : TextualNode()
+
+/** A single word. */
+public class WordNode(word: String) : NodeWithText(word) {
+    override fun toString(): String {
+        return "WordNode(\"$word\")"
+    }
+}
+
+/** A newline. Forces the renderer to move down one line. */
+public object Newline : TextualNode()
+
+/**
+ * A link to another scene, perhaps.
+ *
+ * @param id: The ID of the scene being linked to.
+ */
+public class LinkNode(
+    public val id: String,
+    text: String,
+    public val type: LinkType,
+    public val action: (Scene) -> Unit,
+) : NodeWithText(text) {
+    public enum class LinkType {
+        /**
+         * Push link, that pushes a new scene on the stack. This is red when the scene is unseen,
+         * and green when the scene has been seen before.
+         */
+        PUSH_LINK,
+
+        /**
+         * The next scene link. This is always orange.
+         */
+        NEXT_SCENE,
+
+        /**
+         * The back button. This is always green.
+         */
+        BACK_BUTTON,
+    }
+
+    override fun toString(): String {
+        return "LinkNode(link to '$id')"
     }
 }

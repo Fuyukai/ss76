@@ -32,10 +32,10 @@ public class TextSceneBuilder(private val id: String) {
          * Creates a link that performs an action when clicked.
          */
         public fun link(
-            id: String, text: String, skipSeen: Boolean = false, action: (Scene) -> Unit
+            id: String, text: String, type: LinkNode.LinkType, action: (Scene) -> Unit
         ) {
-            val token = TextualNode.LinkNode(
-                id = id, text = text, action = action, skipSeen = skipSeen
+            val token = LinkNode(
+                id = id, text = text, action = action, type = type,
             )
             tokens.add(token)
         }
@@ -45,15 +45,18 @@ public class TextSceneBuilder(private val id: String) {
          */
         public fun newline(count: Int = 1) {
             repeat(count) {
-                tokens += TextualNode.Newline
+                tokens += Newline
             }
         }
 
         /**
          * Adds a link to another scene.
          */
-        public fun pushSceneButton(sceneId: String, text: String, skipSeen: Boolean = false) {
-            return link(sceneId, text, skipSeen=skipSeen) { SS76.pushScene(sceneId) }
+        public fun pushSceneButton(sceneId: String, text: String) {
+            val token = LinkNode(sceneId, text, LinkNode.LinkType.PUSH_LINK) {
+                SS76.pushScene(sceneId)
+            }
+            tokens += token
         }
 
         /**
@@ -61,32 +64,24 @@ public class TextSceneBuilder(private val id: String) {
          */
         public fun backButton(text: String = "Back", skipSeen: Boolean = false) {
             val realText = "« $text"
-            return link("SKIP", text = realText, skipSeen = skipSeen) {
+            val token = LinkNode("SKIP", realText, LinkNode.LinkType.BACK_BUTTON) {
                 it.reset()
                 SS76.exitScene()
             }
+            tokens += token
         }
 
         /**
          * Adds a change scene button.
          */
         public fun changeSceneButton(nextScene: String, text: String, skipSeen: Boolean = false) {
-            return link(nextScene, text, skipSeen = skipSeen) {
+            val token = LinkNode(nextScene, text, LinkNode.LinkType.NEXT_SCENE) {
                 it.reset()
                 SS76.changeScene(nextScene)
             }
+            tokens += token
         }
 
-        /**
-         * Adds the next button.
-         */
-        public fun nextSceneButton(nextScene: String, text: String = "Next", skipSeen: Boolean = false) {
-            val realText = "» $text"
-            return link("SKIP", text = realText, skipSeen = skipSeen) {
-                it.reset()
-                SS76.changeScene(nextScene)
-            }
-        }
     }
 
     public fun page(block: PageBuilder.() -> Unit) {
@@ -135,7 +130,7 @@ public fun buildDateMarkerScene(
             newline()
             line(forecast)
             newline()
-            nextSceneButton(nextSceneId, "Next")
+            changeSceneButton(nextSceneId, "» Next")
         }
 
         block()

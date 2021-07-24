@@ -107,12 +107,18 @@ public fun registerSussexJuly3Scenes() {
             line("13:50 - 15:30 - Computer Science")
             newline()
 
-            line("Fuck that, you tell yourself.")
-            pushSceneButton("sussex-july-3-school-3", "You're skipping all of that.")
+            line("Fuck that, you tell yourself.", addNewline = false)
+            changeSceneButton("sussex-july-3-school-3", "You're skipping all of that.")
 
         }
     }
 
     // Time to skip class.
+    createAndRegisterScene("sussex-july-3-school-3") {
+        page {
+            line("You make your way to the", addNewline = false)
+            pushSceneButton(CommonScenes.SCHOOL_WORKING_LIFT.id, "working lift")
+        }
+    }
 
 }

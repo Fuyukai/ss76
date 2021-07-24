@@ -55,6 +55,8 @@ public object SS76 : KtxApplicationAdapter {
         private set
     public lateinit var RED_FONT: BitmapFont
         private set
+    public lateinit var ORANGE_FONT: BitmapFont
+        private set
     public lateinit var batch: SpriteBatch
         private set
 
@@ -116,6 +118,12 @@ public object SS76 : KtxApplicationAdapter {
             size = FONT_SIZE
             mono = true
             color = Color.RED
+        }
+
+        ORANGE_FONT = generator.generateFont {
+            size = FONT_SIZE
+            mono = true
+            color = Color.SALMON
         }
 
         generator.dispose()

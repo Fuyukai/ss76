@@ -32,7 +32,7 @@ public abstract class TextualScene(
     }
 
     protected open inner class TextualSceneInput : KtxInputAdapter {
-        private fun hit(screenX: Int, screenY: Int): TextualNode.LinkNode? {
+        private fun hit(screenX: Int, screenY: Int): LinkNode? {
             val realX = screenX.toFloat()
             val realY = Gdx.graphics.height - (screenY.toFloat())
             for ((node, rect) in knownLinkPositions.entries) {
@@ -88,7 +88,7 @@ public abstract class TextualScene(
 
     // mapping of drawn link positions to their ""collision"" rectangles.
     // this is only a mapping to avoid duplicates, otherwise we do linear searches.
-    private val knownLinkPositions: MutableMap<TextualNode.LinkNode, Rectangle> = mutableMapOf()
+    private val knownLinkPositions: MutableMap<LinkNode, Rectangle> = mutableMapOf()
 
     override fun sceneActive() {
         for (load in onLoad) {
@@ -122,18 +122,33 @@ public abstract class TextualScene(
     @Suppress("IMPLICIT_CAST_TO_ANY")
     protected fun drawNode(node: TextualNode) {
         when (node) {
-            is TextualNode.WordNode -> {
+            is WordNode -> {
                 drawFont(SS76.WHITE_FONT, node.word)
             }
-            is TextualNode.Newline -> {
+            is Newline -> {
                 currentXOffset = 0f
                 // 2 pixel offset to avoid conjoining Ys to Gs
                 currentYOffset += SS76.lineHeight + 2f
             }
-            is TextualNode.LinkNode -> {
-                val visited = node.id in SS76.visited || node.skipSeen
-                val font = if (visited) SS76.GREEN_FONT else SS76.RED_FONT
-                val text = if (visited) node.word else "! " + node.word
+            is LinkNode -> {
+                val font: BitmapFont
+                val text: String
+
+                when (node.type) {
+                    LinkNode.LinkType.NEXT_SCENE -> {
+                        font = SS76.ORANGE_FONT
+                        text = node.word
+                    }
+                    LinkNode.LinkType.BACK_BUTTON -> {
+                        font = SS76.GREEN_FONT
+                        text = node.word
+                    }
+                    LinkNode.LinkType.PUSH_LINK -> {
+                        val visited = node.id in SS76.visited
+                        font = if (visited) SS76.GREEN_FONT else SS76.RED_FONT
+                        text = if (visited) node.word else "! ${node.word}"
+                    }
+                }
 
                 // figure out rectangle, BEFORE doing the render, as render updates currentXOffset
                 if (node !in knownLinkPositions) {
@@ -200,7 +215,7 @@ public abstract class TextualScene(
                     words[nodesToDraw]
                 }
 
-                if (nextNode is TextualNode.WordNode && nextNode.word.isNotEmpty()) {
+                if (nextNode is WordNode && nextNode.word.isNotEmpty()) {
                     // if the word length is less than frames_per_word, we can't smoothly
                     // interpolate it. instead we just do a percentage divide of the remainder
                     // and apply that to the word length, rounded down.

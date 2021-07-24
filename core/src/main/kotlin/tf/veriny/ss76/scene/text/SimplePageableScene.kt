@@ -31,8 +31,13 @@ public class SimplePageableScene(
 
     private val pages = run {
         val newPages = mutableListOf<List<TextualNode>>()
-        val backNode = TextualNode.LinkNode("SKIP", { pageBack() }, "« BACK")
-        val forwardNode = TextualNode.LinkNode("SKIP", { pageForward() }, "FORWARD »")
+        val backNode = LinkNode(
+            "SKIP", "« BACK", LinkNode.LinkType.NEXT_SCENE
+        ) { pageBack() }
+        val forwardNode = LinkNode(
+            "SKIP", "FORWARD »", LinkNode.LinkType.NEXT_SCENE
+        ) { pageBack() }
+    
         for ((id, page,)  in pages.withIndex()) {
             val splitNodes = TextualNode.split(
                 "== Page ${id + 1}/${pages.size} ==", trailingNewline = false
@@ -40,7 +45,7 @@ public class SimplePageableScene(
             val newPage = mutableListOf<TextualNode>(backNode)
             newPage.addAll(splitNodes)
             newPage.add(forwardNode)
-            repeat(2) { newPage.add(TextualNode.Newline) }
+            repeat(2) { newPage.add(Newline) }
             newPage.addAll(page)
             newPages.add(newPage)
         }

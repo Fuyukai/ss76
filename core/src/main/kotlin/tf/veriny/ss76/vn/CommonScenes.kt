@@ -81,4 +81,39 @@ public object CommonScenes {
             backButton()
         }
     }
+
+    public val SCHOOL_WORKING_LIFT: TextualScene = createAndRegisterScene("common.schoollift") {
+        page {
+            line(
+                "The school building originally only had one lift, to be used by disabled " +
+                "pupils."
+            )
+            line(
+                "It was strictly controlled, with a pass required to use it. Eventually, " +
+                "complaints by parents caused the faculty to cave in and build four more, with open " +
+                "access for everyone."
+            )
+            newline()
+
+            line(
+                "Unfortunately, wear and tear means that there's usually only one lift that " +
+                "actually works. The staff always say that repairs will be soon, but if it breaks " +
+                "then that lift will be out of service until at least the next school year. "
+            )
+            newline()
+
+            line(
+                "One year, on the first day you came in, all five lifts were upgraded to be " +
+                "faster and in working order. This was the only time you could remember that all " +
+                "five actually worked. This lasted approximately a month before the school was back " +
+                "down to one."
+            )
+            newline()
+
+            line("Curiously, the only lift that consistently works is the one by the staff room.")
+            newline()
+
+            backButton()
+        }
+    }
 }

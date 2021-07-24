@@ -1,6 +1,7 @@
 package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.scene.text.LinkNode
 import tf.veriny.ss76.scene.text.TextualScene
 import tf.veriny.ss76.scene.text.createScene
 
@@ -20,13 +21,14 @@ private val MAIN_MENU_SCENE = createScene("main-menu") {
         line("What do you want to do?")
         newline()
 
-        pushSceneButton("reading-menu", "Start reading", skipSeen = true)
+        changeSceneButton("reading-menu", "Start reading")
         newline()
-        pushSceneButton("save-menu", "Load a save", skipSeen = true)
+        changeSceneButton("save-menu", "Load a save")
         newline()
         pushSceneButton("credits-menu", "Credits")
         newline(2)
-        link("SKIP", "Toggle glitchy line effect") {
+        // BACK_BUTTON means link
+        link("SKIP", "Toggle glitchy line effect", type = LinkNode.LinkType.BACK_BUTTON) {
             TextualScene.GLITCHY = !TextualScene.GLITCHY
             it.reset()
         }
