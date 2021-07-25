@@ -58,8 +58,9 @@ public fun registerSussexJuly3Scenes() {
 
             line(
                 "You awkwardly hurry through the front gates, your sleeves lightly glued to " +
-                "your arms by your body sweat."
+                "the arms by the body sweat."
             )
+            newline()
 
             // this awkwardly wraps...
             // throw-away line except to establish the size of the school.
@@ -113,11 +114,93 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-    // Time to skip class.
     createAndRegisterScene("sussex-july-3-school-3") {
+        page {
+            line(
+                "You've skipped a lot of lessons this year. Before Year 12, you were such a " +
+                "goody-two shoes. You had 100% attendance for five years running!"
+            )
+            line("Some of the other kids did not appreciate being infected with the flu, however.")
+            newline()
+
+            line(
+                "But this year you've been going back on that. " +
+                "No wonder your grades are so terrible."
+            )
+            newline()
+
+            line(
+                "Whilst the school is pretty lax about actually attending lessons, they are " +
+                "very diligent about making sure you",
+                addNewline = false
+            )
+            pushSceneButton(CommonScenes.SCHOOL_ATTENDANCE.id, "actually turn up.")
+            newline(2)
+
+            line(
+                "You sign in late at the front desk so you don't get suicided by the " +
+                "Attendance Police later on. "
+            )
+            newline()
+            changeSceneButton("sussex-july-3-school-4", "Time to go to the hideout.")
+        }
+    }
+
+    // Time to get into the lift.
+    createAndRegisterScene("sussex-july-3-school-4") {
         page {
             line("You make your way to the", addNewline = false)
             pushSceneButton(CommonScenes.SCHOOL_WORKING_LIFT.id, "working lift")
+            line("and call it.")
+            newline()
+
+            line("...")
+            newline()
+
+            line("...")
+            newline()
+
+            line(
+                "You would think that the lift is taking a long time, but your thoughts are " +
+                "interrupted by it finally arriving."
+            )
+            newline()
+
+            line("Unfortunately for you, a teacher steps out carrying a massive pile of " +
+                 "textbooks.")
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-5",
+                "TCHR: Excuse me, could you help me with something?"
+            )
+        }
+    }
+
+    // Uh oh! You're delayed. On the Sussex route, he agrees, and ends up late.
+    // On the Kent/Suffolk route, he tells the guy to fuck off and keeeps going.
+    createAndRegisterScene("sussex-july-3-school-5") {
+        page {
+            line(
+                "TCHR: These books need to be returned to the library. I'm late for my lesson. " +
+                "Can you take them there for me?", leftMargin = 6
+            )
+            newline()
+
+            line(
+                "You sigh, and agree. You're such a doormat."
+            )
+            newline()
+
+            line("The librarian is not a very fast person.")
+            newline()
+
+            line("He scans the first book. He sits and stares at the computer screen.")
+            line("He scans the second book. He sits and stares at the computer screen.")
+            line("He scans the third book. He sits and stares at the computer screen.")
+            newline()
+            changeSceneButton("sussex-july-3-school-6", "You don't have time for this.")
+
         }
     }
 

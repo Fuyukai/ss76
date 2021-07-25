@@ -2,6 +2,7 @@ package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.scene.text.TextualScene
 import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.scene.text.createScene
 
 /**
  * "Namespace" of scenes shared between multiple routes.
@@ -84,6 +85,8 @@ public object CommonScenes {
 
     public val SCHOOL_WORKING_LIFT: TextualScene = createAndRegisterScene("common.schoollift") {
         page {
+            // faculty really don't like kids using lifts. they think its just kids being lazy.
+            // of course, theyre fine to use the lifts themselves.
             line(
                 "The school building originally only had one lift, to be used by disabled " +
                 "pupils."
@@ -95,6 +98,7 @@ public object CommonScenes {
             )
             newline()
 
+            // maybe it's deliberate :)
             line(
                 "Unfortunately, wear and tear means that there's usually only one lift that " +
                 "actually works. The staff always say that repairs will be soon, but if it breaks " +
@@ -113,6 +117,30 @@ public object CommonScenes {
             line("Curiously, the only lift that consistently works is the one by the staff room.")
             newline()
 
+            backButton()
+        }
+    }
+
+    public val SCHOOL_ATTENDANCE: TextualScene = createAndRegisterScene("common.school_attendance") {
+        page {
+            // this one speaks for itself. why is it so important to keep them at school?
+            line(
+                "One time, one of your classmates bunked off entirely. He left in the morning " +
+                "but never actually arrived at school."
+            )
+            newline()
+
+            line(
+                "The school proceeded to call both the local police and a private security " +
+                "company to track him down and return him, with force if needed."
+            )
+            newline()
+
+            line(
+                "At about 11:00, he was frog-marched into your lesson by two very " +
+                "strong-looking men in body armour. He was never really the same again."
+            )
+            newline()
             backButton()
         }
     }

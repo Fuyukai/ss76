@@ -25,7 +25,7 @@ public abstract class TextualScene(
     private val onLoad: List<(Scene) -> Unit>
 ) : Scene() {
     public companion object {
-        private const val FRAMES_PER_WORD = 3
+        private const val FRAMES_PER_WORD = 5
         private const val PADDING = 90
 
         public var GLITCHY: Boolean = true
@@ -165,6 +165,9 @@ public abstract class TextualScene(
 
                 Unit
             }
+            is Pad -> {
+                currentXOffset += SS76.spaceWidth * node.count
+            }
             else -> TODO()
         }.ignore()
     }
@@ -177,6 +180,7 @@ public abstract class TextualScene(
 
 
     override fun draw() {
+        var lastFPW = FRAMES_PER_WORD
         currentXOffset = 0f
         currentYOffset = 0f
 

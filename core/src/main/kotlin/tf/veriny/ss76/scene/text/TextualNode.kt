@@ -11,10 +11,13 @@ public sealed class TextualNode {
         /**
          * Helper function to split a string into a series of textual nodes.
          */
-        public fun split(s: String, trailingNewline: Boolean): List<TextualNode> {
+        public fun split(
+            s: String, trailingNewline: Boolean, leftMargin: Int = 0
+        ): List<TextualNode> {
+            val length = 68 - leftMargin
             val wrappedLines = s
                 .split("\n")
-                .map { WordUtils.wrap(it, 68, "\n", false) }
+                .map { WordUtils.wrap(it, length, "\n", false) }
 
             val tokens = mutableListOf<TextualNode>()
 
@@ -27,8 +30,12 @@ public sealed class TextualNode {
                 }
 
                 val sublines = line.split("\n")
-                for (subline in sublines) {
+                for ((slIdx, subline) in sublines.withIndex()) {
                     val words = subline.split(" ")
+                    if (slIdx != 0 && leftMargin > 0) {
+                        tokens.add(Pad(leftMargin))
+                    }
+
                     for (word in words) {
                         tokens.add(WordNode(word))
                     }
@@ -55,6 +62,9 @@ public class WordNode(word: String) : NodeWithText(word) {
         return "WordNode(\"$word\")"
     }
 }
+
+/** A padding node. */
+public class Pad(public val count: Int) : TextualNode()
 
 /** A newline. Forces the renderer to move down one line. */
 public object Newline : TextualNode()
