@@ -66,6 +66,8 @@ public fun registerSussexJuly3Scenes() {
             )
             // Foreshadowing: He's gonna get punished for being late.
             line("That's okay. You're always late. Who's going to punish a sixth form student?")
+            newline()
+
             // Actually, I wonder this too.
             line("You wonder why the teachers even bother to teach in July. It's too hot to " +
                  "pay any attention.")
@@ -86,13 +88,12 @@ public fun registerSussexJuly3Scenes() {
             line(
                 "There's a few students in the same situation as you. Some are clearly " +
                 "panicking; maybe it's their first time being late. You think that they shouldn't " +
-                "worry; after all, a school of this size can't keep track of all their students.",
-                addNewline = false
+                "worry; after all, a school of this size can't keep track of all their students."
             )
             newline()
 
             changeSceneButton(
-                "sussex-july-3-school-2",
+                "sussex-july-3-school-2-1",
                 "You look up at the school."
             )
         }
@@ -106,7 +107,72 @@ public fun registerSussexJuly3Scenes() {
                 "but coed ones are even rarer."
             )
             newline()
-            line("It has")
+
+            line(
+                "It's shaped in a gigantic square. It has six floors, and each floor is " +
+                "massive. Each floor has a big gap between its roof and the floor of the one above, " +
+                "and are connected by four stairwells on each corners and one stairwell directly above " +
+                "the reception hall, each one coiling around an elevator."
+            )
+            newline()
+
+
+            // throwaway line... this has no meaning. but it's meant to make the reader think.
+            line(
+                "The government of the time gave an absolutely massive grant to build this. " +
+                "Legend has it, one of the administrators was blackmailing a cabinet " +
+                "minister about some less-than-moral wartime activities. He still works here, " +
+                "actually."
+            )
+            newline()
+
+            line(
+                "The bottom three floors have windows on the classrooms and the stairs " +
+                "connecting them, but the upper three don't."
+            )
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-2-2",
+                "The thought of looking out at that height gives you the shivers."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-2-2") {
+        page {
+            line(
+                "You make your way into the reception hall. The walls and ceiling are a " +
+                "pristine white tile. You wonder how they keep it clean."
+            )
+            newline()
+
+            line("The receptionist glares at you. You've interrupted his crossword. Again.")
+            line("You ask for the sign-in book.")
+            newline()
+
+            line("RCPT: Late again?")
+            newline()
+
+            line(
+                "You smile weakly and nod. The receptionist does not like you. " +
+                "You're pretty sure he's related to a teacher, which is why he works here. He " +
+                "doesn't want to do his job."
+            )
+            newline()
+
+            line(
+                "RCPT: I hope your teachers never say anything really important, something you " +
+                "need on an exam but haven't learned, which causes you to fail and end up being " +
+                "kicked out.",
+                leftMargin = 6
+            )
+            newline()
+
+            line("You mumble something about a free period instead.")
+            newline()
+
+            changeSceneButton("sussex-july-3-school-3", "That was a lie.")
         }
     }
 
