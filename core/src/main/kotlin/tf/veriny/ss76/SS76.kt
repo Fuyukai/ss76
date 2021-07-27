@@ -90,15 +90,18 @@ public object SS76 : KtxApplicationAdapter {
     }
 
     override fun create() {
-        val generator = FreeTypeFontGenerator(Gdx.files.internal(FONT))
-        SS76_FONT = generator.generateFont {
+        val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/AcPlus_ToshibaSat_9x16.ttf"))
+        SS76_FONT = topGenerator.generateFont {
             size = 48
             mono = true
-            color = Color.ORANGE
+            color = Color.CORAL
         }
         recalcTopText()
+        topGenerator.dispose()
 
-        WHITE_FONT = generator.generateFont {
+        val mainGenerator = FreeTypeFontGenerator(Gdx.files.internal(FONT))
+
+        WHITE_FONT = mainGenerator.generateFont {
             size = FONT_SIZE
             mono = true
             color = Color.WHITE
@@ -108,25 +111,25 @@ public object SS76 : KtxApplicationAdapter {
         lineHeight = WHITE_FONT.lineHeight
 
         // clickable (seen before)
-        GREEN_FONT = generator.generateFont {
+        GREEN_FONT = mainGenerator.generateFont {
             size = FONT_SIZE
             mono = true
             color = Color.GREEN
         }
         // clickable (not seen before)
-        RED_FONT = generator.generateFont {
+        RED_FONT = mainGenerator.generateFont {
             size = FONT_SIZE
             mono = true
             color = Color.RED
         }
 
-        ORANGE_FONT = generator.generateFont {
+        ORANGE_FONT = mainGenerator.generateFont {
             size = FONT_SIZE
             mono = true
             color = Color.SALMON
         }
 
-        generator.dispose()
+        mainGenerator.dispose()
         batch = SpriteBatch()
         shapeRenderer = ShapeRenderer()
         shapeRenderer.projectionMatrix = batch.projectionMatrix

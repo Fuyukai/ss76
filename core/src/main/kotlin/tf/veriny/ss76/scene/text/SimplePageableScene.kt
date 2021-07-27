@@ -36,7 +36,7 @@ public class SimplePageableScene(
         ) { pageBack() }
         val forwardNode = LinkNode(
             "SKIP", "FORWARD »", LinkNode.LinkType.NEXT_SCENE
-        ) { pageBack() }
+        ) { pageForward() }
     
         for ((id, page,)  in pages.withIndex()) {
             val splitNodes = TextualNode.split(

@@ -163,7 +163,6 @@ public abstract class TextualScene(
 
                 drawFont(font, text)
 
-                Unit
             }
             is Pad -> {
                 currentXOffset += SS76.spaceWidth * node.count
@@ -180,7 +179,6 @@ public abstract class TextualScene(
 
 
     override fun draw() {
-        var lastFPW = FRAMES_PER_WORD
         currentXOffset = 0f
         currentYOffset = 0f
 
@@ -208,6 +206,7 @@ public abstract class TextualScene(
             // offsets ignore the padding.
             for (i in 0 until nodesToDraw) {
                 val node = words[i]
+
                 drawNode(node)
             }
 

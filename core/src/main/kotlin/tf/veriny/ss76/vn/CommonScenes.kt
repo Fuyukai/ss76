@@ -49,9 +49,8 @@ public object CommonScenes {
             backButton()
         }
     }
-    // endregion
 
-    // used
+    // previously used in 3rd of july routes as an exposition scene.
     public val SCHOOL_SIZE: TextualScene = createAndRegisterScene("common.schoolsize") {
         page {
             line(
@@ -83,6 +82,10 @@ public object CommonScenes {
         }
     }
 
+
+    // endregion
+
+    // used
     public val SCHOOL_WORKING_LIFT: TextualScene = createAndRegisterScene("common.schoollift") {
         page {
             // faculty really don't like kids using lifts. they think its just kids being lazy.
@@ -123,7 +126,8 @@ public object CommonScenes {
 
     public val SCHOOL_ATTENDANCE: TextualScene = createAndRegisterScene("common.school_attendance") {
         page {
-            // this one speaks for itself. why is it so important to keep them at school?
+            // the archangel project requires fresh minds/parents dont want their kids out of school
+
             line(
                 "One time, one of your classmates bunked off entirely. He left in the morning " +
                 "but never actually arrived at school."
@@ -139,6 +143,51 @@ public object CommonScenes {
             line(
                 "At about 11:00, he was frog-marched into your lesson by two very " +
                 "strong-looking men in body armour. He was never really the same again."
+            )
+            newline()
+            backButton()
+        }
+    }
+
+    public val FLOOR_5_AIR_CON: TextualScene = createAndRegisterScene("common.floor5.ac") {
+        page {
+            line(
+                "The school's server room is on the fifth floor, so the air conditioning is " +
+                "always on."
+            )
+            newline()
+
+            // throwaway line!
+            line(
+                "Combined with the lack of windows and insulated walls, it is always freezing" +
+                "cold up here. It'd probably be possible to store bodies here."
+            )
+            newline()
+
+            backButton()
+        }
+    }
+
+    internal val FLOOR_5_YEAR7S = createAndRegisterScene("common.floor5.y7") {
+        page {
+            line("Only the older years have lessons up here.")
+            newline()
+
+            line(
+                "Nobody's quite sure why, but it's probably due to a combination of the labs being " +
+                "very specialised, the computers being borderline unusable due to the internet speeds, " +
+                "and the younger kids being terrified of the atmosphere. "
+            )
+            newline()
+
+            line(
+                "However, there's always been a persistent rumour that, long ago, the Year 7s " +
+                "would have lessons on the fifth floor, and every month one would disappear."
+            )
+            newline()
+            line(
+                "Nobody knew by what or why. It's almost definitely false. You still keep one " +
+                "eye looking behind you, still."
             )
             newline()
             backButton()
