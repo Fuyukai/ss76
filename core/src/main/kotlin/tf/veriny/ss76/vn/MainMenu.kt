@@ -87,11 +87,10 @@ private val ROUTE_SELECT_SCREEN = createScene("reading-menu") {
     page {
         line("== Route Select ==")
         line(
-            "This virtual novel lets you read the routes in any order. " +
-            "There are three main routes, and two true routes. For best effect, you should " +
-            "read the three main routes first (in the order of your choice), then read the two " +
-            "true routes in the order specified here."
+            "You should read the Sussex route, then the Kent route, then the Truth ending, " +
+            "then the Reality ending. Otherwise, the plot doesn't make sense."
         )
+        line("All routes are unlocked at the start if you're doing a re-read, though.")
         newline(2)
 
         line("Main routes:")
@@ -99,13 +98,12 @@ private val ROUTE_SELECT_SCREEN = createScene("reading-menu") {
         newline()
         pushSceneButton("kent-july-3-start", "2. Kent")
         newline()
-        pushSceneButton("suffolk-july-3-start", "3. Suffolk")
         newline(2)
 
         line("True routes:")
-        pushSceneButton("true-insanity", "The Truth")
+        pushSceneButton("charlotte-god", "The Truth")
         newline()
-        pushSceneButton("true-mundane", "The Reality")
+        pushSceneButton("you-god", "The Reality")
 
     }
 }

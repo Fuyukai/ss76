@@ -204,12 +204,15 @@ public object CommonScenes {
             newline()
 
             line(
-                "You've been friends with Char since the very first day. You didn't really have " +
-                "any choice - she saw you in the first break, and that was it."
+                "You've been friends with Char since the very first day."
             )
             newline()
 
             line("She's the most normal person in existence. Everything about her is normal.")
+            newline()
+
+            line("She has long brown hair that goes down to her shoulders, perfect skin with " +
+                 "no blemishes due to her skincare routine, and an excellent dress sense.")
             newline()
 
             backButton()
@@ -225,12 +228,12 @@ public object CommonScenes {
             newline()
 
             line(
-                "Char assaulted you on the first day because you asked her about her hobbies."
+                "Char assaulted me on the first day because I asked her about her hobbies."
             )
             newline()
 
             line(
-                "She's actually in the year above you. She's technically finished school, but " +
+                "She's actually in the year above me. She's technically finished school, but " +
                 "for some reason she's still here."
             )
 
@@ -264,6 +267,27 @@ public object CommonScenes {
         }
     }
 
+    internal val ALEX_BIOGRAPHY_2 = createAndRegisterScene("common.friends.alex-real") {
+        page {
+            line("Name: Alexander 'Alex' Ashton")
+            line("Age: 16")
+            line("Height: 177.2cm")
+            line("Favourite colour: White")
+            newline()
+
+            line("Very full of himself, but still charming.")
+            newline()
+
+            line("He's really smart, but not good at social cues. His parents don't really care about him.")
+            newline()
+
+            line("I feel sorry for him, but I'm friends with him because he's a good guy.")
+            newline()
+
+            backButton()
+        }
+    }
+
     internal val CATE_BIOGRAPHY_1 = createAndRegisterScene("common.friends.cate") {
         page {
             line("Name: Catherine 'Cate' Schwartz")
@@ -271,10 +295,36 @@ public object CommonScenes {
             newline()
 
             line("Her last name makes her seem like a kraut, but she's not. She speaks with a " +
-                 "perfect English accent, and she doesn't look German.")
+                 "stereotypical English accent, and she doesn't look German.")
             newline()
 
-            line("Overly nice. She's so fake about it.")
+            line(
+                "Overly nice. She's so fake about it. You wish she wouldn't force herself to " +
+                "act that way."
+            )
+            newline()
+
+            backButton()
+        }
+    }
+
+    internal val CATE_BIOGRAPHY_2 = createAndRegisterScene("common.friends.cate-real") {
+        page {
+            line("Name: Catherine 'Cate' Schwartz")
+            line("Age: 17")
+            line("Height: 165.5cm")
+            line("Favourite colour: Lime")
+            newline()
+
+            line("Her grandparents are German, which explains the last name. " +
+                 "She's definitely English through and through.")
+            newline()
+
+            line("She's really nice to everyone. She gives fantastic advice.")
+            newline()
+
+            backButton()
+
         }
     }
 
@@ -301,16 +351,16 @@ public object CommonScenes {
             line("the most normal girl in existence")
 
             pushSceneButton(
-                "common.friends.alex",
+                ALEX_BIOGRAPHY_1.id,
                 "Alexander 'Alex' Ashton,"
             )
             line("the worst person you know")
 
             pushSceneButton(
-                "common.friends.cate",
+                CATE_BIOGRAPHY_1.id,
                 "Catherine 'Cate' Schwartz,"
             )
-            line("the kindest person in existence")
+            line("the fakest person in existence")
 
             newline()
             backButton()
