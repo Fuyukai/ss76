@@ -32,7 +32,7 @@ public class SimplePageableScene(
     private val pages = run {
         val newPages = mutableListOf<List<TextualNode>>()
         val backNode = LinkNode(
-            "SKIP", "« BACK", LinkNode.LinkType.NEXT_SCENE
+            "SKIP", "« PREVIOUS", LinkNode.LinkType.NEXT_SCENE
         ) { pageBack() }
         val forwardNode = LinkNode(
             "SKIP", "FORWARD »", LinkNode.LinkType.NEXT_SCENE

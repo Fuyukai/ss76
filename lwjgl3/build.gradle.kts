@@ -1,5 +1,6 @@
 plugins {
     id("application")
+    id("kotlin")
 }
 
 dependencies {
@@ -9,8 +10,17 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.10.0:natives-desktop")
 }
 
+base {
+    archivesName.set("ss76-lwjgl3-launcher")
+}
+
+application {
+    mainClass.set("tf.veriny.ss76.Lwjgl3Launcher")
+    applicationName = "signalling-system-76"
+    applicationDefaultJvmArgs += "-Ddemo=true"
+}
+
 tasks.named<JavaExec>("run") {
-    workingDir = rootProject.file("assets")
     isIgnoreExitValue = true
 }
 

@@ -11,8 +11,12 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
+import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.scene.Scene
+import tf.veriny.ss76.scene.UnimplementedScene
+import tf.veriny.ss76.scene.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMainMenuScenes
+import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 
 /**
@@ -20,28 +24,10 @@ import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
  */
 @Suppress("GDXKotlinStaticResource", "NAME_SHADOWING")  // don't care, these will never be disposed
 public object SS76 : KtxApplicationAdapter {
+    private const val LURA_DEMO_BUILD = false
+
     private const val FONT = "fonts/Mx437_PhoenixEGA_8x8-2y.ttf"
     private const val FONT_SIZE = 32
-
-    /*private val text = TextualNode.split("It is the 3rd of July. You are a 17 year old boy in Year 12. You have finished your last mock exams. You are predicted BCC in your A-levels." +
-        "\n" +
-        "The frequency is 4625 Hz.\n" +
-        "\n" +
-        "What do you want to do?\n" +
-        "\n" +
-        " * Start from the beginning.\n" +
-        " * Load a save file.\n" +
-        " * Check the credits.\n" +
-        "\n" +
-        "It is recommended that you read this VN on a hot summer day, in a dark room, under the cool air of your air conditioning or a fan on maximum setting, preferably on a laptop whilst tucked into bed and laying on your front.\n")
-
-
-
-    private val text = TextualNode.split("Signaling System No. 7 (or Signalling System No. 7, SS7) is a set of telephony signaling protocols developed in 1975, which is used to set up and tear down telephone calls in most parts of the world-wide public switched telephone network (PSTN). The protocol also performs number translation, local number portability, prepaid billing, Short Message Service (SMS), and other services.\n" +
-        "\n" +
-        "In North America SS7 is often referred to as Common Channel Signaling System 7 (CCSS7). In the United Kingdom, it is called C7 (CCITT number 7), number 7 and Common Channel Interoffice Signaling 7 (CCIS7). In Germany, it is often called Zentraler Zeichengabekanal Nummer 7 (ZZK-7). ")
-
-     */
 
     // == Links == //
     /** The set of links that have been previously visited. */
@@ -57,8 +43,6 @@ public object SS76 : KtxApplicationAdapter {
         private set
     public lateinit var ORANGE_FONT: BitmapFont
         private set
-    public lateinit var batch: SpriteBatch
-        private set
 
     /** The width of a single space glyph. */
     public var spaceWidth: Float = 0f
@@ -68,17 +52,26 @@ public object SS76 : KtxApplicationAdapter {
     public var lineHeight: Float = 0f
         private set
 
-
-    // == Scene stuff == //
-    /** The known scenes. */
-    private val scenes = mutableMapOf<String, Scene>()
-
-    /** The stack of scenes. */
-    private val sceneStack: ArrayDeque<Scene> = ArrayDeque<Scene>()
+    // == Rendering == //
+    public lateinit var batch: SpriteBatch
+        private set
 
     public lateinit var shapeRenderer: ShapeRenderer
         private set
 
+    // == Demo == //
+    private lateinit var demoRenderer: OddCareRenderer
+
+    // == Scene stuff == //
+    internal var previousScene: Scene? = null
+
+    /** The known scenes. */
+    private val scenes = mutableMapOf<String, Scene>()
+
+    /** The stack of scenes. */
+    internal val sceneStack: ArrayDeque<Scene> = ArrayDeque<Scene>()
+
+    // == Input == //
     private val input = InputMultiplexer()
 
     // == Top text == //
@@ -136,22 +129,35 @@ public object SS76 : KtxApplicationAdapter {
         shapeRenderer.transformMatrix = batch.transformMatrix
         shapeRenderer.updateMatrices()
 
+        demoRenderer = OddCareRenderer()
+
         Gdx.input.inputProcessor = input
 
-        registerMainMenuScenes()
+        val isDemoPleaseDontChangeInDecompilerThanks = System.getProperty("demo", "false").toBooleanStrict()
+        if (LURA_DEMO_BUILD || isDemoPleaseDontChangeInDecompilerThanks) {
+            registerDemoUIScene()
+            pushScene("lura-july-2021-engine-demo")
+        } else {
+            registerMainMenuScenes()
 
-        // == SUSSEX ROUTE == //
-        registerSussexJuly3Scenes()
+            // == SUSSEX ROUTE == //
+            registerSussexJuly3Scenes()
 
-        val scene = System.getProperty("scene", "main-menu")
-        pushScene(scene)
+            // unused
+            registerMiscScenes()
+
+            val scene = System.getProperty("scene", "main-menu")
+            pushScene(scene)
+        }
     }
 
     override fun render() {
         super.render()
 
         clearScreen(0F, 0F, 255F)
+
         batch.use {
+            demoRenderer.render()
             SS76_FONT.draw(batch, topText, 1280/2 - topWidth / 2, 960f - 10)
         }
 
@@ -165,13 +171,7 @@ public object SS76 : KtxApplicationAdapter {
 
     // == Helper global functions == //
     private fun getScene(scene: String): Scene {
-        val gotScene = scenes[scene]
-        if (gotScene == null) {
-            val lastScene = sceneStack.lastOrNull()?.id ?: "<none>"
-            val message = "no such scene '$scene' (linked from '$lastScene')"
-            error(message)
-        }
-        return gotScene
+        return scenes[scene] ?: UnimplementedScene(scene)
     }
 
     private fun activateScene(scene: Scene) {
@@ -199,6 +199,7 @@ public object SS76 : KtxApplicationAdapter {
         if (sceneStack.isNotEmpty()) {
             val tos = sceneStack.last()
             tos.sceneInactive()
+            previousScene = tos
         }
         sceneStack.add(scene)
         activateScene(scene)
@@ -218,6 +219,8 @@ public object SS76 : KtxApplicationAdapter {
     public fun changeScene(scene: Scene) {
         val tos = sceneStack.removeLast()
         tos.sceneInactive()
+        previousScene = tos
+
         sceneStack.add(scene)
         activateScene(scene)
     }
@@ -236,6 +239,7 @@ public object SS76 : KtxApplicationAdapter {
     public fun exitScene() {
         val tos = sceneStack.removeLast()
         tos.sceneInactive()
+        previousScene = tos
 
         val newTos = sceneStack.last()
         activateScene(newTos)

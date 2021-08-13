@@ -1,7 +1,10 @@
 package tf.veriny.ss76.vn.sussex
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.scene.text.*
+import tf.veriny.ss76.scene.text.Newline
+import tf.veriny.ss76.scene.text.WordNode
+import tf.veriny.ss76.scene.text.buildDateMarkerScene
+import tf.veriny.ss76.scene.text.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 
 // this'll confuse anyone doing decompile dives
@@ -117,7 +120,6 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
 
-            // throwaway line... this has no meaning. but it's meant to make the reader think.
             line(
                 "The government of the time gave an absolutely massive grant to build this. " +
                 "Legend has it, one of the administrators was blackmailing a cabinet " +
@@ -169,7 +171,7 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("You mumble something about a free period instead.")
+            line("You mumble something about a free period.")
             newline()
 
             changeSceneButton("sussex-july-3-school-3", "That was a lie.")
@@ -391,9 +393,19 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-school-8") {
         page {
             line(
-                "You find the door to your hideout. It's air- and sound-proof, after some" +
-                "covert upgrades"
+                "You find the door to your hideout. It's air-proof (after some covert " +
+                "modifications) to keep the cold out, and secured by a padlock."
             )
+            newline()
+
+            line(
+                "The padlock was unlocked, confirming that you're at the very least not" +
+                "the first one here."
+            )
+            newline()
+            line("Your")
+            pushSceneButton(CommonScenes.FRIENDS.id, "friends")
+            line("will be waiting inside.")
         }
     }
 

@@ -2,7 +2,6 @@ package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.scene.text.TextualScene
 import tf.veriny.ss76.scene.text.createAndRegisterScene
-import tf.veriny.ss76.scene.text.createScene
 
 /**
  * "Namespace" of scenes shared between multiple routes.
@@ -187,8 +186,132 @@ public object CommonScenes {
             newline()
             line(
                 "Nobody knew by what or why. It's almost definitely false. You still keep one " +
-                "eye looking behind you, still."
+                "eye on the back of your head."
             )
+            newline()
+            backButton()
+        }
+    }
+
+    // friend biographies
+    internal val CHAR_BIOGRAPHY_1 = createAndRegisterScene("common.friends.char") {
+        page {
+            line("Name: Charlotte 'Char' Philips (with ONE l)")
+            line("Age: 17")
+            line("Height: 175cm (5'9\")")
+            line("Favourite colour: Orange")
+            line("Favourite food: Pineapples")
+            newline()
+
+            line(
+                "You've been friends with Char since the very first day. You didn't really have " +
+                "any choice - she saw you in the first break, and that was it."
+            )
+            newline()
+
+            line("She's the most normal person in existence. Everything about her is normal.")
+            newline()
+
+            backButton()
+        }
+    }
+
+
+    internal val CHAR_BIOGRAPHY_2 = createAndRegisterScene("common.friends.char-real") {
+        page {
+            line("Name: Charlotte 'Char' Philips")
+            line("Age: 18")
+            line("Height: 175cm (5'9\")")
+            newline()
+
+            line(
+                "Char assaulted you on the first day because you asked her about her hobbies."
+            )
+            newline()
+
+            line(
+                "She's actually in the year above you. She's technically finished school, but " +
+                "for some reason she's still here."
+            )
+
+            line(
+                "She tries her hardest to be as 'normal' as possible. Unfortunately for her, " +
+                "that makes her pretty damn weird. "
+            )
+            newline()
+
+            backButton()
+        }
+    }
+
+    internal val ALEX_BIOGRAPHY_1 = createAndRegisterScene("common.friends.alex") {
+        page {
+            line("Name: Alexander 'Alex' Ashton")
+            line("Age: 16")
+            line("Height: 150cm")
+            newline()
+
+            line("The worst person you know.")
+            newline()
+
+            line("Self-centred. Full of himself. Mean. Spoiled rich kid.")
+            newline()
+
+            line("He has nobody else, so you feel sorry for him. That's why you're friends with him.")
+            newline()
+
+            backButton()
+        }
+    }
+
+    internal val CATE_BIOGRAPHY_1 = createAndRegisterScene("common.friends.cate") {
+        page {
+            line("Name: Catherine 'Cate' Schwartz")
+            line("Age: 17")
+            newline()
+
+            line("Her last name makes her seem like a kraut, but she's not. She speaks with a " +
+                 "perfect English accent, and she doesn't look German.")
+            newline()
+
+            line("Overly nice. She's so fake about it.")
+        }
+    }
+
+
+    internal val FRIENDS = createAndRegisterScene("common.friends") {
+        page {
+            line("You have three friends. (What a loser.)")
+            newline()
+
+            line(
+                "You've known them since Year 7. None of your other primary school friends " +
+                "passed their 11+. They're all a bunch of weirdos. It's no wonder you gravitated " +
+                "towards them. "
+            )
+            newline()
+
+            line("They are:")
+            newline()
+
+            pushSceneButton(
+                CHAR_BIOGRAPHY_1.id,
+                "Charlotte 'Char' Philips,"
+            )
+            line("the most normal girl in existence")
+
+            pushSceneButton(
+                "common.friends.alex",
+                "Alexander 'Alex' Ashton,"
+            )
+            line("the worst person you know")
+
+            pushSceneButton(
+                "common.friends.cate",
+                "Catherine 'Cate' Schwartz,"
+            )
+            line("the kindest person in existence")
+
             newline()
             backButton()
         }
