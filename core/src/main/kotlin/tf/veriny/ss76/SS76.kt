@@ -15,6 +15,7 @@ import ktx.freetype.generateFont
 import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.scene.UnimplementedScene
+import tf.veriny.ss76.scene.registerDemoNavigationScenes
 import tf.veriny.ss76.scene.registerDemoUIScene
 import tf.veriny.ss76.vn.registerJokeScenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
@@ -27,6 +28,7 @@ import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 @Suppress("GDXKotlinStaticResource", "NAME_SHADOWING")  // don't care, these will never be disposed
 public object SS76 : KtxApplicationAdapter {
     private const val LURA_DEMO_BUILD = false
+    private const val LURA_VERSION = "0.3"
 
     private const val FONT = "fonts/Mx437_PhoenixEGA_8x8-2y.ttf"
     private const val FONT_SIZE = 32
@@ -143,20 +145,20 @@ public object SS76 : KtxApplicationAdapter {
         Gdx.input.inputProcessor = input
 
         registerJokeScenes()
+        registerDemoUIScene()
+        registerDemoNavigationScenes()
+        registerMainMenuScenes()
 
-        val isDemoPleaseDontChangeInDecompilerThanks = System.getProperty("demo", "false").toBooleanStrict()
-        if (LURA_DEMO_BUILD || isDemoPleaseDontChangeInDecompilerThanks) {
-            registerDemoUIScene()
-            pushScene("lura-july-2021-engine-demo")
+        // == SUSSEX ROUTE == //
+        registerSussexJuly3Scenes()
+
+        // unused
+        registerMiscScenes()
+
+        val isDemoOverride = System.getProperty("demo", "false").toBooleanStrict()
+        if (LURA_DEMO_BUILD || isDemoOverride) {
+            pushScene("demo-meta-menu")
         } else {
-            registerMainMenuScenes()
-
-            // == SUSSEX ROUTE == //
-            registerSussexJuly3Scenes()
-
-            // unused
-            registerMiscScenes()
-
             val scene = System.getProperty("scene", "main-menu")
             pushScene(scene)
         }
@@ -174,6 +176,8 @@ public object SS76 : KtxApplicationAdapter {
         batch.use {
             demoRenderer.render()
             SS76_FONT.draw(batch, topText, 1280/2 - topWidth / 2, 960f - 10)
+            WHITE_FONT.draw(batch, "Scene ID: ${sceneStack.last().id}", 15f, 50f)
+            WHITE_FONT.draw(batch, "Version: $LURA_VERSION", 1280 - 250f, 50f)
         }
 
         val scene = sceneStack.last()
