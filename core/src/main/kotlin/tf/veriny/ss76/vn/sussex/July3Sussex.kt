@@ -365,26 +365,26 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line(
-                "The corridor slowly lit up with the harsh tones of the fluorescent lights " +
+                "The corridor slowly lights up with the harsh tones of the fluorescent lights " +
                 "turning on, detecting someone else stepping foot in the hallowed hall."
             )
             line(
-                "If you weren't a regular visitor, you could easily imagine that this floor was " +
-                "abandoned. The floors were dusty and the only noises were the hum of server fans."
+                "If you wasn't a regular visitor, you could easily imagine that this floor was " +
+                "abandoned. The floors are dusty and the only noises are the hum of server fans."
             )
             newline()
 
             line(
-                "One side of rooms contained the classrooms. These were either the computer " +
+                "One side of rooms contains the classrooms. These are either the computer " +
                 "labs that nobody used, or the science lessons for the"
             )
             pushSceneButton(CommonScenes.FLOOR_5_YEAR7S.id, "upper years")
             // wraps awkwardly without the stray newline...
-            line("who were confined up here due to the destructive\ndemonstrations.")
+            line("who are confined up here due to the destructive\ndemonstrations.")
             newline()
 
             line(
-                "The other side contained storage rooms, and one padlocked door contained the " +
+                "The other side contains storage rooms, and one padlocked door contains the " +
                 "school's server rooms. Your hideout is inside one of the reclaimed computer rooms."
             )
             line("You begin the long trek along the corridor.")
@@ -422,6 +422,7 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-school-9") {
         page {
             dline("CHAR: ... and that's why the katana is the dumbest sword for losers.")
+
             dline(
                 "ALEX: Is it only dumb for losers? Is it cool if I wield it? " +
                 "I don't care about carbon, I care about how cool it looks! And how cool it is to " +
@@ -435,6 +436,297 @@ public fun registerSussexJuly3Scenes() {
                 "Char is educating everyone on something again. To everyone's annoyance, " +
                 "she's always right about basically everything."
             )
+            newline()
+
+            line("Your presence does not go unnoticed. Everyone turns to look at you as you" +
+                 "enter the room.")
+
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-10",
+                "You get the rubbish chair and sit down."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-10") {
+        page {
+            line(
+                "The room is very dark, lit up only by a couple of desk lamps and the glow of " +
+                "computer monitors."
+            )
+            newline()
+
+            line(
+                "The old school-issued computers are in a pile in one of the corners. In life, " +
+                "they were slow even for when they were introduced, and have been subsequently " +
+                "gutted of anything slightly useful by the group members."
+            )
+            newline()
+
+            line(
+                "Instead, laptops 'acquired' by Alex have been given to everyone. " +
+                "Char has three due to her multitasking, Alex has two, Cate has one, and you have " +
+                "one."
+            )
+            newline()
+
+            line(
+                "Unfortunately, the internet is really bad up here. Instead, Char installed a " +
+                "really cool looking machine that sends some sort of radiation through the floor to " +
+                "borrow internet from the lower classrooms."
+            )
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-10-2",
+                "Don't stick your fingers in it."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-10-2") {
+        page {
+            dline("CHAR: Look who decided to turn up today! Is this a new record?")
+
+            line(
+                "Char turns to the 'Lateness World Records' whiteboards behind her. " +
+                "It's a good joke, recording the most late you've been to the hideout."
+            )
+            newline()
+
+            dline(
+                "CHAR: Thirty-four minutes and fifty-two seconds! You're such a dummy. " +
+                "If you had been just twenty seconds later, you'd beat the Christmas record."
+            )
+
+            line("You mention the teacher with the books but Char isn't taking excuses today.")
+            newline()
+
+            dline(
+                "CHAR: Well, we're all here now. Alex, did you have something you wanted to " +
+                "incoherently ramble on about this morning?"
+            )
+
+            line(
+                "Alex loves to update us on his hobbies. Nobody wants to hear it, but he " +
+                "doesn't take no for an answer."
+            )
+            newline()
+
+            line("ALEX: So,", addNewline = false)
+            changeSceneButton(
+                "sussex-july-3-school-11",
+                "who here knows about number stations?"
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-11") {
+        page {
+            line("We all know about number stations. Alex has explained them multiple times before.")
+
+            dline("CHAR: We all know what a number station is. You've explained them before, idiot. Several. Times.")
+
+            dline("ALEX: Well, a number station is something used by ultra-super-secret government spies.")
+
+            line("Here he goes again.")
+            newline()
+
+            dline(
+                "ALEX: The government transmits strings of numbers to the ultra-super-secret " +
+                "spies."
+            )
+
+            dline("CATE: Why do they do that?")
+
+            line(
+                "Cate is trying to be nice and play along. You're sure she hates it just as " +
+                "much as you do underneath."
+            )
+            newline()
+
+            dline(
+                "ALEX: Oh! Fantastic question! Well, when you're an ultra-super-secret spy, " +
+                "you can't just phone someone up and ask \"what's the deetz, dude?\""
+            )
+
+            changeSceneButton("sussex-july-3-school-12", "You honestly don't care.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-12") {
+        page {
+            dline(
+                "ALEX: Instead, the government sends out special radio signals that the " +
+                "spies pick up."
+            )
+
+            dline(
+                "CHAR: Are you a spy? I don't see any other reason for this stupid " +
+                "explanation."
+            )
+
+            line("Alex remains completely unfazed by Char's words.")
+            newline()
+
+            dline("ALEX: Well, I've discovered something. Something really cool, and really " +
+                  "awesome.")
+
+            line("It's definitely not going to be cool, and really awesome.")
+            newline()
+
+            line("ALEX: I've found", addNewline = false)
+            changeSceneButton("sussex-july-3-school-13", "one nearby here.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-13") {
+        page {
+            line(
+                "Just as you guessed, it wasn't cool or interesting. " +
+                "Sadly, only you and Char share this sentiment."
+            )
+
+            dline("CATE: Wow, really? Where is it?")
+
+            dline("ALEX: I don't know!")
+
+            line("He giggles, annoyingly.")
+            newline()
+
+            dline(
+                "ALEX: I know it's nearby because the signal is really, really, really " +
+                "good on my", addNewline = false
+            )
+            pushSceneButton("side.sussex.alex-radio-0", "radio set.")
+            newline(2)
+
+            dline(
+                "CHAR: Dummy. How does that prove its nearby? It could just have a strong " +
+                "signal."
+            )
+
+            line("Char has gotten involved now too.")
+            newline()
+
+            line("ALEX: Well,", addNewline = false)
+            changeSceneButton("sussex-july-3-school-14", "take a listen!")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-14") {
+        page {
+            line(
+                "Alex unplugs his headphones from one of his laptops, and starts fiddling " +
+                "with some nonsense application."
+            )
+            newline()
+
+            line("Everyone sits there in awkward silence for a minute.")
+            newline()
+
+            repeat(3) {
+                line("..." + (" ".repeat(20)))
+                newline()
+            }
+
+            dline(
+                "ALEX: Aha! Found it! I've got so many recordings! So many cool and awesome " +
+                "recordings!"
+            )
+
+            changeSceneButton("sussex-july-3-school-15", "He plays the recording.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-15") {
+        page {
+            line("A long, high-pitched pulse." + " ".repeat(20))
+            newline()
+
+            line("Then, a heavily slowed down song starts playing." + " ".repeat(20))
+            newline()
+
+            line("Then, a woman's voice. She says a string of numbers:")
+            newline()
+
+            line("SEVEN" + " ".repeat(15))
+            line("FOUR" + " ".repeat(15))
+            line("SIX" + " ".repeat(15))
+            line("SEVEN" + " ".repeat(15))
+            line("SEVEN" + " ".repeat(15))
+            newline()
+
+            line("Finally, a short high-pitched pulse,", addNewline = false)
+            changeSceneButton("sussex-july-3-school-16", "and the sound stops.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-16") {
+        page {
+            dline("CHAR: That was fucking weird. Please don't do that again, you idiot.")
+
+            line("Alex is practically shaking in glee.")
+            newline()
+
+            dline("ALEX: Don't you wonder what that means? The pulses, do they have meanings?")
+
+            dline("CATE: Maybe the pulses are for synchronisation, of some equipment?")
+
+            line(
+                "You bet Cate feels really smart for bringing that up. She always has to " +
+                "show off."
+            )
+            newline()
+
+            dline(
+                "ALEX: Whoa. Good thinking! That's totally what's happening. " +
+                "But what about the numbers?"
+            )
+
+            dline("CHAR: Dummy. Why do you care? These signals aren't for you.")
+
+            line("Char is right. Alex is just eavesdropping.")
+            newline()
+
+            dline("ALEX: I have to know! I love", addNewline = false)
+            changeSceneButton("sussex-july-3-school-17", "mysteries!")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-17") {
+        page {
+            dline("ALEX: Number stations are so weird and secret and freaky and spooky!")
+
+            dline(
+                "ALEX: I'm gonna go mental if I can't figure this out! I've got to solve " +
+                "mysteries!"
+            )
+
+            dline(
+                "CATE: Isn't the beauty of mysteries not knowing the solution? You would get " +
+                "bored rather quickly if you could solve every one of them."
+            )
+
+            dline(
+                "ALEX: Hmmm... Maybe! But I need to solve this one! I can barely sleep I'm so " +
+                "excited about it!"
+            )
+
+            line(
+                "At that statement, I think I notice Char smirking. But then you quickly snap " +
+                 "back to reality."
+            )
+
+            dline(
+                "ALEX: If anyone has any theories, please please please please please please let " +
+                "me know! I'll buy you lunch!"
+            )
+
+            line("After that morning commotion, everyone got back into their")
+            changeSceneButton("sussex-july-3-school-18", "regular tasks.")
         }
     }
 

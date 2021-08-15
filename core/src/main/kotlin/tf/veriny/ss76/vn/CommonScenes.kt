@@ -158,7 +158,7 @@ public object CommonScenes {
 
             // throwaway line!
             line(
-                "Combined with the lack of windows and insulated walls, it is always freezing" +
+                "Combined with the lack of windows and insulated walls, it is always freezing " +
                 "cold up here. It'd probably be possible to store bodies here."
             )
             newline()
@@ -168,6 +168,7 @@ public object CommonScenes {
     }
 
     internal val FLOOR_5_YEAR7S = createAndRegisterScene("common.floor5.y7") {
+        // char kills year 7s
         page {
             line("Only the older years have lessons up here.")
             newline()
@@ -343,7 +344,7 @@ public object CommonScenes {
             newline()
 
             line("They are:")
-            newline()
+            newline(2)
 
             pushSceneButton(
                 CHAR_BIOGRAPHY_1.id,
@@ -362,8 +363,8 @@ public object CommonScenes {
                 "Catherine 'Cate' Schwartz,"
             )
             line("the fakest person in existence")
-
             newline()
+
             backButton()
         }
     }

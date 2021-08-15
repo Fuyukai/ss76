@@ -20,6 +20,7 @@ import tf.veriny.ss76.scene.registerDemoUIScene
 import tf.veriny.ss76.vn.registerJokeScenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
+import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 
 /**
@@ -151,6 +152,7 @@ public object SS76 : KtxApplicationAdapter {
 
         // == SUSSEX ROUTE == //
         registerSussexJuly3Scenes()
+        registerSidePlotAlexRadio()
 
         // unused
         registerMiscScenes()

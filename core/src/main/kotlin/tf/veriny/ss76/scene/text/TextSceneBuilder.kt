@@ -30,7 +30,9 @@ public class TextSceneBuilder(private val id: String) {
 
         public fun dline(text: String, addNewline: Boolean = true) {
             line(text, addNewline, leftMargin = 6)
-            newline(1)
+            if (addNewline) {
+                newline(1)
+            }
         }
 
         public fun dline2(text: String, addNewline: Boolean = true) {
