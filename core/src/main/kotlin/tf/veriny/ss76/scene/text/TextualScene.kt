@@ -33,8 +33,19 @@ public abstract class TextualScene(
 
     protected open inner class TextualSceneInput : KtxInputAdapter {
         private fun hit(screenX: Int, screenY: Int): LinkNode? {
-            val realX = screenX.toFloat()
-            val realY = Gdx.graphics.height - (screenY.toFloat())
+            val isBabyScreen = (Gdx.graphics.height < 960)
+
+            val realX: Float
+            val realY: Float
+
+            if (isBabyScreen) {
+                realX = (screenX.toFloat()) * 1280 / 800
+                realY = (600 - screenY.toFloat()) * 960 / 600
+            } else {
+                realX = screenX.toFloat()
+                realY = (960 - screenY.toFloat())
+            }
+
             for ((node, rect) in knownLinkPositions.entries) {
                 if (rect.contains(realX, realY)) {
                     return node

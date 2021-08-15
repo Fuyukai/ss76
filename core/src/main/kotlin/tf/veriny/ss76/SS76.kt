@@ -3,6 +3,7 @@ package tf.veriny.ss76
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -15,6 +16,7 @@ import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.scene.UnimplementedScene
 import tf.veriny.ss76.scene.registerDemoUIScene
+import tf.veriny.ss76.vn.registerJokeScenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
@@ -58,6 +60,8 @@ public object SS76 : KtxApplicationAdapter {
 
     public lateinit var shapeRenderer: ShapeRenderer
         private set
+
+    private lateinit var camera: OrthographicCamera
 
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
@@ -123,15 +127,22 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         mainGenerator.dispose()
+        camera = OrthographicCamera(1280f, 960f)
+        //val viewport = ScreenViewport(camera)
+        //viewport.update(Gdx.graphics.width, Gdx.graphics.height, true)
+        //camera.setToOrtho(false, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
+        camera.setToOrtho(false, 1280f, 960f)
+        camera.update()
+
         batch = SpriteBatch()
+
         shapeRenderer = ShapeRenderer()
-        shapeRenderer.projectionMatrix = batch.projectionMatrix
-        shapeRenderer.transformMatrix = batch.transformMatrix
-        shapeRenderer.updateMatrices()
 
         demoRenderer = OddCareRenderer()
 
         Gdx.input.inputProcessor = input
+
+        registerJokeScenes()
 
         val isDemoPleaseDontChangeInDecompilerThanks = System.getProperty("demo", "false").toBooleanStrict()
         if (LURA_DEMO_BUILD || isDemoPleaseDontChangeInDecompilerThanks) {
@@ -155,6 +166,10 @@ public object SS76 : KtxApplicationAdapter {
         super.render()
 
         clearScreen(0F, 0F, 255F)
+        camera.update()
+        batch.projectionMatrix = camera.combined
+        shapeRenderer.projectionMatrix = camera.combined
+        shapeRenderer.updateMatrices()
 
         batch.use {
             demoRenderer.render()

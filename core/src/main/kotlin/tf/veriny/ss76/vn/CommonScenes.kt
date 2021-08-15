@@ -225,6 +225,7 @@ public object CommonScenes {
             line("Name: Charlotte 'Char' Philips")
             line("Age: 18")
             line("Height: 175cm (5'9\")")
+            line("Favourite colour: Orange")
             newline()
 
             line(

@@ -68,7 +68,8 @@ public fun registerSussexJuly3Scenes() {
                 "late for by a few minutes."
             )
             // Foreshadowing: He's gonna get punished for being late.
-            line("That's okay. You're always late. Who's going to punish a sixth form student?")
+            line("That's okay. You're always late. You're an idiot and keep waking up late. " +
+                 "But who's going to punish a sixth form student?")
             newline()
 
             // Actually, I wonder this too.
@@ -78,7 +79,7 @@ public fun registerSussexJuly3Scenes() {
 
             line(
                 "You awkwardly hurry through the front gates, your sleeves lightly glued to " +
-                "the arms by the body sweat."
+                "your arms by the body sweat."
             )
             newline()
 
@@ -91,7 +92,7 @@ public fun registerSussexJuly3Scenes() {
             line(
                 "There's a few students in the same situation as you. Some are clearly " +
                 "panicking; maybe it's their first time being late. You think that they shouldn't " +
-                "worry; after all, a school of this size can't keep track of all their students."
+                "worry; after all, they can't even catch somebody as serially disrespectful as you."
             )
             newline()
 
@@ -150,6 +151,9 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line("The receptionist glares at you. You've interrupted his crossword. Again.")
+            line("You're so inconsiderate.")
+            newline()
+
             line("You ask for the sign-in book.")
             newline()
 
@@ -185,7 +189,9 @@ public fun registerSussexJuly3Scenes() {
                 "You've skipped a lot of lessons this year. Before Year 12, you were such a " +
                 "goody-two shoes. You had 100% attendance for five years running!"
             )
-            line("Some of the other kids did not appreciate being infected with the flu, however.")
+            newline()
+
+            line("The other kids hated you more than usual for giving them the swine flu.")
             newline()
 
             line(
@@ -284,7 +290,7 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("You smile, vacuously. You don't really care for pleasantries.")
+            line("You ignore him. How terribly rude. You've never cared for pleasantries.")
             newline()
             backButton()
         }
@@ -301,18 +307,18 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("You sigh, and agree. You're such a doormat.")
+            line("You agree unhesitatingly. You're such a doormat.")
             newline()
 
-            line("The teacher places the", addNewline = false)  // The
+            line("The teacher dumps the", addNewline = false)  // The
             pushSceneButton("sussex-july-3-textbooks", "books")
-            line("into the arms.")
+            line("into your arms.")
             line("Luckily the library is on the same floor. It's a short walk away. ")
             newline()
 
             line("The", addNewline = false)
             pushSceneButton("sussex-july-3-librarian", "librarian")
-            line("is not a very fast person.")
+            line("is pretty damn slow.")
             newline()
 
             line("He scans the first book. He sits and stares at the computer screen.")
@@ -339,6 +345,7 @@ public fun registerSussexJuly3Scenes() {
                 "Normally, you are the first one in your bunking off room. Your friends are " +
                 "even later than you - which is saying something."
             )
+
             line("But with that massive delay, you're certainly going to be the last one " +
                  "there. Char is going to steal your favourite chair again.")
             newline()
@@ -403,9 +410,31 @@ public fun registerSussexJuly3Scenes() {
                 "the first one here."
             )
             newline()
-            line("Your")
+
+            line("Your", addNewline = false)
             pushSceneButton(CommonScenes.FRIENDS.id, "friends")
             line("will be waiting inside.")
+
+            changeSceneButton("sussex-july-3-school-9", "You open the door.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-9") {
+        page {
+            dline("CHAR: ... and that's why the katana is the dumbest sword for losers.")
+            dline(
+                "ALEX: Is it only dumb for losers? Is it cool if I wield it? " +
+                "I don't care about carbon, I care about how cool it looks! And how cool it is to " +
+                "swoosh it around!"
+            )
+            dline("CHAR: Dummy. Using a katana makes you dumb, and a loser.")
+
+            newline()
+
+            line(
+                "Char is educating everyone on something again. To everyone's annoyance, " +
+                "she's always right about basically everything."
+            )
         }
     }
 
