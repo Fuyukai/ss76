@@ -89,7 +89,7 @@ public object SS76 : KtxApplicationAdapter {
     }
 
     override fun create() {
-        val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/AcPlus_ToshibaSat_9x16.ttf"))
+        val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Mx437_Wang_Pro_Mono.ttf"))
         SS76_FONT = topGenerator.generateFont {
             size = 48
             mono = true
