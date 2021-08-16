@@ -31,7 +31,8 @@ subprojects {
                     "-Xopt-in=kotlin.RequiresOptIn",  // Enable @OptIn
                     "-Xstring-concat=indy-with-constants",  // Enable invokedynamic string concat
                     "-Xjvm-default=all",  // Forcibly enable Java 8+ default interface methods
-                    "-Xassertions=always-enable"  // Forcibly enable assertions
+                    "-Xassertions=always-enable",  // Forcibly enable assertions
+                    "-Xlambdas=indy",  // Forcibly use invokedynamic for all lambdas.
                 )
                 jvmTarget = "16"
             }
