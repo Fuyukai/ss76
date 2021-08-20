@@ -11,5 +11,9 @@ dependencies {
     api("io.github.libktx:ktx-assets:1.10.0-b2")
     api("io.github.libktx:ktx-graphics:1.10.0-b2")
 
+    implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.10.0")
+    implementation("com.badlogicgames.gdx:gdx-platform:1.10.0:natives-desktop")
+    implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.10.0:natives-desktop")
+
     implementation("org.apache.commons:commons-text:1.9")
 }

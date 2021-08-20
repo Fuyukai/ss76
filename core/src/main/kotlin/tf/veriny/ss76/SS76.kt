@@ -3,6 +3,8 @@ package tf.veriny.ss76
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
+import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
@@ -13,6 +15,7 @@ import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
+import org.lwjgl.glfw.GLFW
 import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.scene.UnimplementedScene
@@ -385,5 +388,30 @@ public object SS76 : KtxApplicationAdapter {
      */
     public fun drawWhiteText(toDraw: CharSequence, x: Float, y: Float) {
         whiteFont.draw(batch, toDraw, x, y)
+    }
+
+    @JvmStatic public fun main(args: Array<String>) {
+        val babyScreen = run {
+            System.getProperty("is-baby-screen", "false").toBooleanStrict() || run {
+                GLFW.glfwInit()
+                val monitor = GLFW.glfwGetPrimaryMonitor()
+                val res = GLFW.glfwGetVideoMode(monitor)
+                res!!.height() < 960
+            }
+        }
+
+        val config = Lwjgl3ApplicationConfiguration().apply {
+            setTitle("Signalling System 76")
+            if (babyScreen) {
+                setWindowedMode(800, 600)
+            } else {
+                setWindowedMode(1280, 960)
+            }
+
+            setResizable(false)
+            setWindowIcon("icon-128x128.png")
+        }
+
+        Lwjgl3Application(this, config)
     }
 }
