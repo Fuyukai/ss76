@@ -24,6 +24,8 @@ import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
+import java.net.URI
+import java.nio.file.FileSystems
 import java.nio.file.Path
 import kotlin.io.path.forEachDirectoryEntry
 
@@ -195,11 +197,23 @@ public object SS76 : KtxApplicationAdapter {
         recalcTopText()
         topGenerator.dispose()
 
-        val url = javaClass.getResource("/fonts")!!.toURI()
-        val path = Path.of(url)
-        path.forEachDirectoryEntry {
-            // le libgdx
-            generateFonts("fonts/${it.fileName}")
+        val url = javaClass.classLoader.getResource("fonts")!!.toURI()
+        if (url.scheme == "file") {
+            val path = Path.of(url)
+            path.forEachDirectoryEntry { p ->
+                // le libgdx
+                generateFonts("fonts/${p.fileName}")
+            }
+        } else {
+            val split = url.toString().split("!")
+
+            FileSystems.newFileSystem(URI.create(split[0]), mutableMapOf<String, String>()).use {
+                val path = it.getPath(split[1])
+                path.forEachDirectoryEntry { p ->
+                    // le libgdx
+                    generateFonts("fonts/${p.fileName}")
+                }
+            }
         }
 
         val idx = if (isBabyScreen) {

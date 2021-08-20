@@ -667,7 +667,7 @@ public fun registerSussexJuly3Scenes() {
 
     createAndRegisterScene("sussex-july-3-school-16") {
         page {
-            dline("CHAR: That was fucking weird. Please don't do that again, you idiot.")
+            dline("CHAR: That was really weird. Please don't do that again, you idiot.")
 
             line("Alex is practically shaking in glee.")
             newline()
