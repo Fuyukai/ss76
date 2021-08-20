@@ -74,10 +74,17 @@ private val CREDITS_SCENE = createScene("credits-menu") {
 
         line("Story: Lura Skye")
         line("Engine development: Lura Skye")
-        newline(2)
+        line("Character design: Lura Skye")
+        line("Dialogue writing: Lura Skye")
+        line("Side-story writing: Lura Skye")
+        line("Another arbitrary credit: Lura Skye")
+        newline()
 
-        line("Credits to the LibGDX and LWJGL developers for the engines this virtual novel " +
-             "was based on.")
+        line("UI testing/Story review: Lewis O Fivelifecut")
+        line("UI testing/Story review: Gretchen S Mary")
+
+        //line("Credits to the LibGDX and LWJGL developers for the engines this virtual novel " +
+        //     "was based on.")
         newline()
         backButton()
     }
@@ -87,23 +94,25 @@ private val ROUTE_SELECT_SCREEN = createScene("reading-menu") {
     page {
         line("== Route Select ==")
         line(
-            "You should read the Sussex route, then the Kent route, then the Truth ending, " +
+            "You should read Route One, then Route Two, then the Truth ending, " +
             "then the Reality ending. Otherwise, the plot doesn't make sense."
         )
         line("All routes are unlocked at the start if you're doing a re-read, though.")
         newline(2)
 
         line("Main routes:")
-        pushSceneButton("sussex-july-3-start", "1. Sussex")
+        pushSceneButton("sussex-july-3-start", "Route One")
         newline()
-        pushSceneButton("kent-july-3-start", "2. Kent")
+        pushSceneButton("kent-july-3-start", "Route Two")
         newline()
         newline(2)
 
         line("True routes:")
-        pushSceneButton("charlotte-god", "The Truth")
+        pushSceneButton("no-cheating", "The Truth")
+        //pushSceneButton("charlotte-god", "The Truth")
         newline()
-        pushSceneButton("you-god", "The Reality")
+        pushSceneButton("no-cheating", "The Reality")
+        //pushSceneButton("you-god", "The Reality")
 
     }
 }

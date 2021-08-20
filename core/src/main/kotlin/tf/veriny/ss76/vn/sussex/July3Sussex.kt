@@ -496,6 +496,7 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
+            // todo: sideplot Christmas record
             dline(
                 "CHAR: Thirty-four minutes and fifty-two seconds! You're such a dummy. " +
                 "If you had been just twenty seconds later, you'd beat the Christmas record."
@@ -525,7 +526,7 @@ public fun registerSussexJuly3Scenes() {
 
     createAndRegisterScene("sussex-july-3-school-11") {
         page {
-            line("We all know about number stations. Alex has explained them multiple times before.")
+            line("Everyone here knows about number stations. Alex has explained them multiple times before.")
 
             dline("CHAR: We all know what a number station is. You've explained them before, idiot. Several. Times.")
 
@@ -725,8 +726,75 @@ public fun registerSussexJuly3Scenes() {
                 "me know! I'll buy you lunch!"
             )
 
-            line("After that morning commotion, everyone got back into their")
+            line("After that morning commotion, everyone gets back into their")
             changeSceneButton("sussex-july-3-school-18", "regular tasks.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-18") {
+        page {
+            line("Alex is tinkering with his two laptops, pulling various disgusting faces.")
+            newline()
+
+            line("Char is browsing something whilst grooming her immaculate hair.")
+            newline()
+
+            line("Cate is typing something. Something very big.")
+            newline()
+
+            line("You are playing an idle game. What a waste of time.")
+            newline()
+
+            line("Everyone continues their daily activities. The sound of silence fills the " +
+                 "room, suffocating out any possible chance at discussion."
+            )
+            newline()
+
+            line("This is the way everyone likes it.")
+            line("No annoyances. No fuss. Just, peaceful silence.")
+
+            changeSceneButton("sussex-july-3-school-19", "Until lunchtime, anyway.")
+        }
+    }
+
+    // == POST-LUNCH == //
+    createAndRegisterScene("sussex-july-3-school-19") {
+        page {
+            line(
+                "Everyone remains in the hideout until lunchtime. The nanosecond the clock ticks over " +
+                "to 12:55, everyone but you jumps up to run to the cafeteria."
+            )
+            newline()
+
+            line(
+                "Sixth formers may have priority, but that doesn't stop the little weasel " +
+                "Year 10s from trying to steal all the good food first. They're far too emboldened " +
+                "by the Year 11s being missing."
+            )
+            newline()
+
+            line("After five minutes, the group returns with the spoils of war.")
+            newline()
+
+            line("Alex has two bags of crisps ransacked from the vending machine.")
+            line("Cate has a meat-replacement vegan sausage butty, complete with vegan butter.")
+            line(
+                "Char has two slices of pizza. She's also responsible for your meal, so she " +
+                "brings you back some lukewarm tomato soup."
+            )
+            newline()
+
+            line("Alex inhales his food first. He eats like a duck. An annoying human duck.")
+            line("Then he tries to start a conversation.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-20") {
+        page {
+            dline("ALEX: So! I know you've all been really busy! But I hope somebody gave even " +
+                 "a tiny little small miniscule amount of thought to my mystery!")
+
+            dline("CHAR: No, you idiot. Nobody here cares about ")
         }
     }
 
