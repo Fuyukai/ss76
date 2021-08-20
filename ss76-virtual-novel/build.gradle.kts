@@ -1,0 +1,55 @@
+plugins {
+    id("org.jetbrains.kotlin.jvm")
+    id("org.beryx.runtime").version("1.12.5")
+}
+
+base {
+    archivesName.set("ss76")
+}
+
+dependencies {
+    api("com.badlogicgames.gdx:gdx:1.10.0")
+    api("com.badlogicgames.gdx:gdx-freetype:1.10.0")
+    api("io.github.libktx:ktx-log:1.10.0-b2")
+    api("io.github.libktx:ktx-freetype:1.10.0-b2")
+    api("io.github.libktx:ktx-app:1.10.0-b2")
+    api("io.github.libktx:ktx-assets:1.10.0-b2")
+    api("io.github.libktx:ktx-graphics:1.10.0-b2")
+
+    implementation("com.badlogicgames.gdx:gdx-backend-lwjgl3:1.10.0")
+    implementation("com.badlogicgames.gdx:gdx-platform:1.10.0:natives-desktop")
+    implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.10.0:natives-desktop")
+
+    implementation("org.apache.commons:commons-text:1.9")
+}
+
+application {
+    mainClass.set("tf.veriny.ss76.SS76")
+    applicationName = "signalling-system-76"
+    applicationDefaultJvmArgs += "-Ddemo=true"
+}
+
+runtime {
+    jpackage {
+        imageName = "signalling-system-76"
+        this.imageOutputDir
+    }
+
+    val javaToolchains: JavaToolchainService =
+        extensions.getByName("javaToolchains") as JavaToolchainService
+    val toolchain = javaToolchains.compilerFor {
+        languageVersion.set(JavaLanguageVersion.of(16))
+    }
+
+    targetPlatform("linux-x64", toolchain.get().metadata.installationPath.asFile.absolutePath)
+    targetPlatform("windows") {
+        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-win_x64.zip"))
+    }
+
+    additive.set(true)
+    addModules("jdk.unsupported", "jdk.zipfs")
+
+    launcher {
+        noConsole = true
+    }
+}
