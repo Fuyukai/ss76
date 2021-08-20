@@ -3,7 +3,6 @@ package tf.veriny.ss76
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
@@ -31,14 +30,25 @@ public object SS76 : KtxApplicationAdapter {
     private const val LURA_DEMO_BUILD = false
     private const val LURA_VERSION = "0.3"
 
-    private const val FONT = "fonts/Mx437_PhoenixEGA_8x8-2y.ttf"
-    private const val FONT_SIZE = 32
+
+    /** If this is a smaller screen size. */
+    public val isBabyScreen: Boolean by lazy {
+        Gdx.graphics.height < 960
+    }
 
     // == Links == //
     /** The set of links that have been previously visited. */
     public val visited: MutableSet<String> = mutableSetOf("SKIP")
 
     // == Fonts == //
+    private const val FONT = "fonts/Mx437_PhoenixEGA_8x8-2y.ttf"
+    private const val FONT_SIZE_BIG = 32
+    private const val FONT_SIZE_SMALL = 20
+
+    private val FONT_SIZE: Int get() {
+        return if (isBabyScreen) FONT_SIZE_SMALL else FONT_SIZE_BIG
+    }
+
     private lateinit var SS76_FONT: BitmapFont
     public lateinit var WHITE_FONT: BitmapFont
         private set
@@ -63,8 +73,6 @@ public object SS76 : KtxApplicationAdapter {
 
     public lateinit var shapeRenderer: ShapeRenderer
         private set
-
-    private lateinit var camera: OrthographicCamera
 
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
@@ -92,7 +100,11 @@ public object SS76 : KtxApplicationAdapter {
     override fun create() {
         val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Mx437_Wang_Pro_Mono.ttf"))
         SS76_FONT = topGenerator.generateFont {
-            size = 48
+            size = if (isBabyScreen) {
+                32
+            } else {
+                48
+            }
             mono = true
             color = Color.CORAL
         }
@@ -130,16 +142,12 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         mainGenerator.dispose()
-        camera = OrthographicCamera(1280f, 960f)
-        //val viewport = ScreenViewport(camera)
-        //viewport.update(Gdx.graphics.width, Gdx.graphics.height, true)
-        //camera.setToOrtho(false, Gdx.graphics.width.toFloat(), Gdx.graphics.height.toFloat())
-        camera.setToOrtho(false, 1280f, 960f)
-        camera.update()
-
         batch = SpriteBatch()
 
         shapeRenderer = ShapeRenderer()
+        shapeRenderer.projectionMatrix = batch.projectionMatrix
+        shapeRenderer.transformMatrix = batch.transformMatrix
+        shapeRenderer.updateMatrices()
 
         demoRenderer = OddCareRenderer()
 
@@ -166,24 +174,26 @@ public object SS76 : KtxApplicationAdapter {
         }
     }
 
+    private fun drawTopMessage() {
+        val yOffset = Gdx.graphics.height - 10f
+        SS76_FONT.draw(batch, topText, (Gdx.graphics.width / 2) - topWidth / 2, yOffset)
+    }
+
     override fun render() {
         super.render()
 
         clearScreen(0F, 0F, 255F)
-        camera.update()
-        batch.projectionMatrix = camera.combined
-        shapeRenderer.projectionMatrix = camera.combined
-        shapeRenderer.updateMatrices()
-
-        batch.use {
-            demoRenderer.render()
-            SS76_FONT.draw(batch, topText, 1280/2 - topWidth / 2, 960f - 10)
-            WHITE_FONT.draw(batch, "Scene ID: ${sceneStack.last().id}", 15f, 50f)
-            WHITE_FONT.draw(batch, "Version: $LURA_VERSION", 1280 - 250f, 50f)
-        }
 
         val scene = sceneStack.last()
         scene.draw()
+
+        batch.use {
+            demoRenderer.render()
+            drawTopMessage()
+            WHITE_FONT.draw(batch, "Scene ID: ${sceneStack.last().id}", 15f, 50f)
+            WHITE_FONT.draw(batch, "Version: $LURA_VERSION", Gdx.graphics.width - 250f, 50f)
+        }
+
         //WHITE_FONT.draw(batch, "counter: $counter", 120f, 960 - 100f)
         //WHITE_FONT.draw(batch, items.toString(), 120f, 960 - 200f)
         //WHITE_FONT.draw(batch, "|", 1280 - 120f, 960 - 200f)

@@ -17,7 +17,11 @@ internal class OddCareRenderer {
         val font = FreeTypeFontGenerator(Gdx.files.internal("fonts/MxPlus_Cordata_PPC-21.ttf"))
 
         demoFont = font.generateFont {
-            size = 84
+            size = if (!SS76.isBabyScreen) {
+                84
+            } else {
+                42
+            }
             color = RED
             mono = true
         }
@@ -28,7 +32,7 @@ internal class OddCareRenderer {
 
     internal fun render() {
         if (timer.rem(90) > 30) {
-            demoFont.draw(SS76.batch,"DEMO", 10f, 960 - 10f)
+            demoFont.draw(SS76.batch,"DEMO", 10f, Gdx.graphics.height - 10f)
         }
 
         timer++

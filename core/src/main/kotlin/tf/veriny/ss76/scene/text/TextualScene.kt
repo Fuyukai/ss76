@@ -26,25 +26,35 @@ public abstract class TextualScene(
 ) : Scene() {
     public companion object {
         private const val FRAMES_PER_WORD = 5
-        private const val PADDING = 90
+
 
         public var GLITCHY: Boolean = true
     }
 
+    private val padding: Float
+        get() {
+            return if (SS76.isBabyScreen) {
+                50f
+            } else {
+                90f
+            }
+        }
+
     protected open inner class TextualSceneInput : KtxInputAdapter {
+        @Suppress("JoinDeclarationAndAssignment")
         private fun hit(screenX: Int, screenY: Int): LinkNode? {
-            val isBabyScreen = (Gdx.graphics.height < 960)
+            /*val isBabyScreen = (Gdx.graphics.height < 960)*/
 
             val realX: Float
             val realY: Float
 
-            if (isBabyScreen) {
+            /*if (isBabyScreen) {
                 realX = (screenX.toFloat()) * 1280 / 800
                 realY = (600 - screenY.toFloat()) * 960 / 600
-            } else {
+            } else {*/
                 realX = screenX.toFloat()
-                realY = (960 - screenY.toFloat())
-            }
+                realY = (Gdx.graphics.height - screenY.toFloat())
+            //}
 
             for ((node, rect) in knownLinkPositions.entries) {
                 if (rect.contains(realX, realY)) {
@@ -126,7 +136,9 @@ public abstract class TextualScene(
         layout.setText(font, text)
         val width = layout.width + SS76.spaceWidth
 
-        font.draw(SS76.batch, text, PADDING + currentXOffset, (960 - PADDING) - currentYOffset)
+        val yOffset = Gdx.graphics.height - padding - currentYOffset
+
+        font.draw(SS76.batch, text, padding + currentXOffset, yOffset)
         currentXOffset += width
     }
 
@@ -165,8 +177,8 @@ public abstract class TextualScene(
                 if (node !in knownLinkPositions) {
                     layout.setText(font, text)
                     val rect = Rectangle(
-                        PADDING + currentXOffset,
-                        (960 - PADDING) - currentYOffset - layout.height,
+                        padding + currentXOffset,
+                        (Gdx.graphics.height - padding) - currentYOffset - layout.height,
                         layout.width, layout.height
                     )
                     knownLinkPositions[node] = rect
@@ -198,11 +210,19 @@ public abstract class TextualScene(
 
         // draw filled black rect for VN "window"
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
-            rect(
-                75f, 75f, 1280 - (75f * 2), 960 - (75f * 2),
-                Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
-            )
+            if (SS76.isBabyScreen) {
+                rect(
+                    35f, 35f, 800 - (35f * 2), 600 - (35f * 2),
+                    Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
+                )
+            } else {
+                rect(
+                    75f, 75f, 1280 - (75f * 2), 960 - (75f * 2),
+                    Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
+                )
+            }
         }
+
 
         SS76.batch.use {
             drawTopAnchor()
