@@ -18,6 +18,7 @@ import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.scene.UnimplementedScene
 import tf.veriny.ss76.scene.registerDemoNavigationScenes
 import tf.veriny.ss76.scene.registerDemoUIScene
+import tf.veriny.ss76.scene.text.createAndRegisterScene
 import tf.veriny.ss76.vn.registerJokeScenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
@@ -37,7 +38,10 @@ public object SS76 : KtxApplicationAdapter {
     )
 
     private const val LURA_DEMO_BUILD = false
-    private const val LURA_VERSION = "0.3"
+    public const val LURA_VERSION: String = "0.4"
+
+    public val IS_DEMO: Boolean =
+        LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
 
 
     /** If this is a smaller screen size. */
@@ -140,15 +144,32 @@ public object SS76 : KtxApplicationAdapter {
     /** The stack of scenes. */
     internal val sceneStack: ArrayDeque<Scene> = ArrayDeque<Scene>()
 
+    // == Debug == //
+    private lateinit var dataScene: Scene
+
     // == Input == //
     private val input = InputMultiplexer(object : KtxInputAdapter {
         override fun keyDown(keycode: Int): Boolean {
-            if (keycode == Input.Keys.F3) {
-                nextFont()
-                return true
+            // helper functionality that overrides all sub-screens.
+            when (keycode) {
+                Input.Keys.F1 -> {
+                    pushScene(dataScene.id)
+                }
+
+                Input.Keys.F2 -> {
+                    // push demo UI
+                    if (IS_DEMO) {
+                        repeat(sceneStack.size - 1) { exitScene() }
+                        changeScene("demo-meta-menu")
+                    }
+                }
+                Input.Keys.F3 -> {
+                    nextFont()
+                }
+                else -> return super.keyDown(keycode)
             }
 
-            return super.keyDown(keycode)
+            return true
         }
     })
 
@@ -182,7 +203,7 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         val idx = if (isBabyScreen) {
-            generatedFonts.indexOfFirst { it.name == "fonts/Ac437_IBM_Model3x_Alt4.ttf" }
+            generatedFonts.indexOfFirst { it.name == "fonts/Mx437_IBM_Model3x_Alt4.ttf" }
         } else {
             generatedFonts.indexOfFirst { it.name == "fonts/Mx437_PhoenixEGA_8x8-2y.ttf" }
         }
@@ -211,8 +232,19 @@ public object SS76 : KtxApplicationAdapter {
         // unused
         registerMiscScenes()
 
-        val isDemoOverride = System.getProperty("demo", "false").toBooleanStrict()
-        if (LURA_DEMO_BUILD || isDemoOverride) {
+        dataScene = createAndRegisterScene("lura-engine-debug-scene") {
+            page {
+                line("Known scenes: ${scenes.size}")
+                line("Known fonts: ${generatedFonts.size}")
+                newline(5)
+
+                line("Press F2 to reload main menu.")
+                backButton("Go back to previous scene.")
+            }
+        }
+
+
+        if (IS_DEMO) {
             pushScene("demo-meta-menu")
         } else {
             val scene = System.getProperty("scene", "main-menu")
