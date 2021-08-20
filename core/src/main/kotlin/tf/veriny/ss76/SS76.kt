@@ -1,6 +1,7 @@
 package tf.veriny.ss76
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
@@ -9,6 +10,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
+import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
 import tf.veriny.ss76.render.OddCareRenderer
@@ -21,12 +23,19 @@ import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
+import java.nio.file.Path
+import kotlin.io.path.forEachDirectoryEntry
 
 /**
  * Main game object. Global!
  */
 @Suppress("GDXKotlinStaticResource", "NAME_SHADOWING")  // don't care, these will never be disposed
 public object SS76 : KtxApplicationAdapter {
+    private class GeneratedFonts(
+        val name: String,
+        val white: BitmapFont, val green: BitmapFont, val red: BitmapFont, val orange: BitmapFont
+    )
+
     private const val LURA_DEMO_BUILD = false
     private const val LURA_VERSION = "0.3"
 
@@ -41,7 +50,6 @@ public object SS76 : KtxApplicationAdapter {
     public val visited: MutableSet<String> = mutableSetOf("SKIP")
 
     // == Fonts == //
-    private const val FONT = "fonts/Mx437_PhoenixEGA_8x8-2y.ttf"
     private const val FONT_SIZE_BIG = 32
     private const val FONT_SIZE_SMALL = 20
 
@@ -50,14 +58,14 @@ public object SS76 : KtxApplicationAdapter {
     }
 
     private lateinit var SS76_FONT: BitmapFont
-    public lateinit var WHITE_FONT: BitmapFont
-        private set
-    public lateinit var GREEN_FONT: BitmapFont
-        private set
-    public lateinit var RED_FONT: BitmapFont
-        private set
-    public lateinit var ORANGE_FONT: BitmapFont
-        private set
+
+    private val generatedFonts: MutableList<GeneratedFonts> = mutableListOf()
+    private var fontIdx = 0
+
+    public val whiteFont: BitmapFont get() = generatedFonts[fontIdx].white
+    public val greenFont: BitmapFont get() = generatedFonts[fontIdx].green
+    public val redFont: BitmapFont get() = generatedFonts[fontIdx].red
+    public val orangeFont: BitmapFont get() = generatedFonts[fontIdx].orange
 
     /** The width of a single space glyph. */
     public var spaceWidth: Float = 0f
@@ -66,6 +74,52 @@ public object SS76 : KtxApplicationAdapter {
     /** The height of a single line. */
     public var lineHeight: Float = 0f
         private set
+
+    /**
+     * Generates the fonts for a specific font name.
+     */
+    private fun generateFonts(name: String) {
+        println("generating $name")
+        val mainGenerator = FreeTypeFontGenerator(Gdx.files.internal(name))
+
+        val white = mainGenerator.generateFont {
+            size = FONT_SIZE
+            mono = true
+            color = Color.WHITE
+        }
+
+        // clickable (seen before)
+        val green = mainGenerator.generateFont {
+            size = FONT_SIZE
+            mono = true
+            color = Color.GREEN
+        }
+        // clickable (not seen before)
+        val red = mainGenerator.generateFont {
+            size = FONT_SIZE
+            mono = true
+            color = Color.RED
+        }
+
+        val orange = mainGenerator.generateFont {
+            size = FONT_SIZE
+            mono = true
+            color = Color.SALMON
+        }
+
+        generatedFonts.add(GeneratedFonts(name, white, green, red, orange))
+        mainGenerator.dispose()
+    }
+
+    private fun switchFont(idx: Int) {
+        fontIdx = idx
+        spaceWidth = GlyphLayout(whiteFont, " ").width
+        lineHeight = whiteFont.lineHeight
+    }
+
+    private fun nextFont() {
+        fontIdx = (++fontIdx).rem(generatedFonts.size)
+    }
 
     // == Rendering == //
     public lateinit var batch: SpriteBatch
@@ -87,7 +141,16 @@ public object SS76 : KtxApplicationAdapter {
     internal val sceneStack: ArrayDeque<Scene> = ArrayDeque<Scene>()
 
     // == Input == //
-    private val input = InputMultiplexer()
+    private val input = InputMultiplexer(object : KtxInputAdapter {
+        override fun keyDown(keycode: Int): Boolean {
+            if (keycode == Input.Keys.F3) {
+                nextFont()
+                return true
+            }
+
+            return super.keyDown(keycode)
+        }
+    })
 
     // == Top text == //
     private var topText: String = "SIGNALLING SYSTEM 76"
@@ -111,37 +174,20 @@ public object SS76 : KtxApplicationAdapter {
         recalcTopText()
         topGenerator.dispose()
 
-        val mainGenerator = FreeTypeFontGenerator(Gdx.files.internal(FONT))
-
-        WHITE_FONT = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.WHITE
+        val url = javaClass.getResource("/fonts")!!.toURI()
+        val path = Path.of(url)
+        path.forEachDirectoryEntry {
+            // le libgdx
+            generateFonts("fonts/${it.fileName}")
         }
 
-        spaceWidth = GlyphLayout(WHITE_FONT, " ").width
-        lineHeight = WHITE_FONT.lineHeight
-
-        // clickable (seen before)
-        GREEN_FONT = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.GREEN
+        val idx = if (isBabyScreen) {
+            generatedFonts.indexOfFirst { it.name == "fonts/Ac437_IBM_Model3x_Alt4.ttf" }
+        } else {
+            generatedFonts.indexOfFirst { it.name == "fonts/Mx437_PhoenixEGA_8x8-2y.ttf" }
         }
-        // clickable (not seen before)
-        RED_FONT = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.RED
-        }
+        switchFont(idx)
 
-        ORANGE_FONT = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.SALMON
-        }
-
-        mainGenerator.dispose()
         batch = SpriteBatch()
 
         shapeRenderer = ShapeRenderer()
@@ -190,8 +236,20 @@ public object SS76 : KtxApplicationAdapter {
         batch.use {
             demoRenderer.render()
             drawTopMessage()
-            WHITE_FONT.draw(batch, "Scene ID: ${sceneStack.last().id}", 15f, 50f)
-            WHITE_FONT.draw(batch, "Version: $LURA_VERSION", Gdx.graphics.width - 250f, 50f)
+
+            if (isBabyScreen) {
+                whiteFont.draw(batch,
+                    "Scene ID: ${sceneStack.last().id} / Font: ${generatedFonts[fontIdx].name}",
+                    15f,
+                    20f
+                )
+            } else {
+                whiteFont.draw(batch,
+                    "Scene ID: ${sceneStack.last().id} / Font: ${generatedFonts[fontIdx].name}",
+                    15f,
+                    50f
+                )
+            }
         }
 
         //WHITE_FONT.draw(batch, "counter: $counter", 120f, 960 - 100f)
@@ -280,6 +338,6 @@ public object SS76 : KtxApplicationAdapter {
      * Draws white text.
      */
     public fun drawWhiteText(toDraw: CharSequence, x: Float, y: Float) {
-        WHITE_FONT.draw(batch, toDraw, x, y)
+        whiteFont.draw(batch, toDraw, x, y)
     }
 }

@@ -34,7 +34,7 @@ public abstract class TextualScene(
     private val padding: Float
         get() {
             return if (SS76.isBabyScreen) {
-                50f
+                60f
             } else {
                 90f
             }
@@ -146,7 +146,7 @@ public abstract class TextualScene(
     protected fun drawNode(node: TextualNode) {
         when (node) {
             is WordNode -> {
-                drawFont(SS76.WHITE_FONT, node.word)
+                drawFont(SS76.whiteFont, node.word)
             }
             is Newline -> {
                 currentXOffset = 0f
@@ -159,16 +159,16 @@ public abstract class TextualScene(
 
                 when (node.type) {
                     LinkNode.LinkType.NEXT_SCENE -> {
-                        font = SS76.ORANGE_FONT
+                        font = SS76.orangeFont
                         text = node.word
                     }
                     LinkNode.LinkType.BACK_BUTTON -> {
-                        font = SS76.GREEN_FONT
+                        font = SS76.greenFont
                         text = node.word
                     }
                     LinkNode.LinkType.PUSH_LINK -> {
                         val visited = node.id in SS76.visited
-                        font = if (visited) SS76.GREEN_FONT else SS76.RED_FONT
+                        font = if (visited) SS76.greenFont else SS76.redFont
                         text = if (visited) node.word else "! ${node.word}"
                     }
                 }
@@ -212,7 +212,7 @@ public abstract class TextualScene(
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
             if (SS76.isBabyScreen) {
                 rect(
-                    35f, 35f, 800 - (35f * 2), 600 - (35f * 2),
+                    47f, 47f, 800 - (47f * 2), 600 - (47f * 2),
                     Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
                 )
             } else {
@@ -257,7 +257,7 @@ public abstract class TextualScene(
                     val fraction = (remainder / FRAMES_PER_WORD)
                     val sliceUpper = floor(nextNode.word.length * fraction).toInt()
                     val toRender = nextNode.word.substring(0..sliceUpper)
-                    drawFont(SS76.WHITE_FONT, toRender)
+                    drawFont(SS76.whiteFont, toRender)
                 }
             }
 
