@@ -46,6 +46,12 @@ public fun registerDemoNavigationScenes() {
                 "sussex-july-3-school-9",
                 "2021-08-20: Route One, July 3rd, School #9"
             )
+            newline()
+
+            changeSceneButton(
+                "side.sussex.alex-radio-0",
+                "2021-08-21: side.sussex.alex-radio-0"
+            )
         }
     }
 
