@@ -28,6 +28,7 @@ import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
 import java.net.URI
 import java.nio.file.FileSystems
 import java.nio.file.Path
@@ -245,6 +246,8 @@ public object SS76 : KtxApplicationAdapter {
 
         // == SUSSEX ROUTE == //
         registerSussexJuly3Scenes()
+        registerSussexJuly4Scenes()
+
         registerSidePlotAlexRadio()
 
         // unused

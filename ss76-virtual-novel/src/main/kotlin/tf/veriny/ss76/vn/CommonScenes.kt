@@ -368,4 +368,30 @@ public object CommonScenes {
             backButton()
         }
     }
+
+    internal val HEATHLAND = createAndRegisterScene("common.heathland") {
+        page {
+            line(
+                "Heaths are habitats where lots of shrubs and bushes grow. " +
+                "Sometimes you get small trees, too."
+            )
+            newline()
+
+            line(
+                "They're formed over many years from old plants burning down and " +
+                "fertilising the soil for the next generation of heath plants."
+            )
+            newline()
+
+            line("Many governments practice controlled burns for this reason, but there is " +
+                 "still a significant problem of inconsiderate people setting fire to the bushes " +
+                 "outside of these instances."
+            )
+            newline()
+
+            line("Unfortunately, heaths are disappearing worldwide. It's a shame.")
+            newline()
+            backButton()
+        }
+    }
 }

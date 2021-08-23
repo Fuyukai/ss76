@@ -202,18 +202,14 @@ public fun registerSussexJuly3Scenes() {
 
             line(
                 "Whilst the school is pretty lax about actually attending lessons, they are " +
-                "very diligent about making sure you",
+                "very diligent about making sure you actually turn up.",
                 addNewline = false
             )
-            pushSceneButton(CommonScenes.SCHOOL_ATTENDANCE.id, "actually turn up.")
+            //pushSceneButton(CommonScenes.SCHOOL_ATTENDANCE.id, "actually turn up.")
             newline(2)
 
-            line(
-                "You sign in late at the front desk so you don't get suicided by the " +
-                "Attendance Police later on. "
-            )
-            newline()
-            changeSceneButton("sussex-july-3-school-4", "Time to go to the hideout.")
+            line("You sign in late at the front desk, and make your way to your")
+            changeSceneButton("sussex-july-3-school-4", "hideout.")
         }
     }
 
@@ -318,7 +314,7 @@ public fun registerSussexJuly3Scenes() {
 
             line("The", addNewline = false)
             pushSceneButton("sussex-july-3-librarian", "librarian")
-            line("is pretty damn slow.")
+            line("is unnecessarily slow. Elderly people are annoying.")
             newline()
 
             line("He scans the first book. He sits and stares at the computer screen.")
@@ -328,7 +324,10 @@ public fun registerSussexJuly3Scenes() {
             line("He scans the fifth book. He sits and stares at the computer screen.")
             line("There's thirty books left.")
             newline()
-            changeSceneButton("sussex-july-3-school-6", "You don't have time for this.")
+            changeSceneButton(
+                "sussex-july-3-school-6",
+                "Good thing your time isn't worth much."
+            )
 
         }
     }
@@ -346,8 +345,10 @@ public fun registerSussexJuly3Scenes() {
                 "even later than you - which is saying something."
             )
 
-            line("But with that massive delay, you're certainly going to be the last one " +
-                 "there. Char is going to steal your favourite chair again.")
+            line(
+                "But with that massive delay, you're certainly going to be the last one " +
+                "there. You won't be able to steal away the good chair this time."
+            )
             newline()
 
             changeSceneButton(
@@ -411,6 +412,9 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
+            line("You've never been the first one here. Not once since the room was annexed.")
+            newline()
+
             line("Your", addNewline = false)
             pushSceneButton(CommonScenes.FRIENDS.id, "friends")
             line("will be waiting inside.")
@@ -438,8 +442,10 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("Your presence does not go unnoticed. Everyone turns to look at you as you" +
-                 "enter the room.")
+            line(
+                "Your presence is not unnoticed. Everyone rotates to look at you as you" +
+                "enter the room."
+            )
 
             newline()
 
@@ -492,17 +498,20 @@ public fun registerSussexJuly3Scenes() {
 
             line(
                 "Char turns to the 'Lateness World Records' whiteboards behind her. " +
-                "It's a good joke, recording the most late you've been to the hideout."
+                "It's a good joke, recording the most late you've ever been to the hideout."
             )
             newline()
 
             // todo: sideplot Christmas record
             dline(
-                "CHAR: Thirty-four minutes and fifty-two seconds! You're such a dummy. " +
-                "If you had been just twenty seconds later, you'd beat the Christmas record."
+                "CHAR: Thirty-four minutes and fifty-two seconds! You're such an idiot. " +
+                "If you had been just twenty seconds later, you'd beat the Halloween record."
             )
 
-            line("You mention the teacher with the books but Char isn't taking excuses today.")
+            line(
+                "You try and mention the teacher with the books, " +
+                "but Char isn't taking excuses today."
+            )
             newline()
 
             dline(
@@ -540,6 +549,12 @@ public fun registerSussexJuly3Scenes() {
                 "spies."
             )
 
+            changeSceneButton("sussex-july-3-school-12", "You honestly don't care.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-12-1") {
+        page {
             dline("CATE: Why do they do that?")
 
             line(
@@ -553,17 +568,18 @@ public fun registerSussexJuly3Scenes() {
                 "you can't just phone someone up and ask \"what's the deetz, dude?\""
             )
 
-            changeSceneButton("sussex-july-3-school-12", "You honestly don't care.")
-        }
-    }
-
-    createAndRegisterScene("sussex-july-3-school-12") {
-        page {
             dline(
                 "ALEX: Instead, the government sends out special radio signals that the " +
                 "spies pick up."
             )
 
+            changeSceneButton("sussex-july-3-school-13", "Sounds like a load of rubbish.")
+
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-12") {
+        page {
             dline(
                 "CHAR: Are you a spy? I don't see any other reason for this stupid " +
                 "explanation."
@@ -575,7 +591,7 @@ public fun registerSussexJuly3Scenes() {
             dline("ALEX: Well, I've discovered something. Something really cool, and really " +
                   "awesome.")
 
-            line("It's definitely not going to be cool, and really awesome.")
+            line("You think that it's definitely not going to be cool, and really awesome.")
             newline()
 
             line("ALEX: I've found", addNewline = false)
@@ -667,8 +683,6 @@ public fun registerSussexJuly3Scenes() {
 
     createAndRegisterScene("sussex-july-3-school-16") {
         page {
-            dline("CHAR: That was really weird. Please don't do that again, you idiot.")
-
             line("Alex is practically shaking in glee.")
             newline()
 
@@ -745,6 +759,8 @@ public fun registerSussexJuly3Scenes() {
             line("You are playing an idle game. What a waste of time.")
             newline()
 
+            line("There's an occasional conversation, nearly always spurred by Alex, ")
+
             line("Everyone continues their daily activities. The sound of silence fills the " +
                  "room, suffocating out any possible chance at discussion."
             )
@@ -785,7 +801,8 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line("Alex inhales his food first. He eats like a duck. An annoying human duck.")
-            line("Then he tries to start a conversation.")
+            line("Then he tries to start", addNewline = false)
+            changeSceneButton("sussex-july-3-school-20", "a conversation.")
         }
     }
 
@@ -794,8 +811,270 @@ public fun registerSussexJuly3Scenes() {
             dline("ALEX: So! I know you've all been really busy! But I hope somebody gave even " +
                  "a tiny little small miniscule amount of thought to my mystery!")
 
-            dline("CHAR: No, you idiot. Nobody here cares about ")
+            dline("CHAR: No, you idiot. Nobody here cares about your mystery.")
+
+            dline(
+                "ALEX: Of course, I've been thinking too! " +
+                "The number seven repeats three times! That must be important!"
+            )
+
+            dline("CATE: Seven and three are both prime numbers. That could be a clue.")
+
+            dline(
+                "ALEX: Four and six are not prime numbers! " +
+                "So there's two non-primes, and three primes!"
+            )
+
+            line("This is obviously", addNewline = false)
+            changeSceneButton("sussex-july-3-school-21", "going nowhere.")
         }
     }
 
+    createAndRegisterScene("sussex-july-3-school-21") {
+        page {
+            dline("ALEX: But... I'm not sure how that helps! Five is also a prime number!")
+
+            dline(
+                "CHAR: If you don't shut up with this nonsense, your lifespan will be a " +
+                "prime number."
+            )
+
+            dline(
+                "ALEX: Oh! Time! Maybe the numbers are hours! I was so super duper excited " +
+                "when I heard the numbers I didn't check anything else they said!"
+            )
+
+            // displays evidence of spoiling for a rumble
+            line("Alex runs with Char's words, unable to grasp simple threats.")
+
+            dline(
+                "ALEX: Tonight I'm gonna quickly fastly speedily check the signals and see " +
+                "if the numbers change."
+            )
+
+            dline(
+                "ALEX: Then, I'll check the signals again an hour later. If the numbers go " +
+                "down by one, then..."
+            )
+
+            line("Alex is practically")
+            changeSceneButton("sussex-july-3-school-22", "shaking with excitement.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-23") {
+        page {
+            line(
+                "After this... interruption, everyone gets back to their lunch. " +
+                "The afternoon hours tick away, one by one."
+            )
+            newline()
+
+            line(
+                "Silence and boredom fills the air. Everyone seems to repeat the same " +
+                "activities daily."
+            )
+            newline()
+
+            line(
+                "Alex pipes up with some inane point or joke. He doesn't get that we don't " +
+                "care."
+            )
+            newline()
+
+            line("Cate likes to type a lot. She's probably secretly typing up death threats.")
+            newline()
+
+            line("Char has to take care of her hair a lot. It's how it looks so good all the time.")
+            newline()
+
+            line("This  is  just  the  way  we  like  it,  isn't  it?", shake = true)
+            newline()
+
+            line("You find another idle game", addNewline = false)
+            changeSceneButton("sussex-july-3-school-24", "to waste the rest of the day with.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-24") {
+        page {
+            line(
+                "Eventually, it's hometime. Alex watches the clock tick down intensely " +
+                "before giving a mumbled goodbye and bolting away."
+            )
+            newline()
+
+            line(
+                "Char is a real stickler for the rules. The school may not care about if " +
+                "students are actually in lessons, but the administration do care about if " +
+                "students are actually *in* school."
+            )
+            newline()
+
+            line(
+                "She definitely doesn't want to get a bollocking for such a silly " +
+                 "infarction as going home early, so she makes everyone wait until hometime every day."
+            )
+            newline()
+
+            line(
+                "Cate is next; she packs her things, gives a light bow as she leaves, and " +
+                "delicately walks away. What a toff."
+            )
+            newline()
+
+            line("As usual, you and Char are", addNewline = false)
+            changeSceneButton("sussex-july-3-walk-1", "the last ones to leave.")
+            newline()
+
+            line("Char locks the padlock behind you.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-walk-1") {
+        page {
+            line(
+                "Char insists walking you home every day. You both live on the same street, " +
+                "so it makes sense to walk together."
+            )
+            newline()
+
+            line(
+                "It's a mile walk. You trail behind her in silence, as she explains topics " +
+                "you're far too stupid to understand. She's very good at explaining, though."
+            )
+            newline()
+
+            line("You cut through the local", addNewline = false)
+            pushSceneButton(CommonScenes.HEATHLAND.id, "heathland")
+            line("as a shortcut.")
+            line("The smell of burnt plants forces its way into your nose.")
+            newline()
+
+            dline(
+                "CHAR: Ugh, some idiot probably flicked a cigarette down there. Someone " +
+                "just kill all smokers."
+            )
+
+            changeSceneButton("sussex-july-3-walk-2", "Your mother was a smoker.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-walk-2") {
+        page {
+            line(
+                "Was. She gave it up ten years ago, so she would be spared. You agree with the " +
+                "idea."
+            )
+            newline()
+
+            line(
+                "Char continues about the virtues of smoker genocide until you're at your " +
+                 "home road."
+            )
+            newline()
+
+            line(
+                "You live in a small suburban, in a small 2-bedroom terraced council house with " +
+                "your parents. Nobody lives to the left of you. Nobody lives to the right of you."
+            )
+            newline()
+
+            line("Those houses haven't been occupied for as long as you can remember.")
+            newline()
+
+            line("Char lives", addNewline = false)
+            changeSceneButton("sussex-july-3-walk-3", "across the road from you.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-walk-3") {
+        page {
+            line(
+                "Char's house is much bigger than yours. It has absorbed the two plots " +
+                "alongside it to create a six bedroom majesty."
+            )
+            newline()
+
+            line(
+                "Char's parents have installed all this fancy energy saving technology, " +
+                "so the windows are always dark from the outside no matter what."
+            )
+            newline()
+
+            line(
+                "It has a massive front garden full of wild flowers and home grown " +
+                "vegetables. The flowers are such that something is always in season, year-round, " +
+                "making for a stunning display."
+            )
+            newline()
+
+            line("It makes your house look quite", addNewline = false)
+            changeSceneButton("sussex-july-3-walk-4", "pathetic")
+            line("in comparison.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-walk-4") {
+        page {
+            line(
+                "Char stands by the side of the road, watching you as you walk to your front " +
+                "door."
+            )
+            newline()
+
+            line("You fumble with your keys, dropping them by accident. You can somehow feel the eye " +
+                 "roll behind you.")
+            newline()
+
+            line("You enter and close the door behind you. ")
+            newline()
+
+            line(
+                "It's only just gone 4 o'clock, but it's still surprisingly dark inside."
+            )
+            newline()
+
+            line(
+                "Your parents aren't home. They work until five. They don't pay you very " +
+                "much attention anyway."
+            )
+            newline()
+
+            changeSceneButton("sussex-july-3-walk-5","You make your way to your bedroom.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-walk-5") {
+        page {
+            line("You look out the window. Your window faces forward.")
+            line("Char is still there.", addNewline = false)
+            line("Watching.", shake = true)
+            newline()
+
+            line(
+                "You're glad she cares about you enough to see if you've gone upstairs. " +
+                "You wouldn't want to trip over, break your neck, and have nobody realise for three " +
+                "hours."
+            )
+            newline()
+
+            line(
+                "She gives you a smile, a wave, and walks away to her home. You draw the " +
+                "curtains and turn on your lamp. It's almost night-time, and you can barely see."
+            )
+            newline()
+
+            line("You sit down at your computer.")
+            newline()
+
+            line("Your phone starts to ring. The shrill tones hurt your head.")
+            newline()
+
+            line("Your mind goes hazy, and you go to bed.")
+            newline()
+
+            changeSceneButton("sussex-july-4-start", ">> Next")
+        }
+    }
 }

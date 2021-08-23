@@ -36,29 +36,27 @@ public fun registerDemoNavigationScenes() {
         }
 
         page {
-            line("SUSSEX ROUTE JUMP POINTS #1")
+            line("ROUTE ONE JUMP POINTS #1")
             newline()
 
             changeSceneButton(
                 "sussex-july-3-start",
-                "2021-08-15: Route One, July 3rd"
+                "2021-08-24: Route One, July 3rd"
             )
             newline()
 
-            changeSceneButton(
-                "sussex-july-3-school-9",
-                "2021-08-20: Route One, July 3rd, School #9"
-            )
+            changeSceneButton("sussex-july-3-walk-1", "2021-08-24: The walk home")
             newline()
-
-            changeSceneButton(
-                "side.sussex.alex-radio-0",
-                "2021-08-21: side.sussex.alex-radio-0"
-            )
         }
     }
 
     createAndRegisterScene("demo-changelog") {
+        page {
+            line("Version 0.5:")
+            line("- Add text shake effect.")
+            line("- Finish Route One, Day One's first draft.")
+        }
+
         page {
             line("Version 0.4:")
             line("- Fix renderer for lower screen resolutions.")
