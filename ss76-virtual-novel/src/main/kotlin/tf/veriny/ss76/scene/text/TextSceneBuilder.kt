@@ -99,6 +99,13 @@ public class TextSceneBuilder(private val id: String) {
             tokens += token
         }
 
+        /**
+         * Adds a dynamic node.
+         */
+        public fun dynamicNode(fn: () -> List<TextualNode>) {
+            tokens += DynamicNode(fn)
+        }
+
     }
 
     public fun page(block: PageBuilder.() -> Unit) {

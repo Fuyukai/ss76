@@ -21,6 +21,7 @@ import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.scene.UnimplementedScene
 import tf.veriny.ss76.scene.registerDemoNavigationScenes
 import tf.veriny.ss76.scene.registerDemoUIScene
+import tf.veriny.ss76.scene.text.TextualNode
 import tf.veriny.ss76.scene.text.createAndRegisterScene
 import tf.veriny.ss76.vn.registerJokeScenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
@@ -253,7 +254,21 @@ public object SS76 : KtxApplicationAdapter {
             page {
                 line("Known scenes: ${scenes.size}")
                 line("Known fonts: ${generatedFonts.size}")
-                newline(5)
+                newline()
+
+                line("JVM version: ${Runtime.version()}")
+                newline()
+
+                dynamicNode {
+                    val items = mutableListOf<TextualNode>()
+                    val rt = Runtime.getRuntime()
+                    val memory = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024
+                    items += TextualNode.split(
+                        "Total memory usage: $memory MB", trailingNewline = true
+                    )
+
+                    items
+                }
 
                 line("Press F2 to reload main menu.")
                 backButton("Go back to previous scene.")

@@ -103,3 +103,10 @@ public class LinkNode(
         return "LinkNode(link to '$id')"
     }
 }
+
+/**
+ * A dynamic node, that is evaluated each frame to generate a new list of textual nodes.
+ *
+ * This should be used sparingly.
+ */
+public class DynamicNode(public val fn: () -> List<TextualNode>) : TextualNode()

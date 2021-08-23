@@ -198,7 +198,9 @@ public abstract class TextualScene(
             is Pad -> {
                 currentXOffset += SS76.spaceWidth * node.count
             }
-            else -> TODO()
+
+            is NodeWithText, is DynamicNode -> error("This should never happen")
+
         }.ignore()
     }
 
@@ -235,7 +237,22 @@ public abstract class TextualScene(
         SS76.batch.use {
             drawTopAnchor()
 
-            val words = getTextToRender()
+            var words = getTextToRender()
+            // eep
+            val hasDynamic = words.find { it is DynamicNode } != null
+            if (hasDynamic) {
+                // copy nodes and evaluate the dynamic nodes
+                val w2 = mutableListOf<TextualNode>()
+                for (node in words) {
+                    if (node is DynamicNode) {
+                        w2 += node.fn()
+                    } else {
+                        w2 += node
+                    }
+                }
+                words = w2
+            }
+
             val nodesToDraw = min(words.size, (timer.floorDiv(FRAMES_PER_WORD)))
             if (nodesToDraw <= 0) {
                 timer++
