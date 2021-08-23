@@ -29,6 +29,9 @@ public fun registerDemoNavigationScenes() {
             changeSceneButton(
                 "lura-july-2021-engine-demo", "July 2021 UI Demonstration"
             )
+            newline()
+
+            changeSceneButton("lura-aug-2021-shake-demo", "Aug 2021 Shake Demo")
 
         }
 

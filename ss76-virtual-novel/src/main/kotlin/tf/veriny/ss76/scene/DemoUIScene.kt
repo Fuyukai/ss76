@@ -97,4 +97,10 @@ public fun registerDemoUIScene() {
             line("When the game is softlocked!")
         }
     }
+
+    createAndRegisterScene("lura-aug-2021-shake-demo") {
+        page {
+            line("This text shakes.", shake = true)
+        }
+    }
 }

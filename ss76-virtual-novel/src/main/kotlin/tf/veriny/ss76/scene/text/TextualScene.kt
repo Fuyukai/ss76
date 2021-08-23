@@ -16,6 +16,7 @@ import tf.veriny.ss76.scene.Scene
 import tf.veriny.ss76.use
 import kotlin.math.floor
 import kotlin.math.min
+import kotlin.random.Random
 
 /**
  * A textual scene that draws words.
@@ -26,8 +27,6 @@ public abstract class TextualScene(
 ) : Scene() {
     public companion object {
         private const val FRAMES_PER_WORD = 5
-
-
         public var GLITCHY: Boolean = true
     }
 
@@ -132,13 +131,22 @@ public abstract class TextualScene(
      */
     public abstract fun getTextToRender(): List<TextualNode>
 
-    protected fun drawFont(font: BitmapFont, text: String) {
+    /**
+     * Draws using the specified font.
+     */
+    protected fun drawFont(font: BitmapFont, text: String, shake: Boolean = false) {
         layout.setText(font, text)
         val width = layout.width + SS76.spaceWidth
 
-        val yOffset = Gdx.graphics.height - padding - currentYOffset
+        var xOffset = padding + currentXOffset
+        var yOffset = Gdx.graphics.height - padding - currentYOffset
 
-        font.draw(SS76.batch, text, padding + currentXOffset, yOffset)
+        if (shake) {
+            xOffset += Random.Default.nextInt(-2, 2)
+            yOffset += Random.Default.nextInt(-1, 1)
+        }
+
+        font.draw(SS76.batch, text, xOffset, yOffset)
         currentXOffset += width
     }
 
@@ -146,7 +154,7 @@ public abstract class TextualScene(
     protected fun drawNode(node: TextualNode) {
         when (node) {
             is WordNode -> {
-                drawFont(SS76.whiteFont, node.word)
+                drawFont(SS76.whiteFont, node.word, shake=node.shake)
             }
             is Newline -> {
                 currentXOffset = 0f

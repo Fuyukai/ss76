@@ -24,8 +24,14 @@ public class TextSceneBuilder(private val id: String) {
         /**
          * Creates a single line. It will be automatically wrapped.
          */
-        public fun line(text: String, addNewline: Boolean = true, leftMargin: Int = 0) {
-            tokens += TextualNode.split(text, trailingNewline = addNewline, leftMargin = leftMargin)
+        public fun line(
+            text: String, addNewline: Boolean = true, leftMargin: Int = 0,
+            shake: Boolean = false
+        ) {
+            tokens += TextualNode.split(
+                text, trailingNewline = addNewline, leftMargin = leftMargin,
+                shakeEffect = shake
+            )
         }
 
         public fun dline(text: String, addNewline: Boolean = true) {

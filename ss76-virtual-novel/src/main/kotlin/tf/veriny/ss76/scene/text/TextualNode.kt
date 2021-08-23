@@ -12,7 +12,8 @@ public sealed class TextualNode {
          * Helper function to split a string into a series of textual nodes.
          */
         public fun split(
-            s: String, trailingNewline: Boolean, leftMargin: Int = 0
+            s: String, trailingNewline: Boolean, leftMargin: Int = 0,
+            shakeEffect: Boolean = false,
         ): List<TextualNode> {
             val length = 68 - leftMargin
             val wrappedLines = s
@@ -37,7 +38,7 @@ public sealed class TextualNode {
                     }
 
                     for (word in words) {
-                        tokens.add(WordNode(word))
+                        tokens.add(WordNode(word, shake=shakeEffect))
                     }
                     tokens.add(Newline)
                 }
@@ -57,7 +58,7 @@ public sealed class TextualNode {
 public abstract class NodeWithText(public val word: String) : TextualNode()
 
 /** A single word. */
-public class WordNode(word: String) : NodeWithText(word) {
+public class WordNode(word: String, public val shake: Boolean = false) : NodeWithText(word) {
     override fun toString(): String {
         return "WordNode(\"$word\")"
     }
