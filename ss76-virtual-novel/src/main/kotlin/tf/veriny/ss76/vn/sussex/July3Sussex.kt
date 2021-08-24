@@ -115,7 +115,7 @@ public fun registerSussexJuly3Scenes() {
             line(
                 "It's shaped in a gigantic square. It has six floors, and each floor is " +
                 "massive. Each floor has a big gap between its roof and the floor of the one above, " +
-                "and is connected by four stairwells on each corners and one stairwell directly above " +
+                "and is connected by four stairwells on each corner and one stairwell directly above " +
                 "the reception hall, each one coiling around an elevator."
             )
             newline()
@@ -448,7 +448,7 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line(
-                "Your presence is not unnoticed. Everyone rotates to look at you as you" +
+                "Your presence is not unnoticed. Everyone rotates to look at you as you " +
                 "enter the room."
             )
 
@@ -541,6 +541,7 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-school-11") {
         page {
             line("Everyone here knows about number stations. Alex has explained them multiple times before.")
+            newline()
 
             dline("CHAR: We all know what a number station is. You've explained them before, idiot. Several. Times.")
 
@@ -627,7 +628,7 @@ public fun registerSussexJuly3Scenes() {
             newline(2)
 
             dline(
-                "CHAR: Dummy. How does that prove its nearby? It could just have a strong " +
+                "CHAR: Dummy. How does that prove it's nearby? It could just have a strong " +
                 "signal."
             )
 
@@ -769,7 +770,9 @@ public fun registerSussexJuly3Scenes() {
             line("You are playing an idle game. What a waste of time.")
             newline()
 
-            line("There's an occasional conversation, nearly always spurred by Alex, ")
+            line(
+                "Alex occasionally pipes up, but nobody wants to talk to him."
+            )
 
             line("Everyone continues their daily activities. The sound of silence fills the " +
                  "room, suffocating out any possible chance at discussion."
@@ -985,7 +988,7 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line(
-                "You live in a small suburban, in a small 2-bedroom terraced council house with " +
+                "You live in a small suburb, in a small 2-bedroom terraced council house with " +
                 "your parents. Nobody lives to the left of you. Nobody lives to the right of you."
             )
             newline()
