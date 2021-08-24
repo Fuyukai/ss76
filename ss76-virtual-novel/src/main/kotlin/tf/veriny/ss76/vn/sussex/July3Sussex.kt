@@ -781,8 +781,9 @@ public fun registerSussexJuly3Scenes() {
 
             line("This is the way everyone likes it.")
             line("No annoyances. No fuss. Just, peaceful silence.")
+            newline()
 
-            changeSceneButton("sussex-july-3-school-19", "Until lunchtime, anyway.")
+            changeSceneButton("sussex-july-3-school-19", "The hours tick until lunchtime.")
         }
     }
 
@@ -1061,8 +1062,7 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-walk-5") {
         page {
             line("You look out the window. Your window faces forward.")
-            line("Char is still there.", addNewline = false)
-            line("Watching.", shake = true)
+            line("Char is still there, looking for you.")
             newline()
 
             line(
