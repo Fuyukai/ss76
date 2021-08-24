@@ -293,6 +293,9 @@ public object CommonScenes {
             line("Very full of himself, but still charming.")
             newline()
 
+            line("Extremely excitable.")
+            newline()
+
             line("He's really smart, but not good at social cues. His parents don't really care about him.")
             newline()
 
@@ -343,8 +346,37 @@ public object CommonScenes {
         }
     }
 
+    internal val JESS_BIOGRAPHY_1 = createAndRegisterScene("common.friends.jess") {
+        page {
+            line("Name: Jessica 'Jess' Taylor")
+            line("Age: 17 going on 30")
+            newline()
 
-    internal val FRIENDS = createAndRegisterScene("common.friends") {
+            line(
+                "She moved to this school's sixth form from some terrible comprehensive " +
+                "(redundant)."
+            )
+            newline()
+
+            line("She's a complete suck-up to the teachers. She's a straight-A* student.")
+            newline()
+
+            line(
+                "She only graces you with her presence when she's not busy reminding everyone " +
+                "that homework is due, or policing the uniforms of the Year 9s."
+            )
+            newline()
+
+            line("Luckily, she's not planning on university, otherwise you'd have to hear her " +
+                 "drivel about applying to Oxbridge.")
+            newline()
+
+            backButton()
+        }
+    }
+
+
+    internal val FRIENDS = createAndRegisterScene("common.friends-r1-first") {
         page {
             line("You have three friends. (What a loser.)")
             newline()
@@ -357,7 +389,7 @@ public object CommonScenes {
             newline()
 
             line("They are:")
-            newline(2)
+            newline()
 
             pushSceneButton(
                 CHAR_BIOGRAPHY_1.id,
@@ -405,6 +437,76 @@ public object CommonScenes {
             line("Unfortunately, heaths are disappearing worldwide. It's a shame.")
             newline()
             backButton()
+        }
+    }
+
+    // 4th scenes
+
+    internal val FRIENDS_R1_TWO = createAndRegisterScene("common.friends-r1-second") {
+        page {
+            line("You have four friends. (What a loser.)")
+
+            line(
+                "You've known most of them since Year 7."
+            )
+            newline()
+
+            line("They are:")
+            newline()
+
+            pushSceneButton(
+                CHAR_BIOGRAPHY_1.id,
+                "Charlotte 'Char' Philips,"
+            )
+            line("the wisest lady you know")
+
+            pushSceneButton(
+                ALEX_BIOGRAPHY_1.id,
+                "Alexander 'Alex' Ashton,"
+            )
+            line("a mosquito given human form")
+
+            pushSceneButton(
+                CATE_BIOGRAPHY_1.id,
+                "Catherine 'Cate' Schwartz,"
+            )
+            line("the most insincere person ever ")
+
+            pushSceneButton(
+                JESS_BIOGRAPHY_1.id,
+                "Jessica 'Jess' Davies,",
+            )
+            line("Minister for Brownnosing")  // hehe...
+            newline()
+
+            backButton()
+
+        }
+    }
+
+    internal val FELL_DOWN_HEATH = createAndRegisterScene("https://www.youtube.com/watch?v=ilmX2IwAAw8") {
+        page {
+            line(
+                "When you first started walking to school, you tried cutting across the heath " +
+                "on the way there."
+            )
+            newline()
+
+            line("The way down has a steep hill with thick tree roots across and an " +
+                 "old desiccated MDF plate partially buried at the bottom.")
+            newline()
+
+            line("The tree roots caught your foot as you slid down, slamming you face-first " +
+                 "into the dirt below.")
+            newline()
+
+            line(
+                "You required a filling on your front tooth. You still can't drink cold water."
+            )
+            newline()
+
+            backButton()
+
         }
     }
 }

@@ -139,6 +139,8 @@ public object SS76 : KtxApplicationAdapter {
     public lateinit var shapeRenderer: ShapeRenderer
         private set
 
+    public var clearScreenColor: Color = Color.BLUE
+
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
 
@@ -295,7 +297,7 @@ public object SS76 : KtxApplicationAdapter {
     override fun render() {
         super.render()
 
-        clearScreen(0F, 0F, 255F)
+        clearScreen(clearScreenColor.r, clearScreenColor.g, clearScreenColor.b, clearScreenColor.a)
 
         val scene = sceneStack.last()
         scene.draw()
