@@ -62,7 +62,7 @@ public fun registerSidePlotAlexRadio() {
 
             line(
                 "This baby monitor system used standard radio signals, making it easy for " +
-                "someone to over things he shouldn't've.", addNewline = false
+                "someone to overhear things he shouldn't've.", addNewline = false
             )
             newline()
 

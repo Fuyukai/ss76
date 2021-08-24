@@ -115,14 +115,14 @@ public fun registerSussexJuly3Scenes() {
             line(
                 "It's shaped in a gigantic square. It has six floors, and each floor is " +
                 "massive. Each floor has a big gap between its roof and the floor of the one above, " +
-                "and are connected by four stairwells on each corners and one stairwell directly above " +
+                "and is connected by four stairwells on each corners and one stairwell directly above " +
                 "the reception hall, each one coiling around an elevator."
             )
             newline()
 
 
             line(
-                "The government of the time gave an absolutely massive grant to build this. " +
+                "The government of the time gave out an absolutely massive grant to build this. " +
                 "Legend has it, one of the administrators was blackmailing a cabinet " +
                 "minister about some less-than-moral wartime activities. He still works here, " +
                 "actually."
@@ -145,8 +145,9 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-school-2-2") {
         page {
             line(
-                "You make your way into the reception hall. The walls and ceiling are a " +
-                "pristine white tile. You wonder how they keep it clean."
+                "You make your way into the reception hall. The walls and ceiling are tiled " +
+                "with pristine white slabs - a hard version of the stereotypical psychiatric hospital room walls." +
+                "You wonder how they keep it clean."
             )
             newline()
 
@@ -157,9 +158,13 @@ public fun registerSussexJuly3Scenes() {
             line("You ask for the sign-in book.")
             newline()
 
-            line("RCPT: Late again?")
-            newline()
+            line("RCPT:", addNewline = false)
+            changeSceneButton("sussex-july-3-school-2-3", "Late again?")
+        }
+    }
 
+    createAndRegisterScene("sussex-july-3-school-2-3") {
+        page {
             line(
                 "You smile weakly and nod. The receptionist does not like you. " +
                 "You're pretty sure he's related to a teacher, which is why he works here. He " +
@@ -175,7 +180,7 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("You mumble something about a free period.")
+            line("You mumble vaguely+ about a free period.")
             newline()
 
             changeSceneButton("sussex-july-3-school-3", "That was a lie.")
@@ -191,7 +196,7 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("The other kids hated you more than usual for giving them the swine flu.")
+            line("The other kids hated you more than usual when you gave them the swine flu.")
             newline()
 
             line(
@@ -208,7 +213,7 @@ public fun registerSussexJuly3Scenes() {
             //pushSceneButton(CommonScenes.SCHOOL_ATTENDANCE.id, "actually turn up.")
             newline(2)
 
-            line("You sign in late at the front desk, and make your way to your")
+            line("You sign in late at the front desk, and get going to your")
             changeSceneButton("sussex-july-3-school-4", "hideout.")
         }
     }
@@ -407,7 +412,7 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line(
-                "The padlock was unlocked, confirming that you're at the very least not" +
+                "The padlock was unlocked, confirming that you're at the very least not " +
                 "the first one here."
             )
             newline()
@@ -605,6 +610,7 @@ public fun registerSussexJuly3Scenes() {
                 "Just as you guessed, it wasn't cool or interesting. " +
                 "Sadly, only you and Char share this sentiment."
             )
+            newline()
 
             dline("CATE: Wow, really? Where is it?")
 
@@ -625,7 +631,10 @@ public fun registerSussexJuly3Scenes() {
                 "signal."
             )
 
-            line("Char has gotten involved now too.")
+            line(
+                "Char has gotten involved with this nonsense too. " +
+                "She can't help but educate people sometimes."
+            )
             newline()
 
             line("ALEX: Well,", addNewline = false)
@@ -734,6 +743,7 @@ public fun registerSussexJuly3Scenes() {
                 "At that statement, I think I notice Char smirking. But then you quickly snap " +
                  "back to reality."
             )
+            newline()
 
             dline(
                 "ALEX: If anyone has any theories, please please please please please please let " +
@@ -857,12 +867,12 @@ public fun registerSussexJuly3Scenes() {
                 "down by one, then..."
             )
 
-            line("Alex is practically")
+            line("Alex is practically", addNewline = false)
             changeSceneButton("sussex-july-3-school-22", "shaking with excitement.")
         }
     }
 
-    createAndRegisterScene("sussex-july-3-school-23") {
+    createAndRegisterScene("sussex-july-3-school-22") {
         page {
             line(
                 "After this... interruption, everyone gets back to their lunch. " +
@@ -892,11 +902,11 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line("You find another idle game", addNewline = false)
-            changeSceneButton("sussex-july-3-school-24", "to waste the rest of the day with.")
+            changeSceneButton("sussex-july-3-school-23", "to waste the rest of the day with.")
         }
     }
 
-    createAndRegisterScene("sussex-july-3-school-24") {
+    createAndRegisterScene("sussex-july-3-school-23") {
         page {
             line(
                 "Eventually, it's hometime. Alex watches the clock tick down intensely " +
@@ -913,7 +923,7 @@ public fun registerSussexJuly3Scenes() {
 
             line(
                 "She definitely doesn't want to get a bollocking for such a silly " +
-                 "infarction as going home early, so she makes everyone wait until hometime every day."
+                 "infraction as going home early, so she makes everyone wait until hometime every day."
             )
             newline()
 

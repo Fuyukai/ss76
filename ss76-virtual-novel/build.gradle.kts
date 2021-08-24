@@ -32,7 +32,7 @@ application {
 runtime {
     jpackage {
         imageName = "signalling-system-76"
-        this.imageOutputDir
+        targetPlatformName = "linux-x64"
     }
 
     val javaToolchains: JavaToolchainService =
