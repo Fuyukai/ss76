@@ -1,10 +1,8 @@
 package tf.veriny.ss76.vn
 
-import tf.veriny.ss76.scene.text.createAndRegisterScene
-
 // Scenes that I'm going to use, but have been written out of order.
 public fun registerMiscScenes() {
-    createAndRegisterScene("truth-char-moon-1") {
+    /*createAndRegisterScene("truth-char-moon-1") {
         page {
             dline2("YOU: How big is your 'part of the universe'?")
 
@@ -93,5 +91,5 @@ public fun registerMiscScenes() {
 
             changeSceneButton("unimplemented", "We leave the infinite space.")
         }
-    }
+    }*/
 }
