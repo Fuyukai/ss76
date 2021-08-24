@@ -45,6 +45,6 @@ public fun getDayOfMonthSuffix(n: Int): String {
 }
 
 public fun isInsideJar(): Boolean {
-    val uri = SS76::class.java.protectionDomain.codeSource.location.toURI()
+    val uri = SS76::class.java.getResource("SS76.class")!!.toURI()
     return uri.scheme == "jar"
 }
