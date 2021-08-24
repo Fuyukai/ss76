@@ -33,7 +33,7 @@ public inline fun <R> ShapeRenderer.use(type: ShapeRenderer.ShapeType, fn: Shape
 public fun Any?.ignore(): Unit = Unit
 
 // https://stackoverflow.com/a/4011232/15026456
-public fun getDayOfMonthSuffix(n: Int): String? {
+public fun getDayOfMonthSuffix(n: Int): String {
     return if (n in 11..13) {
         "th"
     } else when (n.rem(10)) {
@@ -42,4 +42,9 @@ public fun getDayOfMonthSuffix(n: Int): String? {
         3 -> "rd"
         else -> "th"
     }
+}
+
+public fun isInsideJar(): Boolean {
+    val uri = SS76::class.java.protectionDomain.codeSource.location.toURI()
+    return uri.scheme == "jar"
 }

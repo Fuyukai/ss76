@@ -7,6 +7,19 @@ import tf.veriny.ss76.scene.text.createAndRegisterScene
  * "Namespace" of scenes shared between multiple routes.
  */
 public object CommonScenes {
+    public val END_OF_DEMO: TextualScene = createAndRegisterScene("end-of-demo") {
+        page {
+            line("You've reached the end of the Signalling System 76 demo.")
+            newline()
+
+            line("I hope you've enjoyed it. If there's any feedback you wish to give, good or " +
+                 "bad, please let me know.")
+            newline()
+
+            line("Press F2 to reload the main/demo menu.")
+        }
+    }
+
     // to future me: move everything unused to this
     // region unused for now.
     public val DONT_LIKE_PHONES: TextualScene = createAndRegisterScene("common.dlp") {
