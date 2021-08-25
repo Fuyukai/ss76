@@ -34,8 +34,8 @@ public class TextSceneBuilder(private val id: String) {
             )
         }
 
-        public fun dline(text: String, addNewline: Boolean = true) {
-            line(text, addNewline, leftMargin = 6)
+        public fun dline(text: String, addNewline: Boolean = true, shake: Boolean = false) {
+            line(text, addNewline, leftMargin = 6, shake)
             if (addNewline) {
                 newline(1)
             }

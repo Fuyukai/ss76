@@ -24,19 +24,6 @@ public fun registerDemoNavigationScenes() {
         }
 
         page {
-            line("UI DEMOS")
-            newline()
-
-            changeSceneButton(
-                "lura-july-2021-engine-demo", "July 2021 UI Demonstration"
-            )
-            newline()
-
-            changeSceneButton("lura-aug-2021-shake-demo", "Aug 2021 Shake Demo")
-
-        }
-
-        page {
             line("ROUTE ONE JUMP POINTS #1")
             newline()
 
@@ -58,6 +45,20 @@ public fun registerDemoNavigationScenes() {
             }
 
             changeSceneButton("sussex-july-4-start", "2021-08-24: Route One, 4th Of July")
+        }
+
+
+        page {
+            line("UI DEMOS")
+            newline()
+
+            changeSceneButton(
+                "lura-july-2021-engine-demo", "July 2021 UI Demonstration"
+            )
+            newline()
+
+            changeSceneButton("lura-aug-2021-shake-demo", "Aug 2021 Shake Demo")
+
         }
     }
 
