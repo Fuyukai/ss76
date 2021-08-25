@@ -1,7 +1,6 @@
 package tf.veriny.ss76.scene
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.isInsideJar
 import tf.veriny.ss76.scene.text.LinkNode
 import tf.veriny.ss76.scene.text.createAndRegisterScene
 
@@ -38,11 +37,6 @@ public fun registerDemoNavigationScenes() {
                 "2021-08-24: Expanded school scene"
             )
             newline()
-
-            if (!isInsideJar()) {
-                changeSceneButton("sussex-july-3-walk-1", "2021-08-24: The walk home")
-                newline()
-            }
 
             changeSceneButton("sussex-july-4-start", "2021-08-24: Route One, 4th Of July")
         }
