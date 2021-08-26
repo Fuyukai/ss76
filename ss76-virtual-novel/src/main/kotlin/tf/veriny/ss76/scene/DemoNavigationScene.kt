@@ -38,7 +38,7 @@ public fun registerDemoNavigationScenes() {
             )
             newline()
 
-            changeSceneButton("sussex-july-4-start", "2021-08-24: Route One, 4th Of July")
+            changeSceneButton("sussex-july-4-start", "2021-08-26: Route One, 4th Of July")
         }
 
 
