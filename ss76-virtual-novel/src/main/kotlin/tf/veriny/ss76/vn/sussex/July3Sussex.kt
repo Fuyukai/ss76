@@ -716,7 +716,7 @@ public fun registerSussexJuly3Scenes() {
             dline("ALEX: I'm gonna go mental if I can't solve this!")
 
             dline(
-                "CATE: Isn't the beauty of mysteries not knowing the solution? You would get " +
+                "CATE: Surely the beauty of mysteries is not knowing the solution? You would get " +
                 "bored rather quickly if you could solve every one of them."
             )
 
@@ -747,7 +747,7 @@ public fun registerSussexJuly3Scenes() {
             dline("ALEX: ... what about this super idea ...")
             dline("CATE: ... I don't think so... what about ...")
             dline("ALEX: ... great idea, but what if it's also ...")
-            dline("CATE: ... if you look at the spectogram like this ...")
+            dline("CATE: ... if you look at the spectrogram like this ...")
             dline("ALEX: ... what's seven times six again? ...")
 
             changeSceneButton("sussex-july-3-school-i-3", "Suddenly, Alex makes a big mistake.")
@@ -859,7 +859,7 @@ public fun registerSussexJuly3Scenes() {
             dline("CHAR: Aren't you going to assist the young detective over there?")
 
             dline(
-                "CATE: I'm summarising our theories for today. I do hope you enjoy my " +
+                "CATE: I am summarising our theories for today. I do hope you enjoy my " +
                 "explanations."
             )
 
@@ -947,7 +947,7 @@ public fun registerSussexJuly3Scenes() {
 
             dline("CATE: It seems most likely that the numbers are a set of distinct countdowns.")
 
-            dline("CATE: We don't know what they're counting down to, or how long each decrement represents.")
+            dline("CATE: We do not know what they are counting down to, or how long each decrement represents.")
 
             line("Cate was really getting into character. It's almost cute.")
             newline()
@@ -966,7 +966,7 @@ public fun registerSussexJuly3Scenes() {
             )
 
             dline(
-                "CATE: So, assuming that it's an hourly counter, that gives us a breakdown " +
+                "CATE: So, assuming that it is an hourly counter, that gives us a breakdown " +
                 "for all of the digits."
             )
 

@@ -1,5 +1,7 @@
 package tf.veriny.ss76.vn
 
+import tf.veriny.ss76.SS76
+import tf.veriny.ss76.isInsideJar
 import tf.veriny.ss76.scene.text.TextualScene
 import tf.veriny.ss76.scene.text.createAndRegisterScene
 
@@ -367,8 +369,8 @@ public object CommonScenes {
             )
             newline()
 
-            line("Luckily, she's not planning on university, otherwise you'd have to hear her " +
-                 "drivel about applying to Oxbridge.")
+            line("She has grey hairs and some faintly visible wrinkles already, from a life of " +
+                 "stressing so hard about her schoolwork. She'll be dead at 25 from a heart attack.")
             newline()
 
             backButton()
@@ -507,6 +509,43 @@ public object CommonScenes {
 
             backButton()
 
+        }
+    }
+
+    internal val SPINNY_VAN_THING = createAndRegisterScene("common.spinny-van-thing") {
+        page {
+            line("When you were a kid, you asked your mother what the spinny things on vans were.")
+            newline()
+
+            line("She told you it was so that the government could watch naughty children and take " +
+                 "them away if they were badly behaved.")
+            newline()
+
+            line("You were terrified to walk past a van for years.")
+            newline()
+
+            line("It was quite funny, really. Not for you.")
+            newline()
+
+            line("Eventually you learned they were actually just fans, not cameras. You'd stopped " +
+                 "hiding at this point anyway.")
+            newline()
+
+            line("You still engage in pointless staring contests with them.")
+            newline()
+
+            backButton()
+        }
+    }
+
+    internal val FOREST_1 = createAndRegisterScene("common.forest-1") {
+        onLoad {
+            if (isInsideJar())
+            SS76.exitScene()
+        }
+
+        page {
+            line("Your town is a mix of suburban area, heavy forest, and heathland. ")
         }
     }
 }
