@@ -22,6 +22,31 @@ public object CommonScenes {
         }
     }
 
+    public val A_LEVELS_SCENE: TextualScene = createAndRegisterScene("a-level-explain-scene") {
+        page {
+            line(
+                "A-levels are one of the possible last stages of UK higher education. You pick " +
+                "three or four subjects you really wish to continue, and spend 8 hours in the " +
+                "educational week dedicated to that subject."
+            )
+            newline(2)
+            backButton()
+        }
+        page {
+            line(
+                "A-levels are graded on a scale from A* to U. BCC is a relatively average grade. " +
+                "These grades are used to apply to higher education. However, you apply at the end of " +
+                "year 12, well before any exams, so you don't have grades. Instead, you do a series of " +
+                "mock exams halfway through Year 12 which give you a set of predicted grades, which are then " +
+                "used by higher education institutions to determine if they will give you an offer or not. " +
+                "Of course, your real grades at the end of Year 13 are used to see if you actually get " +
+                "into Universities."
+            )
+            newline(2)
+            backButton()
+        }
+    }
+
     // to future me: move everything unused to this
     // region unused for now.
     public val DONT_LIKE_PHONES: TextualScene = createAndRegisterScene("common.dlp") {
@@ -540,8 +565,9 @@ public object CommonScenes {
 
     internal val FOREST_1 = createAndRegisterScene("common.forest-1") {
         onLoad {
-            if (isInsideJar())
-            SS76.exitScene()
+            if (isInsideJar()) {
+                SS76.exitScene()
+            }
         }
 
         page {

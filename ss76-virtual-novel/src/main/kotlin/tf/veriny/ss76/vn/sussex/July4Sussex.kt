@@ -2,7 +2,6 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.isInsideJar
 import tf.veriny.ss76.scene.text.buildDateMarkerScene
 import tf.veriny.ss76.scene.text.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
@@ -19,12 +18,6 @@ public fun registerSussexJuly4Scenes() {
     SS76.registerScene(JULY_4_DATE_SCENE)
 
     createAndRegisterScene("sussex-july-4-pre-1") {
-        onLoad {
-            if (isInsideJar()) {
-                SS76.changeScene(CommonScenes.END_OF_DEMO)
-            }
-        }
-
         page {
             line("It's a hot summer day. It's 8:20am, and you've just left your house.")
             newline()
@@ -44,7 +37,7 @@ public fun registerSussexJuly4Scenes() {
             line("You've never seen her leave her house." + " ".repeat(30))
             newline()
 
-            line("The neighbour houses are empty, as usual. You can hear the sound of cars " +
+            line("The neighbouring houses are empty, as usual. You can hear the sound of cars " +
                  "from the nearby main road.")
             line("There's not really anyone around.")
             newline()
@@ -406,7 +399,7 @@ public fun registerSussexJuly4Scenes() {
 
     createAndRegisterScene("sussex-july-4-school-2") {
         page {
-            line("There's a poster stuck to the lift. You lean in read it, and the lift doors " +
+            line("There's a poster stuck to the lift. You lean in to read it, and the lift doors " +
                  "open.")
             newline()
 
@@ -637,8 +630,323 @@ public fun registerSussexJuly4Scenes() {
 
             dline("CHAR: I just need a break from Jess. She drives me spare.")
 
-            line("She drags you up the corridor.")
+            dline(
+                "CHAR: Here, walk with me. I want to avoid her evil bitch aura as much as " +
+                "possible."
+            )
+
+            line("She drags you", addNewline = false)
+            changeSceneButton("sussex-july-4-school-9", "up the corridor.")
         }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-10") {
+        page {
+            line(
+                "You are walked up the corridor alongside Char. The sound of teaching can be " +
+                "heard from some of the classrooms. Just nonsense about physics."
+            )
+            newline()
+
+            line("You make it to the opposite corner from your home base and are sat down.")
+            newline()
+
+            dline("CHAR: I can't believe Alex summoned her back after what she did.")
+
+            line("Char looks genuinely dejected. You don't blame her. It was a pretty vile thing.")
+            newline()
+
+            line("The door behind Char opens, and she falls backwards.")
+            newline()
+
+            line("Thirty plus one pairs of eyes", addNewline = false)
+            changeSceneButton("sussex-july-4-school-11", "glare at her.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-11") {
+        page {
+            line("????:", addNewline = false)
+            line("YOU!", shake = true)
+            newline()
+
+            line("The desiccated voice of an old man booms out.")
+            newline()
+
+            dline(
+                "????: Miss Philips, not only do you have the audacity to miss my lessons, " +
+                "but you have decided to interrupt my other lessons too!"
+            )
+
+            line("Char quickly recovers to her feet.")
+            newline()
+
+            dline(
+                "CHAR: Fuck off you old bastard. You're shit at teaching. I've memorised " +
+                "every part of this course by myself. I don't need to attend your boring lessons."
+            )
+
+            dline(
+                "????: How dare you talk to me like that! The student manager will be hearing " +
+                "about this!"
+            )
+
+            line("CHAR:", addNewline = false)
+            changeSceneButton("sussex-july-4-school-12", "I doubt it.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-12") {
+        page {
+            line("Char slams the door shut and you are dragged away once again.")
+            newline()
+
+            line(
+                "Char is really smart both academically and generally. She takes " +
+                "four",
+            )
+            pushSceneButton(CommonScenes.A_LEVELS_SCENE.id, "A-levels,")
+            line("those being Maths, Physics, Engineering and Computer\nScience.")
+            newline()
+
+            line(
+                "She aced the mocks this year, too, so she's bound to get into any university " +
+                "of her choice, although Char doesn't seem to care much "
+            )
+
+            line(
+                "She got straight-A* grades at every STEM subject she took at GCSE level. " +
+                "She failed the language and history subjects, though, but that was because the " +
+                "test simply wasn't a fit for her."
+            )
+            newline()
+
+            line(
+                "Her intelligence seems to be natural, unlike that witch Jess who got hers " +
+                "from a life of being a suck-up."
+            )
+            newline()
+
+            changeSceneButton("sussex-july-4-school-13", "Your feet slide along the floor.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-13") {
+        page {
+            dline("CHAR: I've had two embarrassments this morning and it's all her fault.")
+
+            line("Char is noticably upset. Her eyes are a little bit red.")
+
+            dline(
+                "CHAR: It's only been ten minutes. The idiot squad won't have finished " +
+                "fiddling with their stupid radio yet."
+            )
+
+            dline("CHAR: I can't go back there now. We'll just have to wait.")
+
+            line("Char slides down the wall. You fall over.")
+            newline()
+
+            line("She pulls out her phone and starts reading something. You sit there.")
+            newline()
+
+            line("She continues to read.")
+            newline()
+
+            changeSceneButton("sussex-july-4-school-14", "She continues to read.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-14") {
+        page {
+            line("She continues to read.")
+            newline()
+
+            line("The sound of rubber on lino can be heard in the distance.")
+            newline()
+
+            line("She continues to read.")
+            newline()
+
+            line("The sound is getting louder.")
+            newline()
+
+            line("She continues to read.")
+            newline()
+
+            line("The sound is really close now.")
+            newline()
+
+            line("Char puts her phone back into her pocket.")
+            newline()
+
+            changeSceneButton("sussex-july-4-school-15",
+                "A small annoying child comes barrelling down the corridor."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-15") {
+        page {
+            dline(
+                "ALEX: Miss Charlotte! Where did you go! Jessica said you died but I didn't " +
+                "believe her!"
+            )
+
+            line(
+                "Char rises up from the floor. She snaps back into her usual demeanor immediately"
+            )
+            newline()
+
+            dline("CHAR: Dummy. How exactly would I have died in the last twenty minutes?")
+
+            dline("ALEX: Jessica said you found a mirror and then killed yourself! I don't know " +
+                  "why she says such mean things about you... I wish you two would be friends again!")
+
+            dline(
+                "CHAR: Do you have a reason to be here? Your body emits an idiocy field and " +
+                "it's disturbing my inner thoughts."
+            )
+
+            dline("ALEX: Oh! Yes! We've done some ultra super duper cool analysis! " +
+                  "You need to come back and listen!")
+
+            changeSceneButton(
+                "sussex-july-4-school-16",
+                "Time for another boring explanation."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-16") {
+        page {
+            line(
+                "You resume sliding down the corridor. At this rate, your ugly little shirt " +
+                "will have no collar left."
+            )
+            newline()
+
+            line("Jess is standing outside the door with a shit-eating grin on her face.")
+            newline()
+
+            dline("JESS: Eek! A zombie! You're so stricken with guilt, you've come back to life " +
+                  "after your tragic suicide!")
+
+            dline("CHAR: Eek! Jess!")
+
+            line("Jess instantly loses the grin. Char pushes Jess out of the way and enters the " +
+                 "cave again.")
+
+            dline("CATE: Oh, you are back. I have done a lot of writing. I hope you enjoy it.")
+
+            changeSceneButton(
+                "sussex-july-4-school-17",
+                "You cannot wait to be thoroughly unimpressed."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-17") {
+        page {
+            dline(
+                "CHAR: It would be good if you three idiots get a move on. If I'm going to waste my " +
+                "time, I would prefer to do it in my own way."
+            )
+
+            line("Alex and Cate are already engrossed in their computers.")
+
+            line("Char sits down. Then she notices something. Something very bad. She gets back " +
+                 "up again.")
+            newline()
+
+            line(
+                "Jess walks back into the room. Char grabs her on the neck and starts " +
+                "shaking her."
+            )
+            newline()
+
+            line("CHAR:", addNewline = false)
+            line("WHAT DID YOU DO TO MY WHITEBOARD?", shake = true)
+            newline()
+
+            dline("JESS: Get your hands off me you fucking psycho!")
+
+            line("The whiteboard has been wiped completely clean.")
+            newline()
+
+            line("Char throttles Jess. Jess desperately tries to break the chokehold.")
+            newline()
+
+            changeSceneButton(
+                "sussex-july-4-school-18",
+                "Char releases her, and sits back down."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-18") {
+        page {
+            line("Char has calmed down. She gives a big smile.")
+            newline()
+
+            dline(
+                "CHAR: You're trying to get under my skin, aren't you? Well, it's not going " +
+                "to work. You're nothing but a big idiot."
+            )
+
+            line("Jess coughs and coughs and coughs and tries to catch her breath.")
+            line(
+                "Alex and Cate have taken no notice of the interaction. They're fiddling with " +
+                "their computers still."
+            )
+            newline()
+
+            dline("JESS: I'm going to have you fucking done for assault!")
+            dline(
+                "CHAR: Dummy. It's your word against mine. You should be glad I didn't kill " +
+                "you."
+            )
+            dline("JESS: You're mental. I never should've come back here.")
+
+            line("The detective corner takes off their headphones.")
+
+            dline("ALEX: Okay! We've gone over everything, and we're ready!")
+
+            line("Alex is shaking", addNewline = false)
+            changeSceneButton("sussex-july-4-school-19", "with joy.")
+            newline()
+
+            line("Either that, or his poor overstimulated brain is finally burnt out.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-19") {
+        page {
+            dline("JESS: Actually... I can't leave here.")
+            dline("CHAR: You can, actually. It would be vastly preferred.")
+            dline(
+                "JESS: Two things. One, staying here pisses you off. " +
+                "Two, Alex specifically asked me for help; your pettiness shouldn't stop me from " +
+                "helping him."
+            )
+            dline(
+                "CHAR: I am perfectly fine with you staying here. " +
+                "I would just prefer you would fuck off down a hole."
+            )
+            dline("JESS: Oh, so you didn't dispute that I'm smart?")
+            dline("CHAR: I didn't feel the need, Jess.")
+            dline("JESS: That's good, because there was no need, Cuntlotte.")
+            dline("CHAR: Really? Even the Year 8s have better insults.")
+
+            changeSceneButton(
+                "sussex-july-4-school-20",
+                "Jess gives up arguing and grabs a chair from the side."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-20") {
+
     }
 
 

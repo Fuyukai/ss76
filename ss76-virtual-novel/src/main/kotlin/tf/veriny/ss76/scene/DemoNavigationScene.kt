@@ -58,6 +58,13 @@ public fun registerDemoNavigationScenes() {
 
     createAndRegisterScene("demo-changelog") {
         page {
+            line("Version 0.6:")
+            line("- Add ability to change the screen clear colour.")
+            line("- Rework Route One, Day One's middle a lot.")
+            line("- Beginning of Route One, Day Two")
+        }
+
+        page {
             line("Version 0.5:")
             line("- Add text shake effect.")
             line("- Finish Route One, Day One's first draft.")

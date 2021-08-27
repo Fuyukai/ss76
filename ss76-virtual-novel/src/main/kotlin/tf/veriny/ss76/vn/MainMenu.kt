@@ -42,31 +42,6 @@ private val MAIN_MENU_SCENE = createScene("main-menu") {
     }
 }
 
-private val A_LEVELS_SCENE = createScene("a-level-explain-scene") {
-    page {
-        line(
-            "A-levels are one of the possible last stages of UK higher education. You pick " +
-            "three or four subjects you really wish to continue, and spend 8 hours in the " +
-            "educational week dedicated to that subject."
-        )
-        newline(2)
-        backButton()
-    }
-    page {
-        line(
-            "A-levels are graded on a scale from A* to U. BCC is a relatively average grade. " +
-            "These grades are used to apply to higher education. However, you apply at the end of " +
-            "year 12, well before any exams, so you don't have grades. Instead, you do a series of " +
-            "mock exams halfway through Year 12 which give you a set of predicted grades, which are then " +
-            "used by higher education institutions to determine if they will give you an offer or not. " +
-            "Of course, your real grades at the end of Year 13 are used to see if you actually get " +
-            "into Universities."
-        )
-        newline(2)
-        backButton()
-    }
-}
-
 private val CREDITS_SCENE = createScene("credits-menu") {
     page {
         line("=== CREDITS ===")
@@ -120,7 +95,7 @@ private val ROUTE_SELECT_SCREEN = createScene("reading-menu") {
 
 public fun registerMainMenuScenes() {
     SS76.registerScene(MAIN_MENU_SCENE)
-    SS76.registerScene(A_LEVELS_SCENE)
+    //SS76.registerScene(A_LEVELS_SCENE)
     SS76.registerScene(CREDITS_SCENE)
     SS76.registerScene(ROUTE_SELECT_SCREEN)
 }
