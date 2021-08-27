@@ -939,15 +939,47 @@ public fun registerSussexJuly4Scenes() {
             dline("CHAR: Really? Even the Year 8s have better insults.")
 
             changeSceneButton(
-                "sussex-july-4-school-20",
+                "sussex-july-4-deduction-1",
                 "Jess gives up arguing and grabs a chair from the side."
             )
         }
     }
 
-    createAndRegisterScene("sussex-july-4-school-20") {
+    createAndRegisterScene("sussex-july-4-deduction-1") {
+        onLoad {
+            SS76.clearScreenColor = Color.SLATE
+        }
 
+        page {
+            dline("ALEX: Okay! Here we go!")
+
+            dline("CHAR: Wait, wait, wait. Did you invent a stupid catchphrase too?")
+
+            dline("CATE: Please, it is easier for everyone if you would listen and not interrupt.")
+
+            line(
+                "Cate never challenges Char's authority. She's far too into this detective " +
+                "nonsense."
+            )
+            newline()
+
+            dline("ALEX: I think a quick recap is in order, about what we discovered yesterday.")
+
+            dline("CHAR: I already know what you discovered yesterday. I was forced to sit through it.")
+
+            dline("ALEX: It's for the benefit of our guest! She doesn't know it!")
+
+            line("Char gives Jess the side-eye.")
+            newline()
+
+            changeSceneButton("sussex-july-4-deduction-2", ">> Next")
+        }
     }
 
+    createAndRegisterScene("sussex-july-4-deduction-2") {
+        page {
+            dline("ALEX: Two days ago, I discovered a mysterious signal on")
+        }
+    }
 
 }
