@@ -25,7 +25,7 @@ dependencies {
 }
 
 application {
-    mainClass.set("tf.veriny.ss76.SS76")
+    mainClass.set("tf.veriny.ss76.MakeUp")
     applicationName = "signalling-system-76"
     applicationDefaultJvmArgs += "-Ddemo=true"
 }
