@@ -3,15 +3,6 @@ package tf.veriny.ss76.vn.demo
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 public fun registerDemoNavigationScenes() {
-    createAndRegisterScene("demo-meta-menuu") {
-        page {
-            line(
-                "$0Zero $1One $2Two $3Three $4Four $5Five $6Six $7Seven $8Eight $9Nine " +
-                "\$aTen \$bEleven \$cTwelve \$dThirteen \$eFourteen \$fFifteen"
-            )
-        }
-    }
-
     createAndRegisterScene("demo-meta-menu") {
         /*page {
             line("This is the Signalling System 76 demo menu.")

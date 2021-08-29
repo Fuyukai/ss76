@@ -72,6 +72,10 @@ public object SS76 : KtxApplicationAdapter {
 
     public var clearScreenColor: Color = Color.BLUE
 
+    // == Error handling == //
+    private lateinit var errorFont: BitmapFont
+    private var lastError: Exception? = null
+
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
 
@@ -127,6 +131,11 @@ public object SS76 : KtxApplicationAdapter {
             color = Color.SALMON
         }
         recalcTopText()
+        errorFont = topGenerator.generateFont {
+            size = 20
+            mono = true
+            color = Color.WHITE
+        }
         topGenerator.dispose()
 
         batch = SpriteBatch()
@@ -150,19 +159,23 @@ public object SS76 : KtxApplicationAdapter {
         //input.addProcessor(buttonRenderer.input)
 
         val registerTime = measureTime {
-            // == DEMO == //
-            registerDemoUIScene()
-            registerDemoNavigationScenes()
+            try {
+                // == DEMO == //
+                registerDemoUIScene()
+                registerDemoNavigationScenes()
 
-            // == META == //
-            //registerMainMenuScenes()
-            //registerButtonDemos()
+                // == META == //
+                //registerMainMenuScenes()
+                //registerButtonDemos()
 
-            // == SUSSEX ROUTE == //
-            registerSussexJuly3Scenes()
-            registerSussexJuly4Scenes()
+                // == SUSSEX ROUTE == //
+                registerSussexJuly3Scenes()
+                registerSussexJuly4Scenes()
 
-            registerSidePlotAlexRadio()
+                registerSidePlotAlexRadio()
+            } catch (e: Exception) {
+                lastError = e
+            }
         }
 
         // debug
@@ -187,12 +200,44 @@ public object SS76 : KtxApplicationAdapter {
     }
 
     override fun render() {
-        super.render()
+        if (lastError == null) {
+            renderNormally()
+        } else {
+            renderError()
+        }
+    }
 
+    /**
+     * Draws the error box.
+     */
+    private fun renderError() {
+        Gdx.input.inputProcessor = null
+        clearScreen(255f, 0f, 0f, 0f)
+
+        val tb = lastError!!.stackTraceToString()
+        batch.use {
+            errorFont.draw(
+                this, "Fatal error when renderinng a scene!",
+                1f,
+                Gdx.graphics.height - 10f
+            )
+
+            errorFont.draw(this, tb, 1f, Gdx.graphics.height - 30f)
+        }
+    }
+
+
+    private fun renderNormally() {
         clearScreen(clearScreenColor.r, clearScreenColor.g, clearScreenColor.b, clearScreenColor.a)
 
         val scene = sceneManager.currentScene
-        scene.render()
+
+        try {
+            scene.render()
+        } catch (e: Exception) {
+            lastError = e
+            return renderError()
+        }
 
         batch.use {
             drawTopMessage()
