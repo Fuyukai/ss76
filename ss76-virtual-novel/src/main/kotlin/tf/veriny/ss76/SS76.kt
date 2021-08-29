@@ -139,6 +139,8 @@ public object SS76 : KtxApplicationAdapter {
         fontManager.loadAllFonts()
         fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
 
+        sceneManager.loadSeenScenes()
+
         demoRenderer = OddCareRenderer()
         //buttonRenderer = ButtonRenderer()
 
@@ -162,6 +164,9 @@ public object SS76 : KtxApplicationAdapter {
 
             registerSidePlotAlexRadio()
         }
+
+        // debug
+        // sceneManager.writeAllSceneData()
 
         println("Registered ${sceneManager.sceneCount} scenes in $registerTime.")
 

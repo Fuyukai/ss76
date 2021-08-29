@@ -6,6 +6,7 @@ import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import java.nio.file.Files
 import java.nio.file.Path
+import java.nio.file.StandardOpenOption
 
 /**
  * Responsible for handling loaded scenes.
@@ -65,6 +66,8 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
     public val currentScene: VirtualNovelScene get() = stack.last()
 
     private fun activateScene(scene: VirtualNovelScene) {
+        seenScenes.add(scene.id)
+        saveSeenScenes()
         stack.add(scene)
         scene.sceneLoaded()
     }
@@ -127,6 +130,37 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
     public fun getScene(scene: String): VirtualNovelScene {
         return registeredScenes[scene] ?: error("missing scene definition: $scene")
     }
+
+    // == Debug == //
+    public fun writeAllSceneData() {
+        val file = Path.of("./scenes.txt")
+        Files.newBufferedWriter(file, Charsets.UTF_8, StandardOpenOption.CREATE, StandardOpenOption.WRITE).use {
+            it.write("=== DEBUG SCENE OUTPUT ===\n\n")
+
+            for (entry in registeredScenes) {
+                //it.write("== SCENE ==\n")
+                val name = entry.key
+                val scene = entry.value.definition
+                scene.loadThisFrame()
+
+                //it.write("ID: ${scene.id}\n")
+                //it.write("Page count: ${scene.pageCount}\n\n")
+                for (page in 0 until scene.pageCount) {
+                    //it.write("= PAGE $page =\n")
+                    val tokens = scene.getTokensForPage(page)
+                    for (token in tokens) {
+                        it.write(token.repr())
+                        if (!token.causesNewline && token.causesSpace) it.write(" ")
+                    }
+                    //it.write("= END PAGE $page=\n\n")
+                }
+                //it.write("== END SCENE ==\n\n")
+            }
+        }
+
+    }
+
+    // == Input == //
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
         currentScene.skipTimer()
