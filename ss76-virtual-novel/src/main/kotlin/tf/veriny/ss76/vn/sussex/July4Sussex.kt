@@ -2,20 +2,30 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.scene.text.buildDateMarkerScene
-import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 import kotlin.random.Random
 
-private const val JULY_4_FORECAST = "It's a sunny day. It's even hotter than yesterday. " +
-                                    "Small clouds break up the skyline. It hasn't rained in weeks."
-private val JULY_4_DATE_SCENE = buildDateMarkerScene(
-    "sussex-july-4-start", "Tuesday", 4, JULY_4_FORECAST,
-    "sussex-july-4-pre-1"
-)
-
 public fun registerSussexJuly4Scenes() {
-    SS76.registerScene(JULY_4_DATE_SCENE)
+    createAndRegisterScene("sussex-july-4-start") {
+        onLoad {
+            SS76.setTopText("SS76 - Route One - 03/07")
+        }
+
+        page {
+            line("Today's date is Tuesday, the 4th of July.")
+            newline()
+
+            line("It's a sunny day. It's @pink@even @pink@¬shake¬hotter than yesterday.")
+            line(":push:@sky@ Small clouds break up the skyline. :pop:")
+            newline()
+
+            line("It hasn't rained in weeks.")
+            newline()
+
+            changeSceneButton("sussex-july-4-pre-1", ">> Next")
+        }
+    }
 
     createAndRegisterScene("sussex-july-4-pre-1") {
         page {
@@ -97,7 +107,7 @@ public fun registerSussexJuly4Scenes() {
             newline()
 
             line("The gorse remains ignorant of its impending doom at our hand.")
-            line("Soon, it'll claim its last victim.", shake = true)
+            line(":push:¬shake¬ Soon, it'll claim its last victim. :pop:")
             newline()
 
             backButton()
@@ -239,9 +249,11 @@ public fun registerSussexJuly4Scenes() {
 
     createAndRegisterScene("sussex-july-4-pre-7") {
         page {
+
+
             dline(
-                "????: What the fuck do you think you're fucking doing you little tosser!",
-                shake=true
+                ":push:¬shake¬ ????: What the fuck do you think you're fucking doing you " +
+                "little tosser! :pop:",
             )
 
             line("You just stare at him, pathetically.")
@@ -282,8 +294,7 @@ public fun registerSussexJuly4Scenes() {
             )
             newline()
 
-            line("All drivers should be", addNewline = false)
-            line("killed.", shake = true)
+            line("All drivers should be @pink@¬shake¬killed.")
             newline()
 
             backButton()
@@ -406,11 +417,10 @@ public fun registerSussexJuly4Scenes() {
             line("A hand bursts out of the lift and drags you in by the collar.")
             newline()
 
-            line("CHAR:", addNewline = false)
-            line("YOU! You're late AGAIN!", shake = true)
+            dline("CHAR: ¬shake¬YOU! You're late ¬shake¬AGAIN!")
 
             // oops! char fucked up when she made you late
-            dline("CHAR: The one day you shouldn't be...")
+            dline("CHAR: The one day you @violet@shouldn't @violet@be...")
 
             line("You're in shock from being abducted. The lift doors close and the lift " +
                  "lurches upwards.")
@@ -624,7 +634,7 @@ public fun registerSussexJuly4Scenes() {
 
             dline("CHAR: I just need a break from Jess. She driv-")
 
-            dline("JESS: IT'S JESSICA, NOT JESS!", shake = true)
+            dline("JESS: :push:¬shake¬ IT'S JESSICA, NOT JESS! :pop:")
 
             line("You're dragged further up the hall.")
 
@@ -636,7 +646,7 @@ public fun registerSussexJuly4Scenes() {
             )
 
             line("She drags you", addNewline = false)
-            changeSceneButton("sussex-july-4-school-9", "up the corridor.")
+            changeSceneButton("sussex-july-4-school-10", "up the corridor.")
         }
     }
 
@@ -666,8 +676,7 @@ public fun registerSussexJuly4Scenes() {
 
     createAndRegisterScene("sussex-july-4-school-11") {
         page {
-            line("????:", addNewline = false)
-            line("YOU!", shake = true)
+            line("????: ¬shake¬YOU!")
             newline()
 
             line("The desiccated voice of an old man booms out.")
@@ -865,8 +874,7 @@ public fun registerSussexJuly4Scenes() {
             )
             newline()
 
-            line("CHAR:", addNewline = false)
-            line("WHAT DID YOU DO TO MY WHITEBOARD?", shake = true)
+            line("CHAR: :push:¬shake¬ WHAT DID YOU DO TO MY WHITEBOARD?")
             newline()
 
             dline("JESS: Get your hands off me you fucking psycho!")

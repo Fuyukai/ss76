@@ -21,6 +21,7 @@ dependencies {
     implementation("com.badlogicgames.gdx:gdx-freetype-platform:1.10.0:natives-desktop")
 
     implementation("org.apache.commons:commons-text:1.9")
+    implementation("dev.dirs:directories:26")
 }
 
 application {

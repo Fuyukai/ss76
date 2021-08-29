@@ -2,63 +2,26 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.scene.text.Newline
-import tf.veriny.ss76.scene.text.WordNode
-import tf.veriny.ss76.scene.text.buildDateMarkerScene
-import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 
-// this'll confuse anyone doing decompile dives
-private val WHEN_THE_SEX_IS_SUS = """
-                     .,..,,*,,..,,,,,,,**                   
-                 .*,,...................,*/                 
-               ,,...../..,.,,,***/******,,*,*//             
-             ,,.  ..,,,,,//((##%%%%%%####(/,,..,*           
-           .,*.  ,,****,/((#####%%%&%%#####(/*....          
-           *.. .**//***/((((###%%%%&%%####(#(/,....         
-          ,,...*****/*/(((#######%%%%%%#####(/*....         
-          ., .,****/((((((((((######%%%#####((*....         
-           ...***,,,,*///(((((((((((/****//(##/,..,         
-           ...,,**,....,,,**/((//**...,,..,*/##,...         
-            ,.***.,**   ,.,,(#%#*.,**,.,(/(*/#%*.//         
-           /../*,,,*/,,,,,,*(###((/*,,,,/(##//(/,*(         
-           .,,***/(((((//***/##(((((////(((###///(%         
-           , ,**//(((/****,/((#(((((/***/(((((((#%%         
-            .******.,*,****/(((((//(((//**,*(#*(#(.         
-              ****,,,**,,,,,****//(((/**,,..,/**            
-              **/,/*,.,,,,,*,*/*****#//../*./(/             
-               ****/*,,#%#&(%%#&&&@@&&.*(/,(*/              
-                ,**//**,.*%#%%%&&##*#**((((//               
-                  .*//**,*,(((*(#(%%(/((#(*                 
-              .,***,,/***//***/*///((((#((/(#/##            
-        .,****.*/* *,,,****///////((((#(*/(((*/##(##%%      
-((///***,,****.**.**,,,,,///(((((((#(((*//,/#/(#########(#% 
-/*,,,,**,,**/*,/*,,,,***,,*//(((((((/,*//((*,/###########%%#
-"""
-
-
-private const val JULY_3_FORECAST = "It's a sunny day, with no clouds to be seen. " +
-                                    "It hasn't rained in weeks."
-private val JULY_3_DATE_SCENE = buildDateMarkerScene(
-    "sussex-july-3-start", "Monday", 3, JULY_3_FORECAST,
-    "sussex-july-3-school-1"
-)
+//import tf.veriny.ss76.vn.CommonScenes
 
 public fun registerSussexJuly3Scenes() {
-    SS76.registerScene(JULY_3_DATE_SCENE)
-
-    createAndRegisterScene("stop-posting-about-amongus") {
-        onLoad { SS76.setTopText("WHEN THE IMPOSTER IS SUS :BLUSH:") }
-        page {
-            val lines = WHEN_THE_SEX_IS_SUS.split("\n")
-            for (line in lines) {
-                tokens += WordNode(line)
-                tokens += Newline
-            }
+    createAndRegisterScene("sussex-july-3-start") {
+        onLoad {
+            SS76.setTopText("SS76 - Route One - 03/07")
         }
 
         page {
-            line(WHEN_THE_SEX_IS_SUS)
+            line("Today's date is Monday, the 3rd of July.")
+            newline()
+
+            line("It's a sunny day, with @sky@no @sky@clouds to be seen.")
+            line(":push:@sky@ It hasn't rained in weeks. :pop:")
+            newline()
+
+            changeSceneButton("sussex-july-3-school-1", ">> Next")
         }
     }
 
@@ -142,8 +105,8 @@ public fun registerSussexJuly3Scenes() {
         page {
             line(
                 "You make your way into the reception hall. The walls and ceiling are tiled " +
-                "with pristine white slabs - a hard version of the stereotypical psychiatric hospital room walls." +
-                "You wonder how they keep it clean."
+                "with pristine white slabs - a hard version of the stereotypical psychiatric hospital " +
+                "room walls. You wonder how they keep it clean."
             )
             newline()
 
@@ -154,7 +117,7 @@ public fun registerSussexJuly3Scenes() {
             line("You ask for the sign-in book.")
             newline()
 
-            line("RCPT:", addNewline = false)
+            line("RCPT: ", addNewline = false)
             changeSceneButton("sussex-july-3-school-2-3", "Late again?")
         }
     }
@@ -168,11 +131,10 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line(
+            dline(
                 "RCPT: I hope your teachers never say anything really important, something you " +
                 "need on an exam but haven't learned, which causes you to fail and end up being " +
                 "kicked out.",
-                leftMargin = 6
             )
             newline()
 
@@ -209,9 +171,9 @@ public fun registerSussexJuly3Scenes() {
     // Time to get into the lift.
     createAndRegisterScene("sussex-july-3-school-4") {
         page {
-            line("You make your way to the", addNewline = false)
+            line("You make your way to the ", addNewline = false)
             pushSceneButton(CommonScenes.SCHOOL_WORKING_LIFT.id, "working lift")
-            line("and call it.")
+            line(" and call it.")
             newline()
 
             line("...")
@@ -273,9 +235,8 @@ public fun registerSussexJuly3Scenes() {
             line("He greets you pleasantly as you walk into the library.")
             newline()
 
-            line(
+            dline(
                 "LBRN: Ah, I've been waiting for these. Thanks for bringing them to me, lad.",
-                leftMargin = 6
             )
             newline()
 
@@ -290,18 +251,18 @@ public fun registerSussexJuly3Scenes() {
     // This is nothing but a diversion so he can't delete the log before Alex gets in.
     createAndRegisterScene("sussex-july-3-school-5") {
         page {
-            line(
+            dline(
                 "TCHR: These books need to be returned to the library. I'm late for my lesson. " +
-                "Can you take them there for me?", leftMargin = 6
+                "Can you take them there for me?"
             )
             newline()
 
             line("You agree unhesitatingly. You're such a doormat.")
             newline()
 
-            line("The teacher dumps the", addNewline = false)  // The
+            line("The teacher dumps the ", addNewline = false)  // The
             pushSceneButton("sussex-july-3-textbooks", "books")
-            line("into your arms.")
+            line(" into your arms.")
             line("Luckily the library is on the same floor. It's a short walk away. ")
             newline()
 
@@ -769,19 +730,14 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             // complex
-            line("CHAR: What the", addNewline = false)
-            line("HELL", shake = true, addNewline = false)
-            line("do you think you are doing?")
-            newline()
+            dline("CHAR: What the ¬shake¬HELL do you think you're doing?")
 
             line("Char's voice shakes the entire room. Alex jumps five foot into the air.")
             newline()
 
             dline("ALEX: I'm-I'm- I need to use the whiteboard, Miss Charlotte!!")
 
-            line("CHAR:", addNewline = false)
-            line("MY", shake = true, addNewline = false)
-            line("whiteboard, you mean!")
+            dline("CHAR: ¬SHAKE¬MY whiteboard, you mean!")
             newline()
 
             changeSceneButton(
@@ -1012,8 +968,7 @@ public fun registerSussexJuly3Scenes() {
             line("Char stares at them for a minute. Then she speaks her heart.")
             newline()
 
-            line("CHAR:", addNewline = false)
-            line("C l e a n  u p  m y  w h i t e b o a r d.", shake = true)
+            dline("CHAR: :push:¬shake¬ C l e a n  u p  m y  w h i t e b o a r d. :pop:")
             newline()
 
             line(
@@ -1113,6 +1068,7 @@ public fun registerSussexJuly3Scenes() {
 
             line("CHAR:", addNewline = false)
             changeSceneButton("sussex-july-3-walk-1", "We'll help you.")
+            newline()
 
             dline("CHAR: With your detective game.")
 

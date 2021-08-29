@@ -1,10 +1,19 @@
 package tf.veriny.ss76
 
+/*import tf.veriny.ss76.scene.registerDemoNavigationScenes
+import tf.veriny.ss76.scene.registerDemoUIScene
+import tf.veriny.ss76.scene.text.TextualNode
+import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.vn.demo.registerButtonDemos
+import tf.veriny.ss76.vn.registerJokeScenes
+import tf.veriny.ss76.vn.registerMainMenuScenes
+import tf.veriny.ss76.vn.registerMiscScenes
+import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
+import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes*/
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3Application
-import com.badlogic.gdx.backends.lwjgl3.Lwjgl3ApplicationConfiguration
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
@@ -15,24 +24,17 @@ import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
-import org.lwjgl.glfw.GLFW
+import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.FontManager
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.render.OddCareRenderer
-import tf.veriny.ss76.scene.Scene
-import tf.veriny.ss76.scene.UnimplementedScene
-import tf.veriny.ss76.scene.registerDemoNavigationScenes
-import tf.veriny.ss76.scene.registerDemoUIScene
-import tf.veriny.ss76.scene.text.TextualNode
-import tf.veriny.ss76.scene.text.createAndRegisterScene
-import tf.veriny.ss76.vn.registerJokeScenes
-import tf.veriny.ss76.vn.registerMainMenuScenes
-import tf.veriny.ss76.vn.registerMiscScenes
+import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
+import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
-import java.net.URI
-import java.nio.file.FileSystems
-import java.nio.file.Path
-import kotlin.io.path.forEachDirectoryEntry
+import kotlin.time.ExperimentalTime
+import kotlin.time.measureTime
 
 /**
  * Main game object. Global!
@@ -45,7 +47,7 @@ public object SS76 : KtxApplicationAdapter {
     )
 
     private const val LURA_DEMO_BUILD = false
-    public const val LURA_VERSION: String = "0.4"
+    public const val LURA_VERSION: String = "0.7"
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -56,81 +58,10 @@ public object SS76 : KtxApplicationAdapter {
         Gdx.graphics.height < 960
     }
 
-    // == Links == //
-    /** The set of links that have been previously visited. */
-    public val visited: MutableSet<String> = mutableSetOf("SKIP")
-
     // == Fonts == //
-    private const val FONT_SIZE_BIG = 32
-    private const val FONT_SIZE_SMALL = 20
-
-    private val FONT_SIZE: Int get() {
-        return if (isBabyScreen) FONT_SIZE_SMALL else FONT_SIZE_BIG
-    }
+    public val fontManager: FontManager = FontManager()
 
     private lateinit var SS76_FONT: BitmapFont
-
-    private val generatedFonts: MutableList<GeneratedFonts> = mutableListOf()
-    private var fontIdx = 0
-
-    public val whiteFont: BitmapFont get() = generatedFonts[fontIdx].white
-    public val greenFont: BitmapFont get() = generatedFonts[fontIdx].green
-    public val redFont: BitmapFont get() = generatedFonts[fontIdx].red
-    public val orangeFont: BitmapFont get() = generatedFonts[fontIdx].orange
-
-    /** The width of a single space glyph. */
-    public var spaceWidth: Float = 0f
-        private set
-
-    /** The height of a single line. */
-    public var lineHeight: Float = 0f
-        private set
-
-    /**
-     * Generates the fonts for a specific font name.
-     */
-    private fun generateFonts(name: String) {
-        println("generating $name")
-        val mainGenerator = FreeTypeFontGenerator(Gdx.files.internal(name))
-
-        val white = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.WHITE
-        }
-
-        // clickable (seen before)
-        val green = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.GREEN
-        }
-        // clickable (not seen before)
-        val red = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.RED
-        }
-
-        val orange = mainGenerator.generateFont {
-            size = FONT_SIZE
-            mono = true
-            color = Color.SALMON
-        }
-
-        generatedFonts.add(GeneratedFonts(name, white, green, red, orange))
-        mainGenerator.dispose()
-    }
-
-    private fun switchFont(idx: Int) {
-        fontIdx = idx
-        spaceWidth = GlyphLayout(whiteFont, " ").width
-        lineHeight = whiteFont.lineHeight
-    }
-
-    private fun nextFont() {
-        fontIdx = (++fontIdx).rem(generatedFonts.size)
-    }
 
     // == Rendering == //
     public lateinit var batch: SpriteBatch
@@ -145,16 +76,9 @@ public object SS76 : KtxApplicationAdapter {
     private lateinit var demoRenderer: OddCareRenderer
 
     // == Scene stuff == //
-    internal var previousScene: Scene? = null
+    public val sceneManager: SceneManager = SceneManager("signalling-system-76")
 
-    /** The known scenes. */
-    private val scenes = mutableMapOf<String, Scene>()
-
-    /** The stack of scenes. */
-    internal val sceneStack: ArrayDeque<Scene> = ArrayDeque<Scene>()
-
-    // == Debug == //
-    private lateinit var dataScene: Scene
+    public val buttonManager: ButtonManager = ButtonManager()
 
     // == Input == //
     private val input = InputMultiplexer(object : KtxInputAdapter {
@@ -162,18 +86,18 @@ public object SS76 : KtxApplicationAdapter {
             // helper functionality that overrides all sub-screens.
             when (keycode) {
                 Input.Keys.F1 -> {
-                    pushScene(dataScene.id)
+                    //sceneManager.pushScene(dataScene.id)
                 }
 
                 Input.Keys.F2 -> {
                     // push demo UI
                     if (IS_DEMO) {
-                        repeat(sceneStack.size - 1) { exitScene() }
-                        changeScene("demo-meta-menu")
+                        repeat(sceneManager.stackSize - 1) { sceneManager.exitScene() }
+                        sceneManager.changeScene("demo-meta-menu")
                     }
                 }
                 Input.Keys.F3 -> {
-                    nextFont()
+                    fontManager.nextFont()
                 }
                 else -> return super.keyDown(keycode)
             }
@@ -190,6 +114,7 @@ public object SS76 : KtxApplicationAdapter {
         topWidth = GlyphLayout(SS76_FONT, topText).width
     }
 
+    @OptIn(ExperimentalTime::class)
     override fun create() {
         val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Mx437_Wang_Pro_Mono.ttf"))
         SS76_FONT = topGenerator.generateFont {
@@ -199,36 +124,10 @@ public object SS76 : KtxApplicationAdapter {
                 48
             }
             mono = true
-            color = Color.CORAL
+            color = Color.SALMON
         }
         recalcTopText()
         topGenerator.dispose()
-
-        val url = javaClass.classLoader.getResource("fonts")!!.toURI()
-        if (url.scheme == "file") {
-            val path = Path.of(url)
-            path.forEachDirectoryEntry { p ->
-                // le libgdx
-                generateFonts("fonts/${p.fileName}")
-            }
-        } else {
-            val split = url.toString().split("!")
-
-            FileSystems.newFileSystem(URI.create(split[0]), mutableMapOf<String, String>()).use {
-                val path = it.getPath(split[1])
-                path.forEachDirectoryEntry { p ->
-                    // le libgdx
-                    generateFonts("fonts/${p.fileName}")
-                }
-            }
-        }
-
-        val idx = if (isBabyScreen) {
-            generatedFonts.indexOfFirst { it.name == "fonts/Mx437_IBM_Model3x_Alt4.ttf" }
-        } else {
-            generatedFonts.indexOfFirst { it.name == "fonts/Mx437_PhoenixEGA_8x8-2y.ttf" }
-        }
-        switchFont(idx)
 
         batch = SpriteBatch()
 
@@ -237,55 +136,43 @@ public object SS76 : KtxApplicationAdapter {
         shapeRenderer.transformMatrix = batch.transformMatrix
         shapeRenderer.updateMatrices()
 
+        fontManager.loadAllFonts()
+        fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
+
         demoRenderer = OddCareRenderer()
+        //buttonRenderer = ButtonRenderer()
 
         Gdx.input.inputProcessor = input
+        input.addProcessor(buttonManager)
+        input.addProcessor(sceneManager)
+        //input.addProcessor(buttonRenderer.input)
 
-        registerJokeScenes()
-        registerDemoUIScene()
-        registerDemoNavigationScenes()
-        registerMainMenuScenes()
+        val registerTime = measureTime {
+            // == DEMO == //
+            registerDemoUIScene()
+            registerDemoNavigationScenes()
 
-        // == SUSSEX ROUTE == //
-        registerSussexJuly3Scenes()
-        registerSussexJuly4Scenes()
+            // == META == //
+            //registerMainMenuScenes()
+            //registerButtonDemos()
 
-        registerSidePlotAlexRadio()
+            // == SUSSEX ROUTE == //
+            registerSussexJuly3Scenes()
+            registerSussexJuly4Scenes()
 
-        // unused
-        registerMiscScenes()
-
-        dataScene = createAndRegisterScene("lura-engine-debug-scene") {
-            page {
-                line("Known scenes: ${scenes.size}")
-                line("Known fonts: ${generatedFonts.size}")
-                newline()
-
-                line("JVM version: ${Runtime.version()}")
-                newline()
-
-                dynamicNode {
-                    val items = mutableListOf<TextualNode>()
-                    val rt = Runtime.getRuntime()
-                    val memory = (rt.totalMemory() - rt.freeMemory()) / 1024 / 1024
-                    items += TextualNode.split(
-                        "Total memory usage: $memory MB", trailingNewline = true
-                    )
-
-                    items
-                }
-
-                line("Press F2 to reload main menu.")
-                backButton("Go back to previous scene.")
-            }
+            registerSidePlotAlexRadio()
         }
 
+        println("Registered ${sceneManager.sceneCount} scenes in $registerTime.")
+
+        // unused
+        //registerMiscScenes()
 
         if (IS_DEMO) {
-            pushScene("demo-meta-menu")
+            sceneManager.pushScene("demo-meta-menu")
         } else {
             val scene = System.getProperty("scene", "main-menu")
-            pushScene(scene)
+            sceneManager.pushScene(scene)
         }
     }
 
@@ -299,26 +186,28 @@ public object SS76 : KtxApplicationAdapter {
 
         clearScreen(clearScreenColor.r, clearScreenColor.g, clearScreenColor.b, clearScreenColor.a)
 
-        val scene = sceneStack.last()
-        scene.draw()
+        val scene = sceneManager.currentScene
+        scene.render()
 
         batch.use {
-            demoRenderer.render()
             drawTopMessage()
 
             if (isBabyScreen) {
-                whiteFont.draw(batch,
-                    "Scene ID: ${sceneStack.last().id} / Font: ${generatedFonts[fontIdx].name}",
+                fontManager.currentFont.white.draw(batch,
+                    "Scene ID: ${sceneManager.currentScene.id}",
                     15f,
                     20f
                 )
             } else {
-                whiteFont.draw(batch,
-                    "Scene ID: ${sceneStack.last().id} / Font: ${generatedFonts[fontIdx].name}",
+                fontManager.currentFont.white.draw(batch,
+                    "Scene ID: ${sceneManager.currentScene.id}",
                     15f,
                     50f
                 )
             }
+
+            demoRenderer.render()
+            //buttonRenderer.render()
         }
 
         //WHITE_FONT.draw(batch, "counter: $counter", 120f, 960 - 100f)
@@ -328,19 +217,6 @@ public object SS76 : KtxApplicationAdapter {
     }
 
     // == Helper global functions == //
-    private fun getScene(scene: String): Scene {
-        return scenes[scene] ?: UnimplementedScene(scene)
-    }
-
-    private fun activateScene(scene: Scene) {
-        scene.sceneActive()
-        input.addProcessor(0, scene.input)
-        visited.add(scene.id)
-    }
-
-    public fun registerScene(scene: Scene) {
-        scenes[scene.id] = scene
-    }
 
     /**
      * Sets the top text.
@@ -348,90 +224,5 @@ public object SS76 : KtxApplicationAdapter {
     public fun setTopText(topText: String) {
         this.topText = topText
         recalcTopText()
-    }
-
-    /**
-     * Pushes and activates a scene.
-     */
-    public fun pushScene(scene: Scene) {
-        if (sceneStack.isNotEmpty()) {
-            val tos = sceneStack.last()
-            tos.sceneInactive()
-            previousScene = tos
-        }
-        sceneStack.add(scene)
-        activateScene(scene)
-    }
-
-    /**
-     * Pushes and activates a scene, using its string id.
-     */
-    public fun pushScene(scene: String) {
-        val scene = getScene(scene)
-        pushScene(scene)
-    }
-
-    /**
-     * Changes the top scene on the stack.
-     */
-    public fun changeScene(scene: Scene) {
-        val tos = sceneStack.removeLast()
-        tos.sceneInactive()
-        previousScene = tos
-
-        sceneStack.add(scene)
-        activateScene(scene)
-    }
-
-    /**
-     * Changes the top scene on the stack, using its ID.
-     */
-    public fun changeScene(scene: String) {
-        val scene = getScene(scene)
-        changeScene(scene)
-    }
-
-    /**
-     * Exits from the top scene.
-     */
-    public fun exitScene() {
-        val tos = sceneStack.removeLast()
-        tos.sceneInactive()
-        previousScene = tos
-
-        val newTos = sceneStack.last()
-        activateScene(newTos)
-    }
-
-    /**
-     * Draws white text.
-     */
-    public fun drawWhiteText(toDraw: CharSequence, x: Float, y: Float) {
-        whiteFont.draw(batch, toDraw, x, y)
-    }
-
-    @JvmStatic public fun main(args: Array<String>) {
-        val babyScreen = run {
-            System.getProperty("is-baby-screen", "false").toBooleanStrict() || run {
-                GLFW.glfwInit()
-                val monitor = GLFW.glfwGetPrimaryMonitor()
-                val res = GLFW.glfwGetVideoMode(monitor)
-                res!!.height() < 960
-            }
-        }
-
-        val config = Lwjgl3ApplicationConfiguration().apply {
-            setTitle("Signalling System 76")
-            if (babyScreen) {
-                setWindowedMode(800, 600)
-            } else {
-                setWindowedMode(1280, 960)
-            }
-
-            setResizable(false)
-            setWindowIcon("icon-128x128.png")
-        }
-
-        Lwjgl3Application(this, config)
     }
 }

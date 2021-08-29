@@ -1,12 +1,19 @@
-package tf.veriny.ss76.scene
+package tf.veriny.ss76.vn.demo
 
-import tf.veriny.ss76.SS76
-import tf.veriny.ss76.scene.text.LinkNode
-import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 public fun registerDemoNavigationScenes() {
-    createAndRegisterScene("demo-meta-menu") {
+    createAndRegisterScene("demo-meta-menuu") {
         page {
+            line(
+                "$0Zero $1One $2Two $3Three $4Four $5Five $6Six $7Seven $8Eight $9Nine " +
+                "\$aTen \$bEleven \$cTwelve \$dThirteen \$eFourteen \$fFifteen"
+            )
+        }
+    }
+
+    createAndRegisterScene("demo-meta-menu") {
+        /*page {
             line("This is the Signalling System 76 demo menu.")
             newline()
 
@@ -17,10 +24,12 @@ public fun registerDemoNavigationScenes() {
             line("This scene allows jumping to predefined demo points.")
             newline()
 
-            link("demo-changelog", ">> Changelog", LinkNode.LinkType.BACK_BUTTON) {
-                SS76.pushScene("demo-changelog")
-            }
-        }
+            line(":push:$4`01 >> Changelog :pop:")
+
+            /*link("demo-changelog", ">> Changelog", LinkNode.LinkType.BACK_BUTTON) {
+                SS76.sceneManager.pushScene("demo-changelog")
+            }*/
+        }*/
 
         page {
             line("ROUTE ONE JUMP POINTS #1")
@@ -39,6 +48,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             changeSceneButton("sussex-july-4-start", "2021-08-26: Route One, 4th Of July")
+            newline()
+
+            changeSceneButton("sussex-july-4-school-10", "2021-08-27: sussex-july-4-school-10")
         }
 
 
@@ -47,12 +59,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             changeSceneButton(
-                "lura-july-2021-engine-demo", "July 2021 UI Demonstration"
+                "renderer-v2-demo", "Renderer V2 Demo"
             )
             newline()
-
-            changeSceneButton("lura-aug-2021-shake-demo", "Aug 2021 Shake Demo")
-
         }
     }
 
@@ -78,7 +87,7 @@ public fun registerDemoNavigationScenes() {
             line("- More content on the Sussex route.")
             newline()
 
-            backButton()
+            //backButton()
         }
         page {
             line("Version 0.3:")
@@ -86,7 +95,7 @@ public fun registerDemoNavigationScenes() {
             line("- Character biographies.")
             newline()
 
-            backButton()
+            //backButton()
         }
 
         page {
@@ -94,7 +103,7 @@ public fun registerDemoNavigationScenes() {
             line("- Initial release I sent to people. Actually has the content.")
             newline()
 
-            backButton()
+            //backButton()
         }
 
         page {
@@ -102,7 +111,7 @@ public fun registerDemoNavigationScenes() {
             line("- Engine implementation. No content.")
             newline()
 
-            backButton()
+            //backButton()
         }
     }
 }

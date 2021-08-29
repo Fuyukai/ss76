@@ -1,6 +1,6 @@
 package tf.veriny.ss76.vn.side
 
-import tf.veriny.ss76.scene.text.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
  * Contains scenes relating to Alex's radio sideplot.

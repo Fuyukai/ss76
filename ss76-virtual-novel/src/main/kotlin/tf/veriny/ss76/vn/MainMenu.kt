@@ -1,4 +1,4 @@
-package tf.veriny.ss76.vn
+/*package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.scene.text.LinkNode
@@ -98,4 +98,4 @@ public fun registerMainMenuScenes() {
     //SS76.registerScene(A_LEVELS_SCENE)
     SS76.registerScene(CREDITS_SCENE)
     SS76.registerScene(ROUTE_SELECT_SCREEN)
-}
+}*/

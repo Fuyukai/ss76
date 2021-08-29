@@ -1,15 +1,15 @@
 package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.scene.VirtualNovelScene
+import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.isInsideJar
-import tf.veriny.ss76.scene.text.TextualScene
-import tf.veriny.ss76.scene.text.createAndRegisterScene
 
 /**
  * "Namespace" of scenes shared between multiple routes.
  */
 public object CommonScenes {
-    public val END_OF_DEMO: TextualScene = createAndRegisterScene("end-of-demo") {
+    public val END_OF_DEMO: VirtualNovelScene = createAndRegisterScene("end-of-demo") {
         page {
             line("You've reached the end of the Signalling System 76 demo.")
             newline()
@@ -22,7 +22,7 @@ public object CommonScenes {
         }
     }
 
-    public val A_LEVELS_SCENE: TextualScene = createAndRegisterScene("a-level-explain-scene") {
+    public val A_LEVELS_SCENE: VirtualNovelScene = createAndRegisterScene("a-level-explain-scene") {
         page {
             line(
                 "A-levels are one of the possible last stages of UK higher education. You pick " +
@@ -49,7 +49,7 @@ public object CommonScenes {
 
     // to future me: move everything unused to this
     // region unused for now.
-    public val DONT_LIKE_PHONES: TextualScene = createAndRegisterScene("common.dlp") {
+    public val DONT_LIKE_PHONES: VirtualNovelScene = createAndRegisterScene("common.dlp") {
         page {
             line(
                 "You don't really like mobile phones. It was unthinkable for any secondary " +
@@ -67,7 +67,7 @@ public object CommonScenes {
             backButton()
         }
     }
-    public val DESK_DESCRIPTION: TextualScene = createAndRegisterScene("common.desk") {
+    public val DESK_DESCRIPTION: VirtualNovelScene = createAndRegisterScene("common.desk") {
         page {
             line(
                 "Your desk is a simple Ikea desk. It is extremely cluttered because you " +
@@ -90,7 +90,7 @@ public object CommonScenes {
     }
 
     // previously used in 3rd of july routes as an exposition scene.
-    public val SCHOOL_SIZE: TextualScene = createAndRegisterScene("common.schoolsize") {
+    public val SCHOOL_SIZE: VirtualNovelScene = createAndRegisterScene("common.schoolsize") {
         page {
             line(
                 "Your school is a selective secondary school, being all boys from Year 7 to " +
@@ -125,7 +125,7 @@ public object CommonScenes {
     // endregion
 
     // used
-    public val SCHOOL_WORKING_LIFT: TextualScene = createAndRegisterScene("common.schoollift") {
+    public val SCHOOL_WORKING_LIFT: VirtualNovelScene = createAndRegisterScene("common.schoollift") {
         page {
             // faculty really don't like kids using lifts. they think its just kids being lazy.
             // of course, theyre fine to use the lifts themselves.
@@ -163,7 +163,7 @@ public object CommonScenes {
         }
     }
 
-    public val SCHOOL_ATTENDANCE: TextualScene = createAndRegisterScene("common.school_attendance") {
+    public val SCHOOL_ATTENDANCE: VirtualNovelScene = createAndRegisterScene("common.school_attendance") {
         page {
             // the archangel project requires fresh minds/parents dont want their kids out of school
 
@@ -188,7 +188,7 @@ public object CommonScenes {
         }
     }
 
-    public val FLOOR_5_AIR_CON: TextualScene = createAndRegisterScene("common.floor5.ac") {
+    public val FLOOR_5_AIR_CON: VirtualNovelScene = createAndRegisterScene("common.floor5.ac") {
         page {
             line(
                 "The school's server room is on the fifth floor, so the air conditioning is " +
@@ -566,7 +566,7 @@ public object CommonScenes {
     internal val FOREST_1 = createAndRegisterScene("common.forest-1") {
         onLoad {
             if (isInsideJar()) {
-                SS76.exitScene()
+                SS76.sceneManager.exitScene()
             }
         }
 

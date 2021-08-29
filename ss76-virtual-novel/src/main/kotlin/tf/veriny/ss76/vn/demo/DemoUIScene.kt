@@ -1,10 +1,6 @@
 package tf.veriny.ss76.scene
 
-import tf.veriny.ss76.scene.text.LinkNode
-import tf.veriny.ss76.scene.text.TextualScene
-import tf.veriny.ss76.scene.text.createAndRegisterScene
-
-public fun registerDemoUIScene() {
+/*public fun registerDemoUIScene() {
     createAndRegisterScene("lura-july-2021-engine-demo") {
         page {
             line("This is a demo scene!")
@@ -103,4 +99,4 @@ public fun registerDemoUIScene() {
             line("This text shakes.", shake = true)
         }
     }
-}
+}*/
