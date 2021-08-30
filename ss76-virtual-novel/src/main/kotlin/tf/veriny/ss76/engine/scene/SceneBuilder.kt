@@ -35,6 +35,7 @@ public class PageBuilder(
     }
 
     public fun dline(data: String, addNewline: Boolean = true) {
+        ensureBlankChar()
         val realText = ":push:¬dialogue¬ $data :pop: "
 
         line(realText, addNewline = false)

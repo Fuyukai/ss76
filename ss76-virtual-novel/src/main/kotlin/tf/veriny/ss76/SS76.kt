@@ -26,8 +26,10 @@ import ktx.app.clearScreen
 import ktx.freetype.generateFont
 import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.render.OddCareRenderer
+import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
+import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
@@ -132,7 +134,7 @@ public object SS76 : KtxApplicationAdapter {
         }
         recalcTopText()
         errorFont = topGenerator.generateFont {
-            size = 20
+            size = 24
             mono = true
             color = Color.WHITE
         }
@@ -161,6 +163,8 @@ public object SS76 : KtxApplicationAdapter {
 
         val registerTime = measureTime {
             try {
+                CommonScenes.register()
+
                 // == DEMO == //
                 registerDemoUIScene()
                 registerDemoNavigationScenes()
@@ -168,6 +172,7 @@ public object SS76 : KtxApplicationAdapter {
                 // == META == //
                 //registerMainMenuScenes()
                 //registerButtonDemos()
+                registerMiscScenes()
 
                 // == SUSSEX ROUTE == //
                 registerSussexJuly3Scenes()
@@ -186,12 +191,13 @@ public object SS76 : KtxApplicationAdapter {
 
         // unused
         //registerMiscScenes()
-
-        if (IS_DEMO) {
-            sceneManager.pushScene("demo-meta-menu")
-        } else {
-            val scene = System.getProperty("scene", "main-menu")
-            sceneManager.pushScene(scene)
+        if (lastError == null) {
+            if (IS_DEMO) {
+                sceneManager.pushScene("demo-meta-menu")
+            } else {
+                val scene = System.getProperty("scene", "main-menu")
+                sceneManager.pushScene(scene)
+            }
         }
     }
 
@@ -217,8 +223,14 @@ public object SS76 : KtxApplicationAdapter {
 
         val tb = lastError!!.stackTraceToString()
         batch.use {
+            val message = if (sceneManager.stackSize == 0) {
+                "Fatal error when loading engine!"
+            } else {
+                "Fatal error when rendering scene ${sceneManager.currentScene.id}"
+            }
+
             errorFont.draw(
-                this, "Fatal error when rendering scene ${sceneManager.currentScene.id}",
+                this, message,
                 1f,
                 Gdx.graphics.height - 10f
             )

@@ -22,6 +22,11 @@ public class VirtualNovelScene(
 ) {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
+
+        fun randomString(r: Random, length: Int) : String {
+            val chars = ('A'..'Z') + ('a'..'z')
+            return (0 until length).joinToString("") { chars.random(r).toString() }
+        }
     }
 
     public val id: String get() = definition.id
@@ -67,6 +72,8 @@ public class VirtualNovelScene(
 
     // frame timer
     private var timer = 0
+
+    private var rng: Random = Random(0)
 
     public fun resetTimer() {
         timer = 0
@@ -136,7 +143,6 @@ public class VirtualNovelScene(
         // == Before == //
         currentXOffset += SS76.fontManager.characterWidth * frameNode.padding
 
-        // == Render == //
         var colour = node.colour
         var text = node.text
         var isTruncated = false
@@ -165,6 +171,23 @@ public class VirtualNovelScene(
             }
         }
 
+        if (TextualNode.Effect.SHUFNUM in node.effects) {
+            val size = node.text.length
+            val sb = StringBuilder()
+            for (char in text) {
+                if (char.isDigit()) {
+                    sb.append(rng.nextInt(0, 9))
+                } else {
+                    sb.append(char)
+                }
+            }
+            text = sb.toString()
+        } else if (TextualNode.Effect.SHUFTXT in node.effects) {
+            val size = node.text.length
+            text = randomString(rng, size)
+        }
+
+        // == Render == //
         if (node.text.isNotEmpty()) {
             val shouldCalcRectangle = !isTruncated && node.buttonId != null
             val rect = renderWordRaw(
@@ -228,6 +251,8 @@ public class VirtualNovelScene(
      * Called when the scene is rendered.
      */
     public fun render() {
+        rng = Random(timer.floorDiv(30))
+
         // Step 0) Update offsets.
         currentXOffset = 0f
         currentYOffset = 0f

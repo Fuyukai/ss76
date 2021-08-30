@@ -34,6 +34,8 @@ public data class TextualNode(
     public enum class Effect {
         DIALOGUE,
         SHAKE,
+        SHUFNUM,
+        SHUFTXT,
     }
 
     /**

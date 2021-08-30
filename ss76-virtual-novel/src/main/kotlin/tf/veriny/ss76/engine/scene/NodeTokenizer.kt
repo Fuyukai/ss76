@@ -247,7 +247,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                     node.colourLinkedToButton = true
                     FontManager.COLOURS["white"]
                 }
-            } else FontManager.COLOURS[token.colour ?: "white"]) ?: error("unknown colour: $")
+            } else FontManager.COLOURS[token.colour ?: "white"]) ?: error("unknown colour: ${token.colour}")
 
             node.colour = colour
             nodes.add(node)

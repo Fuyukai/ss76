@@ -35,6 +35,7 @@ runtime {
     jpackage {
         imageName = "signalling-system-76"
         targetPlatformName = "linux-x64"
+        skipInstaller = true
     }
 
     val javaToolchains: JavaToolchainService =
