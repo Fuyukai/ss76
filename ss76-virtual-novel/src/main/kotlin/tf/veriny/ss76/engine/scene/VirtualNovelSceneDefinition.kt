@@ -2,6 +2,8 @@ package tf.veriny.ss76.engine.scene
 
 import tf.veriny.ss76.engine.ButtonManager
 
+public typealias onLoad = (VirtualNovelScene) -> Unit
+
 /**
  * A single definition for a virtual novel scene. This produces a series of tokens with metadata to
  * be rendered.
@@ -33,13 +35,13 @@ public interface VirtualNovelSceneDefinition {
  */
 public class PreparedSceneDefinition(
     override val id: String,
-    override val onLoadHandlers: List<(VirtualNovelScene) -> Unit>,
+    override val onLoadHandlers: List<onLoad>,
     buttons: Map<String, ButtonManager.Button>,
     private val pages: List<List<TextualNode>>
 ) : VirtualNovelSceneDefinition {
     override val buttons: Map<String, ButtonManager.Button> = buttons.toMutableMap().apply {
-        put("prev-button", ButtonManager.Button("back-button") { it.pageBack() })
-        put("next-button", ButtonManager.Button("next-button") { it.pageForward() })
+        put("page-next", ButtonManager.NEXT_BUTTON)
+        put("page-back", ButtonManager.BACK_BUTTON)
     }
 
     override val pageCount: Int

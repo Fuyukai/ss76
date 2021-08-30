@@ -25,6 +25,7 @@ import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
 import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.CheckpointManager
 import tf.veriny.ss76.engine.FontManager
 import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.render.OddCareRenderer
@@ -81,7 +82,7 @@ public object SS76 : KtxApplicationAdapter {
 
     // == Scene stuff == //
     public val sceneManager: SceneManager = SceneManager("signalling-system-76")
-
+    public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76")
     public val buttonManager: ButtonManager = ButtonManager()
 
     // == Input == //
@@ -149,6 +150,7 @@ public object SS76 : KtxApplicationAdapter {
         fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
 
         sceneManager.loadSeenScenes()
+        checkpointManager.register()
 
         demoRenderer = OddCareRenderer()
         //buttonRenderer = ButtonRenderer()
@@ -217,7 +219,7 @@ public object SS76 : KtxApplicationAdapter {
         val tb = lastError!!.stackTraceToString()
         batch.use {
             errorFont.draw(
-                this, "Fatal error when renderinng a scene!",
+                this, "Fatal error when rendering scene ${sceneManager.currentScene.id}",
                 1f,
                 Gdx.graphics.height - 10f
             )

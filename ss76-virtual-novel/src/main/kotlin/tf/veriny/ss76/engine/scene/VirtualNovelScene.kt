@@ -41,7 +41,7 @@ public class VirtualNovelScene(
 
     public fun sceneUnloaded(reason: DeactivationType) {
         when (reason) {
-            DeactivationType.POPPED -> { timer = 0 }
+            DeactivationType.POPPED -> { resetTimer() }
             DeactivationType.PUSHED -> {}
         }
 
@@ -62,6 +62,10 @@ public class VirtualNovelScene(
 
     // frame timer
     private var timer = 0
+
+    public fun resetTimer() {
+        timer = 0
+    }
 
     /** Sets the timer to a reasonably high value. */
     public fun skipTimer() {
@@ -181,7 +185,7 @@ public class VirtualNovelScene(
         val nodes = mutableListOf<TextualNode>()
         for (b in listOf("«", "PREVIOUS")) {
             val node = TextualNode(
-                b, startFrame = 0, endFrame = 0, buttonId = "prev-button",
+                b, startFrame = 0, endFrame = 0, buttonId = "page-back",
                 colour = Color.SALMON
             )
             nodes.add(node)
@@ -193,12 +197,12 @@ public class VirtualNovelScene(
         }
 
         nodes.add(TextualNode(
-            "NEXT", startFrame = 0, endFrame = 0, buttonId = "next-button",
+            "NEXT", startFrame = 0, endFrame = 0, buttonId = "page-next",
             colour = Color.SALMON
         ))
         nodes.add(
             TextualNode(
-                "»", startFrame = 0, endFrame = 0, buttonId = "next-button",
+                "»", startFrame = 0, endFrame = 0, buttonId = "page-next",
                 colour = Color.SALMON, causesNewline = true
             )
         )
@@ -232,9 +236,12 @@ public class VirtualNovelScene(
             }
         }
 
-        // Step 2) Render the page buttons, if needed.
+        // Step 2) Load the data for the scene definition.
         definition.loadThisFrame()
+
+        // Step 3) Begin drawing.
         SS76.batch.use {
+            // 3a) Draw pages if needed.
             if (definition.pageCount > 1) {
                 pageIdx = min(max(pageIdx, 0), definition.pageCount - 1)
                 val pageButtons = getPageButtons()
@@ -243,6 +250,7 @@ public class VirtualNovelScene(
                 }
             }
 
+            // 3b) Draw the current nodes, including glitchy nodes.
             val nodes = definition.getTokensForPage(pageIdx)
             // tfw need manual iterator
             val it = nodes.iterator()
@@ -263,6 +271,9 @@ public class VirtualNovelScene(
                     renderTextNode(node)
                 }
             }
+
+            // 3c) Draw clickables at the bottom.
+
         }
 
         timer++

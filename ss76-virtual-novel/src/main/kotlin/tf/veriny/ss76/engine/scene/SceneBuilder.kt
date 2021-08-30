@@ -4,6 +4,110 @@ import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonAction
 import tf.veriny.ss76.engine.ButtonManager
 
+/**
+ * A single builder for a single page.
+ */
+public class PageBuilder(
+    private val page: StringBuilder,
+    private val buttons: MutableMap<String, ButtonManager.Button>
+) {
+    private fun ensureBlankChar() {
+        val lastChar = page.lastOrNull()
+        if (lastChar != null && lastChar != ' ' && lastChar != '\n') {
+            page.append(' ')
+        }
+    }
+
+    /**
+     * Clears the current page.
+     */
+    public fun clear() {
+        page.clear()
+    }
+
+    /**
+     * Adds a new line of text to this page. This will be automatically split and
+     * formatted according to the various formatting characters.
+     */
+    public fun line(data: String, addNewline: Boolean = true) {
+        page.append(data)
+        if (addNewline) page.append('\n')
+    }
+
+    public fun dline(data: String, addNewline: Boolean = true) {
+        val realText = ":push:¬dialogue¬ $data :pop: "
+
+        line(realText, addNewline = false)
+        if (addNewline) {
+            newline(2)
+        }
+    }
+
+    /**
+     * Adds a newline.
+     */
+    public fun newline(count: Int = 1) {
+        repeat(count) { page.append('\n') }
+    }
+
+    /**
+     * Adds a generic button to the current page. This can be referenced with backtick syntax
+     * on nodes.
+     */
+    public fun addButton(
+        id: String,
+        linkedScene: String? = null,
+        type: ButtonManager.ButtonType = ButtonManager.ButtonType.OTHER,
+        action: ButtonAction
+    ) {
+        buttons[id] = ButtonManager.Button(
+            name = id, linkedId = linkedScene,
+            buttonType = type, action = action,
+        )
+    }
+
+    // convenience
+    /**
+     * Adds a button that changes the current scene.
+     */
+    public fun changeSceneButton(sceneId: String, text: String) {
+        ensureBlankChar()
+        val buttonName = "change-scene-$sceneId"
+        val realText = ":push:@salmon@`$buttonName` $text :pop:"
+
+        line(realText, addNewline = false)
+        addButton(buttonName, linkedScene = sceneId, type = ButtonManager.ButtonType.CHANGE) {
+            SS76.sceneManager.changeScene(sceneId)
+        }
+    }
+
+    /**
+     * Adds a button that pushes a new scene onto the stack.
+     */
+    public fun pushSceneButton(sceneId: String, text: String) {
+        ensureBlankChar()
+        val buttonName = "push-scene-$sceneId"
+        val realText = ":push:@linked@`push-scene-$sceneId` $text :pop:"
+        line(realText, addNewline = false)
+
+        addButton(buttonName, linkedScene = sceneId, type = ButtonManager.ButtonType.PUSH) {
+            SS76.sceneManager.pushScene(sceneId)
+        }
+    }
+
+    /**
+     * Adds a green back button.
+     */
+    public fun backButton(text: String = "« Back") {
+        val realText = ":push:@green@`back-button` $text :pop:"
+        line(realText)
+
+        addButton("back-button") {
+            SS76.sceneManager.exitScene()
+        }
+    }
+
+}
 
 /**
  * Builder helper for creating new scene definitions.
@@ -23,103 +127,13 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     }
 
     /**
-     * Builder for building a single page.
-     */
-    public inner class PageBuilder {
-        private fun ensureBlankChar() {
-            val page = pages.last()
-            val lastChar = page.lastOrNull()
-            if (lastChar != null && lastChar != ' ' && lastChar != '\n') {
-                page.append(' ')
-            }
-        }
-
-        /**
-         * Adds a new line of text to this page. This will be automatically split and
-         * formatted according to the various formatting characters.
-         */
-        public fun line(data: String, addNewline: Boolean = true) {
-            val sb = pages.last()
-            sb.append(data)
-            if (addNewline) sb.append('\n')
-        }
-
-        public fun dline(data: String, addNewline: Boolean = true) {
-            val sb = pages.last()
-            val realText = ":push:¬dialogue¬ $data :pop: "
-
-            line(realText, addNewline = false)
-            if (addNewline) {
-                newline(2)
-            }
-        }
-
-        /**
-         * Adds a newline.
-         */
-        public fun newline(count: Int = 1) {
-            val sb = pages.last()
-            repeat(count) { sb.append('\n') }
-        }
-
-        /**
-         * Adds a generic button to the current page. This can be referenced with backtick syntax
-         * on nodes.
-         */
-        public fun addButton(id: String, linkedScene: String? = null, action: ButtonAction) {
-            buttons[id] = ButtonManager.Button(id.toString(), linkedScene, action)
-        }
-
-        // convenience
-        /**
-         * Adds a button that changes the current scene.
-         */
-        public fun changeSceneButton(sceneId: String, text: String) {
-            ensureBlankChar()
-            val buttonName = "change-scene-${buttonCounter++}"
-            val realText = ":push:@salmon@`$buttonName` $text :pop:"
-
-            line(realText, addNewline = false)
-            addButton(buttonName) {
-                SS76.sceneManager.changeScene(sceneId)
-            }
-        }
-
-        /**
-         * Adds a button that pushes a new scene onto the stack.
-         */
-        public fun pushSceneButton(sceneId: String, text: String) {
-            ensureBlankChar()
-            val currentButton = (buttonCounter++).toString().padStart(2, '0')
-            val realText = ":push:@linked@`$currentButton` $text :pop:"
-            line(realText, addNewline = false)
-
-            addButton(currentButton, linkedScene = sceneId) {
-                SS76.sceneManager.pushScene(sceneId)
-            }
-        }
-
-        /**
-         * Adds a green back button.
-         */
-        public fun backButton(text: String = "« Back") {
-            val realText = ":push:@green@`back-button` $text :pop:"
-            line(realText)
-
-            addButton("back-button") {
-                SS76.sceneManager.exitScene()
-            }
-        }
-
-    }
-
-    /**
      * Creates a new page.
      */
     public fun page(block: PageBuilder.() -> Unit) {
-        pages.add(StringBuilder())
-        val builder = PageBuilder()
+        val page = StringBuilder()
+        val builder = PageBuilder(page, buttons)
         builder.block()
+        pages.add(page)
     }
 
     /**

@@ -3,6 +3,9 @@ package tf.veriny.ss76.engine
 import com.badlogic.gdx.Input
 import dev.dirs.BaseDirectories
 import ktx.app.KtxInputAdapter
+import okio.BufferedSink
+import okio.BufferedSource
+import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import java.nio.file.Files
 import java.nio.file.Path
@@ -11,11 +14,14 @@ import java.nio.file.StandardOpenOption
 /**
  * Responsible for handling loaded scenes.
  */
-public class SceneManager(public val namespace: String) : KtxInputAdapter {
+public class SceneManager(public val namespace: String) : KtxInputAdapter, Saveable {
     private val seenScenes /*on the sea shore*/= mutableSetOf<String>()
     private val registeredScenes = mutableMapOf<String, VirtualNovelScene>()
-
     public val sceneCount: Int get() = registeredScenes.size
+
+    private val stack = ArrayDeque<VirtualNovelScene>()
+    public val stackSize: Int get() = stack.size
+    public val currentScene: VirtualNovelScene get() = stack.last()
 
     private var previousScene: VirtualNovelScene? = null
 
@@ -24,6 +30,38 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
      */
     public fun registerScene(scene: VirtualNovelScene) {
         registeredScenes[scene.id] = scene
+    }
+
+    /**
+     * Re-registers a scene. This will update any references in the current stack of scenes.
+     */
+    public fun reregisterScene(scene: VirtualNovelScene) {
+        val old = registeredScenes[scene.id]
+        registeredScenes[scene.id] = scene
+
+        if (old == null) return
+        if (stack.isEmpty()) return
+
+        when {
+            // TOS requires unloading the old scene and replacing it with the new one
+            currentScene == old -> {
+                old.sceneUnloaded(DeactivationType.POPPED)
+                stack.removeLast()
+                activateScene(scene)
+                scene.resetTimer()
+            }
+            // just swap the references to the old scenes with the new one
+            previousScene == old -> {
+                previousScene = scene
+            }
+            else -> {
+                for (idx in 0 until stackSize) {
+                    if (stack[idx] == old) {
+                        stack[idx] = scene
+                    }
+                }
+            }
+        }
     }
 
     /**
@@ -36,7 +74,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
 
         val saveData = saveDir.resolve("seen.txt")
         val savedScenes = seenScenes.joinToString("\n")
-        Files.writeString(saveData, savedScenes)
+        Files.writeString(saveData, savedScenes, StandardOpenOption.TRUNCATE_EXISTING)
     }
 
     /**
@@ -47,7 +85,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
         val saveDir = dataDir.resolve("ss76/$namespace")
         Files.createDirectories(saveDir)
 
-        val saveData = saveDir.resolve("seen.dat")
+        val saveData = saveDir.resolve("seen.txt")
         if (!Files.exists(saveData)) return
         val scenes = Files.readString(saveData).split("\n")
         seenScenes.addAll(scenes)
@@ -60,10 +98,6 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
     public fun hasVisitedScene(scene: VirtualNovelScene): Boolean = hasVisitedScene(scene.id)
 
     // == Scene stack == //
-    private val stack = ArrayDeque<VirtualNovelScene>()
-
-    public val stackSize: Int get() = stack.size
-    public val currentScene: VirtualNovelScene get() = stack.last()
 
     private fun activateScene(scene: VirtualNovelScene) {
         seenScenes.add(scene.id)
@@ -129,6 +163,27 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter {
      */
     public fun getScene(scene: String): VirtualNovelScene {
         return registeredScenes[scene] ?: error("missing scene definition: $scene")
+    }
+
+    // == Saving == //
+    override fun write(buffer: BufferedSink) {
+        val scenes = stack.map { it.id }
+        buffer.writeInt(scenes.size)
+        for (scene in scenes) {
+            val encoded = scene.encodeUtf8()
+            val size = encoded.size
+            buffer.writeInt(size)
+            buffer.write(encoded)
+        }
+    }
+
+    override fun read(buffer: BufferedSource) {
+        val sceneCount = buffer.readInt()
+        for (idx in 0 until sceneCount) {
+            val size = buffer.readInt()
+            val sceneId = buffer.readUtf8(size.toLong())
+            pushScene(sceneId)
+        }
     }
 
     // == Debug == //

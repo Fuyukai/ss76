@@ -13,6 +13,17 @@ public typealias ButtonAction = (VirtualNovelScene) -> Unit
  * Manages the clickable buttons on a scene.
  */
 public class ButtonManager : KtxInputAdapter {
+    public companion object {
+        public val BACK_BUTTON: Button = Button("page-back") { it.pageBack() }
+        public val NEXT_BUTTON: Button = Button("page-next") { it.pageForward() }
+    }
+
+    public enum class ButtonType {
+        PUSH,
+        CHANGE,
+        OTHER,
+    }
+
     /**
      * A single button.
      */
@@ -21,6 +32,8 @@ public class ButtonManager : KtxInputAdapter {
         public val name: String,
         /** The linked scene ID of this button. */
         public val linkedId: String? = null,
+        /** The type of this button. Used only during saving and loading. */
+        public val buttonType: ButtonType = ButtonType.OTHER,
         /** The action to take on clicking this button. */
         public val action: (VirtualNovelScene) -> Unit
     )

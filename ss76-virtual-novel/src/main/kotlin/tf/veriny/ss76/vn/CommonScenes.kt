@@ -511,7 +511,7 @@ public object CommonScenes {
         }
     }
 
-    internal val FELL_DOWN_HEATH = createAndRegisterScene("https://www.youtube.com/watch?v=ilmX2IwAAw8") {
+    internal val FELL_DOWN_HEATH = createAndRegisterScene("common.fallen-down") {
         page {
             line(
                 "When you first started walking to school, you tried cutting across the heath " +

@@ -4,7 +4,7 @@ import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 public fun registerDemoNavigationScenes() {
     createAndRegisterScene("demo-meta-menu") {
-        /*page {
+        page {
             line("This is the Signalling System 76 demo menu.")
             newline()
 
@@ -15,12 +15,11 @@ public fun registerDemoNavigationScenes() {
             line("This scene allows jumping to predefined demo points.")
             newline()
 
-            line(":push:$4`01 >> Changelog :pop:")
+            pushSceneButton("demo-changelog", "Changelog")
+            newline()
 
-            /*link("demo-changelog", ">> Changelog", LinkNode.LinkType.BACK_BUTTON) {
-                SS76.sceneManager.pushScene("demo-changelog")
-            }*/
-        }*/
+            pushSceneButton("save-menu", "Checkpoint Menu")
+        }
 
         page {
             line("ROUTE ONE JUMP POINTS #1")
