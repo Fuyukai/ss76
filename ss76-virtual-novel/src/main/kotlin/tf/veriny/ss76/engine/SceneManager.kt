@@ -102,7 +102,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     private fun activateScene(scene: VirtualNovelScene) {
         seenScenes.add(scene.id)
         saveSeenScenes()
-        stack.add(scene)
+
         scene.sceneLoaded()
     }
 
@@ -116,6 +116,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
             previousScene = tos
         }
 
+        stack.add(scene)
         activateScene(scene)
     }
 
@@ -135,6 +136,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
         tos.sceneUnloaded(DeactivationType.POPPED)
         previousScene = tos
 
+        stack.add(scene)
         activateScene(scene)
     }
 
