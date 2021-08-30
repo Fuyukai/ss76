@@ -20,7 +20,7 @@ public class Record : UpdatableSceneWrapper("record") {
     }
 
     init {
-        edit(0) {
+        super.edit(0) {
             line("You think you're a @pink@funny @pink@guy, don't you?")
             newline()
 
