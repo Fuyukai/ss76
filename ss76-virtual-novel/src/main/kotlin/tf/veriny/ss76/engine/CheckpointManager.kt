@@ -1,6 +1,7 @@
 package tf.veriny.ss76.engine
 
 import dev.dirs.BaseDirectories
+import okio.ByteString.Companion.encodeUtf8
 import okio.buffer
 import okio.sink
 import okio.source
@@ -50,12 +51,14 @@ public class CheckpointManager(private val namespace: String) {
     private fun updateCheckpointScene() {
         checkpointScene.reset()
         checkpointScene.edit(0) {
-            line("@slate@Checkpoint @sky@Menu")
+            line("@slate@Checkpoint @slate@Menu")
             newline()
 
-            line("A checkpoint saves the current state of your reading on a particular route.")
-            line("When loading a checkpoint, the current scene and scene stack are restored.")
-            line("Thus, you can save anywhere, no matter how deep.")
+            line(
+                "A checkpoint saves the current state of your reading on a particular route. " +
+                "When loading a checkpoint, the current scene and scene stack are restored. " +
+                "Thus, you can save anywhere, no matter how deep."
+            )
             newline()
 
             for (idx in 0 until 5) {
@@ -73,6 +76,9 @@ public class CheckpointManager(private val namespace: String) {
                 checkpointScene.addButton(Button("load-$idx") { loadCheckpoint(idx) })
                 checkpointScene.addButton(Button("save-$idx") { saveCheckpoint(idx) })
             }
+
+            newline()
+            backButton()
         }
 
         checkpointScene.register()
@@ -91,10 +97,15 @@ public class CheckpointManager(private val namespace: String) {
             // version
             sink.writeInt(CHECKPOINT_VERSION)
 
+            // top text
+            val topText = SS76.topText.encodeUtf8()
+            sink.writeInt(topText.size)
+            sink.write(topText)
+
             // write scenes
             SS76.sceneManager.write(sink)
             // write record
-            // TODO: write record...
+            SS76.record.write(sink)
 
             sink.flush()
             sink.close()
@@ -115,8 +126,13 @@ public class CheckpointManager(private val namespace: String) {
             val version = source.readInt()
             check(version == CHECKPOINT_VERSION) { "invalid checkpoint version $version" }
 
+            // load top text
+            val ttSize = source.readInt()
+            val topText = source.readUtf8(ttSize.toLong())
+            SS76.setTopText(topText)
+
             SS76.sceneManager.read(source)
-            // load record (TODO)
+            SS76.record.read(source)
         }
 
         // pop the checkpoint scene off

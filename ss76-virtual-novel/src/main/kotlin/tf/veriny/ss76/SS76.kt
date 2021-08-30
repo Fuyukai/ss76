@@ -24,10 +24,7 @@ import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
 import ktx.freetype.generateFont
-import tf.veriny.ss76.engine.ButtonManager
-import tf.veriny.ss76.engine.CheckpointManager
-import tf.veriny.ss76.engine.FontManager
-import tf.veriny.ss76.engine.SceneManager
+import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
@@ -83,6 +80,7 @@ public object SS76 : KtxApplicationAdapter {
     // == Scene stuff == //
     public val sceneManager: SceneManager = SceneManager("signalling-system-76")
     public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76")
+    public val record: Record = Record()
     public val buttonManager: ButtonManager = ButtonManager()
 
     // == Input == //
@@ -112,7 +110,8 @@ public object SS76 : KtxApplicationAdapter {
     })
 
     // == Top text == //
-    private var topText: String = "SIGNALLING SYSTEM 76"
+    public var topText: String = "SIGNALLING SYSTEM 76"
+        private set
     private var topWidth: Float = 0f
 
     private fun recalcTopText() {

@@ -16,7 +16,7 @@ import tf.veriny.ss76.engine.scene.splitScene
  *
  * A dynamic scene is saveable. A dynamic scene cannot use onLoad handlers due to this.
  */
-public class UpdatableSceneWrapper(
+public open class UpdatableSceneWrapper(
     public val sceneId: String
 ) : Saveable {
     private val buttons = mutableMapOf<String, ButtonManager.Button>()
@@ -75,7 +75,7 @@ public class UpdatableSceneWrapper(
     /**
      * Edits the specified page by index.
      */
-    public fun edit(page: Int, block: PageBuilder.() -> Unit) {
+    public open fun edit(page: Int, block: PageBuilder.() -> Unit) {
         val sb = pages[page]
         val builder = PageBuilder(sb, buttons)
         builder.block()
@@ -137,6 +137,7 @@ public class UpdatableSceneWrapper(
             buffer.write(encoded)
         }
 
+        buffer.writeByte(buttons.size)
         for ((name, button) in buttons) {
             val type = button.buttonType.ordinal
             buffer.writeInt(type)

@@ -16,6 +16,17 @@ public class ButtonManager : KtxInputAdapter {
     public companion object {
         public val BACK_BUTTON: Button = Button("page-back") { it.pageBack() }
         public val NEXT_BUTTON: Button = Button("page-next") { it.pageForward() }
+
+        public val RECORD_BUTTON: Button = Button("record") {
+            SS76.record.markOpened()
+            if (SS76.sceneManager.currentScene.id == "record") SS76.sceneManager.exitScene()
+            else SS76.sceneManager.pushScene("record")
+        }
+
+        public val CHECKPOINT_BUTTON: Button = Button("save-menu") {
+            if (SS76.sceneManager.currentScene.id == "save-menu") SS76.sceneManager.exitScene()
+            else SS76.sceneManager.pushScene("save-menu")
+        }
     }
 
     public enum class ButtonType {
@@ -40,7 +51,7 @@ public class ButtonManager : KtxInputAdapter {
 
     // mapping of button -> rectangle of possible locations on screen.
     // used when moving the mouse or clicking it
-    private val buttonRects = mutableMapOf<Button, MutableSet<Rectangle>>()
+    public val buttonRects: MutableMap<Button, MutableSet<Rectangle>> = mutableMapOf()
 
     public fun addClickableArea(button: Button, rect: Rectangle) {
         var set = buttonRects[button]

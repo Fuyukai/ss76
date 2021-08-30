@@ -42,6 +42,9 @@ public class PreparedSceneDefinition(
     override val buttons: Map<String, ButtonManager.Button> = buttons.toMutableMap().apply {
         put("page-next", ButtonManager.NEXT_BUTTON)
         put("page-back", ButtonManager.BACK_BUTTON)
+
+        put("record", ButtonManager.RECORD_BUTTON)
+        put("checkpoint", ButtonManager.CHECKPOINT_BUTTON)
     }
 
     override val pageCount: Int

@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.ButtonManager
 import tf.veriny.ss76.engine.DeactivationType
 import tf.veriny.ss76.use
 import kotlin.math.ceil
@@ -19,6 +20,10 @@ import kotlin.random.Random
 public class VirtualNovelScene(
     public val definition: VirtualNovelSceneDefinition
 ) {
+    private companion object {
+        private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
+    }
+
     public val id: String get() = definition.id
 
     private val padding: Float
@@ -86,7 +91,8 @@ public class VirtualNovelScene(
         word: String,
         colour: Color,
         effects: Set<TextualNode.Effect> = setOf(),
-        calcRectangle: Boolean = false
+        calcRectangle: Boolean = false,
+        backwardsOffset: Boolean = false,
     ): Rectangle? {
         //println(SS76.fontManager.currentFont.fonts.entries)
         val font = SS76.fontManager.currentFont.fonts[colour] ?: error("unknown colour $colour")
@@ -110,7 +116,12 @@ public class VirtualNovelScene(
                 glyphLayout.width, glyphLayout.height
             )
         } else null
-        currentXOffset += glyphLayout.width
+
+        if (backwardsOffset) {
+            currentXOffset -= glyphLayout.width
+        } else {
+            currentXOffset += glyphLayout.width
+        }
 
         return rect
     }
@@ -221,6 +232,8 @@ public class VirtualNovelScene(
         currentXOffset = 0f
         currentYOffset = 0f
 
+        var border = if (SS76.isBabyScreen) 47f else 75f
+
         // Step 1) Render the black box.
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
             if (SS76.isBabyScreen) {
@@ -234,6 +247,18 @@ public class VirtualNovelScene(
                     Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
                 )
             }
+
+            /*// draw little backgrounds on the clickables
+            // they extend (spaceWidth / 2) outside to "join" them
+            val width = SS76.fontManager.characterWidth
+            for ((button, rects) in SS76.buttonManager.buttonRects) {
+                for (r in rects) {
+                    rect(
+                        r.x - (width/2), r.y - 4f, r.width + width, r.height + 4f,
+                        BACKGROUND_BG, BACKGROUND_BG, BACKGROUND_BG, BACKGROUND_BG
+                    )
+                }
+            }*/
         }
 
         // Step 2) Load the data for the scene definition.
@@ -272,8 +297,35 @@ public class VirtualNovelScene(
                 }
             }
 
-            // 3c) Draw clickables at the bottom.
+            // 3c) Draw clickables anchored to the top right.
+            // evil code!
+            val isUpdated = SS76.record.updated
+            if (isUpdated) {
+                glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / ! Record")
+            } else {
+                glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
+            }
+            currentYOffset = -glyphLayout.height * 2
+            currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
 
+            val width = SS76.fontManager.characterWidth
+            run {
+                val colour = when {
+                    !SS76.record.updated || timer.rem(60) < 30 -> Color.GREEN
+                    timer.rem(60) >= 30 -> Color.RED
+                    else -> error("unreachable")
+                }
+                val text = if (isUpdated) "! Record" else "Record"
+                val rect = renderWordRaw(text, colour, calcRectangle = true)
+                SS76.buttonManager.addClickableArea(ButtonManager.RECORD_BUTTON, rect!!)
+            }
+            currentXOffset += width
+            renderWordRaw("/", Color.WHITE, backwardsOffset = false)
+            currentXOffset += width
+            run {
+                val rect = renderWordRaw("Checkpoint", Color.GREEN, calcRectangle = true)
+                SS76.buttonManager.addClickableArea(ButtonManager.CHECKPOINT_BUTTON, rect!!)
+            }
         }
 
         timer++
