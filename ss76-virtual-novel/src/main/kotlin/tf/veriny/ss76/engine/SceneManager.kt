@@ -19,7 +19,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     }
 
     private val seenScenes /*on the sea shore*/= mutableSetOf<String>()
-    private val registeredScenes = mutableMapOf<String, VirtualNovelScene>()
+    public val registeredScenes: MutableMap<String, VirtualNovelScene> = mutableMapOf()
     public val sceneCount: Int get() = registeredScenes.size
 
     private val stack = ArrayDeque<VirtualNovelScene>()
@@ -72,7 +72,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
      */
     public fun saveSeenScenes() {
         val dataDir = CheckpointManager.BASE_DIR
-        val saveDir = dataDir.resolve("ss76/$namespace")
+        val saveDir = dataDir.resolve(namespace)
         Files.createDirectories(saveDir)
 
         val saveData = saveDir.resolve("seen.txt")

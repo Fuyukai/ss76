@@ -1,7 +1,6 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
-import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 
@@ -9,9 +8,7 @@ import tf.veriny.ss76.vn.CommonScenes
 
 public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-start") {
-        onLoad {
-            SS76.setTopText("SS76 - Route One - 03/07")
-        }
+        topText = "SS76 - Route One - 03/07"
 
         page {
             line("Today's date is Monday, the 3rd of July.")
@@ -246,9 +243,6 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-    // Uh oh! You're delayed. On the Sussex route, he agrees, and ends up late.
-    // On the Kent/Suffolk route, he tells the guy to fuck off and keeeps going.
-    // This is nothing but a diversion so he can't delete the log before Alex gets in.
     createAndRegisterScene("sussex-july-3-school-5") {
         page {
             dline(
@@ -286,6 +280,7 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
+    // todo clear contradiction
     createAndRegisterScene("sussex-july-3-school-6") {
         page {
             line(
@@ -860,10 +855,8 @@ public fun registerSussexJuly3Scenes() {
     }
 
     createAndRegisterScene("sussex-july-3-school-i2-3") {
-        onLoad {
-            SS76.clearScreenColor = Color.SLATE
-            SS76.setTopText("SIGNALLING SYSTEM 76")
-        }
+        clearScreenColour = Color.SLATE
+        topText = "SIGNALLING SYSTEM 76"
 
         page {
             dline("ALEX: Okay! Here we go!")
@@ -959,10 +952,8 @@ public fun registerSussexJuly3Scenes() {
     }
 
     createAndRegisterScene("sussex-july-3-school-i2-8") {
-        onLoad {
-            SS76.clearScreenColor = Color.BLUE
-            SS76.setTopText("SS76 - 03/07")
-        }
+        clearScreenColour = Color.BLUE
+        topText = "SS76 - 03/07"
 
         page {
             line("Char stares at them for a minute. Then she speaks her heart.")

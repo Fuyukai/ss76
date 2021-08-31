@@ -1,5 +1,7 @@
 package tf.veriny.ss76.engine.scene
 
+import com.badlogic.gdx.graphics.Color
+import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
 
 public typealias onLoad = (VirtualNovelScene) -> Unit
@@ -33,18 +35,34 @@ public interface VirtualNovelSceneDefinition {
 /**
  * A scene definition that has already been prepared. This is useful for non-dynamic scenes.
  */
-public class PreparedSceneDefinition(
+public class BasicSceneDefinition(
     override val id: String,
-    override val onLoadHandlers: List<onLoad>,
-    buttons: Map<String, ButtonManager.Button>,
-    private val pages: List<List<TextualNode>>
+    public val originalButtons: Map<String, ButtonManager.Button>,
+    private val pages: List<List<TextualNode>>,
+    public val clearScreenColour: Color? = null,
+    public val changedTopText: String? = null,
+    onLoadHandlers: List<onLoad> = listOf()
 ) : VirtualNovelSceneDefinition {
-    override val buttons: Map<String, ButtonManager.Button> = buttons.toMutableMap().apply {
+    override val buttons: Map<String, ButtonManager.Button> = originalButtons.toMutableMap().apply {
         put("page-next", ButtonManager.NEXT_BUTTON)
         put("page-back", ButtonManager.BACK_BUTTON)
 
         put("record", ButtonManager.GLOBAL_BACK_BUTTON)
         put("checkpoint", ButtonManager.CHECKPOINT_BUTTON)
+    }
+
+    /** If this definition has custom onLoad handlers. */
+    public val hasCustomOnLoad: Boolean = onLoadHandlers.isNotEmpty()
+
+    @OptIn(ExperimentalStdlibApi::class)
+    override val onLoadHandlers: List<onLoad> = buildList<onLoad> {
+        addAll(onLoadHandlers)
+        if (clearScreenColour != null) {
+            add { SS76.clearScreenColor = clearScreenColour }
+        }
+        if (changedTopText != null) {
+            add { SS76.setTopText(changedTopText) }
+        }
     }
 
     override val pageCount: Int

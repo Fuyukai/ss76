@@ -5,8 +5,8 @@ import okio.BufferedSource
 import okio.ByteString.Companion.EMPTY
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.scene.BasicSceneDefinition
 import tf.veriny.ss76.engine.scene.PageBuilder
-import tf.veriny.ss76.engine.scene.PreparedSceneDefinition
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import tf.veriny.ss76.engine.scene.splitScene
 
@@ -27,8 +27,8 @@ public open class UpdatableSceneWrapper(
     public fun register() {
         val parsedPages = pages.map { splitScene(it.toString()) }
 
-        val definition = PreparedSceneDefinition(
-            sceneId, listOf(), buttons, parsedPages
+        val definition = BasicSceneDefinition(
+            sceneId, buttons, parsedPages
         )
         val scene = VirtualNovelScene(definition)
         SS76.sceneManager.reregisterScene(scene)

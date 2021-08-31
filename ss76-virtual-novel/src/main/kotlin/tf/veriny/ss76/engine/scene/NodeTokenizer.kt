@@ -222,6 +222,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
             if (overflowed) {
                 val last = nodes.lastOrNull()
                 last?.causesNewline = true
+                last?.causesSpace = false
                 currentLineLength = word.length + 1
             } else {
                 currentLineLength = nextLength
@@ -231,6 +232,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
             val node = TextualNode(
                 token.text, startFrame = start, endFrame = end,
                 causesNewline = token.hasNewline,
+                causesSpace = !token.hasNewline,
                 buttonId = token.buttonName,
                 effects = parsedEffects
             )
@@ -254,7 +256,8 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
         }
 
         val newlineNode = TextualNode(
-            "", startFrame = frameCounter, endFrame = frameCounter, causesNewline = true
+            "", startFrame = frameCounter, endFrame = frameCounter, causesNewline = true,
+            causesSpace = false,
         )
         nodes.add(newlineNode)
     }

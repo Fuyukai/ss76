@@ -53,7 +53,7 @@ public data class TextualNode(
 
         if (effects.isNotEmpty()) {
             builder.append('¬')
-            effects.forEach { builder.append(it.name) }
+            builder.append(effects.joinToString(",") { it.name })
             builder.append('¬')
         }
 
@@ -66,6 +66,7 @@ public data class TextualNode(
         builder.append(text)
 
         if (causesNewline) builder.append('\n')
+        if (causesSpace) builder.append(" ")
 
         return builder.toString()
     }

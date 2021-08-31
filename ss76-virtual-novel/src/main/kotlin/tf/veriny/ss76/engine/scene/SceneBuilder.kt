@@ -1,5 +1,6 @@
 package tf.veriny.ss76.engine.scene
 
+import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonAction
 import tf.veriny.ss76.engine.ButtonManager
@@ -74,7 +75,7 @@ public class PageBuilder(
     public fun changeSceneButton(sceneId: String, text: String) {
         ensureBlankChar()
         val buttonName = "change-scene-$sceneId"
-        val realText = ":push:@salmon@`$buttonName` $text :pop:"
+        val realText = ":push:@salmon@`$buttonName` $text :pop: "
 
         line(realText, addNewline = false)
         addButton(buttonName, linkedScene = sceneId, type = ButtonManager.ButtonType.CHANGE) {
@@ -88,7 +89,7 @@ public class PageBuilder(
     public fun pushSceneButton(sceneId: String, text: String) {
         ensureBlankChar()
         val buttonName = "push-scene-$sceneId"
-        val realText = ":push:@linked@`push-scene-$sceneId` $text :pop:"
+        val realText = ":push:@linked@`push-scene-$sceneId` $text :pop: "
         line(realText, addNewline = false)
 
         addButton(buttonName, linkedScene = sceneId, type = ButtonManager.ButtonType.PUSH) {
@@ -100,7 +101,7 @@ public class PageBuilder(
      * Adds a green back button.
      */
     public fun backButton(text: String = "« Back") {
-        val realText = ":push:@green@`back-button` $text :pop:"
+        val realText = ":push:@green@`back-button` $text :pop: "
         line(realText)
 
         addButton("back-button") {
@@ -118,7 +119,11 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     private val buttons: MutableMap<String, ButtonManager.Button> = mutableMapOf()
     private val onLoadHandlers: MutableList<(VirtualNovelScene) -> Unit> = mutableListOf()
 
-    private var buttonCounter = 0
+    /** The colour to clear the screen on loading. */
+    public var clearScreenColour: Color? = null
+
+    /** The top text to change to on loading. */
+    public var topText: String? = null
 
     /**
      * Registers a function to be ran on load.
@@ -152,15 +157,16 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     /**
      * Creates the scene definition for this builder.
      */
-    public fun createDefinition(): VirtualNovelSceneDefinition {
+    public fun createDefinition(): BasicSceneDefinition {
         val pages = mutableListOf<List<TextualNode>>()
         for (page in this.pages) {
             val nodes = createDefinitionFromPage(page)
             pages.add(nodes)
         }
 
-        return PreparedSceneDefinition(
-            sceneId, onLoadHandlers, buttons, pages
+        return BasicSceneDefinition(
+            sceneId, buttons, pages,
+            clearScreenColour = clearScreenColour, changedTopText = topText
         )
     }
 }

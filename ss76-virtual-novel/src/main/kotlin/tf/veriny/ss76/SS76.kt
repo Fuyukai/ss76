@@ -47,7 +47,8 @@ public object SS76 : KtxApplicationAdapter {
     )
 
     private const val LURA_DEMO_BUILD = false
-    public const val LURA_VERSION: String = "0.7"
+    // used for saving scene data
+    public const val LURA_VERSION: Int = 7
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -85,6 +86,7 @@ public object SS76 : KtxApplicationAdapter {
     public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76")
     public val record: Record = Record()
     public val buttonManager: ButtonManager = ButtonManager()
+    private val sceneSaver = SS76BuildUpdateManager()
 
     // == Input == //
     private val input = InputMultiplexer(object : KtxInputAdapter {
@@ -164,8 +166,6 @@ public object SS76 : KtxApplicationAdapter {
 
         val registerTime = measureTime {
             try {
-                CommonScenes.register()
-
                 // == DEMO == //
                 registerDemoUIScene()
                 registerDemoNavigationScenes()
@@ -175,12 +175,22 @@ public object SS76 : KtxApplicationAdapter {
                 //registerButtonDemos()
                 registerMiscScenes()
 
-                // == SUSSEX ROUTE == //
-                registerSussexJuly3Scenes()
-                registerSussexJuly4Scenes()
+                // restore saved scenes, if needed
+                val loaded = sceneSaver.loadScenes()
+                if (!loaded) {
+                    CommonScenes.register()
 
-                registerSidePlotAlexRadio()
+                    // == SUSSEX ROUTE == //
+                    registerSussexJuly3Scenes()
+                    registerSussexJuly4Scenes()
+
+                    registerSidePlotAlexRadio()
+
+                    sceneSaver.saveScenes()
+                }
+
             } catch (e: Exception) {
+                if (!isInsideJar()) throw e
                 lastError = e
             }
         }

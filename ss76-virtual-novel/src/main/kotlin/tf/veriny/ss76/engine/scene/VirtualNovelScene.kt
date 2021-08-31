@@ -18,7 +18,7 @@ import kotlin.random.Random
  * A virtual novel scene, with text.
  */
 public class VirtualNovelScene(
-    public val definition: VirtualNovelSceneDefinition
+    public val definition: BasicSceneDefinition,
 ) {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)

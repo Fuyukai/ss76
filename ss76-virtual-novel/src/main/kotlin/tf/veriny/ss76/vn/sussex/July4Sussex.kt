@@ -1,16 +1,13 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
-import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 import kotlin.random.Random
 
 public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-start") {
-        onLoad {
-            SS76.setTopText("SS76 - Route One - 04/07")
-        }
+        topText = "SS76 - Route One - 04/07"
 
         page {
             line("Today's date is Tuesday, the 4th of July.")
@@ -88,7 +85,7 @@ public fun registerSussexJuly4Scenes() {
     }
 
     // todo: call back to this.
-    createAndRegisterScene("i-hate-gorse") {
+    val gorse = createAndRegisterScene("sussex-i-hate-gorse") {
         page {
             line("Ulex europaeus. Bastard plant.")
             newline()
@@ -124,7 +121,7 @@ public fun registerSussexJuly4Scenes() {
             newline()
 
             line("The sides are blocked by those annoying", addNewline = false)
-            pushSceneButton("i-hate-gorse", "spiny shrubs,")
+            pushSceneButton(gorse.id, "spiny shrubs,")
             line("so going\naround the puddles isn't an option.")
             newline()
 
@@ -276,7 +273,7 @@ public fun registerSussexJuly4Scenes() {
 
     // call forward to the monologue about charlotte's cat in ending #2
     // future me: make sure to write that. you know what we mean
-    val cars = createAndRegisterScene("i-hate-cars") {
+    val cars = createAndRegisterScene("sussex-i-hate-cars") {
         page {
             line(
                 "Cars are terrible, evil things. If one was religious, they could say that " +
@@ -473,9 +470,7 @@ public fun registerSussexJuly4Scenes() {
     }
 
     createAndRegisterScene("sussex-july-4-school-4") {
-        onLoad {
-            SS76.clearScreenColor = Color.PURPLE
-        }
+        clearScreenColour = Color.PURPLE
 
         page {
             line(
@@ -541,9 +536,7 @@ public fun registerSussexJuly4Scenes() {
     }
 
     createAndRegisterScene("sussex-july-4-school-6") {
-        onLoad {
-            SS76.clearScreenColor = Color.BLUE
-        }
+        clearScreenColour = Color.BLUE
 
         page {
             dline("CATE: I think it is very lovely that Jessica is helping us out with our " +
@@ -954,10 +947,8 @@ public fun registerSussexJuly4Scenes() {
     }
 
     createAndRegisterScene("sussex-july-4-deduction-1") {
-        onLoad {
-            SS76.clearScreenColor = Color.SLATE
-            SS76.setTopText("SIGNALLING SYSTEM 76")
-        }
+        topText = "SIGNALLING SYSTEM 76"
+        clearScreenColour = Color.SLATE
 
         page {
             dline("ALEX: Okay! Here we go!")
@@ -1158,12 +1149,8 @@ public fun registerSussexJuly4Scenes() {
             )
 
             line(
-                "Cate gives a warm smile. Jess looks way, embarrassed. Serves her right for " +
+                "Cate gives a warm smile. Jess looks away, embarrassed. Serves her right for " +
                 "interrupting."
-            )
-
-            dline(
-                "CATE: As I was saying, listening to the recording over "
             )
 
             dline(
@@ -1347,10 +1334,8 @@ public fun registerSussexJuly4Scenes() {
     }
 
     createAndRegisterScene("sussex-july-4-school-y-1") {
-        onLoad {
-            SS76.setTopText("SS76 - Route One - 04/07")
-            SS76.clearScreenColor = Color.BLUE
-        }
+        topText = "SS76 - Route One - 04/07"
+        clearScreenColour = Color.BLUE
 
         page {
             dline(
