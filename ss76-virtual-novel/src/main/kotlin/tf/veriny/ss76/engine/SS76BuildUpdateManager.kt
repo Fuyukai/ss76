@@ -44,10 +44,10 @@ public class SS76BuildUpdateManager {
             }
 
             val version = buffer.readInt()
-            /*if (version <= SS76.LURA_VERSION) {
+            if (version <= SS76.LURA_VERSION) {
                 println("Detected old/same scenes bundle: $version")
                 return false
-            }*/
+            }
 
             val sceneCount = buffer.readInt()
             println("Loading $sceneCount scenes from scene bundle")

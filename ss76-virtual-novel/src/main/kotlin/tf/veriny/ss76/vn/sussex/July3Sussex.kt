@@ -1009,33 +1009,49 @@ public fun registerSussexJuly3Scenes() {
 
             dline(
                 "ALEX: Miss Charlotte, one of the maids said she found this yesterday, posted " +
-                "through the letterbox. It had a note, saying that you should read it."
+                "through the letterbox. It had a note, saying that you see it too once I've read it."
             )
 
             dline("CHAR: Give me that.")
 
-            line("Char yanks the letter out of his hand, and", addNewline = false)
-            changeSceneButton("sussex-july-3-school-24", "starts reading it.")
+            line("Char yanks the letter out of his hand, and starts reading it.")
+            newline()
+
+            changeSceneButton("sussex-july-3-school-24", "You try and get a peek in.")
         }
     }
 
     createAndRegisterScene("sussex-july-3-school-24") {
         page {
-            line("Char reads the letter intensely.")
+            line("To Alex,")
             newline()
 
-            line("You can't see it.")
-            line("It's right there.")
-            line("But you can't see it.")
-            line("Your head hurts when you look at it.")
-            line("It's right there, and you can see it.")
-            line("It's not there. The letter isn't there anymore.")
-            line("You try looking back at it, but it doesn't work.")
-            line("You turn away from it, but you don't remember doing so.")
-            line("You can't see it. It doesn't work, when you try and see it.")
-            changeSceneButton("sussex-july-3-school-25", "You didn't see it.")
+            line(":push:¬shuftxt¬ Parody of Red Dwarf 'Backwards'")
+            line("You are a stupid, overeager little rat, aren't you, eh?")
+            newline()
+
+            line("I'm pointing at you, I'm pointing at you, but I'm not actually addressing you, " +
+                 "I'm addressing the one prat in the country who's bothered to decompile the " +
+                 "scene code, take a read and actually work out the rubbish that I'm saying. " +
+                 "What a poor, sad life he's got!"
+            )
+            newline()
+
+            line(
+                "Frankly, your dialogue is crap anyway, anybody coulda done it, I hate the lot of you, " +
+                "bollocks to you! :pop: "
+            )
+
+            line("Yours, a concerned onlooker.")
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-25",
+                "The letters seem to jump around the page as you glimpse it."
+            )
         }
     }
+
 
     createAndRegisterScene("sussex-july-3-school-25") {
         page {
