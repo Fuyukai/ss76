@@ -1,7 +1,6 @@
 package tf.veriny.ss76.engine
 
 import com.badlogic.gdx.Input
-import dev.dirs.BaseDirectories
 import ktx.app.KtxInputAdapter
 import okio.BufferedSink
 import okio.BufferedSource
@@ -72,20 +71,20 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
      * Saves the previously seen scenes.
      */
     public fun saveSeenScenes() {
-        val dataDir = Path.of(BaseDirectories.get().dataDir)
+        val dataDir = CheckpointManager.BASE_DIR
         val saveDir = dataDir.resolve("ss76/$namespace")
         Files.createDirectories(saveDir)
 
         val saveData = saveDir.resolve("seen.txt")
         val savedScenes = seenScenes.joinToString("\n")
-        Files.writeString(saveData, savedScenes, TRUNCATE_EXISTING)
+        Files.writeString(saveData, savedScenes, CREATE, TRUNCATE_EXISTING)
     }
 
     /**
      * Loads the previous seen scenes.
      */
     public fun loadSeenScenes() {
-        val dataDir = Path.of(BaseDirectories.get().dataDir)
+        val dataDir = CheckpointManager.BASE_DIR
         val saveDir = dataDir.resolve("ss76/$namespace")
         Files.createDirectories(saveDir)
 

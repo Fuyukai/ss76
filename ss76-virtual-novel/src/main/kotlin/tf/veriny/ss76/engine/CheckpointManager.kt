@@ -23,7 +23,18 @@ import kotlin.io.path.getLastModifiedTime
  */
 public class CheckpointManager(private val namespace: String) {
     public companion object {
-        public val BASE_DIR: Path = Path.of(BaseDirectories.get().dataDir).resolve("ss76")
+        public val BASE_DIR: Path
+        init {
+            val bb = BaseDirectories.get().dataDir
+            if (bb == null) {
+                // windows shit...
+                val dir = Path.of(System.getenv("APPDATA"))
+                BASE_DIR = dir.resolve("ss76")
+            } else {
+                BASE_DIR = Path.of(bb).resolve("ss76")
+            }
+        }
+
         private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")
 
         public const val CHECKPOINT_VERSION: Int = 1
