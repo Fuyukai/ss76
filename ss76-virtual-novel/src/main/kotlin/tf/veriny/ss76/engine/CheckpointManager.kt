@@ -97,6 +97,12 @@ public class CheckpointManager(private val namespace: String) {
             // version
             sink.writeInt(CHECKPOINT_VERSION)
 
+            // top colours
+            sink.writeInt(SS76.clearScreenColor.r.toRawBits())
+            sink.writeInt(SS76.clearScreenColor.g.toRawBits())
+            sink.writeInt(SS76.clearScreenColor.b.toRawBits())
+            sink.writeInt(SS76.clearScreenColor.a.toRawBits())
+
             // top text
             val topText = SS76.topText.encodeUtf8()
             sink.writeInt(topText.size)
@@ -125,6 +131,11 @@ public class CheckpointManager(private val namespace: String) {
             check(source.readUtf8(4L) == "SS76") { "checkpoint file missing magic" }
             val version = source.readInt()
             check(version == CHECKPOINT_VERSION) { "invalid checkpoint version $version" }
+
+            SS76.clearScreenColor.r = Float.fromBits(source.readInt())
+            SS76.clearScreenColor.g = Float.fromBits(source.readInt())
+            SS76.clearScreenColor.b = Float.fromBits(source.readInt())
+            SS76.clearScreenColor.a = Float.fromBits(source.readInt())
 
             // load top text
             val ttSize = source.readInt()
