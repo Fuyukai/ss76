@@ -19,6 +19,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("save-menu", "Checkpoint Menu")
+            newline()
+
+            pushSceneButton("credits-menu", "Credits")
         }
 
         page {

@@ -43,7 +43,7 @@ public class PreparedSceneDefinition(
         put("page-next", ButtonManager.NEXT_BUTTON)
         put("page-back", ButtonManager.BACK_BUTTON)
 
-        put("record", ButtonManager.RECORD_BUTTON)
+        put("record", ButtonManager.GLOBAL_BACK_BUTTON)
         put("checkpoint", ButtonManager.CHECKPOINT_BUTTON)
     }
 

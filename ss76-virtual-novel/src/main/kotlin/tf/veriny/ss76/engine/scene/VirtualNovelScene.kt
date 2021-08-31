@@ -324,25 +324,27 @@ public class VirtualNovelScene(
 
             // 3c) Draw clickables anchored to the top right.
             // evil code!
-            val isUpdated = SS76.record.updated
+            val width = SS76.fontManager.characterWidth
+            glyphLayout.setText(SS76.fontManager.currentFont.white, "Back / Checkpoint")
+
+            /*val isUpdated = SS76.record.updated
             if (isUpdated) {
                 glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / ! Record")
             } else {
                 glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
-            }
+            }*/
             currentYOffset = -glyphLayout.height * 2
             currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
 
-            val width = SS76.fontManager.characterWidth
             run {
                 val colour = when {
                     !SS76.record.updated || timer.rem(60) < 30 -> Color.GREEN
                     timer.rem(60) >= 30 -> Color.RED
                     else -> error("unreachable")
                 }
-                val text = if (isUpdated) "! Record" else "Record"
+                val text = "Back"
                 val rect = renderWordRaw(text, colour, calcRectangle = true)
-                SS76.buttonManager.addClickableArea(ButtonManager.RECORD_BUTTON, rect!!)
+                SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
             }
             currentXOffset += width
             renderWordRaw("/", Color.WHITE, backwardsOffset = false)

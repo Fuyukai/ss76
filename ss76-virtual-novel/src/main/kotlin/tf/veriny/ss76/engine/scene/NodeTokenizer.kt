@@ -216,7 +216,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
 
             // update previous node, if needed
             val overflowed =
-                (isDialogue && nextLength >= (rightMargin - 7)) ||
+                //(isDialogue && nextLength >= (rightMargin - 7)) ||
                 (nextLength >= rightMargin)
 
             if (overflowed) {

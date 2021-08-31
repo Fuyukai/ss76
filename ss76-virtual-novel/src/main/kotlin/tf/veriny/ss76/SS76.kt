@@ -52,6 +52,7 @@ public object SS76 : KtxApplicationAdapter {
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
 
+    public val IS_DEBUG: Boolean = System.getProperty("debug", "false").toBooleanStrict()
 
     /** If this is a smaller screen size. */
     public val isBabyScreen: Boolean by lazy {
@@ -185,7 +186,9 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         // debug
-        // sceneManager.writeAllSceneData()
+        if (IS_DEBUG) {
+            sceneManager.writeAllSceneData()
+        }
 
         println("Registered ${sceneManager.sceneCount} scenes in $registerTime.")
 
@@ -255,22 +258,25 @@ public object SS76 : KtxApplicationAdapter {
         batch.use {
             drawTopMessage()
 
-            if (isBabyScreen) {
-                fontManager.currentFont.white.draw(batch,
-                    "Scene ID: ${sceneManager.currentScene.id}",
-                    15f,
-                    20f
-                )
-            } else {
-                fontManager.currentFont.white.draw(batch,
-                    "Scene ID: ${sceneManager.currentScene.id}",
-                    15f,
-                    50f
-                )
+            if (IS_DEBUG) {
+                if (isBabyScreen) {
+                    fontManager.currentFont.white.draw(batch,
+                        "Scene ID: ${sceneManager.currentScene.id}",
+                        15f,
+                        20f
+                    )
+                } else {
+                    fontManager.currentFont.white.draw(batch,
+                        "Scene ID: ${sceneManager.currentScene.id}",
+                        15f,
+                        50f
+                    )
+                }
             }
 
-            demoRenderer.render()
-            //buttonRenderer.render()
+            if (IS_DEMO) {
+                demoRenderer.render()
+            }
         }
 
         //WHITE_FONT.draw(batch, "counter: $counter", 120f, 960 - 100f)

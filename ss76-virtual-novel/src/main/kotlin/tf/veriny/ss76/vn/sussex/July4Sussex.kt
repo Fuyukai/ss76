@@ -9,7 +9,7 @@ import kotlin.random.Random
 public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-start") {
         onLoad {
-            SS76.setTopText("SS76 - Route One - 03/07")
+            SS76.setTopText("SS76 - Route One - 04/07")
         }
 
         page {
@@ -676,7 +676,7 @@ public fun registerSussexJuly4Scenes() {
 
     createAndRegisterScene("sussex-july-4-school-11") {
         page {
-            line("????: ¬shake¬YOU!")
+            line("????: ¬shake¬AHEM!")
             newline()
 
             line("The desiccated voice of an old man booms out.")
@@ -687,31 +687,27 @@ public fun registerSussexJuly4Scenes() {
                 "but you have decided to interrupt my other lessons too!"
             )
 
-            line("Char quickly recovers to her feet.")
+            line("Char quickly recovers to her feet and storms out, mumbling something")
             newline()
 
             dline(
-                "CHAR: Fuck off you old bastard. You're shit at teaching. I've memorised " +
-                "every part of this course by myself. I don't need to attend your boring lessons."
+                "????: Where do you think you're going young lady!? I'm going to have a word " +
+                "with your student manager!"
             )
 
-            dline(
-                "????: How dare you talk to me like that! The student manager will be hearing " +
-                "about this!"
+            changeSceneButton("sussex-july-4-school-12",
+                "Char slams the door shut and you are dragged away once again."
             )
-
-            line("CHAR:", addNewline = false)
-            changeSceneButton("sussex-july-4-school-12", "I doubt it.")
         }
     }
 
     createAndRegisterScene("sussex-july-4-school-12") {
         page {
-            line("Char slams the door shut and you are dragged away once again.")
+            line("Char stopped attending most of her lessons this year, just like you.")
             newline()
 
             line(
-                "Char is really smart both academically and generally. She takes " +
+                "She doesn't need to. Char is really smart both academically and generally. She takes " +
                 "four",
             )
             pushSceneButton(CommonScenes.A_LEVELS_SCENE.id, "A-levels,")
@@ -720,7 +716,7 @@ public fun registerSussexJuly4Scenes() {
 
             line(
                 "She aced the mocks this year, too, so she's bound to get into any university " +
-                "of her choice, although Char doesn't seem to care much "
+                "of her choice, although Char doesn't seem to care much about that."
             )
 
             line(
@@ -753,7 +749,10 @@ public fun registerSussexJuly4Scenes() {
 
             dline("CHAR: I can't go back there now. We'll just have to wait.")
 
-            line("Char slides down the wall. You fall over.")
+            line(
+                "Char slides down the wall. You fall over, and she releases you from her safe " +
+                "and steady grip."
+            )
             newline()
 
             line("She pulls out her phone and starts reading something. You sit there.")
@@ -803,7 +802,8 @@ public fun registerSussexJuly4Scenes() {
             )
 
             line(
-                "Char rises up from the floor. She snaps back into her usual demeanor immediately"
+                "Char rises up from the floor. She snaps back into her usual demeanor " +
+                "immediately."
             )
             newline()
 
@@ -830,7 +830,7 @@ public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-school-16") {
         page {
             line(
-                "You resume sliding down the corridor. At this rate, your ugly little shirt " +
+                "You are once again being dragged down the corridor. At this rate, your ugly little shirt " +
                 "will have no collar left."
             )
             newline()
@@ -956,6 +956,7 @@ public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-deduction-1") {
         onLoad {
             SS76.clearScreenColor = Color.SLATE
+            SS76.setTopText("SIGNALLING SYSTEM 76")
         }
 
         page {
@@ -971,7 +972,7 @@ public fun registerSussexJuly4Scenes() {
             )
             newline()
 
-            dline("ALEX: I think a quick recap is in order, about what we discovered yesterday.")
+            dline("CATE: I think a quick recap is in order, about what we discovered yesterday.")
 
             dline("CHAR: I already know what you discovered yesterday. I was forced to sit through it.")
 
@@ -986,7 +987,430 @@ public fun registerSussexJuly4Scenes() {
 
     createAndRegisterScene("sussex-july-4-deduction-2") {
         page {
-            dline("ALEX: Two days ago, I discovered a mysterious signal on")
+            dline(
+                "ALEX: Two days ago, I discovered a super duper mysterious signal on my radio set."
+            )
+
+            dline(
+                "CATE: It has a tone, a voice stating a sequence of numbers, and another tone. " +
+                "The message repeats every minute, at seven seconds past."
+            )
+
+            dline(
+                "ALEX: I only got ten super duper weird minutes of it two days ago, but " +
+                "yesterday I recorded hours and hours and hours of it, until I left for school today!"
+            )
+
+            dline("CATE: Yes, we have gone over these recordings. Alex will play a sample now.")
+
+            line(
+                "A sample of the recording plays. The counters are six, three, five, " +
+                "and fifty-two."
+            )
+            newline()
+
+            dline("CATE: This was recorded at 18:05 yesterday evening.")
+
+            changeSceneButton("sussex-july-4-deduction-3", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-3") {
+        page {
+            dline("JESS: Wait. Hold on. I recognise those tones.")
+
+            dline("CHAR: Are they the retard activation noises?")
+
+            dline("JESS: This message has two", addNewline = false)
+            pushSceneButton(CommonScenes.DTMF.id, "¬dialogue¬DTMF")
+            dline("tones. My dad was a phone engineer and he taught me how to decode these by " +
+                  "ear."
+            )
+
+            line("What a useless skill.")
+            newline()
+
+            dline("JESS: They're both just zero. But why are they DTMF?")
+
+            dline("CHAR: Why do you exist?")
+
+            dline("CATE: 'DTMF'... can you explain what that means?")
+
+            changeSceneButton(
+                "sussex-july-4-deduction-4",
+                "Jess gives a boring and pointless explanation. It's probably wrong."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-4") {
+        page {
+            dline("CATE: I see. Then, this message may possibly be related to phones.")
+
+            dline(
+                "JESS: Related to phones... Oh! I remember, I was reading a news page, " +
+                "and somebody had commented about this weird phone number. It might be related!"
+            )
+
+            dline(
+                "ALEX: Oh! It's so totally related! A super duper mysterious signal, and a " +
+                "super duper mysterious phone number, and super duper mysterious broadband sounds!"
+            )
+
+            dline("JESS: It's DT, not BT, silly. I'll pull up the article comments.")
+
+            line("Jess slides over one of Alex's laptop and starts typing.")
+
+            dline("JESS: Okay, here. Take a look at the comments.")
+
+            changeSceneButton("sussex-july-4-deduction-5", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-5") {
+        page {
+            line("Everyone leans in to read the comments, even Char.")
+
+            dline(
+                "CHAR: Wow. I knew you were a pretty horrible person, but I can't believe " +
+                "you're that low."
+            )
+
+            dline("ALEX: Why are they talking about cockroaches?")
+
+            dline("CHAR: I'm glad you didn't get to vote in the referendum.")
+
+            dline("ALEX: Isn't Cate part-German? I don't think she's done anything like that...")
+
+            line("Jess goes a shade of bright red.")
+
+            dline("JESS: No! Not that comment! The one below it!")
+
+            changeSceneButton("sussex-july-4-deduction-6", ">> Next")
+        }
+    }
+
+    // unused...
+    val printerScene = createAndRegisterScene("sussex-july-4-printer") {
+        page {
+            line(
+                "The printer in the corner was liberated from one of the school rooms a few " +
+                "months ago."
+            )
+            newline()
+
+            line(
+                "Everyone here worked as a team to grant it self-determination in your clubroom."
+            )
+            line("Alex paid off the IT techs to 'ignore' the theft for a day or two.")
+            line("Jess put in the work of actually lifting it onto the wheely thing.")
+            line("Char threatened the teachers as the printer was wheeled past them.")
+            line("Cate was responsible for setting it up in the room.")
+            newline()
+
+            line("You almost wish things were like that again. More unity. Less annoyance.")
+            newline()
+
+            backButton()
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-6") {
+        page {
+            dline(
+                "CATE: This man mis-dialed a phone number, accidentally dialing something " +
+                "that gave a sequence of five numbers and then hung up."
+            )
+
+            dline("ALEX: Wow! That sounds like our super duper weird signal!")
+
+            dline("CATE: I have added the comment to my notes.")
+
+            dline(
+                "ALEX: Anyway, we discovered some other super duper interesting and really " +
+                "exciting stuff!"
+            )
+
+            line("It is not 'super duper' interesting. It not even regularly interesting.")
+            line("You have no choice but to play along, though.")
+            newline()
+
+            dline("CATE: We discovered three interesting things about the numbers.")
+
+            changeSceneButton("sussex-july-4-deduction-7", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-7") {
+        page {
+            dline("CATE: First, we confirmed that these are hourly counters.")
+
+            dline("JESS: Hourly counters? What does that mean?")
+
+            dline(
+                "CATE: Oh, my apologies. The numbers decrement by one at regular intervals, " +
+                "meaning that they are counting down to something. What that is, we do not know."
+            )
+
+            dline(
+                "CATE: It would be appreciated if you, or anyone else, did not interrupt our " +
+                "explanations, so that we can explain in full."
+            )
+
+            line(
+                "Cate gives a warm smile. Jess looks way, embarrassed. Serves her right for " +
+                "interrupting."
+            )
+
+            dline(
+                "CATE: As I was saying, listening to the recording over "
+            )
+
+            dline(
+                "CATE: At three minutes past the hour, each number goes down. This happened " +
+                "at 17:03, 18:03, 19:03, 20:03, 07:03, 08:03, and 09:03."
+            )
+
+            changeSceneButton("sussex-july-4-deduction-8", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-8") {
+        page {
+            dline(
+                "CHAR: How can you be so sure it's an hourly countdown if there's such a " +
+                "massive gap? You two are really rubbish detectives."
+            )
+
+            dline(
+                "CATE: If you would please let me explain. There is no such gap in the actual " +
+                "recording."
+            )
+
+            dline(
+                "CHAR: So you turned off your radio at 10pm? I'd fire you if you made such a stupid error."
+            )
+
+            dline(
+                "CATE: No, the radio was on and listening at all times. The recording has no " +
+                "gaps in the audio, either."
+            )
+
+            dline("CHAR: That doesn't make sense. There's no gap, but there's also a gap?")
+            line("JESS: For the first time in your life, shut up and listen.")
+            line("CHAR: You should kill yourself, Jess.")
+            line("JESS: Likewise, ¬shake¬Charlotte.")
+            newline()
+
+            changeSceneButton("sussex-july-4-deduction-9", ">> Next")
+
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-9") {
+        page {
+            dline(
+                "CATE: The recording software Alex uses embeds timestamps in the recording."
+            )
+
+            dline("ALEX: Yeah! It's not really useful... but I don't know how to turn it off!")
+
+            dline(
+                "CATE: The last timestamp from yesterday is at 20:59:07. " +
+                "The first timestamp from today is at 06:30:07."
+            )
+
+            dline(
+                "ALEX: I went to bed at half eleven or so. I didn't check the radio because " +
+                "I would have to stop recording to see the data."
+            )
+
+            dline(
+                "ALEX: The radio was definitely on and recording at that time, though. The " +
+                "recording light was on."
+            )
+
+            dline("CATE: This leads us to our second interesting thing.")
+
+            changeSceneButton("sussex-july-4-deduction-10", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-10") {
+        page {
+            dline("ALEX: There's somehow nine hours missing from the recording.")
+
+            dline("CHAR: It stopped recording at 9, you didn't notice until you woke up the " +
+                  "next day, and sheepishly turned it back on. Then, you didn't tell us because it " +
+                  "makes you look like the idiot you are.")
+
+            dline("CHAR: Mystery solved. You're both shit at this.")
+
+            dline(
+                "ALEX: No, I am 100% telling the truth! I get woken up by the maids at " +
+                "7 o'clock every morning! I couldn't've reset it!"
+            )
+
+            dline("CHAR: You're lying.")
+
+            line("Char is cutting through all the nonsense. That's the obvious explanation.")
+
+            dline("JESS: Alex is ¬shake¬NOT a liar. How DARE you accuse him of that!")
+
+            dline(
+                "CHAR: Well, Jess, maybe he caught it off of you? If you hadn't been so busy " +
+                "with your head up teachers' backsides you might know Alex a bit better."
+            )
+
+            changeSceneButton("sussex-july-4-deduction-11", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-11") {
+        page {
+            line(
+                "Jess is standing up now. Despite that, she's only eye level with Char. Jess' " +
+                "studying leaves her with no time to grow."
+            )
+            newline()
+
+            line(":push:@yellow@ <This reads like shit> :pop:")
+            dline("JESS: You evil manipulative delinquent are not a good judge of character!")
+
+            dline("CATE: Please do not fight. I am very certain that Alex did not lie.")
+
+            dline(
+                "CATE: The recording always has a certain level of noise, due to the " +
+                "nature of radio signals."
+            )
+
+            dline("ALEX: Yeah, it buzzes a lot! But a bit before 9, the buzzing starts getting " +
+                  "really loud. It's still there at 6:30, but dies down slowly as well.")
+
+            dline(
+                "CATE: The noise is continuous between 21:00 yesterday and 6:30 this morning. " +
+                "Thus, there is a clear unexplained jump in the time, but no such jump in the " +
+                "recording."
+            )
+
+            changeSceneButton("sussex-july-4-deduction-12", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-12") {
+        page {
+            dline("CATE: Finally, this brings us to the third interesting point.")
+
+            dline("CATE: What is this noise that appears? How is it related to the countdown?")
+
+            dline(
+                "ALEX: It really hurts your ears to listen to it, even if you turn down the " +
+                "volume."
+            )
+
+            dline(
+                "CATE: The noise appears just before the third number would reach zero. " +
+                "We can assume that the third number is then a countdown to this 'noise event', " +
+                "and subsequent jump in time."
+            )
+
+            dline("ALEX: We still have no clue what the time jump means. It's so super weird!")
+
+            changeSceneButton("sussex-july-4-deduction-13", ">> Next")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-deduction-13") {
+        page {
+            dline("CATE: Unfortunately, recording more just raised even more questions.")
+
+            dline("ALEX: It's so annoying! I bought my radio in today so it can keep recording. " +
+                  "I hope we find something super duper amazingly cool!"
+            )
+
+            dline("CATE: Other than a super duper amazingly cool event appearing, it seems like we " +
+                  "will have to wait for one of two things.")
+
+            line("CATE: One, if the same recording gap happens tonight.")
+            line("CATE: Two, the expiration of the last timer.")
+            newline()
+
+            dline("CATE: That's all we have to say on this matter.")
+
+            dline(
+                "ALEX: I'm so super duper excited you three are helping us! We're like a mystery " +
+                "club, now!"
+            )
+
+            changeSceneButton("sussex-july-4-school-y-1", "No. It's not like a mystery club.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-y-1") {
+        onLoad {
+            SS76.setTopText("SS76 - Route One - 04/07")
+            SS76.clearScreenColor = Color.BLUE
+        }
+
+        page {
+            dline(
+                "CHAR: We are not like a mystery club. I will not have you dirty my hideout " +
+                "like this."
+            )
+
+            dline("ALEX: Miss Charlotte, please please please let us be a mystery club! It's so fun!")
+
+            dline(
+                "CHAR: You stay in your corner. I stay in my corner. That is how it has " +
+                "worked until now, and that is how it will continue to work."
+            )
+
+            dline("JESS: I'm pretty sure it's not your corner, Charlotte.")
+
+            dline("CHAR: I'm pretty sure nobody asked you, Jess.")
+
+            dline("CATE: This mystery will be solved a lot more quickly if we all co-operate.")
+
+            changeSceneButton(
+                "sussex-july-4-school-y-2",
+                "Char takes down the whiteboard on the wall."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-y-2") {
+        page {
+            dline(
+                "CHAR: I will also be taking down my whiteboard, so none of you retards can " +
+                "scribble all over it."
+            )
+
+            dline("JESS: It's not good to say slurs.")
+
+            dline("ALEX: Okay! Mystery club corner! Let's get to work!")
+
+            dline(
+                "CHAR: Work? What are you working on? Cate said it herself, there's nothing to do " +
+                "but wait."
+            )
+
+            dline("JESS: Excuse me, this is mystery club business. You stick to your corner!")
+
+            dline("CHAR: This is my club room. I am entitled to know everything that goes on " +
+                  "in here.")
+
+            line("Oops. Char got into the", addNewline = false)
+            changeSceneButton("sussex-july-4-school-y-3", "club room nonsense")
+            line("too.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-4-school-y-3") {
+        page {
+            dline(
+                "ALEX: There's still one missing lead! The phone number in the comments of " +
+                "that racist website!"
+            )
         }
     }
 

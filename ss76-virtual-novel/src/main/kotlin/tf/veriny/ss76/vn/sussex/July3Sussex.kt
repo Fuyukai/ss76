@@ -629,8 +629,8 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line("SEVEN" + " ".repeat(15))
-            line("FOUR" + " ".repeat(15))
             line("SIX" + " ".repeat(15))
+            line("FOUR" + " ".repeat(15))
             line("SEVEN" + " ".repeat(15))
             line("SEVEN" + " ".repeat(15))
             newline()

@@ -1,5 +1,7 @@
 package tf.veriny.ss76.vn
 
+import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.audio.Sound
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
@@ -9,6 +11,13 @@ import tf.veriny.ss76.isInsideJar
  * "Namespace" of scenes shared between multiple routes.
  */
 public object CommonScenes {
+    @Suppress("GDXKotlinStaticResource")  // don't care
+    private lateinit var DTMF_AUDIO: Sound
+
+    public fun register() {
+        DTMF_AUDIO = Gdx.audio.newSound(Gdx.files.internal("audio/dtmf.ogg"))
+    }
+
     public val END_OF_DEMO: VirtualNovelScene = createAndRegisterScene("end-of-demo") {
         page {
             line("You've reached the end of the Signalling System 76 demo.")
@@ -572,6 +581,44 @@ public object CommonScenes {
 
         page {
             line("Your town is a mix of suburban area, heavy forest, and heathland. ")
+        }
+    }
+
+    internal val DTMF = createAndRegisterScene("common.dtmf") {
+        onLoad {
+            DTMF_AUDIO.play()
+        }
+
+        page {
+            line(
+                "DTMF, or Dual Tone Multiple Frequency, is two sine wave tones laid over " +
+                "each-other to represent a single number or letter."
+            )
+            newline()
+
+            line(
+                "DTMF finds most usage in old, analogue telephony networks. A key on a " +
+                "keypad causes one of sixteen combinations of two frequences to be sent on a phone " +
+                "line, registering on the other end as a single digit in a phone number."
+            )
+            newline()
+
+            line(
+                "DTMF replaced the old pulse dialing system used in rotary phones, where the " +
+                "dial would interrupt a signal a certain number of times to encode that number."
+            )
+            newline()
+
+            line(
+                "DTMF encodes the numbers one through nine, the hash (#) and star (*), and " +
+                "the letters A, B, C, and D, although most phones don't have the letters."
+            )
+            newline()
+
+            line("With a bit of training, it's possible to distinguish the frequencies by ear. " +
+                 "One could then theoretically eeavesdrop")
+
+            backButton()
         }
     }
 }

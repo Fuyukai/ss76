@@ -17,10 +17,10 @@ public class ButtonManager : KtxInputAdapter {
         public val BACK_BUTTON: Button = Button("page-back") { it.pageBack() }
         public val NEXT_BUTTON: Button = Button("page-next") { it.pageForward() }
 
-        public val RECORD_BUTTON: Button = Button("record") {
-            SS76.record.markOpened()
-            if (SS76.sceneManager.currentScene.id == "record") SS76.sceneManager.exitScene()
-            else SS76.sceneManager.pushScene("record")
+        public val GLOBAL_BACK_BUTTON: Button = Button("back-button-global") {
+            if (SS76.sceneManager.stackSize > 1) {
+                SS76.sceneManager.exitScene()
+            }
         }
 
         public val CHECKPOINT_BUTTON: Button = Button("save-menu") {
