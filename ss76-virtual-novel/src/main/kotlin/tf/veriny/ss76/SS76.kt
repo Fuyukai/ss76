@@ -1,16 +1,5 @@
 package tf.veriny.ss76
 
-/*import tf.veriny.ss76.scene.registerDemoNavigationScenes
-import tf.veriny.ss76.scene.registerDemoUIScene
-import tf.veriny.ss76.scene.text.TextualNode
-import tf.veriny.ss76.scene.text.createAndRegisterScene
-import tf.veriny.ss76.vn.demo.registerButtonDemos
-import tf.veriny.ss76.vn.registerJokeScenes
-import tf.veriny.ss76.vn.registerMainMenuScenes
-import tf.veriny.ss76.vn.registerMiscScenes
-import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
-import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes*/
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
@@ -31,6 +20,7 @@ import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
+import tf.veriny.ss76.vn.sussex.registerJuly4SussexPt2Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
 import kotlin.time.ExperimentalTime
@@ -183,6 +173,7 @@ public object SS76 : KtxApplicationAdapter {
                     // == SUSSEX ROUTE == //
                     registerSussexJuly3Scenes()
                     registerSussexJuly4Scenes()
+                    registerJuly4SussexPt2Scenes()
 
                     registerSidePlotAlexRadio()
 
