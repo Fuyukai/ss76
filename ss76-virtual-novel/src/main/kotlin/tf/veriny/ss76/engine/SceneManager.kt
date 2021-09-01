@@ -15,7 +15,10 @@ import java.nio.file.StandardOpenOption.*
  */
 public class SceneManager(public val namespace: String) : KtxInputAdapter, Saveable {
     private companion object {
-        val CONTENT_PREFIXES = listOf("sussex", "suffolk", "kent", "common", "truth", "reality")
+        val CONTENT_PREFIXES = listOf(
+            "sussex", "suffolk", "kent", "common", "truth", "reality",
+            "side."
+        )
     }
 
     private val seenScenes /*on the sea shore*/= mutableSetOf<String>()
@@ -217,7 +220,6 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
                     val tokens = scene.getTokensForPage(page)
                     for (token in tokens) {
                         it.write(token.repr())
-                        if (!token.causesNewline && token.causesSpace) it.write(" ")
                     }
                     //it.write("= END PAGE $page=\n\n")
                 }
