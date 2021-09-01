@@ -99,7 +99,6 @@ public class VirtualNovelScene(
         colour: Color,
         effects: Set<TextualNode.Effect> = setOf(),
         calcRectangle: Boolean = false,
-        backwardsOffset: Boolean = false,
     ): Rectangle? {
         //println(SS76.fontManager.currentFont.fonts.entries)
         val font = SS76.fontManager.currentFont.fonts[colour] ?: error("unknown colour $colour")
@@ -117,18 +116,15 @@ public class VirtualNovelScene(
         // no space, that's handled by the external code
         // avoid calculating rectangles for anything that isn't a link node.
         val rect = if (calcRectangle) {
+            val extraWidth = SS76.fontManager.characterWidth
             Rectangle(
-                padding + currentXOffset,
+                padding + currentXOffset - (extraWidth / 2),
                 (Gdx.graphics.height - padding) - currentYOffset - glyphLayout.height,
-                glyphLayout.width, glyphLayout.height
+                glyphLayout.width + extraWidth, glyphLayout.height
             )
         } else null
 
-        if (backwardsOffset) {
-            currentXOffset -= glyphLayout.width
-        } else {
-            currentXOffset += glyphLayout.width
-        }
+        currentXOffset += glyphLayout.width
 
         return rect
     }
@@ -325,7 +321,7 @@ public class VirtualNovelScene(
             // 3c) Draw clickables anchored to the top right.
             // evil code!
             val width = SS76.fontManager.characterWidth
-            glyphLayout.setText(SS76.fontManager.currentFont.white, "Back / Checkpoint")
+            glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
 
             /*val isUpdated = SS76.record.updated
             if (isUpdated) {
@@ -342,12 +338,12 @@ public class VirtualNovelScene(
                     timer.rem(60) >= 30 -> Color.RED
                     else -> error("unreachable")
                 }
-                val text = "Back"
+                val text = "Up"
                 val rect = renderWordRaw(text, colour, calcRectangle = true)
                 SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
             }
             currentXOffset += width
-            renderWordRaw("/", Color.WHITE, backwardsOffset = false)
+            renderWordRaw("/", Color.WHITE)
             currentXOffset += width
             run {
                 val rect = renderWordRaw("Checkpoint", Color.GREEN, calcRectangle = true)
