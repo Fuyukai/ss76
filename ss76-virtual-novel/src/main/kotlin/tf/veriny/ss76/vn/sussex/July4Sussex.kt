@@ -701,10 +701,10 @@ public fun registerSussexJuly4Scenes() {
 
             line(
                 "She doesn't need to. Char is really smart both academically and generally. She takes " +
-                "four",
+                "four", addNewline = false
             )
             pushSceneButton(CommonScenes.A_LEVELS_SCENE.id, "A-levels,")
-            line("those being Maths, Physics, Engineering and Computer\nScience.")
+            line("those being Maths, Physics, Engineering and Computer Science.")
             newline()
 
             line(
@@ -733,7 +733,8 @@ public fun registerSussexJuly4Scenes() {
         page {
             dline("CHAR: I've had two embarrassments this morning and it's all her fault.")
 
-            line("Char is noticably upset. Her eyes are a little bit red.")
+            line("Char is noticeably upset. Her eyes are a little bit red.")
+            newline()
 
             dline(
                 "CHAR: It's only been ten minutes. The idiot squad won't have finished " +
@@ -838,6 +839,7 @@ public fun registerSussexJuly4Scenes() {
 
             line("Jess instantly loses the grin. Char pushes Jess out of the way and enters the " +
                  "cave again.")
+            newline()
 
             dline("CATE: Oh, you are back. I have done a lot of writing. I hope you enjoy it.")
 
@@ -867,7 +869,7 @@ public fun registerSussexJuly4Scenes() {
             )
             newline()
 
-            line("CHAR: :push:¬shake¬ WHAT DID YOU DO TO MY WHITEBOARD?")
+            line("CHAR: :push:¬shake¬ WHAT DID YOU DO TO MY WHITEBOARD? :pop:")
             newline()
 
             dline("JESS: Get your hands off me you fucking psycho!")
@@ -915,8 +917,6 @@ public fun registerSussexJuly4Scenes() {
 
             line("Alex is shaking", addNewline = false)
             changeSceneButton("sussex-july-4-school-19", "with joy.")
-            newline()
-
             line("Either that, or his poor overstimulated brain is finally burnt out.")
         }
     }
@@ -1051,6 +1051,7 @@ public fun registerSussexJuly4Scenes() {
             dline("JESS: It's DT, not BT, silly. I'll pull up the article comments.")
 
             line("Jess slides over one of Alex's laptop and starts typing.")
+            newline()
 
             dline("JESS: Okay, here. Take a look at the comments.")
 
@@ -1061,6 +1062,7 @@ public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-deduction-5") {
         page {
             line("Everyone leans in to read the comments, even Char.")
+            newline()
 
             dline(
                 "CHAR: Wow. I knew you were a pretty horrible person, but I can't believe " +
@@ -1074,6 +1076,7 @@ public fun registerSussexJuly4Scenes() {
             dline("ALEX: Isn't Cate part-German? I don't think she's done anything like that...")
 
             line("Jess goes a shade of bright red.")
+            newline()
 
             dline("JESS: No! Not that comment! The one below it!")
 
@@ -1122,8 +1125,10 @@ public fun registerSussexJuly4Scenes() {
                 "exciting stuff!"
             )
 
-            line("It is not 'super duper' interesting. It not even regularly interesting.")
-            line("You have no choice but to play along, though.")
+            line(
+                "It is not 'super duper' interesting. It not even regularly interesting. " +
+                "You have no choice but to play along, though."
+            )
             newline()
 
             dline("CATE: We discovered three interesting things about the numbers.")
@@ -1152,6 +1157,7 @@ public fun registerSussexJuly4Scenes() {
                 "Cate gives a warm smile. Jess looks away, embarrassed. Serves her right for " +
                 "interrupting."
             )
+            newline()
 
             dline(
                 "CATE: At three minutes past the hour, each number goes down. This happened " +
@@ -1245,11 +1251,6 @@ public fun registerSussexJuly4Scenes() {
 
             dline("JESS: Alex is ¬shake¬NOT a liar. How DARE you accuse him of that!")
 
-            dline(
-                "CHAR: Well, Jess, maybe he caught it off of you? If you hadn't been so busy " +
-                "with your head up teachers' backsides you might know Alex a bit better."
-            )
-
             changeSceneButton("sussex-july-4-deduction-11", ">> Next")
         }
     }
@@ -1262,23 +1263,21 @@ public fun registerSussexJuly4Scenes() {
             )
             newline()
 
-            line(":push:@yellow@ <This reads like shit> :pop:")
-            dline("JESS: You evil manipulative delinquent are not a good judge of character!")
+            dline(
+                "CHAR: Well, Jess, maybe he caught it off of you? If you hadn't been so busy " +
+                "with your head up teachers' backsides you might know Alex a bit better."
+            )
+
+            dline(
+                "JESS: You are an evil manipulative delinquent. You are not a good judge " +
+                "of character."
+            )
 
             dline("CATE: Please do not fight. I am very certain that Alex did not lie.")
 
             dline(
                 "CATE: The recording always has a certain level of noise, due to the " +
                 "nature of radio signals."
-            )
-
-            dline("ALEX: Yeah, it buzzes a lot! But a bit before 9, the buzzing starts getting " +
-                  "really loud. It's still there at 6:30, but dies down slowly as well.")
-
-            dline(
-                "CATE: The noise is continuous between 21:00 yesterday and 6:30 this morning. " +
-                "Thus, there is a clear unexplained jump in the time, but no such jump in the " +
-                "recording."
             )
 
             changeSceneButton("sussex-july-4-deduction-12", ">> Next")

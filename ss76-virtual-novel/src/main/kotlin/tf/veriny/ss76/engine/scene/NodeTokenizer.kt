@@ -238,7 +238,10 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
             )
 
             // first dialogue line on an overflowed line always has 7 characters of padding
-            if (isDialogue && overflowed) node.padding = 6
+            if (isDialogue && overflowed) {
+                currentLineLength += 6
+                node.padding = 6
+            }
 
             // calc colour if needed
             val colourName = token.colour?.lowercase() ?: "white"
