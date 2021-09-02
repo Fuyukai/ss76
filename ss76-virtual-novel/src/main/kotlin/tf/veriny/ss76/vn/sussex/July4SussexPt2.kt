@@ -276,6 +276,7 @@ public fun registerJuly4SussexPt2Scenes() {
     createAndRegisterScene("sussex-july-4-school-y-10") {
         page {
             line("Char doesn't flinch. Jess winces in pain.")
+            newline()
 
             dline("JESS: Ow! Fuck! Fucking pay attention when I'm trying to talk to you!")
 
@@ -337,7 +338,7 @@ public fun registerJuly4SussexPt2Scenes() {
 
     createAndRegisterScene("sussex-july-4-school-y-12") {
         page {
-            dline("JESS: I ran into Mr Hammond earlier. You know, your physics teacher.")
+            dline("JESS: I ran into Mr Hammond earlier. Your physics teacher.")
 
             line(
                 "Hammond. He was the old bastard teaching the lesson that Char accidentally fell " +
@@ -406,9 +407,8 @@ public fun registerJuly4SussexPt2Scenes() {
 
             dline(
                 "ALEX: Miss Charlotte, when are you going to be finished! I'm so super duper " +
-                "excited"
+                "excited to figure out this phone number!"
             )
-            newline()
 
             dline(
                 "CHAR: I'm just putting the finishing touches on. It's already started " +
@@ -416,6 +416,7 @@ public fun registerJuly4SussexPt2Scenes() {
             )
 
             line("Alex nearly passes out from excitement.")
+            newline()
 
             dline("ALEX: Oh! My! God! How long is it going to take!")
 
@@ -423,7 +424,10 @@ public fun registerJuly4SussexPt2Scenes() {
                   "until tomorrow. There's a thousand numbers, and they need to dial two thousand each. " +
                   "Thirty second per call is a little over half a day.")
 
-            line("Char must feel great for being able to show off her skills, and", addNewline = false)
+            line(
+                "Char must feel great for being able to show off her skills, and also " +
+                "being able to ", addNewline = false
+            )
             changeSceneButton("sussex-july-4-school-y-15", "one-up Jess.")
         }
     }
@@ -504,6 +508,7 @@ public fun registerJuly4SussexPt2Scenes() {
                 "Jess exits the room, but Charlotte follows her. She has a sense of urgency that " +
                 "I don't normally see. The door slams shut."
             )
+            newline()
 
             dline("ALEX: Whoa. That sounded bad.")
 
@@ -640,7 +645,7 @@ public fun registerJuly4SussexPt2Scenes() {
 
             line(
                 "With that, Char leaves you to finish the homework you have been " +
-                "procrastinating on. It's due today,", addNewline = false
+                "procrastinating on. It's due tomorrow,", addNewline = false
             )
             changeSceneButton("sussex-july-4-school-y-21", "remember?")
         }

@@ -30,20 +30,23 @@ public fun registerDemoNavigationScenes() {
 
             changeSceneButton(
                 "sussex-july-3-start",
-                "2021-08-24: Route One, 3rd Of July"
+                "2021-08-24: Route One, 03/07"
+            )
+            newline()
+
+            changeSceneButton("sussex-july-4-start", "2021-08-26: Route One, 04/07")
+            newline()
+
+            changeSceneButton(
+                "sussex-july-4-school-10",
+                "2021-08-27: Route One, 04/07, School Midpoint"
             )
             newline()
 
             changeSceneButton(
-                "sussex-july-3-school-i-1",
-                "2021-08-24: Expanded school scene"
+                "sussex-july-4-school-y-1",
+                "2021-09-02: Route One, 04/07, Part 2"
             )
-            newline()
-
-            changeSceneButton("sussex-july-4-start", "2021-08-26: Route One, 4th Of July")
-            newline()
-
-            changeSceneButton("sussex-july-4-school-10", "2021-08-27: sussex-july-4-school-10")
         }
 
 

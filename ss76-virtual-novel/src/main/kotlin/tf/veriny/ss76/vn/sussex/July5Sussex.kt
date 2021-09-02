@@ -14,7 +14,9 @@ public fun registerSussexJuly5Scenes() {
             line("It hasn't rained in as long as you can remember.")
             newline()
 
-            changeSceneButton("sussex-july-3-school-1", ">> Next")
+            changeSceneButton("demo-menu", ">> Next")
+
+            //changeSceneButton("sussex-july-3-school-1", ">> Next")
         }
     }
 }
