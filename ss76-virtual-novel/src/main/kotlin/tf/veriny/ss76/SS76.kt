@@ -189,8 +189,22 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         // debug
-        if (IS_DEBUG) {
+        if (isInsideJar()) {
             sceneManager.writeAllSceneData()
+            val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
+            if (printSceneCounts) {
+                val routes = listOf("sussex", "suffolk", /*"kent"*/)
+                for (r in routes) {
+                    for (day in 3..18) {
+                        val count = sceneManager.registeredScenes.keys.count {
+                            it.startsWith("$r-july-$day")
+                        }
+
+                        // suck my dick deprecations
+                        println("${r.capitalize()} ${day.toString().padStart(2, '0')}/07: $count scenes")
+                    }
+                }
+            }
         }
 
         println("Registered ${sceneManager.sceneCount} scenes in $registerTime.")
@@ -203,21 +217,6 @@ public object SS76 : KtxApplicationAdapter {
             } else {
                 val scene = System.getProperty("scene", "main-menu")
                 sceneManager.pushScene(scene)
-            }
-        }
-
-        val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
-        if (printSceneCounts) {
-            val routes = listOf("sussex", "suffolk", /*"kent"*/)
-            for (r in routes) {
-                for (day in 3..18) {
-                    val count = sceneManager.registeredScenes.keys.count {
-                        it.startsWith("$r-july-$day")
-                    }
-
-                    // suck my dick deprecations
-                    println("${r.capitalize()} ${day.toString().padStart(2, '0')}/07: $count scenes")
-                }
             }
         }
     }
