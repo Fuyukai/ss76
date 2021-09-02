@@ -62,7 +62,7 @@ runtime {
     }
 
     additive.set(true)
-    addModules("jdk.unsupported", "jdk.zipfs")
+    addModules("jdk.unsupported", "jdk.zipfs", "java.logging")
 
     launcher {
         noConsole = true

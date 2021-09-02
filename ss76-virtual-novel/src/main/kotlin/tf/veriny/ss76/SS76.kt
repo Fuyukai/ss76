@@ -169,6 +169,7 @@ public object SS76 : KtxApplicationAdapter {
                 // restore saved scenes, if needed
                 val loaded = sceneSaver.loadScenes()
                 if (!loaded) {
+                    println("Didn't load from scene bundle; using pre-packaged scenes instead.")
                     CommonScenes.register()
 
                     // == SUSSEX ROUTE == //
@@ -179,7 +180,9 @@ public object SS76 : KtxApplicationAdapter {
 
                     registerSidePlotAlexRadio()
 
-                    sceneSaver.saveScenes()
+                    if (!isInsideJar()) {
+                        sceneSaver.saveScenes()
+                    }
                 }
 
             } catch (e: Exception) {
