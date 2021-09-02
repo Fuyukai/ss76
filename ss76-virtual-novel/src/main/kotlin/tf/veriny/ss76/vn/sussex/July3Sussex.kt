@@ -910,7 +910,7 @@ public fun registerSussexJuly3Scenes() {
             dline("CATE: Interestingly, the fourth number didn't change.")
 
             dline(
-                "ALEX: Yeah! It must mean Seventy-Seven, not two sevens! It's a super duper " +
+                "ALEX: Yeah! It must mean seventy-seven, not two sevens! It's a super duper " +
                 "cool double counter!"
             )
 

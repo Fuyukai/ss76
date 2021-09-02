@@ -653,12 +653,15 @@ public fun registerSussexJuly4Scenes() {
                 "but you have decided to interrupt my other lessons too!"
             )
 
-            line("Char quickly recovers to her feet and storms out, mumbling something")
+            line(
+                "Char quickly recovers to her feet and storms out, mumbling something very " +
+                "rude."
+            )
             newline()
 
             dline(
                 "????: Where do you think you're going young lady!? I'm going to have a word " +
-                "with your student manager!"
+                "with the head of year!"
             )
 
             changeSceneButton("sussex-july-4-school-12",
@@ -1023,7 +1026,7 @@ public fun registerSussexJuly4Scenes() {
 
             dline("JESS: It's DT, not BT, silly. I'll pull up the article comments.")
 
-            line("Jess slides over one of Alex's laptop and starts typing.")
+            line("Jess slides over one of Alex's laptops and starts typing.")
             newline()
 
             dline("JESS: Okay, here. Take a look at the comments.")
@@ -1085,7 +1088,7 @@ public fun registerSussexJuly4Scenes() {
     createAndRegisterScene("sussex-july-4-deduction-6") {
         page {
             dline(
-                "CATE: This man mis-dialed a phone number, accidentally dialing something " +
+                "CATE: This man misdialed a phone number, accidentally dialing something " +
                 "that gave a sequence of five numbers and then hung up."
             )
 

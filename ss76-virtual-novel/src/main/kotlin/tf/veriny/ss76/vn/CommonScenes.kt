@@ -642,8 +642,11 @@ public object CommonScenes {
             )
             newline()
 
-            line("With a bit of training, it's possible to distinguish the frequencies by ear. " +
-                 "One could then theoretically eeavesdrop")
+            line(
+                "With a bit of training, it's possible to distinguish the frequencies by ear. " +
+                "One could then theoretically eavesdrop on the numbers somebody is dialing over a " +
+                "phone without having to tap it."
+            )
 
             backButton()
         }
