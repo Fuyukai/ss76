@@ -23,6 +23,7 @@ import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerJuly4SussexPt2Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
 import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly5Scenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -174,6 +175,7 @@ public object SS76 : KtxApplicationAdapter {
                     registerSussexJuly3Scenes()
                     registerSussexJuly4Scenes()
                     registerJuly4SussexPt2Scenes()
+                    registerSussexJuly5Scenes()
 
                     registerSidePlotAlexRadio()
 
@@ -201,6 +203,21 @@ public object SS76 : KtxApplicationAdapter {
             } else {
                 val scene = System.getProperty("scene", "main-menu")
                 sceneManager.pushScene(scene)
+            }
+        }
+
+        val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
+        if (printSceneCounts) {
+            val routes = listOf("sussex", "suffolk", /*"kent"*/)
+            for (r in routes) {
+                for (day in 3..18) {
+                    val count = sceneManager.registeredScenes.keys.count {
+                        it.startsWith("$r-july-$day")
+                    }
+
+                    // suck my dick deprecations
+                    println("${r.capitalize()} ${day.toString().padStart(2, '0')}/07: $count scenes")
+                }
             }
         }
     }

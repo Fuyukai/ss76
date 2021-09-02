@@ -204,6 +204,8 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
             it.write("=== DEBUG SCENE OUTPUT ===\n\n")
 
             for (entry in registeredScenes) {
+                if (!entry.key.startsWith("sussex-july-4")) continue
+
                 if (!CONTENT_PREFIXES.any { i -> entry.key.startsWith(i) }) {
                     continue
                 }

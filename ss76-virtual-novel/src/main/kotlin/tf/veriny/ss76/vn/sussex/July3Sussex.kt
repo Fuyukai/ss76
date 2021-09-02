@@ -1026,8 +1026,7 @@ public fun registerSussexJuly3Scenes() {
             line("To Alex,")
             newline()
 
-            line(":push:¬shuftxt¬ Parody of Red Dwarf 'Backwards'")
-            line("You are a stupid, overeager little rat, aren't you, eh?")
+            line(":push:¬shuftxt¬ You are a stupid, overeager little rat, aren't you, eh?")
             newline()
 
             line("I'm pointing at you, I'm pointing at you, but I'm not actually addressing you, " +

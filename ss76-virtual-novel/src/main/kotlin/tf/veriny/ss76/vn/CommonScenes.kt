@@ -584,6 +584,33 @@ public object CommonScenes {
         }
     }
 
+    // call forward to the monologue about charlotte's cat in ending #2
+    // future me: make sure to write that. you know what we mean
+    public val CARS: VirtualNovelScene = createAndRegisterScene("sussex-i-hate-cars") {
+        page {
+            line(
+                "Cars are terrible, evil things. If one was religious, they could say that " +
+                "cars are even the work of the devil."
+            )
+            newline()
+
+            line("What just society lets anyone drive a metal box that can instantly kill any " +
+                 "person unfortunate enough to stand in its way?")
+            newline()
+
+            line(
+                "Yeah, someone has to take a test to get a driver's licence. Would it be " +
+                "okay if nuclear grenades were given out to everyone if they took a test for it?"
+            )
+            newline()
+
+            line("All drivers should be @pink@¬shake¬killed.")
+            newline()
+
+            backButton()
+        }
+    }
+
     internal val DTMF = createAndRegisterScene("common.dtmf") {
         onLoad {
             DTMF_AUDIO.play()

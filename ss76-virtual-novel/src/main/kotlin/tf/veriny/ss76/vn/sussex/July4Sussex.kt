@@ -271,33 +271,6 @@ public fun registerSussexJuly4Scenes() {
         }
     }
 
-    // call forward to the monologue about charlotte's cat in ending #2
-    // future me: make sure to write that. you know what we mean
-    val cars = createAndRegisterScene("sussex-i-hate-cars") {
-        page {
-            line(
-                "Cars are terrible, evil things. If one was religious, they could say that " +
-                "cars are even the work of the devil."
-            )
-            newline()
-
-            line("What just society lets anyone drive a metal box that can instantly kill any " +
-                 "person unfortunate enough to stand in its way?")
-            newline()
-
-            line(
-                "Yeah, someone has to take a test to get a driver's licence. Would it be " +
-                "okay if nuclear grenades were given out to everyone if they took a test for it?"
-            )
-            newline()
-
-            line("All drivers should be @pink@¬shake¬killed.")
-            newline()
-
-            backButton()
-        }
-    }
-
     createAndRegisterScene("sussex-july-4-pre-8") {
         page {
             line(
@@ -319,7 +292,7 @@ public fun registerSussexJuly4Scenes() {
                  "driving by.")
 
             line("When you walked to school with Char, she would always get on about the", addNewline = false)
-            pushSceneButton(cars.id, "evils of cars.")
+            pushSceneButton(CommonScenes.CARS.id, "evils of cars.")
 
             line("The cars seem to be going")
             changeSceneButton("sussex-july-4-pre-9", "a lot faster than they should be.")

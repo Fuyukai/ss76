@@ -168,7 +168,6 @@ public class VirtualNovelScene(
         }
 
         if (TextualNode.Effect.SHUFNUM in node.effects) {
-            val size = node.text.length
             val sb = StringBuilder()
             for (char in text) {
                 if (char.isDigit()) {
@@ -180,7 +179,11 @@ public class VirtualNovelScene(
             text = sb.toString()
         } else if (TextualNode.Effect.SHUFTXT in node.effects) {
             val size = node.text.length
-            text = randomString(rng, size)
+            text = when {
+                node.text.endsWith(".") -> randomString(rng, size - 1) + "."
+                node.text.endsWith(",") -> randomString(rng, size - 1) + ","
+                else -> randomString(rng, size)
+            }
         }
 
         // == Render == //
