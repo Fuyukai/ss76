@@ -192,7 +192,7 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         // debug
-        if (isInsideJar()) {
+        if (!isInsideJar()) {
             sceneManager.writeAllSceneData()
             val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
             if (printSceneCounts) {
