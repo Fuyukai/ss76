@@ -23,7 +23,7 @@ public class SS76BuildUpdateManager {
             "common", "truth", "reality", "side.",
         )
 
-        private const val MESSAGE = "MZThis program cannot be run in DOS mode"
+        private const val MESSAGE = "This program cannot be run in DOS mode"
     }
 
     /**
