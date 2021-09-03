@@ -19,7 +19,7 @@ public fun registerSussexJuly5Pt2Scenes() {
             newline()
 
             //changeSceneButton("sussex-july-52-mansion-1", ">> Next")
-            changeSceneButton("demo-menu", ">> Next")
+            changeSceneButton("demo-meta-menu", ">> Next")
         }
     }
 }

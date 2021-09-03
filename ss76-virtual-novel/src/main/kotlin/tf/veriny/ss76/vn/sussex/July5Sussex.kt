@@ -113,6 +113,7 @@ public fun registerSussexJuly5Scenes() {
             )
 
             dline("CHAR: Wow, did you forget how to dress yourself?")
+            newline()
 
             changeSceneButton(
                 "sussex-july-5-pre-4",
@@ -163,7 +164,6 @@ public fun registerSussexJuly5Scenes() {
             newline()
 
             dline("CHAR: Hey! What are you waiting for? Are you still scared of this hill?")
-            newline()
 
             line("You feel a pair of hands on your back ", addNewline = false)
             changeSceneButton(
@@ -237,6 +237,7 @@ public fun registerSussexJuly5Scenes() {
                 "It's humanity's oldest and most useful tool, after all. Especially for " +
                 "disposing of unwanted things."
             )
+            newline()
 
             changeSceneButton("sussex-july-5-pre-8", "You keep walking.")
         }
@@ -375,6 +376,7 @@ public fun registerSussexJuly5Scenes() {
                 "Char's voice is shaking slightly. Of course it is. " +
                 "That's a perfectly normal reaction."
             )
+            newline()
 
             dline("CHAR: Okay. We should go back the other way, and take the long way around.")
 
@@ -411,8 +413,10 @@ public fun registerSussexJuly5Scenes() {
                 "Your predicament keeps your mind empty. Five minutes pass, and then five " +
                 "more. "
             )
+            newline()
 
             dline("CHAR: Okay. Stay calm. The hill should be here pretty soon.")
+            dline("CHAR: It can't be far away.")
             dline("CHAR: Once we go up it, let's just walk the slow route. Okay?")
 
             changeSceneButton(
@@ -452,7 +456,7 @@ public fun registerSussexJuly5Scenes() {
             line("CHAR:", addNewline = false)
 
             changeSceneButton(
-                "susseex-july-5-uhoh-4",
+                "sussex-july-5-uhoh-4",
                 ":push:¬shake¬ But it all looks the same. :pop:"
             )
         }
@@ -482,8 +486,15 @@ public fun registerSussexJuly5Scenes() {
             dline("CHAR: Here, help me up. I need to look over these bushes.")
 
             line("Char climbs up on your shoulders, and tries to look out over the edges.")
-            changeSceneButton("sussex-july-5-uhoh-5", "But, she doesn't.")
+            newline()
 
+            line(
+                "She cups her hands around her eyes to get a good look at what lies beyond " +
+                "the brick walls of the beaten path."
+            )
+            newline()
+
+            changeSceneButton("sussex-july-5-uhoh-5", "But, she doesn't.")
         }
     }
 
@@ -494,7 +505,7 @@ public fun registerSussexJuly5Scenes() {
                 "in this situation."
             )
 
-            line("...")
+            line("Char's voice is really shaking now. She looks close to crying.")
             newline()
 
             dline("CHAR: Hello? Cate?")
@@ -509,6 +520,7 @@ public fun registerSussexJuly5Scenes() {
             dline("CHAR: Of course I would. Okay, look, I need your help.")
 
             line("Char suddenly recoils away from the phone.")
+            newline()
 
             dline(
                 "CHAR: Okay, yes, hello Jess. Please don't sh- Please don't shout into the " +
@@ -534,16 +546,19 @@ public fun registerSussexJuly5Scenes() {
             dline("CHAR: Give me your phone. Alex will buy you a new one.")
 
             line(
-                "You worrying comply. Char takes out her pocket knife and stabs through " +
+                "You comply. Of course you do. Char takes out her pocket knife and stabs through " +
                 "the back of it multiple times."
             )
             newline()
 
-            line("It starts to hiss. You think you should duck. Char chucks it into the air.")
-            line("@pink@It @pink@explodes.")
+            line(
+                "It starts to hiss. You think you should duck, but before you get a chance " +
+                "Char chucks it into the air, and @pink@It @pink@explodes."
+            )
             newline()
 
             line("Char puts her phone on speaker, and a tinny voice starts to pour out.")
+            newline()
 
             changeSceneButton(
                 "sussex-july-5-uhoh-7",
@@ -574,6 +589,9 @@ public fun registerSussexJuly5Scenes() {
                 "The sound of tumbling and crashing comes out of the shockingly low quality " +
                 "speaker."
             )
+            newline()
+
+            dline("ALEX: Ow! I slipped over! But I'm super duper okay now, and I'm down the slope!")
 
             changeSceneButton("sussex-july-5-uhoh-8", "CHAR: You don't see me, right?")
         }
