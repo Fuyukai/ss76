@@ -78,7 +78,7 @@ public fun registerSussexJuly5Scenes() {
 
             changeSceneButton(
                 "sussex-july-5-pre-3",
-                "She frantically smashes on the outer door."
+                "She frantically bashes the outer door."
             )
         }
     }
@@ -111,9 +111,9 @@ public fun registerSussexJuly5Scenes() {
                 "You run out. You've forgotten to lock the door, but you don't notice. " +
                 "It probably won't be an issue."
             )
+            newline()
 
             dline("CHAR: Wow, did you forget how to dress yourself?")
-            newline()
 
             changeSceneButton(
                 "sussex-july-5-pre-4",
@@ -553,7 +553,7 @@ public fun registerSussexJuly5Scenes() {
 
             line(
                 "It starts to hiss. You think you should duck, but before you get a chance " +
-                "Char chucks it into the air, and @pink@It @pink@explodes."
+                "Char chucks it into the air, and @pink@it @pink@explodes."
             )
             newline()
 
