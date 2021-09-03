@@ -20,10 +20,7 @@ import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
-import tf.veriny.ss76.vn.sussex.registerJuly4SussexPt2Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly5Scenes
+import tf.veriny.ss76.vn.sussex.*
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -39,7 +36,7 @@ public object SS76 : KtxApplicationAdapter {
 
     private const val LURA_DEMO_BUILD = false
     // used for saving scene data
-    public const val LURA_VERSION: Int = 7
+    public const val LURA_VERSION: Int = 8
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -177,6 +174,7 @@ public object SS76 : KtxApplicationAdapter {
                     registerSussexJuly4Scenes()
                     registerJuly4SussexPt2Scenes()
                     registerSussexJuly5Scenes()
+                    registerSussexJuly5Pt2Scenes()
 
                     registerSidePlotAlexRadio()
 
