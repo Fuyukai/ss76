@@ -44,7 +44,9 @@ public data class TextualNode(
     public fun repr(): String {
         val builder = StringBuilder()
 
-        if (colour != Color.WHITE) {
+        if (colourLinkedToButton) {
+            builder.append("@linked@")
+        } else if (colour != Color.WHITE) {
             val name = FontManager.COLOURS.entries.find { it.value == colour }!!.key
             builder.append('@')
             builder.append(name)
