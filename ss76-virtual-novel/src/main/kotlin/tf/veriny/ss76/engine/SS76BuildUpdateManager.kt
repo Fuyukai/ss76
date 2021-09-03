@@ -75,7 +75,7 @@ public class SS76BuildUpdateManager {
             buffer.writeInt(SS76.LURA_VERSION)
 
             val scenes = SS76.sceneManager.registeredScenes.filter { e ->
-                CONTENTFUL_SCENES.any { it -> e.key.startsWith(it) }
+                CONTENTFUL_SCENES.any { it -> e.key.startsWith(it) || e.key == "demo-meta-menu" }
             }.filterNot { it.value.definition.hasCustomOnLoad }
 
             println("Saving ${scenes.size} scenes to the data bundle.")
