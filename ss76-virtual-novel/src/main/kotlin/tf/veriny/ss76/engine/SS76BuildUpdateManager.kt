@@ -26,6 +26,10 @@ public class SS76BuildUpdateManager {
         private const val MESSAGE = "This program cannot be run in DOS mode"
     }
 
+    /** The bundle version that was loaded. */
+    public var loadedBundleVersion: Int = -1
+        private set
+
     /**
      * Loads the scenes from the current working directory.
      *
@@ -48,6 +52,8 @@ public class SS76BuildUpdateManager {
                 println("Detected old/same scenes bundle: $version")
                 return false
             }
+
+            loadedBundleVersion = version
 
             val sceneCount = buffer.readInt()
             println("Loading $sceneCount scenes from scene bundle")

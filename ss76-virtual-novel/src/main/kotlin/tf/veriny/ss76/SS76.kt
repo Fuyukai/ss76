@@ -21,6 +21,7 @@ import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.*
+import tf.veriny.ss76.vn.system.registerSystemScenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -213,12 +214,15 @@ public object SS76 : KtxApplicationAdapter {
         // unused
         //registerMiscScenes()
         if (lastError == null) {
-            if (IS_DEMO) {
-                sceneManager.pushScene("demo-meta-menu")
+            val sceneName = if (IS_DEMO) {
+                "demo-meta-menu"
             } else {
-                val scene = System.getProperty("scene", "main-menu")
-                sceneManager.pushScene(scene)
+                System.getProperty("scene", "main-menu")
             }
+
+
+            registerSystemScenes(sceneName)
+            sceneManager.pushScene("system-startup-scene")
         }
     }
 

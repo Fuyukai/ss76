@@ -166,7 +166,8 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
 
         return BasicSceneDefinition(
             sceneId, buttons, pages,
-            clearScreenColour = clearScreenColour, changedTopText = topText
+            clearScreenColour = clearScreenColour, changedTopText = topText,
+            onLoadHandlers = this.onLoadHandlers
         )
     }
 }
