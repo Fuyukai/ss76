@@ -278,7 +278,7 @@ public fun registerSussexJuly5Scenes() {
     }
 
     createAndRegisterScene("sussex-july-5-pre-9") {
-        topText = "CANNOT DETERMINE DATE - PLEASE CHECK NETWORK CABLE"
+        topText = "NO SIGNAL"
 
         page {
             line("The wind seems to pick up. You keep walking.")

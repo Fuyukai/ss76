@@ -214,7 +214,10 @@ public fun registerJuly4SussexPt2Scenes() {
         page {
             dline("JESS: I am absolutely disgusted with you, you two-faced bitch.")
 
-            dline("JESS: First, you are rude are dismissive towards this, insulting my friends.")
+            dline(
+                "JESS: First, you are rude and dismissive towards my friends, insulting their " +
+                "character."
+            )
 
             dline("JESS: Now, you're suddenly into it, but only on the condition that Alex " +
                   "gives you money.")
