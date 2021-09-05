@@ -120,13 +120,14 @@ public fun registerSussexJuly3Scenes() {
             newline()
 
             line("He's a failure, just like you.")
+            newline()
 
-            dline("RCPT: I hope your teachers never say anything really import.")
+            dline("RCPT: I hope your teachers never say anything really important.")
 
             dline("RCPT: For example, something you need on an exam but you didn't learn.")
 
-            dline("RCPT: And I really hope it doesn't cause you fail, and end up being kicked out, " +
-                  "and causes you to miss our daily chats.")
+            dline("RCPT: And I really hope it doesn't cause you to fail, and end up being kicked out, " +
+                  "which causes you to miss our daily chats.")
 
             line("You mumble vaguely about a free period.")
             newline()
@@ -201,45 +202,6 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-
-    // this is basically just flavour.
-    createAndRegisterScene("sussex-july-3-librarian") {
-        page {
-            line(
-                "The librarian is a very old man. Some of the kids like to joke that he came " +
-                "with the building."
-            )
-            newline()
-
-            line(
-                "He really leans into the rumour sometimes. He tells the younger kids stories " +
-                "about how there were special rooms built underground for acts that " +
-                "'were too bad for detention'."
-            )
-            newline()
-
-            line("He interrupts your thoughts as you walk into the library.")
-            newline()
-
-            dline(
-                "LBRN: What are you doing? Oh, those are the textbooks I've been waiting on.",
-            )
-
-            dline(
-                "LBRN: These books bring back memories. I remember seeing these brand new, " +
-                "when I was just a wee lad working as an assistant here."
-            )
-
-            line(
-                "You don't say a word. Responding to elderly people's inane chatter is a " +
-                "pointless affair."
-            )
-            newline()
-
-            backButton()
-        }
-    }
-
     createAndRegisterScene("sussex-july-3-school-5") {
         page {
             line(
@@ -254,26 +216,58 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            line("The", addNewline = false)
-            pushSceneButton("sussex-july-3-librarian", "librarian")
-            line("is unnecessarily slow. Elderly people are annoying.")
+            line(
+                "The librarian is a very old man. Some of the kids like to joke that he came " +
+                "with the building."
+            )
             newline()
+
+            line(
+                "He really leans into the rumour sometimes. He tells the younger kids stories " +
+                "about how there were special rooms built underground for acts that " +
+                "'were too bad for detention'."
+            )
+            newline()
+
+            changeSceneButton(
+                "sussex-july-3-school-6",
+                "You didn't ask, but he starts talking to you anyway as you walk in to the library."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-3-school-6") {
+        page {
+
+            dline(
+                "LBRN: What are you doing? It's lesson time. " +
+                "Oh, those are the textbooks I've been waiting on.",
+            )
+
+            dline(
+                "LBRN: These books bring back memories. I remember seeing these brand new, " +
+                "when I was just a wee lad working as an assistant here."
+            )
+
+            line(
+                "You don't say a word. Responding to elderly people's inane chatter is a " +
+                "pointless affair."
+            )
 
             line("He scans the first book. He rambles on.")
             line("He scans the second book. His life story is rubbish.")
             line("He scans the third book. You stop listening.")
-            line("There's sixteen books left.")
             newline()
 
             line(
                 "After fifteen minutes, the librarian finally finishes checking the books out. " +
-                "You take your leave."
+                "You eagerly take your leave."
             )
             newline()
 
             changeSceneButton(
                 "sussex-july-3-school-7",
-                "You get back in the lift and press the five button."
+                "You get back to the lift and press the five button."
             )
 
         }
@@ -281,7 +275,10 @@ public fun registerSussexJuly3Scenes() {
 
     createAndRegisterScene("sussex-july-3-school-7") {
         page {
-            line("The lift drops you off at the fifth floor, and you step out into the")
+            line(
+                "The lift eventually drops you off at the fifth floor, and you step out into the",
+                addNewline = false
+            )
             pushSceneButton(CommonScenes.FLOOR_5_AIR_CON.id, "cold air")
             line("of the fifth floor.")
             newline()
@@ -347,7 +344,7 @@ public fun registerSussexJuly3Scenes() {
 
     createAndRegisterScene("sussex-july-3-school-9") {
         page {
-            dline("CHAR: ... and that's why the katana is the dumbest sword for losers.")
+            dline("CHAR: ... and that is why the katana is the dumbest sword for losers.")
 
             dline("ALEX: Is it only dumb for losers? I think they're super duper cool.")
 
