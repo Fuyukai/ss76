@@ -19,7 +19,9 @@ import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMiscScenes
+import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
+import tf.veriny.ss76.vn.side.registerSideStoryHalloweenIncident
 import tf.veriny.ss76.vn.sussex.*
 import tf.veriny.ss76.vn.system.registerSystemScenes
 import kotlin.time.ExperimentalTime
@@ -177,7 +179,10 @@ public object SS76 : KtxApplicationAdapter {
                     registerSussexJuly5Scenes()
                     registerSussexJuly5Pt2Scenes()
 
+                    // == SIDE PLOTS == //
                     registerSidePlotAlexRadio()
+                    registerSideLostInTheForest()
+                    registerSideStoryHalloweenIncident()
 
                     if (!isInsideJar()) {
                         sceneSaver.saveScenes()

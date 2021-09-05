@@ -290,11 +290,13 @@ public fun registerSussexJuly4Scenes() {
 
             line("You walk over the bridge over the A-road, looking wistfully at the vehicles " +
                  "driving by.")
+            newline()
 
-            line("When you walked to school with Char, she would always get on about the", addNewline = false)
+            line("Long ago, when you walked to school with Char, she would always get on about the", addNewline = false)
             pushSceneButton(CommonScenes.CARS.id, "evils of cars.")
+            newline()
 
-            line("The cars seem to be going")
+            line("The cars seem to be going", addNewline = false)
             changeSceneButton("sussex-july-4-pre-9", "a lot faster than they should be.")
         }
     }
@@ -313,9 +315,9 @@ public fun registerSussexJuly4Scenes() {
             newline()
 
             line("That's far too unsafe. This area is heavily", addNewline = false)
-            pushSceneButton(CommonScenes.FOREST_1.id, "forested")
+            pushSceneButton("side.lost-forest-1", "forested")
             line(
-                "and a\nspeeding car like that could easily veer off and kill a student, " +
+                "and a speeding car like that could easily veer off and kill a student, " +
                 "or worse, a tree."
             )
             newline()

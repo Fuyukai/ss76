@@ -2,10 +2,8 @@ package tf.veriny.ss76.vn
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Sound
-import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
-import tf.veriny.ss76.isInsideJar
 
 /**
  * "Namespace" of scenes shared between multiple routes.
@@ -305,13 +303,15 @@ public object CommonScenes {
             line("Height: 150cm")
             newline()
 
-            line("The worst person you know.")
+            line("An annoying little rat. He doesn't know when to shut up.")
             newline()
 
-            line("Self-centred. Full of himself. Mean. Spoiled rich kid.")
+            line(
+                "He has an IQ of 6. He has a bright career as a shopping trolley attendant."
+            )
             newline()
 
-            line("He has nobody else, so you feel sorry for him. That's why you're friends with him.")
+            line("He's a spoiled rich kid, too. He's been waited on his whole life.")
             newline()
 
             backButton()
@@ -358,6 +358,11 @@ public object CommonScenes {
             )
             newline()
 
+            line(
+                "She pretends to know a lot about science and tech, but she's just skimming off of " +
+                "other people's hard work."
+            )
+
             backButton()
         }
     }
@@ -394,12 +399,15 @@ public object CommonScenes {
             )
             newline()
 
-            line("She's a complete suck-up to the teachers. She's a straight-A* student.")
+            line(
+                "She's a complete suck-up to the teachers. She's a straight-A* student, " +
+                "although that doesn't matter because she's a humanities student."
+            )
             newline()
 
             line(
                 "She only graces you with her presence when she's not busy reminding everyone " +
-                "that homework is due, or policing the uniforms of the Year 9s."
+                "that homework is due or policing the uniforms of the Year 9s."
             )
             newline()
 
@@ -418,11 +426,10 @@ public object CommonScenes {
             newline()
 
             line(
-                "You've known them since Year 7. None of your other primary school friends " +
-                "passed their 11+. They're all a bunch of weirdos. It's no wonder you gravitated " +
-                "towards them. "
+                "You've known them since Year 7. Nobody from your old primary school passed " +
+                "the entrance exam, so you had to make new friends. Naturally, you gravitated towards " +
+                "the weirdos."
             )
-            newline()
 
             line("They are:")
             newline()
@@ -437,7 +444,7 @@ public object CommonScenes {
                 ALEX_BIOGRAPHY_1.id,
                 "Alexander 'Alex' Ashton,"
             )
-            line("the worst person you know")
+            line("a hyperactive rat")
 
             pushSceneButton(
                 CATE_BIOGRAPHY_1.id,
@@ -481,10 +488,6 @@ public object CommonScenes {
     internal val FRIENDS_R1_TWO = createAndRegisterScene("common.friends-r1-second") {
         page {
             line("You have four friends. (What a loser.)")
-
-            line(
-                "You've known most of them since Year 7."
-            )
             newline()
 
             line("They are:")
@@ -494,7 +497,7 @@ public object CommonScenes {
                 CHAR_BIOGRAPHY_1.id,
                 "Charlotte 'Char' Philips,"
             )
-            line("the wisest lady you know")
+            line("your favourite friend")
 
             pushSceneButton(
                 ALEX_BIOGRAPHY_1.id,
@@ -506,13 +509,13 @@ public object CommonScenes {
                 CATE_BIOGRAPHY_1.id,
                 "Catherine 'Cate' Schwartz,"
             )
-            line("the most insincere person ever ")
+            line("the most insincere person ever")
 
             pushSceneButton(
                 JESS_BIOGRAPHY_1.id,
                 "Jessica 'Jess' Davies,",
             )
-            line("Minister for Brownnosing")  // hehe...
+            line("the Big Bang Theory of human beings")  // hehe...
             newline()
 
             backButton()
@@ -569,18 +572,6 @@ public object CommonScenes {
             newline()
 
             backButton()
-        }
-    }
-
-    internal val FOREST_1 = createAndRegisterScene("common.forest-1") {
-        onLoad {
-            if (isInsideJar()) {
-                SS76.sceneManager.exitScene()
-            }
-        }
-
-        page {
-            line("Your town is a mix of suburban area, heavy forest, and heathland. ")
         }
     }
 

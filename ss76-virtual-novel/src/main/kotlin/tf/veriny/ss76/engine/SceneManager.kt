@@ -88,7 +88,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
      */
     public fun loadSeenScenes() {
         val dataDir = CheckpointManager.BASE_DIR
-        val saveDir = dataDir.resolve("ss76/$namespace")
+        val saveDir = dataDir.resolve(namespace)
         Files.createDirectories(saveDir)
 
         val saveData = saveDir.resolve("seen.txt")
