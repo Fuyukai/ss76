@@ -39,6 +39,7 @@ public fun registerMiscScenes() {
 
             line("UI testing/Story review: Lewis O Fivelifecut")
             line("UI testing/Story review: Gretchen S Mary")
+            line("Story review: Erin 'Two' Leftoutofdark")
 
             backButton()
         }
