@@ -275,25 +275,69 @@ public fun registerSussexJuly5Pt2Scenes() {
             )
             newline()
 
-            line(":push:@yellow@")
-            line("Oh fuck it I can't be bothered to write any of this. It's just filler for " +
-                 "character development purposes. I promise I'll finish this before the 4 day demo. " +
-                 "If I don't you are allowed to execute me"
+            line(
+                "There's cables running to a handful of computer towers in the corner, and " +
+                "a projector displaying what's running on the VR kit."
             )
-            line("Blah blah time skip to 7pm, Jess came back from school, Alex led them to a " +
-                 "special place in the garden cos uhh sentimental shit. Pretend I wrote all that.")
-            line(":pop:")
             newline()
 
-            changeSceneButton("sussex-july-5-evening-1", "Jump to the fun stuff")
+            line("Char's eyes practically glow when she sees it.")
+            newline()
+
+            dline(
+                "CHAR: Oh my. I've only ever heard rumours about this system. How did the " +
+                "rat manage to get this?"
+            )
+
+            dline(
+                "CATE: There are quite a few multiplayer games loaded onto it. I will play " +
+                "alongside you."
+            )
+
+            dline(
+                "CATE: Also, Jessica will be back this afternoon. I am sure she will also " +
+                "play the games with you."
+            )
+
+            changeSceneButton("sussex-july-5-mansion-9", "Char is already strapped in.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-mansion-9") {
+        page {
+            dline(
+                "CATE: I do hope we make an effective team. I have played this game with " +
+                "Alex but he does not do very well."
+            )
+
+            dline("CHAR: Yeah, yeah, whatever. I'll carry you, easy.")
+
+            dline("CATE: Good. Let us make good use of the next six hours.")
+
+            dline("CHAR: Why six? I could play this forever!")
+
+            dline(
+                "CATE: Alex wants to show us something this evening, outside. He has been quite " +
+                "excited about it."
+            )
+
+            dline("CHAR: Great.")
+
+            line(
+                "Cate puts the headset on, and they both start playing the game. You sit and " +
+                "watch on the projector."
+            )
+            newline()
+
+            changeSceneButton("sussex-july-5-evening-1", "Eventually, night falls.")
         }
     }
 
     createAndRegisterScene("sussex-july-5-evening-1") {
         page {
             line(
-                "Alex led us to a spot in the garden, far away from the main house. It was " +
-                "secluded in amongst (sus) the trees."
+                "Alex leads us to a spot in the garden, far away from the main house. It was " +
+                "hidden in amongst the trees."
             )
             newline()
 
