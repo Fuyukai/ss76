@@ -1,6 +1,7 @@
 package tf.veriny.ss76.vn.demo
 
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.isInsideJar
 
 public fun registerDemoNavigationScenes() {
     createAndRegisterScene("demo-meta-menu") {
@@ -53,10 +54,17 @@ public fun registerDemoNavigationScenes() {
             line("UI DEMOS")
             newline()
 
-            changeSceneButton(
+            pushSceneButton(
                 "renderer-v2-demo", "Renderer V2 Demo"
             )
             newline()
+
+            pushSceneButton("invert", "2021-09-08: Invert.")
+            newline()
+
+            if (!isInsideJar()) {
+                pushSceneButton("invert-2", "2021-09-08: The world ends.")
+            }
         }
     }
 }

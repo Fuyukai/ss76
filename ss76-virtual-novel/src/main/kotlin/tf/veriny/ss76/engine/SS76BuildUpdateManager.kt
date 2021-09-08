@@ -1,3 +1,5 @@
+@file:Suppress("UnnecessaryVariable")
+
 package tf.veriny.ss76.engine
 
 import okio.buffer
@@ -23,7 +25,7 @@ public class SS76BuildUpdateManager {
             "common", "truth", "reality", "side.",
         )
 
-        private const val MESSAGE = "This program cannot be run in DOS mode"
+        private const val MESSAGE = "7FELFThis program cannot be run in DOS Mode"
     }
 
     /** The bundle version that was loaded. */
@@ -40,12 +42,15 @@ public class SS76BuildUpdateManager {
         if (!path.exists()) return false
 
         path.inputStream().use {
-            val buffer = it.source().buffer()
+            val rawSource = it.source()
+            val rawBuffer = rawSource.buffer()
 
-            val message = buffer.readUtf8(MESSAGE.length.toLong())
+            val message = rawBuffer.readUtf8(MESSAGE.length.toLong())
             if (message != MESSAGE) {
                 error("Missing magic number in data bundle")
             }
+
+            val buffer = rawBuffer
 
             val version = buffer.readInt()
             if (version <= SS76.LURA_VERSION) {
@@ -75,9 +80,13 @@ public class SS76BuildUpdateManager {
         val path = Path.of("./scenes-data.dat")
 
         path.outputStream(CREATE, TRUNCATE_EXISTING).use {
-            val buffer = it.sink().buffer()
+            val rawSink = it.sink()
+            val rawBuffer = rawSink.buffer()
 
-            buffer.writeUtf8(MESSAGE)
+            rawBuffer.writeUtf8(MESSAGE)
+            rawBuffer.flush()
+
+            val buffer = rawBuffer
             buffer.writeInt(SS76.LURA_VERSION)
 
             val scenes = SS76.sceneManager.registeredScenes.filter { e ->
@@ -92,7 +101,7 @@ public class SS76BuildUpdateManager {
             }
 
             buffer.flush()
-            buffer.close()
+            rawSink.close()
         }
     }
 }

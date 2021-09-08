@@ -41,6 +41,12 @@ public class VirtualNovelScene(
 
     private val glyphLayout = GlyphLayout()
 
+    /** If the core renderer should render extras. */
+    public val renderExtras: Boolean get() = definition.renderExtras
+
+    /** If the central box should be inverted. */
+    public val invert: Boolean get() = definition.invert
+
     /**
      * Called when the scene is loaded.
      */
@@ -246,6 +252,38 @@ public class VirtualNovelScene(
         return nodes
     }
 
+    private fun drawClickables(border: Float) {
+        val width = SS76.fontManager.characterWidth
+        glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
+
+        /*val isUpdated = SS76.record.updated
+        if (isUpdated) {
+            glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / ! Record")
+        } else {
+            glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
+        }*/
+        currentYOffset = -glyphLayout.height * 2
+        currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
+
+        run {
+            val colour = when {
+                !SS76.record.updated || timer.rem(60) < 30 -> Color.GREEN
+                timer.rem(60) >= 30 -> Color.RED
+                else -> error("unreachable")
+            }
+            val text = "Up"
+            val rect = renderWordRaw(text, colour, calcRectangle = true)
+            SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
+        }
+        currentXOffset += width
+        renderWordRaw("/", Color.WHITE)
+        currentXOffset += width
+        run {
+            val rect = renderWordRaw("Checkpoint", Color.GREEN, calcRectangle = true)
+            SS76.buttonManager.addClickableArea(ButtonManager.CHECKPOINT_BUTTON, rect!!)
+        }
+    }
+
     /**
      * Called when the scene is rendered.
      */
@@ -256,19 +294,21 @@ public class VirtualNovelScene(
         currentXOffset = 0f
         currentYOffset = 0f
 
-        var border = if (SS76.isBabyScreen) 47f else 75f
+        val border = if (SS76.isBabyScreen) 47f else 75f
 
         // Step 1) Render the black box.
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
+            val colour = if (invert) Color.WHITE else Color.BLACK
+
             if (SS76.isBabyScreen) {
                 rect(
                     47f, 47f, 800 - (47f * 2), 600 - (47f * 2),
-                    Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
+                    colour, colour, colour, colour
                 )
             } else {
                 rect(
                     75f, 75f, 1280 - (75f * 2), 960 - (75f * 2),
-                    Color.BLACK, Color.BLACK, Color.BLACK, Color.BLACK
+                    colour, colour, colour, colour
                 )
             }
 
@@ -323,34 +363,8 @@ public class VirtualNovelScene(
 
             // 3c) Draw clickables anchored to the top right.
             // evil code!
-            val width = SS76.fontManager.characterWidth
-            glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
-
-            /*val isUpdated = SS76.record.updated
-            if (isUpdated) {
-                glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / ! Record")
-            } else {
-                glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
-            }*/
-            currentYOffset = -glyphLayout.height * 2
-            currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
-
-            run {
-                val colour = when {
-                    !SS76.record.updated || timer.rem(60) < 30 -> Color.GREEN
-                    timer.rem(60) >= 30 -> Color.RED
-                    else -> error("unreachable")
-                }
-                val text = "Up"
-                val rect = renderWordRaw(text, colour, calcRectangle = true)
-                SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
-            }
-            currentXOffset += width
-            renderWordRaw("/", Color.WHITE)
-            currentXOffset += width
-            run {
-                val rect = renderWordRaw("Checkpoint", Color.GREEN, calcRectangle = true)
-                SS76.buttonManager.addClickableArea(ButtonManager.CHECKPOINT_BUTTON, rect!!)
+            if (definition.renderExtras) {
+                drawClickables(border)
             }
         }
 

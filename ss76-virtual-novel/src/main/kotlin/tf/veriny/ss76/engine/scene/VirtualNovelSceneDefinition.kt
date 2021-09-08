@@ -41,7 +41,8 @@ public class BasicSceneDefinition(
     private val pages: List<List<TextualNode>>,
     public val clearScreenColour: Color? = null,
     public val changedTopText: String? = null,
-    onLoadHandlers: List<onLoad> = listOf()
+    onLoadHandlers: List<onLoad> = listOf(),
+    invert: Boolean = false,
 ) : VirtualNovelSceneDefinition {
     override val buttons: Map<String, ButtonManager.Button> = originalButtons.toMutableMap().apply {
         put("page-next", ButtonManager.NEXT_BUTTON)
@@ -53,6 +54,12 @@ public class BasicSceneDefinition(
 
     /** If this definition has custom onLoad handlers. */
     public val hasCustomOnLoad: Boolean = onLoadHandlers.isNotEmpty()
+
+    /** If this scene should invert the central black box. */
+    public val invert: Boolean = invert
+
+    /** If the renderer should render extra components. */
+    public val renderExtras: Boolean = !invert
 
     @OptIn(ExperimentalStdlibApi::class)
     override val onLoadHandlers: List<onLoad> = buildList<onLoad> {

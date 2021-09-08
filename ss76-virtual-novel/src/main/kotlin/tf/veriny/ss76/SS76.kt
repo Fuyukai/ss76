@@ -281,21 +281,23 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         batch.use {
-            drawTopMessage()
+            if (scene.renderExtras) {
+                drawTopMessage()
 
-            if (IS_DEBUG) {
-                if (isBabyScreen) {
-                    fontManager.currentFont.white.draw(batch,
-                        "Scene ID: ${sceneManager.currentScene.id}",
-                        15f,
-                        20f
-                    )
-                } else {
-                    fontManager.currentFont.white.draw(batch,
-                        "Scene ID: ${sceneManager.currentScene.id}",
-                        15f,
-                        50f
-                    )
+                if (IS_DEBUG) {
+                    if (isBabyScreen) {
+                        fontManager.currentFont.white.draw(batch,
+                            "Scene ID: ${sceneManager.currentScene.id}",
+                            15f,
+                            20f
+                        )
+                    } else {
+                        fontManager.currentFont.white.draw(batch,
+                            "Scene ID: ${sceneManager.currentScene.id}",
+                            15f,
+                            50f
+                        )
+                    }
                 }
             }
 

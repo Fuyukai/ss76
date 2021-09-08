@@ -125,6 +125,9 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     /** The top text to change to on loading. */
     public var topText: String? = null
 
+    /** If this scene should draw with the colours inverted. */
+    public var invert: Boolean = false
+
     /**
      * Registers a function to be ran on load.
      */
@@ -167,7 +170,8 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
         return BasicSceneDefinition(
             sceneId, buttons, pages,
             clearScreenColour = clearScreenColour, changedTopText = topText,
-            onLoadHandlers = this.onLoadHandlers
+            onLoadHandlers = this.onLoadHandlers,
+            invert = invert
         )
     }
 }

@@ -1,5 +1,6 @@
 package tf.veriny.ss76.vn.demo
 
+import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.engine.FontManager
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
@@ -40,6 +41,25 @@ public fun registerDemoUIScene() {
         page {
             line("Shuffled numbers: ¬shufnum¬0123456789")
             line("Shuffled text: ¬shuftxt¬abcdefghi")
+        }
+    }
+
+    createAndRegisterScene("invert") {
+        invert = true
+        clearScreenColour = Color.WHITE
+
+        page {
+            line(":push:@black@ Invert. :pop:")
+        }
+    }
+
+    createAndRegisterScene("invert-2") {
+        invert = true
+        //clearScreenColour = Color.WHITE
+
+        page {
+            newline(11)
+            line(" ".repeat(27) + ":push:@black@ The world ends. :pop:")
         }
     }
 }
