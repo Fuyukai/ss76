@@ -331,8 +331,9 @@ public class VirtualNovelScene(
         // Step 3) Begin drawing.
         SS76.batch.use {
             // 3a) Draw pages if needed.
+            pageIdx = min(max(pageIdx, 0), definition.pageCount - 1)
+
             if (definition.pageCount > 1) {
-                pageIdx = min(max(pageIdx, 0), definition.pageCount - 1)
                 val pageButtons = getPageButtons()
                 for (node in pageButtons) {
                     renderTextNode(node)
