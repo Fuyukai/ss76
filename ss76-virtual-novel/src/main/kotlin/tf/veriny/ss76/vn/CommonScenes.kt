@@ -348,8 +348,7 @@ public object CommonScenes {
             line("Age: 17")
             newline()
 
-            line("Her last name makes her seem like a kraut, but she's not. She speaks with a " +
-                 "stereotypical English accent, and she doesn't look German.")
+            line("Her last name makes her seem like a kraut, but she's not.")
             newline()
 
             line(
@@ -362,6 +361,10 @@ public object CommonScenes {
                 "She pretends to know a lot about science and tech, but she's just skimming off of " +
                 "other people's hard work."
             )
+            newline()
+
+            line("She tries to speak in RP, but her native estuary accent comes through anyway.")
+            newline()
 
             backButton()
         }

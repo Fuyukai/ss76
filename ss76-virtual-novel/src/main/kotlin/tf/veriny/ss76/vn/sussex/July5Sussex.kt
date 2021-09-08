@@ -702,9 +702,10 @@ public fun registerSussexJuly5Scenes() {
                 "come to school today?"
             )
 
-            dline("CHAR: Alex... I want to go to your mansion today. I need to be pampered.")
-
-            dline("JESS: You're always pamp-")
+            dline(
+                "ALEX: We can go back to my house, if you want. We've just had a new VR " +
+                "room installed last week! It'll be great fun."
+            )
 
             line("Char falls over into my arms, passed out. She's so light and delicate.")
             line(
@@ -715,7 +716,7 @@ public fun registerSussexJuly5Scenes() {
 
             dline("ALEX: Okay, I'll call the maids and tell them we're having guests today.")
 
-            changeSceneButton("sussex-july-52-start", ">> Next")
+            changeSceneButton("sussex-july-5-start-2", ">> Next")
         }
     }
 }

@@ -37,7 +37,7 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("sussex-july-5-start", "2021-09-03: Route One, 05/07")
             newline()
 
-            pushSceneButton("sussex-july-52-start", "2021-09-03: Route One, 05/07, Part 2")
+            pushSceneButton("sussex-july-5-start-2", "2021-09-03: Route One, 05/07, Part 2")
         }
 
         page {
