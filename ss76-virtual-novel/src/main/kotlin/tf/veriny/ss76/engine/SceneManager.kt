@@ -5,6 +5,7 @@ import ktx.app.KtxInputAdapter
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
+import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import java.nio.file.Files
 import java.nio.file.Path
@@ -241,9 +242,18 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
             currentScene.pageBack()
         } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
             currentScene.pageForward()
-        } else if (keycode == Input.Keys.SPACE || keycode == Input.Keys.ENTER) {
+        } else if (keycode == Input.Keys.SPACE) {
             currentScene.skipTimer()
             return true
+        } else if (keycode == Input.Keys.ENTER) {
+            val buttons = SS76.buttonManager.buttonRects.keys.filter {
+                it.buttonType == ButtonManager.ButtonType.CHANGE
+            }
+
+            if (buttons.isEmpty() || buttons.size > 1) return false
+
+            val button = buttons.first()
+            button.action.invoke(currentScene)
         }
 
         return false
