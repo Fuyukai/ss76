@@ -177,6 +177,7 @@ public object SS76 : KtxApplicationAdapter {
                     registerJuly4SussexPt2Scenes()
                     registerSussexJuly5Scenes()
                     registerSussexJuly5Pt2Scenes()
+                    registerSussexJuly6Scenes()
 
                     // == SIDE PLOTS == //
                     registerSidePlotAlexRadio()

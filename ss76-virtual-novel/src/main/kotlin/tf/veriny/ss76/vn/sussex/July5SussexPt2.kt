@@ -840,15 +840,421 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("CATE: We have the phone numbers now. We can call one of those.")
 
-            changeSceneButton("sussex-july-5-evening-14", "")
+            changeSceneButton(
+                "sussex-july-5-evening-14",
+                "That seems like a bad idea, but you don't know why."
+            )
         }
     }
 
     createAndRegisterScene("sussex-july-5-evening-14") {
-        clearScreenColour = Color.BLUE.copy(blue = 220 / 225f)
+        clearScreenColour = Color.BLUE.copy(blue = 220 / 255f)
 
         page {
+            dline("ALEX: Ah! I don't have any signal out here!")
 
+            line("Everyone gets their phone out to check.")
+
+            dline("CATE: I do not have any signal, either.")
+
+            dline("CHAR: Me neither. I bet your nutjob father runs a phone jammer, too.")
+
+            line("The new phone that Alex gave you is charging inside, so you can't check it.")
+            newline()
+
+            dline("JESS: I have four bars. I don't know what's wrong with you lot. ")
+
+            line(
+                "That shouldn't be right. Jess is on a different network, but there's no way " +
+                "there's only one phone tower around."
+            )
+            newline()
+
+            dline("JESS: Okay, give me the number.")
+
+            changeSceneButton(
+                "sussex-july-5-evening-15",
+                "She starts to dial the number."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-15") {
+        clearScreenColour = Color.BLUE.copy(blue = 215 / 255f)
+
+        page {
+            line("One ring. Two rings. Three rings.")
+            newline()
+
+            line("The other end picks up.")
+            newline()
+
+            line("There's no tones, only a brief amount of silence.")
+            newline()
+
+            line(
+                "There's a horrible noise coming from the phone speaker, stripping away your " +
+                "eardrums."
+            )
+            newline()
+
+            line("It sounds like wind.")
+            newline()
+
+            changeSceneButton("sussex-july-5-evening-16", "The wind seems to pick up.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-16") {
+        clearScreenColour = Color.BLUE.copy(blue = 210 / 255f)
+
+        page {
+            dline("JESS: Hey, did anyone else notice the time? It's just gone half past nine.")
+
+            dline(
+                "ALEX: Oh! One of the numbers should have totally changed now! We should " +
+                "check what they are!"
+            )
+
+            dline("CATE: Did you check the numbers from yesterday, too?")
+
+            dline("ALEX: Yeah! There was the same gap! The gap that we're in!")
+
+            dline(
+                "CATE: That is disappointing. Well, if you check now, you might have a " +
+                "better result."
+            )
+
+            line("Char looks at Jess. Jess looks back at Char. They both look at Alex.")
+            newline()
+
+            dline("ALEX: I left my radio in the house! I didn't want it to get wet out here!")
+
+            changeSceneButton(
+                "sussex-july-5-evening-17",
+                "It hasn't rained in months, though."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-17") {
+        clearScreenColour = Color.BLUE.copy(blue = 210 / 255f)
+
+        page {
+            dline("CATE: We have the phone numbers now, though. We should call one of those.")
+
+            dline("ALEX: That's a super duper brilliant fantastic idea!")
+
+            line("Alex pulls his phone out and frowns at it.")
+
+            dline("ALEX: I have no signal.")
+
+            dline("CATE: I have no signal, either.")
+
+            line(
+                "The new phone that Alex gave you hasn't been set up yet, so you don't " +
+                "bother checking."
+            )
+            newline()
+
+            dline("CHAR: I have four bars... how do I have signal and you guys don't?")
+
+            changeSceneButton(
+                "sussex-july-5-evening-18",
+                "Char hesitates, but starts to dial one of the numbers."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-18") {
+        clearScreenColour = Color.BLUE.copy(blue = 195 / 255f)
+        topText = "..."
+
+        page {
+            line("One ring. Two rings. The phone and the wind pick up.")
+            newline()
+
+            line("There's no tones, only a brief amount of silence.")
+            newline()
+
+            line(
+                "There's a horrible noise coming from the phone speaker, " +
+                "burrowing away in your brain."
+            )
+            newline()
+
+            line("It sounds like wind.")
+            newline()
+
+            line("Everyone freezes with a pained expression on their face. Still.")
+            line("It feels as if not even the strongest force in the universe could move them.")
+            newline()
+
+            changeSceneButton("sussex-july-5-evening-19", "The numbers are read out.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-19") {
+        clearScreenColour = Color.BLUE.copy(blue = 180 / 255f)
+
+        page {
+            line(
+                "The numbers are not any numbers you can comprehend. They hurt my ears. It " +
+                "feels as if somebody is pushing a nail through your head."
+            )
+            newline()
+
+            line(
+                "The wind is really strong now, but nobody is moving. Cate's notebook flips " +
+                "open and flies out into the abyss. She continues to have winced in pain."
+            )
+            newline()
+
+            line(
+                "Char is trying to turn her heard towards me. You see her jittering, " +
+                "jittering, her body seemingly snapping back and forwards in time as she tries to " +
+                "release her phone."
+            )
+            newline()
+
+            line(
+                "An infinite amount of time later, she finally releases the phone from her " +
+                "grip. It flies towards the floor infinitely fast, and smashes."
+            )
+            newline()
+
+            changeSceneButton("sussex-july-5-evening-20", "The wind stops.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-20") {
+        clearScreenColour = Color.BLACK
+
+        page {
+            dline("JESS: Whoa! What the fuck are you doing?")
+
+            line("Char has accidentally thrown her phone directly onto Jess' foot.")
+
+            dline(
+                "CHAR: What the fuck just - why did it change? Why did it happen again? " +
+                "What time is it?"
+            )
+
+            line(
+                "You wince from the volume of Char's yelling. Jess responds, in a perfectly " +
+                "average volume."
+            )
+
+            dline("JESS: What the hell are you talking about? What changed? What happened again?")
+
+            dline("CHAR: Don't fucking tell me you didn't see that.")
+
+            dline("JESS: See what, Charlotte?")
+
+            changeSceneButton("sussex-july-5-evening-21", "Jess gives a malicious smile.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-21") {
+        page {
+            dline("ALEX: Miss Charlotte, are you okay?")
+
+            dline("CHAR: I asked, what time is it!!")
+
+            dline(
+                "JESS: It's a few minutes past ten, Charlotte. We were just talking about " +
+                "the stars changing."
+            )
+
+            dline(
+                "CHAR: I didn't believe it when I heard it. Not after all this time, not again."
+            )
+
+            line("Char falls back into her chair, crying.")
+            newline()
+
+            dline("ALEX: Miss Charlotte! What's wrong?! Do you want me to fetch the doctor?")
+
+            dline("CHAR: You, rat, turn on the lights.")
+
+            dline("ALEX: What? The really bright ones?")
+
+            dline("CHAR: Turn on the fucking lights you little rat bastard!")
+
+            changeSceneButton("sussex-july-5-evening-22", "Alex obliges.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-22") {
+        page {
+            line(
+                "The lights turn back on, almost blinding you. The light creates rainbows " +
+                "through the raindrops falling onto the gazebo deck."
+            )
+            newline()
+
+            dline("CHAR: Oh no. Please no.")
+
+            line("The lights stop at the gazebo walls. They stop, because there is nothing there.")
+            newline()
+
+            dline("JESS: Why are you acting so hysterical all of a sudden? It's just a phone.")
+
+            line("For some reason, you feel the temptation to break Jess' horrible little nose.")
+            newline()
+
+            dline("CHAR: Please, look. Tell me, tell me - tell me you see that.")
+
+            line("She points at nothing beyond the gazebo walls.")
+            newline()
+
+            changeSceneButton("sussex-july-5-evening-23", "ALEX: What, that tree?")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-23") {
+        page {
+            line("There's no tree there. There's nothing there but nothingness.")
+            newline()
+
+            line("You can't stare at it for too long. The rain is getting in your eyes.")
+            newline()
+
+            dline("CHAR: No, no, no, there's no fucking tree there. Look at it!")
+
+            dline("CATE: It is just a tree. If you are that offended by it, I am sure that Alex " +
+                  "could have it chopped down for you.")
+
+            dline("JESS: That would be rather heartless, even by your very very low standards.")
+
+            line("Jess is taunting a clearly upset girl. What a horrible fucking bitch she is.")
+            newline()
+
+            dline("CHAR: Okay. Okay. Go touch that tree for me then.")
+
+            dline(
+                "JESS: If it makes you stop snivelling like a baby, sure. Alex, go touch that " +
+                "tree."
+            )
+
+            changeSceneButton(
+                "sussex-july-5-evening-24",
+                "He bounds up from the chair like an obedient dog."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-24") {
+        page {
+            line("His hand reaches nothing first. It happens instantly.")
+            newline()
+
+            dline("CHAR: Okay. Okay. I remember. That's okay, I remember.")
+
+            dline("JESS: See, he touched the tree. Happy now?")
+
+            line("Alex is stuck. He's stuck at the border of the gazebo, frozen, forever.")
+            newline()
+
+            line("His frozen body begins to redshift. Eventually, he'll be gone.")
+            newline()
+
+            dline("CATE: No, I do not think she wants it cut down.")
+
+            dline("CATE: Yes, but she has stopped crying.")
+
+            changeSceneButton("sussex-july-5-evening-25", "It happens to Cate, too.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-25") {
+        page {
+            line(
+                "Cate reaches to grab something from where Alex should be, and she freezes " +
+                "forever."
+            )
+            newline()
+
+            dline("CHAR: What's the time, now?")
+
+            line("Char has sunk into her chair, even more. A mixture of tears and raindrops soak " +
+                 "her face.")
+            newline()
+
+            dline("JESS: It's 10:06.")
+
+            line(
+                "The nothingness begins to approach. The edges of the gazebo fade into " +
+                "nothingness. The backs of the chair fade into nothingness."
+            )
+            newline()
+
+            line(
+                "The edge of reality glows, blinding me again. The only thing I can see is " +
+                "silhouettes against the backdrop."
+            )
+            newline()
+
+            changeSceneButton(
+                "sussex-july-5-evening-26",
+                "The chairs are destroyed. All that remains is a small area in the middle."
+            )
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-26") {
+        clearScreenColour = Color.WHITE
+        invert = true
+
+        page {
+            line(":push:@black@ The wind and the rain make it hard to hear anything anymore.")
+            line("The last conversation ever unfolds in front of you.")
+            newline()
+
+            dline("@teal@????: It's been months now. I thought we ended it.")
+
+            dline("@lime@????: You try so hard, but it doesn't work.")
+
+            dline("@teal@????: It's Thursday tomorrow. What do you think will happen?")
+
+            dline("@lime@????: I hope they come back.")
+
+            dline("@teal@????: Deep in your heart, you didn't believe in the numbers either.")
+
+            dline("@lime@????: You keep saying otherwise.")
+
+            dline("@teal@????: It hasn't rained in weeks.")
+
+            changeSceneButton("sussex-july-5-evening-27", "I feel a soft hand grip mine.")
+            line(":pop:")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-evening-27") {
+        clearScreenColour = Color.WHITE
+        invert = true
+
+        page {
+            dline(":push:@black@ @teal@????: I'm sorry. This shouldn't've happened yet.")
+
+            dline(":push:@black@ @teal@????: Don't believe a word she says about me.")
+
+            dline(":push:@black@ @teal@????: She wants to destroy you. :pop:")
+
+            changeSceneButton("sussex-july-5-end", "The figures fade into the light.")
+        }
+    }
+
+    createAndRegisterScene("sussex-july-5-end") {
+        clearScreenColour = Color.WHITE
+        invert = true
+
+        onLoad { it.skipTimer() }
+
+        page {
+            newline(11)
+            line(" ".repeat(22), addNewline = false)
+            changeSceneButton("sussex-july-6-start", "T h e  w o r l d  e n d s.")
         }
     }
 }
