@@ -36,6 +36,7 @@ public fun BufferedSink.writeColour(c: Color) {
 public fun BufferedSource.readSceneDefinition(): BasicSceneDefinition {
     val sceneNameLength = readInt()
     val sceneId = readUtf8(sceneNameLength.toLong())
+    val invert = readByte().toInt() == 1
 
     val hasCustomColour = readByte() == (1).toByte()
     val colour = if (hasCustomColour) readColour() else null
@@ -91,7 +92,8 @@ public fun BufferedSource.readSceneDefinition(): BasicSceneDefinition {
     }
 
     return BasicSceneDefinition(
-        sceneId, buttons, nodes, clearScreenColour = colour, changedTopText = topText
+        sceneId, buttons, nodes, clearScreenColour = colour, changedTopText = topText,
+        invert = invert
     )
 }
 
@@ -99,6 +101,7 @@ public fun BufferedSink.writeSceneDefinition(definition: BasicSceneDefinition) {
     val sceneId = definition.id.encodeUtf8()
     buffer.writeInt(sceneId.size)
     buffer.write(sceneId)
+    buffer.writeByte(if (definition.invert) 1 else 0)
 
     if (definition.clearScreenColour != null) {
         buffer.writeByte(1)
