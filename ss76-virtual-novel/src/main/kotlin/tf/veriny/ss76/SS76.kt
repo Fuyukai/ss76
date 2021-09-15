@@ -162,29 +162,29 @@ public object SS76 : KtxApplicationAdapter {
 
                 // == META == //
                 //registerMainMenuScenes()
-                //registerButtonDemos()
                 registerMiscScenes()
 
-                // restore saved scenes, if needed
-                val loaded = sceneSaver.loadScenes()
-                if (!loaded) {
-                    println("Didn't load from scene bundle; using pre-packaged scenes instead.")
-                    CommonScenes.register()
+                // == SUSSEX ROUTE == //
+                registerSussexJuly3Scenes()
+                registerSussexJuly4Scenes()
+                registerJuly4SussexPt2Scenes()
+                registerSussexJuly5Scenes()
+                registerSussexJuly5Pt2Scenes()
+                registerSussexJuly6Scenes()
 
-                    // == SUSSEX ROUTE == //
-                    registerSussexJuly3Scenes()
-                    registerSussexJuly4Scenes()
-                    registerJuly4SussexPt2Scenes()
-                    registerSussexJuly5Scenes()
-                    registerSussexJuly5Pt2Scenes()
-                    registerSussexJuly6Scenes()
+                // == SIDE PLOTS == //
+                registerSidePlotAlexRadio()
+                registerSideLostInTheForest()
 
-                    // == SIDE PLOTS == //
-                    registerSidePlotAlexRadio()
-                    registerSideLostInTheForest()
+                CommonScenes.register()
 
-                    if (!isInsideJar()) {
-                        sceneSaver.saveScenes()
+                // Load newer scene versions if needed
+                if (!isInsideJar()) {
+                    sceneSaver.saveScenes()
+                } else {
+                    val loaded = sceneSaver.loadScenes()
+                    if (!loaded) {
+                        println("Didn't load from scene bundle; using pre-packaged scenes instead.")
                     }
                 }
 
