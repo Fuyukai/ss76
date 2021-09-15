@@ -41,6 +41,7 @@ public class BasicSceneDefinition(
     private val pages: List<List<TextualNode>>,
     public val clearScreenColour: Color? = null,
     public val changedTopText: String? = null,
+    public val dynamic: Boolean = false,
     onLoadHandlers: List<onLoad> = listOf(),
     invert: Boolean = false,
 ) : VirtualNovelSceneDefinition {

@@ -19,13 +19,6 @@ import kotlin.io.path.outputStream
  */
 public class SS76BuildUpdateManager {
     public companion object {
-        /** The list of prefixes that designate a contentful scene. */
-        public val CONTENTFUL_SCENES: List<String> = listOf(
-            "sussex", "suffolk", "kent",
-            "common", "truth", "reality", "side.",
-            "misc.save.",
-        )
-
         private const val MESSAGE = "7FELFThis program cannot be run in DOS Mode"
     }
 
@@ -90,15 +83,15 @@ public class SS76BuildUpdateManager {
             val buffer = rawBuffer
             buffer.writeInt(SS76.LURA_VERSION)
 
-            val scenes = SS76.sceneManager.registeredScenes.filter { e ->
-                CONTENTFUL_SCENES.any { it -> e.key.startsWith(it) || e.key == "demo-meta-menu" }
-            }.filterNot { it.value.definition.hasCustomOnLoad }
+            val scenes = SS76.sceneManager.registeredScenes.values.filterNot { s ->
+                s.definition.dynamic || s.definition.hasCustomOnLoad
+            }
 
             println("Saving ${scenes.size} scenes to the data bundle.")
 
             buffer.writeInt(scenes.size)
-            for ((k, v) in scenes) {
-                buffer.writeSceneDefinition(v.definition)
+            for (scene in scenes) {
+                buffer.writeSceneDefinition(scene.definition)
             }
 
             buffer.flush()

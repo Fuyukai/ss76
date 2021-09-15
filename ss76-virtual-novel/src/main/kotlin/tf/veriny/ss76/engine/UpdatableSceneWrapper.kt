@@ -28,7 +28,8 @@ public open class UpdatableSceneWrapper(
         val parsedPages = pages.map { splitScene(it.toString()) }
 
         val definition = BasicSceneDefinition(
-            sceneId, buttons, parsedPages
+            sceneId, buttons, parsedPages,
+            dynamic = true,
         )
         val scene = VirtualNovelScene(definition)
         SS76.sceneManager.reregisterScene(scene)
