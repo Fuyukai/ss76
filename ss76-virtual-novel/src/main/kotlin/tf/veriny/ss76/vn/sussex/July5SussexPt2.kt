@@ -1257,8 +1257,6 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("@teal@????: It's been months now. I thought we ended it.")
 
-            dline("@lime@????: You try so hard, but it doesn't work.")
-
             dline("@teal@????: It's Thursday tomorrow. What do you think will happen?")
 
             dline("@lime@????: I hope they come back.")
@@ -1267,7 +1265,7 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("@lime@????: You keep saying otherwise.")
 
-            dline("@teal@????: It hasn't rained in weeks.")
+            dline("@teal@????: You made a mistake. It hasn't rained in weeks.")
 
             changeSceneButton("sussex-july-5-evening-27", "I feel a soft hand grip mine.")
             line(":pop:")

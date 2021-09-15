@@ -21,8 +21,9 @@ public class SS76BuildUpdateManager {
     public companion object {
         /** The list of prefixes that designate a contentful scene. */
         public val CONTENTFUL_SCENES: List<String> = listOf(
-            "sussex", "suffolk", "kent", "kent",
+            "sussex", "suffolk", "kent",
             "common", "truth", "reality", "side.",
+            "misc.save.",
         )
 
         private const val MESSAGE = "7FELFThis program cannot be run in DOS Mode"
