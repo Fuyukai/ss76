@@ -32,14 +32,9 @@ import kotlin.time.measureTime
  */
 @Suppress("GDXKotlinStaticResource", "NAME_SHADOWING")  // don't care, these will never be disposed
 public object SS76 : KtxApplicationAdapter {
-    private class GeneratedFonts(
-        val name: String,
-        val white: BitmapFont, val green: BitmapFont, val red: BitmapFont, val orange: BitmapFont
-    )
-
     private const val LURA_DEMO_BUILD = false
     // used for saving scene data
-    public const val LURA_VERSION: Int = 10
+    public const val LURA_VERSION: Int = 11
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -168,7 +163,7 @@ public object SS76 : KtxApplicationAdapter {
                 // == SUSSEX ROUTE == //
                 registerSussexJuly3Scenes()
                 registerSussexJuly4Scenes()
-                registerJuly4SussexPt2Scenes()
+                //registerJuly4SussexPt2Scenes()
                 registerSussexJuly5Scenes()
                 registerSussexJuly5Pt2Scenes()
                 registerSussexJuly6Scenes()
@@ -207,7 +202,8 @@ public object SS76 : KtxApplicationAdapter {
                 for (r in routes) {
                     for (day in 3..18) {
                         val count = sceneManager.registeredScenes.keys.count {
-                            it.startsWith("$r-july-$day")
+                            it.startsWith("$r-july-$day") ||
+                            it.startsWith("${r.slice(0..2)}${day}j-")
                         }
 
                         // suck my dick deprecations

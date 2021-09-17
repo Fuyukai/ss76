@@ -23,7 +23,7 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-    createAndRegisterOnePageScene("s3j-school-desc") {
+    createAndRegisterOnePageScene("su3j-school-desc") {
         line(
             "You attend a coed grammar school. Grammar schools are rare sights these days, " +
             "but coed ones are even rarer."
@@ -76,7 +76,7 @@ public fun registerSussexJuly3Scenes() {
         line("But that's okay. Sixth form students are basically immune to punishment.")
         newline()
 
-        line("You unstick your sleeves from your arms and :push:`push-scene-s3j-school-desc`@linked@ " +
+        line("You unstick your sleeves from your arms and :push:`push-scene-su3j-school-desc`@linked@ " +
              "look up at the school :pop: as you push open the gate.")
         newline()
 
@@ -349,7 +349,7 @@ public fun registerSussexJuly3Scenes() {
         )
     }
 
-    createAndRegisterOnePageScene("s3j-holiday") {
+    createAndRegisterOnePageScene("su3j-holiday") {
         line("You haven't been on holiday for a few years now. Money has simply been too tight.")
         newline()
 
@@ -389,7 +389,7 @@ public fun registerSussexJuly3Scenes() {
         )
 
         pushSceneButton(
-            "s3j-holiday",
+            "su3j-holiday",
             "You and your friends are spending three weeks at Alex's house this summer."
         )
         newline()
@@ -607,7 +607,7 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-    createAndRegisterOnePageScene("s3j-ruler") {
+    createAndRegisterOnePageScene("su3j-ruler") {
         line("Char has a pocket sewn into the inside of her jacket with a few essential items.")
         newline()
 
@@ -654,7 +654,7 @@ public fun registerSussexJuly3Scenes() {
         )
 
         line(
-            "Char pulls out her `push-scene-s3j-ruler`@linked@notebook and starts writing " +
+            "Char pulls out her `push-scene-su3j-ruler`@linked@notebook and starts writing " +
             "something down."
         )
 
@@ -666,7 +666,7 @@ public fun registerSussexJuly3Scenes() {
         )
     }
 
-    createAndRegisterOnePageScene("s3j-reserved") {
+    createAndRegisterOnePageScene("su3j-reserved") {
         line(
             "Don't underestimate the persuasive power of a swift chop to the fingers with a " +
             "metal ruler."
@@ -685,7 +685,7 @@ public fun registerSussexJuly3Scenes() {
         newline()
 
         line("It's lunchtime now. You enter the cafeteria and make your way to your " +
-             "`push-scene-s3j-reserved`@linked@reserved table directly in the middle of the hall.")
+             "`push-scene-su3j-reserved`@linked@reserved table directly in the middle of the hall.")
         newline()
 
         line("Cate and Alex are already here and have finished their lunches. " +

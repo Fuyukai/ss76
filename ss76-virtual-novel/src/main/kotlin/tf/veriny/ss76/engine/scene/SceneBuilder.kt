@@ -232,6 +232,6 @@ public inline fun createAndRegisterScene(
 
 public inline fun createAndRegisterOnePageScene(
     sceneId: String, block: PageBuilder.() -> Unit
-) {
-    createAndRegisterScene(sceneId) { page(block) }
+): VirtualNovelScene {
+    return createAndRegisterScene(sceneId) { page(block) }
 }

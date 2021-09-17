@@ -5,7 +5,7 @@ import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 import kotlin.random.Random
 
-public fun registerSussexJuly4Scenes() {
+public fun registerSussexJuly4ScenesOld() {
     createAndRegisterScene("sussex-july-4-start") {
         topText = "SS76 - Route One - 04/07"
 
@@ -435,7 +435,7 @@ public fun registerSussexJuly4Scenes() {
                  "from the back of her head. ")
             line("Char is glaring at the group. Her eyes are close to shooting laser beams.")
             line("There's a fourth person here. Your", addNewline = false)
-            pushSceneButton(CommonScenes.FRIENDS_R1_TWO.id, "fourth friend.")
+            //pushSceneButton(CommonScenes.FRIENDS_R1_TWO.id, "fourth friend.")
             newline()
 
             line("The fourth friend turns to", addNewline = false)
@@ -1059,31 +1059,6 @@ public fun registerSussexJuly4Scenes() {
             dline("JESS: No! Not that comment! The one below it!")
 
             changeSceneButton("sussex-july-4-deduction-6", ">> Next")
-        }
-    }
-
-    // unused...
-    val printerScene = createAndRegisterScene("sussex-july-4-printer") {
-        page {
-            line(
-                "The printer in the corner was liberated from one of the school rooms a few " +
-                "months ago."
-            )
-            newline()
-
-            line(
-                "Everyone here worked as a team to grant it self-determination in your clubroom."
-            )
-            line("Alex paid off the IT techs to 'ignore' the theft for a day or two.")
-            line("Jess put in the work of actually lifting it onto the wheely thing.")
-            line("Char threatened the teachers as the printer was wheeled past them.")
-            line("Cate was responsible for setting it up in the room.")
-            newline()
-
-            line("You almost wish things were like that again. More unity. Less annoyance.")
-            newline()
-
-            backButton()
         }
     }
 

@@ -490,44 +490,6 @@ public object CommonScenes {
 
     // 4th scenes
 
-    internal val FRIENDS_R1_TWO = createAndRegisterScene("common.friends-r1-second") {
-        page {
-            line("You have four friends. (What a loser.)")
-            newline()
-
-            line("They are:")
-            newline()
-
-            pushSceneButton(
-                CHAR_BIOGRAPHY_1.id,
-                "Charlotte 'Char' Philips,"
-            )
-            line("your favourite friend")
-
-            pushSceneButton(
-                ALEX_BIOGRAPHY_1.id,
-                "Alexander 'Alex' Ashton,"
-            )
-            line("a mosquito given human form")
-
-            pushSceneButton(
-                CATE_BIOGRAPHY_1.id,
-                "Catherine 'Cate' Schwartz,"
-            )
-            line("the most insincere person ever")
-
-            pushSceneButton(
-                JESS_BIOGRAPHY_1.id,
-                "Jessica 'Jess' Davies,",
-            )
-            line("the Big Bang Theory of human beings")  // hehe...
-            newline()
-
-            backButton()
-
-        }
-    }
-
     internal val FELL_DOWN_HEATH = createAndRegisterScene("common.fallen-down") {
         page {
             line(
