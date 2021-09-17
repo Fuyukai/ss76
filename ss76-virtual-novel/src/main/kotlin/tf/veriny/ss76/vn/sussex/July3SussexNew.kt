@@ -447,11 +447,9 @@ public fun registerSussexJuly3Scenes() {
             )
             newline()
 
-            dline("ALEX: Yes! That's why!")
-
             dline(
-                "ALEX: Instead, the government sends out special radio signals that the " +
-                "spies pick up."
+                "ALEX: Yes! That's why!Instead, the government sends out special radio signals " +
+                "that the spies pick up."
             )
 
             dline(
@@ -615,7 +613,7 @@ public fun registerSussexJuly3Scenes() {
             "She has a small A7 notebook which she uses to take notes about things, alongside a " +
             "matching pen."
         )
-        line("It seems like she goes at least one per day.")
+        line("It seems like she goes through at least one per day.")
         newline()
 
         line(
@@ -628,7 +626,7 @@ public fun registerSussexJuly3Scenes() {
         newline()
 
         line("She doesn't let anyone else know she has this, not even the idiots. It would be " +
-             "quite embarassing, wouldn't it?")
+             "quite embarrassing, wouldn't it?")
         newline()
 
         backButton()
@@ -694,7 +692,7 @@ public fun registerSussexJuly3Scenes() {
         newline()
 
         line(
-            "Char sits down with both hers and your food in her hands. She has a bacon sarnie, " +
+            "Char sits down with both your food and hers in her hands. She has a bacon sarnie, " +
             "and you have plain tomato soup."
         )
         newline()
@@ -793,7 +791,7 @@ public fun registerSussexJuly3Scenes() {
             dline("CATE: We do not know what they are counting down to, or how long each decrement represents.")
 
             line(
-                "Cate was really getting into character. It woul be almost cute if she " +
+                "Cate was really getting into character. It would be almost cute if she " +
                 "wasn't so sickening."
             )
             newline()
@@ -959,7 +957,7 @@ public fun registerSussexJuly3Scenes() {
     createAndRegisterScene("sussex-july-3-walk-1") {
         page {
             line(
-                "Char insists walking you home every day. You both live on the same street, " +
+                "Char insists on walking you home every day. You both live on the same street, " +
                 "so it makes sense to walk together."
             )
             newline()

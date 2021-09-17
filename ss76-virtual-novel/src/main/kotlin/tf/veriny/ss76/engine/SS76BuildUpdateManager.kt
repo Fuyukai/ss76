@@ -83,8 +83,27 @@ public class SS76BuildUpdateManager {
             val buffer = rawBuffer
             buffer.writeInt(SS76.LURA_VERSION)
 
-            val scenes = SS76.sceneManager.registeredScenes.values.filterNot { s ->
-                s.definition.dynamic || s.definition.hasCustomOnLoad
+            val scenes = mutableListOf<VirtualNovelScene>()
+            for (scene in SS76.sceneManager.registeredScenes.values) {
+                val def = scene.definition
+                if (def.dynamic) {
+                    println("skipping dynamic scene ${scene.id}")
+                    continue
+                }
+
+                if (def.hasCustomOnLoad) {
+                    println("skipping custom load scene ${scene.id}")
+                    continue
+                }
+
+                val buttons = def.originalButtons.values.filter { b ->
+                    b.buttonType == ButtonManager.ButtonType.OTHER && b.name != "back-button"
+                }
+                if (buttons.isNotEmpty()) {
+                    println("skipping scene ${scene.id} due to extra buttons: $buttons")
+                    continue
+                }
+                scenes.add(scene)
             }
 
             println("Saving ${scenes.size} scenes to the data bundle.")

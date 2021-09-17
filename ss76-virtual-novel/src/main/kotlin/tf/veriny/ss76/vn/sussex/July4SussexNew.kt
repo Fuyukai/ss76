@@ -96,7 +96,7 @@ public fun registerSussexJuly4Scenes() {
 
             line(
                 "It would be better if all the funding wasted on vanity projects like " +
-                "eradicating malaria went to eradicating this plant instead/"
+                "eradicating malaria went to eradicating this plant instead."
             )
             newline()
 
@@ -166,7 +166,7 @@ public fun registerSussexJuly4Scenes() {
             newline()
 
             changeSceneButton(
-                "sussex-july-4-pre-6",
+                "sussex-july-4-pre-8",
                 "You give it a good stare as you walk past."
             )
         }
@@ -313,7 +313,7 @@ public fun registerSussexJuly4Scenes() {
         newline()
 
         changeSceneButton(
-            "sussex-july-4-school-2",
+            "sussex-july-4-school-3",
             "You leave it there and walk over to the stairs."
         )
     }
@@ -349,7 +349,7 @@ public fun registerSussexJuly4Scenes() {
         )
         newline()
 
-        dline("CHAR: Oi! Get up! I can't believe you're late on today, of all days!")
+        dline("CHAR: Oi! Get up! I can't believe you're late on today of all days!")
 
         line("You involuntarily wince in preparation of a ruler strike.")
         newline()
@@ -361,6 +361,7 @@ public fun registerSussexJuly4Scenes() {
             "You're too stupid to realise why you're being scolded, actually. " +
             "You just stare up at her, blankly."
         )
+        newline()
 
         dline(
             "CHAR: Don't you remember? The assembly that, and I quote, " +
