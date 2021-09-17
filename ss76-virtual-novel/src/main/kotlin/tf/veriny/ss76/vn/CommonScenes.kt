@@ -363,7 +363,7 @@ public object CommonScenes {
             )
             newline()
 
-            line("She tries to speak in RP, but her native estuary accent comes through anyway.")
+            line("She tries to speak in RP, but her grating native Sussex accent comes through anyway.")
             newline()
 
             backButton()
@@ -384,6 +384,8 @@ public object CommonScenes {
 
             line("She's really nice to everyone. She gives fantastic advice.")
             newline()
+
+            line("She tries to speak in RP, but her cute native Suffolk accent comes through anyway.")
 
             backButton()
 

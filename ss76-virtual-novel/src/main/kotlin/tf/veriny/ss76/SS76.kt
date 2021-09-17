@@ -23,6 +23,7 @@ import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.*
 import tf.veriny.ss76.vn.system.registerSystemScenes
+import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -38,7 +39,7 @@ public object SS76 : KtxApplicationAdapter {
 
     private const val LURA_DEMO_BUILD = false
     // used for saving scene data
-    public const val LURA_VERSION: Int = 8
+    public const val LURA_VERSION: Int = 10
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -175,6 +176,9 @@ public object SS76 : KtxApplicationAdapter {
                 // == SIDE PLOTS == //
                 registerSidePlotAlexRadio()
                 registerSideLostInTheForest()
+
+                // == TRUTH ENDING == //
+                registerTruthDayOneScenes()
 
                 CommonScenes.register()
 

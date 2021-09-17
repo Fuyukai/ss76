@@ -6,7 +6,7 @@ import tf.veriny.ss76.vn.CommonScenes
 
 //import tf.veriny.ss76.vn.CommonScenes
 
-public fun registerSussexJuly3Scenes() {
+public fun registerSussexJuly3ScenesOld() {
     createAndRegisterScene("sussex-july-3-start") {
         topText = "SS76 - Route One - 03/07"
 
