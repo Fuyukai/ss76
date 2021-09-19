@@ -6,6 +6,7 @@ import okio.BufferedSink
 import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.VirtualNovelScene
 import java.nio.file.Files
 import java.nio.file.Path
@@ -31,6 +32,13 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     public val currentScene: VirtualNovelScene get() = stack.last()
 
     private var previousScene: VirtualNovelScene? = null
+
+    /** The inventory system instance. */
+    public val inventory: Inventory = Inventory(this)
+
+    init {
+        inventory.changeState(0)
+    }
 
     /**
      * Registers a single scene.
@@ -109,6 +117,10 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     private fun activateScene(scene: VirtualNovelScene) {
         seenScenes.add(scene.id)
         saveSeenScenes()
+
+        if (scene.definition.linkedInventoryId > 0) {
+            inventory.changeState(scene.definition.linkedInventoryId)
+        }
 
         scene.sceneLoaded()
     }

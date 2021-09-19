@@ -23,9 +23,14 @@ public class ButtonManager : KtxInputAdapter {
             }
         }
 
-        public val CHECKPOINT_BUTTON: Button = Button("save-menu") {
+        public val CHECKPOINT_BUTTON: Button = Button("save-menu", "save-menu") {
             if (SS76.sceneManager.currentScene.id == "save-menu") SS76.sceneManager.exitScene()
             else SS76.sceneManager.pushScene("save-menu")
+        }
+
+        public val INVENTORY_BUTTON: Button = Button("inventory-screen", "inventory-screen") {
+            if (SS76.sceneManager.currentScene.id == "inventory-screen") SS76.sceneManager.exitScene()
+            else SS76.sceneManager.pushScene("inventory-screen")
         }
     }
 

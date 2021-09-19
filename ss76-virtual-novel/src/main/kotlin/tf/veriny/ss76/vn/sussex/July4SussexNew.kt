@@ -1374,6 +1374,9 @@ public fun registerSussexJuly4Scenes() {
                   "it. :pop:"
             )
 
+            line(":push:@violet@ The Smooth Stone has been added to your inventory. :pop:")
+            newline()
+
             changeSceneButton("sussex-july-4-wh-5",
                 "Char starts walking away. You're gonna get left behind."
             )

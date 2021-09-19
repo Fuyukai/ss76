@@ -254,7 +254,6 @@ public class VirtualNovelScene(
 
     private fun drawClickables(border: Float) {
         val width = SS76.fontManager.characterWidth
-        glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
 
         /*val isUpdated = SS76.record.updated
         if (isUpdated) {
@@ -262,17 +261,20 @@ public class VirtualNovelScene(
         } else {
             glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
         }*/
+        currentXOffset = -width
         currentYOffset = -glyphLayout.height * 2
+
+        run {
+            val rect = renderWordRaw("Inventory", Color.GREEN, calcRectangle = true)
+            SS76.buttonManager.addClickableArea(ButtonManager.INVENTORY_BUTTON, rect!!)
+        }
+
+        // scroll to the right side again
+        glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
         currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
 
         run {
-            val colour = when {
-                !SS76.record.updated || timer.rem(60) < 30 -> Color.GREEN
-                timer.rem(60) >= 30 -> Color.RED
-                else -> error("unreachable")
-            }
-            val text = "Up"
-            val rect = renderWordRaw(text, colour, calcRectangle = true)
+            val rect = renderWordRaw("Up", Color.GREEN, calcRectangle = true)
             SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
         }
         currentXOffset += width

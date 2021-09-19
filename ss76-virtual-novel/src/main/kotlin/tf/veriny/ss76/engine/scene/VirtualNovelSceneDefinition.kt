@@ -17,6 +17,7 @@ public class VirtualNovelSceneDefinition(
     public val originalPages: List<String>,
     public val clearScreenColour: Color? = null,
     public val changedTopText: String? = null,
+    public val linkedInventoryId: Int = -1,
     public val dynamic: Boolean = false,
     onLoadHandlers: List<onLoad> = listOf(),
     invert: Boolean = false,

@@ -18,9 +18,9 @@ internal class OddCareRenderer {
 
         demoFont = font.generateFont {
             size = if (!SS76.isBabyScreen) {
-                84
-            } else {
                 42
+            } else {
+                21
             }
             color = RED
             mono = true

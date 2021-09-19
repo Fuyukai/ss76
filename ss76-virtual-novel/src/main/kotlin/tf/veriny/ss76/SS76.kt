@@ -69,8 +69,7 @@ public object SS76 : KtxApplicationAdapter {
 
     // == Scene stuff == //
     public val sceneManager: SceneManager = SceneManager("signalling-system-76")
-    public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76")
-    public val record: Record = Record()
+    public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76", sceneManager)
     public val buttonManager: ButtonManager = ButtonManager()
     private val sceneSaver = SS76BuildUpdateManager()
 

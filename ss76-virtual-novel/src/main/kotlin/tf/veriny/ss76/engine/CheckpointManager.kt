@@ -21,7 +21,10 @@ import kotlin.io.path.getLastModifiedTime
 /**
  * Responsible for saving checkpoints.
  */
-public class CheckpointManager(private val namespace: String) {
+public class CheckpointManager(
+    private val namespace: String,
+    private val sceneManager: SceneManager,
+) {
     public companion object {
         public val BASE_DIR: Path
         init {
@@ -92,7 +95,7 @@ public class CheckpointManager(private val namespace: String) {
             backButton()
         }
 
-        checkpointScene.register()
+        checkpointScene.register(sceneManager)
     }
 
     /**
@@ -121,8 +124,6 @@ public class CheckpointManager(private val namespace: String) {
 
             // write scenes
             SS76.sceneManager.write(sink)
-            // write record
-            SS76.record.write(sink)
 
             sink.flush()
             sink.close()
@@ -154,7 +155,6 @@ public class CheckpointManager(private val namespace: String) {
             SS76.setTopText(topText)
 
             SS76.sceneManager.read(source)
-            SS76.record.read(source)
         }
 
         // pop the checkpoint scene off

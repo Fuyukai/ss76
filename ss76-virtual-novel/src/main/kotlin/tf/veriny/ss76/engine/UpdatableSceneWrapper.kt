@@ -24,7 +24,8 @@ public open class UpdatableSceneWrapper(
     // starts with one page of stringbuilder, for the first page
     private var pages = mutableListOf<StringBuilder>(StringBuilder())
 
-    public fun register() {
+    public fun register(sceneManager: SceneManager) {
+        println("re-registering $sceneId")
         val parsedPages = pages.map { splitScene(it.toString()) }
 
         val definition = VirtualNovelSceneDefinition(
@@ -32,7 +33,7 @@ public open class UpdatableSceneWrapper(
             dynamic = true,
         )
         val scene = VirtualNovelScene(definition)
-        SS76.sceneManager.reregisterScene(scene)
+        sceneManager.reregisterScene(scene)
     }
 
     /**
@@ -80,8 +81,6 @@ public open class UpdatableSceneWrapper(
         val sb = pages[page]
         val builder = PageBuilder(sb, buttons)
         builder.block()
-
-        register()
     }
 
     override fun read(buffer: BufferedSource) {
