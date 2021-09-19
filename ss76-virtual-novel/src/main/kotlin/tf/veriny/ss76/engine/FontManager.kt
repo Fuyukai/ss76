@@ -101,6 +101,7 @@ public class FontManager {
                 size = if (SS76.isBabyScreen) FONT_SIZE_SMALL else FONT_SIZE_BIG
                 color = colour.value
                 mono = true
+                genMipMaps = true
             }
             fonts[colour.value] = font
         }
