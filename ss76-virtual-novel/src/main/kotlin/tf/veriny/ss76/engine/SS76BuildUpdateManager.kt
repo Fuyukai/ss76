@@ -31,7 +31,7 @@ public class SS76BuildUpdateManager {
      *
      * Returns true if the scenes were successfully loaded.
      */
-    public fun loadScenes(): Boolean {
+    public fun loadScenes(always: Boolean = false): Boolean {
         val path = Path.of("./scenes-data.dat")
         if (!path.exists()) return false
 
@@ -47,7 +47,7 @@ public class SS76BuildUpdateManager {
             val buffer = rawBuffer
 
             val version = buffer.readInt()
-            if (version <= SS76.LURA_VERSION) {
+            if (!always && version <= SS76.LURA_VERSION) {
                 println("Detected old/same scenes bundle: $version")
                 return false
             }

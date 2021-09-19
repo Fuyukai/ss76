@@ -212,7 +212,6 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
                 //it.write("== SCENE ==\n")
                 val name = entry.key
                 val scene = entry.value.definition
-                scene.loadThisFrame()
 
                 //it.write("ID: ${scene.id}\n")
                 //it.write("Page count: ${scene.pageCount}\n\n")

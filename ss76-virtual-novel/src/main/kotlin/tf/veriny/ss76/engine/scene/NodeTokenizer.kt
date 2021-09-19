@@ -149,6 +149,8 @@ private fun tokenify(
  * Splits a single scene into a stream of TextualNode directives.
  */
 public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): List<TextualNode> {
+    if (v) println("parsing: $text")
+
     val nodes = mutableListOf<TextualNode>()
 
     // State variables
@@ -186,6 +188,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                         pushed.addLast(token)
                     }
                     "pop" -> {
+                        check(dValue.isEmpty()) { "pop token accidentally consumes $dValue" }
                         pushed.removeLast()
                     }
                     else -> error("unknown directive $dNamee")

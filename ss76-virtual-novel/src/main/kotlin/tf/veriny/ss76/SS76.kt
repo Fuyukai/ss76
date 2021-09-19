@@ -34,7 +34,7 @@ import kotlin.time.measureTime
 public object SS76 : KtxApplicationAdapter {
     private const val LURA_DEMO_BUILD = false
     // used for saving scene data
-    public const val LURA_VERSION: Int = 11
+    public const val LURA_VERSION: Int = 9
 
     public val IS_DEMO: Boolean =
         LURA_DEMO_BUILD || System.getProperty("demo", "false").toBooleanStrict()
@@ -150,6 +150,8 @@ public object SS76 : KtxApplicationAdapter {
         input.addProcessor(sceneManager)
         //input.addProcessor(buttonRenderer.input)
 
+        val alwaysLoad = System.getProperty("always-load-scenes", "false").toBooleanStrict()
+
         val registerTime = measureTime {
             try {
                 // == DEMO == //
@@ -178,12 +180,16 @@ public object SS76 : KtxApplicationAdapter {
                 CommonScenes.register()
 
                 // Load newer scene versions if needed
-                if (!isInsideJar()) {
-                    sceneSaver.saveScenes()
+                if (alwaysLoad) {
+                    sceneSaver.loadScenes(always = true)
                 } else {
-                    val loaded = sceneSaver.loadScenes()
-                    if (!loaded) {
-                        println("Didn't load from scene bundle; using pre-packaged scenes instead.")
+                    if (!isInsideJar()) {
+                        sceneSaver.saveScenes()
+                    } else {
+                        val loaded = sceneSaver.loadScenes()
+                        if (!loaded) {
+                            println("Didn't load from scene bundle; using pre-packaged scenes instead.")
+                        }
                     }
                 }
 

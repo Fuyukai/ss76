@@ -6,7 +6,7 @@ import okio.BufferedSource
 import okio.ByteString
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.BasicSceneDefinition
+import tf.veriny.ss76.engine.scene.VirtualNovelSceneDefinition
 import tf.veriny.ss76.engine.scene.splitScene
 
 /**
@@ -33,7 +33,7 @@ public fun BufferedSink.writeColour(c: Color) {
 /**
  * Reads a scene definition from a [BufferedSource].
  */
-public fun BufferedSource.readSceneDefinition(): BasicSceneDefinition {
+public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
     val sceneNameLength = readInt()
     val sceneId = readUtf8(sceneNameLength.toLong())
     val invert = readByte().toInt() == 1
@@ -56,7 +56,7 @@ public fun BufferedSource.readSceneDefinition(): BasicSceneDefinition {
         pages.add(data)
     }
 
-    val nodes = pages.map { splitScene(it) }
+    val nodes = pages.map { splitScene(it, v = sceneId == "sussex-july-3-school-3") }
 
     val buttons = mutableMapOf<String, ButtonManager.Button>()
     val buttonCount = readByte().toInt()
@@ -91,13 +91,14 @@ public fun BufferedSource.readSceneDefinition(): BasicSceneDefinition {
         }
     }
 
-    return BasicSceneDefinition(
-        sceneId, buttons, nodes, clearScreenColour = colour, changedTopText = topText,
+    return VirtualNovelSceneDefinition(
+        sceneId, buttons, nodes, originalPages = pages,
+        clearScreenColour = colour, changedTopText = topText,
         invert = invert
     )
 }
 
-public fun BufferedSink.writeSceneDefinition(definition: BasicSceneDefinition) {
+public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefinition) {
     val sceneId = definition.id.encodeUtf8()
     buffer.writeInt(sceneId.size)
     buffer.write(sceneId)
@@ -121,10 +122,7 @@ public fun BufferedSink.writeSceneDefinition(definition: BasicSceneDefinition) {
 
     buffer.writeByte(definition.pageCount)
     for (pageIdx in 0 until definition.pageCount) {
-        val page = definition.getTokensForPage(pageIdx)
-
-        val text = page.joinToString("") { it.repr() }
-        val encoded = text.encodeUtf8()
+        val encoded = definition.originalPages[pageIdx].encodeUtf8()
         buffer.writeInt(encoded.size)
         buffer.write(encoded)
     }

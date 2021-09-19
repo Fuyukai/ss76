@@ -155,7 +155,7 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     private fun createDefinitionFromPage(page: StringBuilder): List<TextualNode> {
         val pageFullString = page.toString()
         val nodes = try {
-            splitScene(pageFullString, v = sceneId == "sussex-july-3-school-2-2")
+            splitScene(pageFullString, v = sceneId == "sussex-july-3-school-3")
         } catch (e: Exception) {
             throw IllegalStateException("Caught error trying to tokenize:\n$pageFullString", e)
         }
@@ -189,15 +189,15 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     /**
      * Creates the scene definition for this builder.
      */
-    public fun createDefinition(): BasicSceneDefinition {
+    public fun createDefinition(): VirtualNovelSceneDefinition {
         val pages = mutableListOf<List<TextualNode>>()
         for (page in this.pages) {
             val nodes = createDefinitionFromPage(page)
             pages.add(nodes)
         }
 
-        return BasicSceneDefinition(
-            sceneId, buttons, pages,
+        return VirtualNovelSceneDefinition(
+            sceneId, buttons, pages, originalPages = this.pages.map { it.toString() },
             clearScreenColour = clearScreenColour, changedTopText = topText,
             onLoadHandlers = this.onLoadHandlers,
             invert = invert

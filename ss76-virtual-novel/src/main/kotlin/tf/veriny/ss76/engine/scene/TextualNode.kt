@@ -67,7 +67,7 @@ public data class TextualNode(
 
         builder.append(text)
 
-        if (causesNewline) builder.append('\n')
+        if (causesNewline && Effect.DIALOGUE !in effects) builder.append('\n')
         if (causesSpace) builder.append(" ")
 
         return builder.toString()

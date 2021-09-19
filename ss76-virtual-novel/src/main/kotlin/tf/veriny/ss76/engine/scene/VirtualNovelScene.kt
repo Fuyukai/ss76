@@ -18,7 +18,7 @@ import kotlin.random.Random
  * A virtual novel scene, with text.
  */
 public class VirtualNovelScene(
-    public val definition: BasicSceneDefinition,
+    public val definition: VirtualNovelSceneDefinition,
 ) {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
@@ -325,10 +325,7 @@ public class VirtualNovelScene(
             }*/
         }
 
-        // Step 2) Load the data for the scene definition.
-        definition.loadThisFrame()
-
-        // Step 3) Begin drawing.
+        // Step 2) Begin drawing.
         SS76.batch.use {
             // 3a) Draw pages if needed.
             pageIdx = min(max(pageIdx, 0), definition.pageCount - 1)
