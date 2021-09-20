@@ -61,6 +61,14 @@ public class FontManager {
     public var characterWidth: Float = 0.0f
         private set
 
+    /** The font used for the top text. */
+    public lateinit var topTextFont: BitmapFont
+        private set
+
+    /** The font used for error messages. */
+    public lateinit var errorFont: BitmapFont
+        private set
+
     /**
      * Looks up a font by name.
      */
@@ -116,6 +124,25 @@ public class FontManager {
      * Loads all the fonts packed with the current jar.
      */
     public fun loadAllFonts() {
+        // load top text
+        val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Mx437_Wang_Pro_Mono.ttf"))
+        topTextFont = topGenerator.generateFont {
+            size = if (SS76.isBabyScreen) {
+                32
+            } else {
+                48
+            }
+            mono = true
+            color = Color.SALMON
+        }
+        errorFont = topGenerator.generateFont {
+            size = 24
+            mono = true
+            color = Color.WHITE
+        }
+
+        topGenerator.dispose()
+
         // todo: this needs to be updated for jpackage
         val url = javaClass.classLoader.getResource("fonts")!!.toURI()
         if (url.scheme == "file") {

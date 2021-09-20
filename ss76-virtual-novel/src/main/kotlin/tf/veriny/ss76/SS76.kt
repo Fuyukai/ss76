@@ -4,15 +4,11 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.g2d.BitmapFont
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
-import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
 import ktx.app.clearScreen
-import ktx.freetype.generateFont
 import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.render.OddCareRenderer
 import tf.veriny.ss76.vn.CommonScenes
@@ -49,8 +45,6 @@ public object SS76 : KtxApplicationAdapter {
     // == Fonts == //
     public val fontManager: FontManager = FontManager()
 
-    private lateinit var SS76_FONT: BitmapFont
-
     // == Rendering == //
     public lateinit var batch: SpriteBatch
         private set
@@ -61,7 +55,6 @@ public object SS76 : KtxApplicationAdapter {
     public var clearScreenColor: Color = Color.BLUE
 
     // == Error handling == //
-    private lateinit var errorFont: BitmapFont
     private var lastError: Exception? = null
 
     // == Demo == //
@@ -105,28 +98,11 @@ public object SS76 : KtxApplicationAdapter {
     private var topWidth: Float = 0f
 
     private fun recalcTopText() {
-        topWidth = GlyphLayout(SS76_FONT, topText).width
+        //topWidth = GlyphLayout(SS76_FONT, topText).width
     }
 
     @OptIn(ExperimentalTime::class)
     override fun create() {
-        val topGenerator = FreeTypeFontGenerator(Gdx.files.internal("fonts/Mx437_Wang_Pro_Mono.ttf"))
-        SS76_FONT = topGenerator.generateFont {
-            size = if (isBabyScreen) {
-                32
-            } else {
-                48
-            }
-            mono = true
-            color = Color.SALMON
-        }
-        recalcTopText()
-        errorFont = topGenerator.generateFont {
-            size = 24
-            mono = true
-            color = Color.WHITE
-        }
-        topGenerator.dispose()
 
         batch = SpriteBatch()
 
@@ -136,7 +112,10 @@ public object SS76 : KtxApplicationAdapter {
         shapeRenderer.updateMatrices()
 
         fontManager.loadAllFonts()
-        fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
+        val fontGenTime = measureTime {
+            fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
+        }
+        println("All fonts generated in $fontGenTime.")
 
         sceneManager.loadSeenScenes()
         checkpointManager.register()
@@ -235,11 +214,6 @@ public object SS76 : KtxApplicationAdapter {
         }
     }
 
-    private fun drawTopMessage() {
-        val yOffset = Gdx.graphics.height - 10f
-        SS76_FONT.draw(batch, topText, (Gdx.graphics.width / 2) - topWidth / 2, yOffset)
-    }
-
     override fun render() {
         if (lastError == null) {
             renderNormally()
@@ -263,13 +237,13 @@ public object SS76 : KtxApplicationAdapter {
                 "Fatal error when rendering scene ${sceneManager.currentScene.id}"
             }
 
-            errorFont.draw(
+            fontManager.errorFont.draw(
                 this, message,
                 1f,
                 Gdx.graphics.height - 10f
             )
 
-            errorFont.draw(this, tb, 1f, Gdx.graphics.height - 30f)
+            fontManager.errorFont.draw(this, tb, 1f, Gdx.graphics.height - 30f)
         }
     }
 
@@ -287,9 +261,6 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         batch.use {
-            if (scene.renderExtras) {
-                drawTopMessage()
-
                 if (IS_DEBUG) {
                     if (isBabyScreen) {
                         fontManager.currentFont.white.draw(batch,
@@ -305,7 +276,6 @@ public object SS76 : KtxApplicationAdapter {
                         )
                     }
                 }
-            }
 
             if (IS_DEMO) {
                 demoRenderer.render()
@@ -316,15 +286,5 @@ public object SS76 : KtxApplicationAdapter {
         //WHITE_FONT.draw(batch, items.toString(), 120f, 960 - 200f)
         //WHITE_FONT.draw(batch, "|", 1280 - 120f, 960 - 200f)
 
-    }
-
-    // == Helper global functions == //
-
-    /**
-     * Sets the top text.
-     */
-    public fun setTopText(topText: String) {
-        this.topText = topText
-        recalcTopText()
     }
 }

@@ -7,7 +7,7 @@ import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.Inventory
-import tf.veriny.ss76.engine.scene.VirtualNovelScene
+import tf.veriny.ss76.engine.scene.NVLRenderer
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.*
@@ -24,14 +24,14 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     }
 
     private val seenScenes /*on the sea shore*/= mutableSetOf<String>()
-    public val registeredScenes: MutableMap<String, VirtualNovelScene> = mutableMapOf()
+    public val registeredScenes: MutableMap<String, NVLRenderer> = mutableMapOf()
     public val sceneCount: Int get() = registeredScenes.size
 
-    private val stack = ArrayDeque<VirtualNovelScene>()
+    private val stack = ArrayDeque<NVLRenderer>()
     public val stackSize: Int get() = stack.size
-    public val currentScene: VirtualNovelScene get() = stack.last()
+    public val currentScene: NVLRenderer get() = stack.last()
 
-    private var previousScene: VirtualNovelScene? = null
+    private var previousScene: NVLRenderer? = null
 
     /** The inventory system instance. */
     public val inventory: Inventory = Inventory(this)
@@ -43,14 +43,14 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Registers a single scene.
      */
-    public fun registerScene(scene: VirtualNovelScene) {
+    public fun registerScene(scene: NVLRenderer) {
         registeredScenes[scene.id] = scene
     }
 
     /**
      * Re-registers a scene. This will update any references in the current stack of scenes.
      */
-    public fun reregisterScene(scene: VirtualNovelScene) {
+    public fun reregisterScene(scene: NVLRenderer) {
         val old = registeredScenes[scene.id]
         registeredScenes[scene.id] = scene
 
@@ -110,11 +110,11 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
         return seenScenes.contains(scene)
     }
 
-    public fun hasVisitedScene(scene: VirtualNovelScene): Boolean = hasVisitedScene(scene.id)
+    public fun hasVisitedScene(scene: NVLRenderer): Boolean = hasVisitedScene(scene.id)
 
     // == Scene stack == //
 
-    private fun activateScene(scene: VirtualNovelScene) {
+    private fun activateScene(scene: NVLRenderer) {
         seenScenes.add(scene.id)
         saveSeenScenes()
 
@@ -128,7 +128,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Pushes and activates a scene.
      */
-    public fun pushScene(scene: VirtualNovelScene) {
+    public fun pushScene(scene: NVLRenderer) {
         if (stack.isNotEmpty()) {
             val tos = stack.last()
             tos.sceneUnloaded(DeactivationType.PUSHED)
@@ -150,7 +150,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Changes the top scene on the stack.
      */
-    public fun changeScene(scene: VirtualNovelScene) {
+    public fun changeScene(scene: NVLRenderer) {
         val tos = stack.removeLast()
         tos.sceneUnloaded(DeactivationType.POPPED)
         previousScene = tos
@@ -182,7 +182,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Gets a single scene.
      */
-    public fun getScene(scene: String): VirtualNovelScene {
+    public fun getScene(scene: String): NVLRenderer {
         return registeredScenes[scene] ?: error("missing scene definition: $scene")
     }
 

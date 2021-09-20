@@ -2,15 +2,25 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import ktx.graphics.copy
-import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
-import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.Inventory
+import tf.veriny.ss76.engine.scene.sceneSequence
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.CommonScenes.SCHOOL_WORKING_LIFT
+import tf.veriny.ss76.vn.items.CommonItemScenes
 
-public fun registerSussexJuly3Scenes() {
+public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
+    setTopText("SS76 - Route One - 03/07")
+
+    copyAndSetInventory("s3j-start-inv") {
+        val phone = Inventory.InventoryItem(
+            "PHONE",
+            CommonItemScenes.BASIC_INSPECT.id,
+            CommonItemScenes.DAY_1_USE_PHONE.id
+        )
+        put("phone", phone)
+    }
+
     createAndRegisterScene("sussex-july-3-start") {
-        topText = "SS76 - Route One - 03/07"
-
         page {
             line("Today's date is Monday, the 3rd of July.")
             newline()
@@ -300,6 +310,14 @@ public fun registerSussexJuly3Scenes() {
         changeSceneButton("sussex-july-3-school-8", "He walks around the class, handing them out.")
     }
 
+    copyAndSetInventory("s3j-homework") {
+        val homework = Inventory.InventoryItem(
+            "PHYSICS HW",
+            CommonItemScenes.PHYSICS_HOMEWORK.id, CommonItemScenes.PHYSICS_HOMEWORK_USE.id
+        )
+        put("physics-hw", homework)
+    }
+
     createAndRegisterOnePageScene("sussex-july-3-school-8") {
         line("He drops your scarily massive homework bundle in front of you.")
         newline()
@@ -308,6 +326,7 @@ public fun registerSussexJuly3Scenes() {
             "Mysteriously, Char's homework bundle flies through the air to drop in front of " +
             "you, too."
         )
+        line(":push:@violet@ Physics Homework has been added to your inventory. :pop:")
         newline()
 
         dline(
@@ -746,10 +765,10 @@ public fun registerSussexJuly3Scenes() {
         changeSceneButton("sussex-july-3-deduction-1", "Alex completely ignores Char.")
     }
 
-    createAndRegisterScene("sussex-july-3-deduction-1") {
-        clearScreenColour = Color.SLATE
-        topText = "SIGNALLING SYSTEM 76"
+    clearColour(Color.SLATE)
+    setTopText("SIGNALLING SYSTEM 76")
 
+    createAndRegisterScene("sussex-july-3-deduction-1") {
         page {
             dline("ALEX: Okay! ")
 
@@ -846,10 +865,10 @@ public fun registerSussexJuly3Scenes() {
         }
     }
 
-    createAndRegisterScene("sussex-july-3-school-i2-8") {
-        clearScreenColour = Color.BLUE.copy(blue = 200/255f)
-        topText = "SS76 - Route One - 03/07"
+    clearColour(Color.BLUE.copy(blue = 200/255f))
+    setTopText("SS76 - Route One - 03/07")
 
+    createAndRegisterScene("sussex-july-3-school-i2-8") {
         page {
             line("Alex got a bit too excited there. The people from the neighbouring tables " +
                  "are looking over at him. Unfortunately, he has no humility.")
@@ -953,6 +972,8 @@ public fun registerSussexJuly3Scenes() {
 
         changeSceneButton("sussex-july-3-walk-1", "You exit the building.")
     }
+
+    clearColour(Color.BLUE)
 
     createAndRegisterScene("sussex-july-3-walk-1") {
         page {

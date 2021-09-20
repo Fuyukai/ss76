@@ -2,7 +2,7 @@ package tf.veriny.ss76.vn
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Sound
-import tf.veriny.ss76.engine.scene.VirtualNovelScene
+import tf.veriny.ss76.engine.scene.NVLRenderer
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
@@ -16,7 +16,7 @@ public object CommonScenes {
         DTMF_AUDIO = Gdx.audio.newSound(Gdx.files.internal("audio/dtmf.ogg"))
     }
 
-    public val END_OF_DEMO: VirtualNovelScene = createAndRegisterScene("end-of-demo") {
+    public val END_OF_DEMO: NVLRenderer = createAndRegisterScene("end-of-demo") {
         page {
             line("You've reached the end of the Signalling System 76 demo.")
             newline()
@@ -29,7 +29,7 @@ public object CommonScenes {
         }
     }
 
-    public val A_LEVELS_SCENE: VirtualNovelScene = createAndRegisterScene("a-level-explain-scene") {
+    public val A_LEVELS_SCENE: NVLRenderer = createAndRegisterScene("a-level-explain-scene") {
         page {
             line(
                 "A-levels are one of the possible last stages of UK higher education. You pick " +
@@ -56,7 +56,7 @@ public object CommonScenes {
 
     // to future me: move everything unused to this
     // region unused for now.
-    public val DONT_LIKE_PHONES: VirtualNovelScene = createAndRegisterScene("common.dlp") {
+    public val DONT_LIKE_PHONES: NVLRenderer = createAndRegisterScene("common.dlp") {
         page {
             line(
                 "You don't really like mobile phones. It was unthinkable for any secondary " +
@@ -74,7 +74,7 @@ public object CommonScenes {
             backButton()
         }
     }
-    public val DESK_DESCRIPTION: VirtualNovelScene = createAndRegisterScene("common.desk") {
+    public val DESK_DESCRIPTION: NVLRenderer = createAndRegisterScene("common.desk") {
         page {
             line(
                 "Your desk is a simple Ikea desk. It is extremely cluttered because you " +
@@ -97,7 +97,7 @@ public object CommonScenes {
     }
 
     // previously used in 3rd of july routes as an exposition scene.
-    public val SCHOOL_SIZE: VirtualNovelScene = createAndRegisterScene("common.schoolsize") {
+    public val SCHOOL_SIZE: NVLRenderer = createAndRegisterScene("common.schoolsize") {
         page {
             line(
                 "Your school is a selective secondary school, being all boys from Year 7 to " +
@@ -132,7 +132,7 @@ public object CommonScenes {
     // endregion
 
     // used
-    public val SCHOOL_WORKING_LIFT: VirtualNovelScene = createAndRegisterScene("common.schoollift") {
+    public val SCHOOL_WORKING_LIFT: NVLRenderer = createAndRegisterScene("common.schoollift") {
         page {
             // faculty really don't like kids using lifts. they think its just kids being lazy.
             // of course, theyre fine to use the lifts themselves.
@@ -170,7 +170,7 @@ public object CommonScenes {
         }
     }
 
-    public val SCHOOL_ATTENDANCE: VirtualNovelScene = createAndRegisterScene("common.school_attendance") {
+    public val SCHOOL_ATTENDANCE: NVLRenderer = createAndRegisterScene("common.school_attendance") {
         page {
             // the archangel project requires fresh minds/parents dont want their kids out of school
 
@@ -195,7 +195,7 @@ public object CommonScenes {
         }
     }
 
-    public val FLOOR_5_AIR_CON: VirtualNovelScene = createAndRegisterScene("common.floor5.ac") {
+    public val FLOOR_5_AIR_CON: NVLRenderer = createAndRegisterScene("common.floor5.ac") {
         page {
             line(
                 "The school's server room is on the fifth floor, so the air conditioning is " +
@@ -544,7 +544,7 @@ public object CommonScenes {
 
     // call forward to the monologue about charlotte's cat in ending #2
     // future me: make sure to write that. you know what we mean
-    public val CARS: VirtualNovelScene = createAndRegisterScene("sussex-i-hate-cars") {
+    public val CARS: NVLRenderer = createAndRegisterScene("sussex-i-hate-cars") {
         page {
             line(
                 "Cars are terrible, evil things. If one was religious, they could say that " +

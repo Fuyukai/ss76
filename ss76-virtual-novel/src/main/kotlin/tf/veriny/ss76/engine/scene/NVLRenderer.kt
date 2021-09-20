@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
+import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
 import tf.veriny.ss76.engine.DeactivationType
@@ -15,9 +16,9 @@ import kotlin.math.min
 import kotlin.random.Random
 
 /**
- * A virtual novel scene, with text.
+ * A renderer for a scene in NVL mode.
  */
-public class VirtualNovelScene(
+public class NVLRenderer(
     public val definition: VirtualNovelSceneDefinition,
 ) {
     private companion object {
@@ -40,12 +41,6 @@ public class VirtualNovelScene(
     private var pageIdx = 0
 
     private val glyphLayout = GlyphLayout()
-
-    /** If the core renderer should render extras. */
-    public val renderExtras: Boolean get() = definition.renderExtras
-
-    /** If the central box should be inverted. */
-    public val invert: Boolean get() = definition.invert
 
     /**
      * Called when the scene is loaded.
@@ -292,6 +287,15 @@ public class VirtualNovelScene(
     public fun render() {
         rng = Random(timer.floorDiv(30))
 
+        val clearColour = (definition.effects.find {
+            it is SceneEffect.ChangeBackgroundColour
+        } as? SceneEffect.ChangeBackgroundColour)?.colour ?: Color.BLUE
+        clearScreen(clearColour.r, clearColour.g, clearColour.b, clearColour.a)
+
+        val invert = definition.effects.contains(SceneEffect.Invert)
+
+
+
         // Step 0) Update offsets.
         currentXOffset = 0f
         currentYOffset = 0f
@@ -300,7 +304,7 @@ public class VirtualNovelScene(
 
         // Step 1) Render the black box.
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
-            val colour = if (invert) Color.WHITE else Color.BLACK
+            val colour = if (definition.effects.contains(SceneEffect.Invert)) Color.WHITE else Color.BLACK
 
             if (SS76.isBabyScreen) {
                 rect(
@@ -361,12 +365,24 @@ public class VirtualNovelScene(
                 }
             }
 
-            // 3c) Draw clickables anchored to the top right.
-            // evil code!
-            if (definition.renderExtras) {
+            if (!invert) {
+                // 4) Draw clickables.
                 drawClickables(border)
+
+                // 5) Draw top text.
+                val textEffect = definition.effects.filterIsInstance<SceneEffect.ChangeTopText>().firstOrNull()
+                val topText = textEffect?.topText ?: "SIGNALLING SYSTEM 76"
+                glyphLayout.setText(SS76.fontManager.topTextFont, topText)
+                val yOffset = Gdx.graphics.height - 10f
+                SS76.fontManager.topTextFont.draw(
+                    SS76.batch,
+                    topText,
+                    (Gdx.graphics.width / 2) - (glyphLayout.width / 2),
+                    yOffset
+                )
             }
         }
+
 
         timer++
 

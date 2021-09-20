@@ -5,9 +5,9 @@ import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.math.Rectangle
 import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.VirtualNovelScene
+import tf.veriny.ss76.engine.scene.NVLRenderer
 
-public typealias ButtonAction = (VirtualNovelScene) -> Unit
+public typealias ButtonAction = (NVLRenderer) -> Unit
 
 /**
  * Manages the clickable buttons on a scene.
@@ -51,7 +51,7 @@ public class ButtonManager : KtxInputAdapter {
         /** The type of this button. Used only during saving and loading. */
         public val buttonType: ButtonType = ButtonType.OTHER,
         /** The action to take on clicking this button. */
-        public val action: (VirtualNovelScene) -> Unit
+        public val action: (NVLRenderer) -> Unit
     )
 
     // mapping of button -> rectangle of possible locations on screen.

@@ -121,21 +121,45 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
     internal val pages: MutableList<StringBuilder> = mutableListOf()
     @PublishedApi
     internal val buttons: MutableMap<String, Button> = mutableMapOf()
-    private val onLoadHandlers: MutableList<(VirtualNovelScene) -> Unit> = mutableListOf()
+    private val onLoadHandlers: MutableList<(NVLRenderer) -> Unit> = mutableListOf()
+
+    /** The linked inventory index. */
+    public var linkedInventoryIdx: Int = 0
 
     /** The colour to clear the screen on loading. */
-    public var clearScreenColour: Color? = null
+    public var clearScreenColour: Color?
+        get() = effects.filterIsInstance<SceneEffect.ChangeBackgroundColour>().firstOrNull()?.colour
+        set(value) {
+            effects.removeAll { it is SceneEffect.ChangeBackgroundColour }
+            if (value != null) {
+                effects.add(SceneEffect.ChangeBackgroundColour(value))
+            }
+        }
 
     /** The top text to change to on loading. */
-    public var topText: String? = null
+    public var topText: String?
+        get() = effects.filterIsInstance<SceneEffect.ChangeTopText>().firstOrNull()?.topText
+        set(value) {
+            effects.removeAll { it is SceneEffect.ChangeTopText }
+            if (value != null) {
+                effects.add(SceneEffect.ChangeTopText(value))
+            }
+        }
 
     /** If this scene should draw with the colours inverted. */
-    public var invert: Boolean = false
+    public var invert: Boolean
+        get() = effects.contains(SceneEffect.Invert)
+        set(value) {
+            if (value) effects.add(SceneEffect.Invert)
+            else effects.remove(SceneEffect.Invert)
+        }
+
+    public val effects: MutableSet<SceneEffect> = mutableSetOf()
 
     /**
      * Registers a function to be ran on load.
      */
-    public fun onLoad(block: (VirtualNovelScene) -> Unit) {
+    public fun onLoad(block: (NVLRenderer) -> Unit) {
         onLoadHandlers += block
     }
 
@@ -198,11 +222,113 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
 
         return VirtualNovelSceneDefinition(
             sceneId, buttons, pages, originalPages = this.pages.map { it.toString() },
-            clearScreenColour = clearScreenColour, changedTopText = topText,
+            linkedInventoryId = linkedInventoryIdx,
+            effects = effects,
             onLoadHandlers = this.onLoadHandlers,
-            invert = invert
         )
     }
+}
+
+/**
+ * Builder for a scene sequence.
+ */
+public class SceneSequenceBuilder(public val idPrefix: String) {
+    private val currentEffects = mutableSetOf<SceneEffect>()
+
+    private var lastInventoryIdx: Int = 0
+
+    /**
+     * Adds an effect for use in subsequent scenes.
+     */
+    public fun addEffect(effect: SceneEffect) {
+        currentEffects.add(effect)
+    }
+
+    /**
+     * Removes an effect from subsequent scenes.
+     */
+    public fun removeEffect(effect: SceneEffect) {
+        currentEffects.add(effect)
+    }
+
+    /**
+     * Changes the current linked inventory state.
+     */
+    public fun changeInventoryState(key: String) {
+        val inv = SS76.sceneManager.inventory.findStateIdx(key)
+        lastInventoryIdx = inv
+    }
+
+    /**
+     * Sets the current clear screen colour for use in all subsequent scenes.
+     */
+    public fun clearColour(colour: Color) {
+        currentEffects.removeAll { it is SceneEffect.ChangeBackgroundColour }
+        currentEffects.add(SceneEffect.ChangeBackgroundColour(colour))
+    }
+
+    /**
+     * Sets the current top text for use in all subsequent scenes.
+     */
+    public fun setTopText(topText: String) {
+        currentEffects.removeAll { it is SceneEffect.ChangeTopText }
+        currentEffects.add(SceneEffect.ChangeTopText(topText))
+    }
+
+    /**
+     * Disables inversion.
+     */
+    public fun enableInvert() {
+       addEffect(SceneEffect.Invert)
+    }
+
+    public fun disableInvert() {
+        removeEffect(SceneEffect.Invert)
+    }
+
+    /**
+     * Creates and registers a new scene.
+     */
+    public fun createAndRegisterScene(
+        sceneId: String, block: SceneDefinitionBuilder.() -> Unit
+    ): VirtualNovelSceneDefinition {
+        val builder = SceneDefinitionBuilder(idPrefix + sceneId)
+        builder.linkedInventoryIdx = lastInventoryIdx
+        builder.effects.addAll(currentEffects)
+        builder.block()
+
+        val definition = builder.createDefinition()
+        SS76.sceneManager.registerScene(NVLRenderer(definition))
+        return definition
+    }
+
+    /**
+     * Creates and registers a new, single-page scene.
+     */
+    public inline fun createAndRegisterOnePageScene(
+        sceneId: String, crossinline block: PageBuilder.() -> Unit
+    ): VirtualNovelSceneDefinition {
+        return createAndRegisterScene(sceneId) { page(block) }
+    }
+
+    /**
+     * Copies the last inventory and creates a new one, setting the inventory index for all
+     * subsequent scenes.
+     */
+    public fun copyAndSetInventory(
+        newName: String, block: MutableMap<String, Inventory.InventoryItem>.() -> Unit
+    ) {
+        val idx = SS76.sceneManager.inventory.newStateCopyingLast(newName, block)
+        lastInventoryIdx = idx
+    }
+}
+
+/**
+ * Creates a sequence of scenes which share certain properties.
+ */
+public inline fun sceneSequence(idPrefix: String = "", block: SceneSequenceBuilder.() -> Unit) {
+    val builder = SceneSequenceBuilder(idPrefix)
+    builder.block()
 }
 
 /**
@@ -211,12 +337,12 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
 public inline fun createScene(
     sceneId: String,
     block: SceneDefinitionBuilder.() -> Unit,
-): VirtualNovelScene {
+): NVLRenderer {
     val builder = SceneDefinitionBuilder(sceneId)
     builder.block()
 
     val definition = builder.createDefinition()
-    return VirtualNovelScene(definition)
+    return NVLRenderer(definition)
 }
 
 /**
@@ -224,7 +350,7 @@ public inline fun createScene(
  */
 public inline fun createAndRegisterScene(
     sceneId: String, block: SceneDefinitionBuilder.() -> Unit
-): VirtualNovelScene {
+): NVLRenderer {
     val scene = createScene(sceneId, block = block)
     SS76.sceneManager.registerScene(scene)
     return scene
@@ -232,6 +358,6 @@ public inline fun createAndRegisterScene(
 
 public inline fun createAndRegisterOnePageScene(
     sceneId: String, block: PageBuilder.() -> Unit
-): VirtualNovelScene {
+): NVLRenderer {
     return createAndRegisterScene(sceneId) { page(block) }
 }

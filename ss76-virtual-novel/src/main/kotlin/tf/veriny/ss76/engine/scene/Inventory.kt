@@ -1,5 +1,7 @@
 package tf.veriny.ss76.engine.scene
 
+import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.ButtonManager.ButtonType.PUSH
 import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.UpdatableSceneWrapper
 
@@ -18,7 +20,7 @@ public class Inventory(private val sceneManager: SceneManager) {
             "\"You know, normal people say 'pocket'.\" - Char",
             "\"Don't call your pockets your inventory around me. It's embarrassing.\" - Char",
             "\"You're not a video game protagonist.\" - Char",
-            "\"People are going to think its weird if you refer to your pockets as your 'inventory'.\" - Char",
+            "\"People are going to think it's weird if you refer to your pockets as your 'inventory'.\" - Char",
         )
     }
 
@@ -68,6 +70,12 @@ public class Inventory(private val sceneManager: SceneManager) {
                     "`push-scene-${item.inspectScene}`@salmon@INSPECT / " +
                     "`push-scene-${item.useScene}`@salmon@USE"
                 )
+                addButton("push-scene-${item.inspectScene}", item.inspectScene, PUSH) {
+                    SS76.sceneManager.pushScene(item.inspectScene)
+                }
+                addButton("push-scene-${item.useScene}", item.useScene, PUSH) {
+                    SS76.sceneManager.pushScene(item.useScene)
+                }
             }
             newline()
             backButton()

@@ -152,7 +152,7 @@ public class CheckpointManager(
             // load top text
             val ttSize = source.readInt()
             val topText = source.readUtf8(ttSize.toLong())
-            SS76.setTopText(topText)
+            //SS76.setTopText(topText)
 
             SS76.sceneManager.read(source)
         }

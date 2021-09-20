@@ -93,8 +93,9 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
 
     return VirtualNovelSceneDefinition(
         sceneId, buttons, nodes, originalPages = pages,
-        clearScreenColour = colour, changedTopText = topText,
-        invert = invert
+        effects = setOf()
+        //clearScreenColour = colour, changedTopText = topText,
+        //invert = invert
     )
 }
 
@@ -102,9 +103,9 @@ public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefini
     val sceneId = definition.id.encodeUtf8()
     buffer.writeInt(sceneId.size)
     buffer.write(sceneId)
-    buffer.writeByte(if (definition.invert) 1 else 0)
+    //buffer.writeByte(if (definition.invert) 1 else 0)
 
-    if (definition.clearScreenColour != null) {
+    /*if (definition.clearScreenColour != null) {
         buffer.writeByte(1)
         buffer.writeColour(definition.clearScreenColour)
     } else {
@@ -118,7 +119,7 @@ public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefini
         buffer.write(tt)
     } else {
         buffer.writeByte(0)
-    }
+    }*/
 
     buffer.writeByte(definition.pageCount)
     for (pageIdx in 0 until definition.pageCount) {

@@ -6,7 +6,7 @@ import okio.buffer
 import okio.sink
 import okio.source
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.VirtualNovelScene
+import tf.veriny.ss76.engine.scene.NVLRenderer
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.CREATE
 import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
@@ -59,7 +59,7 @@ public class SS76BuildUpdateManager {
 
             for (scidx in 0 until sceneCount) {
                 val def = buffer.readSceneDefinition()
-                val scene = VirtualNovelScene(def)
+                val scene = NVLRenderer(def)
                 SS76.sceneManager.reregisterScene(scene)
             }
         }
@@ -83,7 +83,7 @@ public class SS76BuildUpdateManager {
             val buffer = rawBuffer
             buffer.writeInt(SS76.LURA_VERSION)
 
-            val scenes = mutableListOf<VirtualNovelScene>()
+            val scenes = mutableListOf<NVLRenderer>()
             for (scene in SS76.sceneManager.registeredScenes.values) {
                 val def = scene.definition
                 if (def.dynamic) {
