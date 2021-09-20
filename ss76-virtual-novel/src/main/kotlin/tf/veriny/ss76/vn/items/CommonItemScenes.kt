@@ -20,15 +20,14 @@ public object CommonItemScenes {
     }
 
     internal val DAY_1_USE_PHONE = createAndRegisterOnePageScene("item.phone-use-1") {
-        line("Who are you going to call?")
+        line("You are now 5 steps away from being a developer.")
+        line("You are now 4 steps away from being a developer.")
+        line("You are now 3 steps away from being a developer.")
+        line("You are now 2 steps away from being a developer.")
+        line("You are now 1 step away from being a developer.")
         newline()
 
-        line(":push:@salmon@ Your mother :pop:")
-        line(":push:@salmon@ 999 :pop:")
-        line(":push:@salmon@ Sex hotline :pop:")
-        newline()
-
-        line("For some reason, your touch screen isn't responding.")
+        line("You are now a developer!")
         newline()
 
         backButton()
@@ -67,5 +66,16 @@ public object CommonItemScenes {
         newline()
 
         backButton()
+    }
+
+    internal val ROCK_DESCRIPTION = createAndRegisterOnePageScene("item.orb") {
+        line("It's a round stone.")
+        newline()
+
+        backButton()
+    }
+
+    internal val ROCK_DESCRIPTION_1 = createAndRegisterOnePageScene("item.orb.use-1") {
+        line(":push:@magenta@ That's not a good idea. :pop:")
     }
 }

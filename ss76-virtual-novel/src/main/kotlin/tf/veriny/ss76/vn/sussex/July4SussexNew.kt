@@ -1,17 +1,20 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
-import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
-import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.sceneSequence
 import tf.veriny.ss76.vn.CommonScenes
 
 /**
  * 04/07
  */
-public fun registerSussexJuly4Scenes() {
-    createAndRegisterScene("sussex-july-4-start") {
-        topText = "SS76 - Route One - 04/07"
+public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
+    setTopText("SS76 - Route One - 04/07")
 
+    copyAndSetInventory("s4j-inv-start") {
+        remove("physics-hw")
+    }
+
+    createAndRegisterScene("sussex-july-4-start") {
         page {
             line("Today's date is Tuesday, the 4th of July.")
             newline()
@@ -441,18 +444,19 @@ public fun registerSussexJuly4Scenes() {
     createAndRegisterOnePageScene("sussex-july-4-school-8") {
         dline("????: Good morning, Miss Philips. I've got a reply back from the exam board.")
 
-        dline("CHAR: That is good to hear. What did they say?")
+        dline("CHAR: What did they say?")
 
         dline(
             "????: They said they'll change the marking scheme from next year so that your " +
             "answer would get full marks if you put it in a real exam."
         )
 
-        dline("CHAR: Excellent. I was afraid I would lose my perfect 100% streak.")
+        dline("CHAR: I wouldn't want to lose my 100% correct streak.")
 
         dline("????: Well, you know how risky it is to cite unreleased research in an A-level paper.")
 
-        dline("CHAR: Well, the exam board are nothing but a bunch of idiots anyway.")
+        line("Her face goes bright red as she sits down.")
+        newline()
 
         line("She takes out one of her notebooks and notes something down.")
 
@@ -600,10 +604,10 @@ public fun registerSussexJuly4Scenes() {
         changeSceneButton("sussex-july-4-deduction-1", "He launches into his explanation anyway.")
     }
 
-    createAndRegisterScene("sussex-july-4-deduction-1") {
-        topText = "SIGNALLING SYSTEM 76"
-        clearScreenColour = Color.SLATE
+    setTopText("SIGNALLING SYSTEM 76")
+    clearColour(Color.SLATE)
 
+    createAndRegisterScene("sussex-july-4-deduction-1") {
         page {
             dline("ALEX: Okay! Here we go!")
 
@@ -920,6 +924,9 @@ public fun registerSussexJuly4Scenes() {
             changeSceneButton("sussex-july-4-school-y-1", "The stupid lecture finally ends.")
         }
     }
+
+    setTopText("SS76 - Route One - 04/07")
+    clearColour(Color.BLUE)
 
     createAndRegisterOnePageScene("sussex-july-4-school-y-1") {
         dline("CHAR: Well, that was great. Are you going to waste any more of my time today?")
@@ -1352,6 +1359,10 @@ public fun registerSussexJuly4Scenes() {
 
             changeSceneButton("sussex-july-4-wh-4", "She reaches into her pocket.")
         }
+    }
+
+    copyAndSetInventory("s4j-inv-rock") {
+        val rock =
     }
 
     // the rock that saves you from the end of the universe
