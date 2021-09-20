@@ -1,8 +1,10 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
+import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.sceneSequence
 import tf.veriny.ss76.vn.CommonScenes
+import tf.veriny.ss76.vn.items.CommonItemScenes
 
 /**
  * 04/07
@@ -557,7 +559,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
 
         dline("ALEX: Oh! Yes! Let me get everything set up!")
 
-        line("He pulls a laptop of his bag and goes to fiddle with the projector.")
+        line("He pulls a laptop out of his bag and goes to fiddle with the projector.")
         newline()
 
         line("Jess leans in to Char and taps her shoulder.")
@@ -1362,7 +1364,12 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
     }
 
     copyAndSetInventory("s4j-inv-rock") {
-        val rock =
+        val rock = Inventory.InventoryItem(
+            "SMOOTH STONE",
+            CommonItemScenes.ROCK_DESCRIPTION_1.id,
+            CommonItemScenes.ROCK_USE_1.id
+        )
+        put("rock", rock)
     }
 
     // the rock that saves you from the end of the universe

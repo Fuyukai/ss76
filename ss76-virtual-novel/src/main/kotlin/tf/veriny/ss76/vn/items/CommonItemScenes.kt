@@ -68,14 +68,17 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val ROCK_DESCRIPTION = createAndRegisterOnePageScene("item.orb") {
+    internal val ROCK_DESCRIPTION_1 = createAndRegisterOnePageScene("item.orb-1") {
         line("It's a round stone.")
         newline()
 
         backButton()
     }
 
-    internal val ROCK_DESCRIPTION_1 = createAndRegisterOnePageScene("item.orb.use-1") {
+    internal val ROCK_USE_1 = createAndRegisterOnePageScene("item.orb.use-1") {
         line(":push:@magenta@ That's not a good idea. :pop:")
+        newline()
+
+        line(":push:@black@ This line is just here for pacing ignore it if you're source code diving ¬reset¬Z :pop:")
     }
 }

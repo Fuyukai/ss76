@@ -372,6 +372,11 @@ public class NVLRenderer(
             val it = nodes.iterator()
             while (it.hasNext()) {
                 val node = it.next()
+                if (node.effects.contains(TextualNode.Effect.RESET)) {
+                    resetTimer()
+                    break
+                }
+
                 // text scroll: nodes past the current timer aren't drawn
                 if (node.startFrame > globalTimer) break
                 // glitchy text scroll: if this node would be truncated, instead use the node

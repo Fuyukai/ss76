@@ -32,10 +32,16 @@ public data class TextualNode(
     public var buttonId: String? = null,
 ) {
     public enum class Effect {
+        /** Causes padding */
         DIALOGUE,
+        /** Causes shaking */
         SHAKE,
+        /** Shuffles with random numbers */
         SHUFNUM,
+        /** Shuffles with random text */
         SHUFTXT,
+        /** Resets the frame counter */
+        RESET,
     }
 
     /**
