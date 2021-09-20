@@ -3,7 +3,7 @@ package tf.veriny.ss76.vn.sussex
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes
 
-public fun registerSussexJuly5Scenes() {
+public fun registerSussexJuly5ScenesOld() {
     createAndRegisterScene("sussex-july-5-start") {
         topText = "SS76 - Route One - 05/07"
 

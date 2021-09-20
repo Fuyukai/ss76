@@ -260,6 +260,16 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
         currentEffects.invert = false
     }
 
+    public fun enableLightning() {
+        currentEffects.lightning = true
+        currentEffects.backgroundColour = Color.BLUE
+    }
+
+    public fun disableLightning() {
+        currentEffects.lightning = false
+        currentEffects.backgroundColour = Color.BLUE
+    }
+
     /**
      * Creates and registers a new scene.
      */

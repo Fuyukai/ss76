@@ -145,7 +145,7 @@ public object SS76 : KtxApplicationAdapter {
                 registerSussexJuly4Scenes()
                 //registerJuly4SussexPt2Scenes()
                 registerSussexJuly5Scenes()
-                registerSussexJuly5Pt2Scenes()
+                //registerSussexJuly5Pt2Scenes()
                 registerSussexJuly6Scenes()
 
                 // == SIDE PLOTS == //
@@ -189,12 +189,13 @@ public object SS76 : KtxApplicationAdapter {
             sceneManager.writeAllSceneData()
             val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
             if (printSceneCounts) {
-                val routes = listOf("sussex", "suffolk", /*"kent"*/)
+                val routes = listOf("sussex", "norfolk", /*"kent"*/)
                 for (r in routes) {
                     for (day in 3..18) {
+                        println("${r.slice(0..1)}${day}j-")
                         val count = sceneManager.registeredScenes.keys.count {
                             it.startsWith("$r-july-$day") ||
-                            it.startsWith("${r.slice(0..2)}${day}j-")
+                            it.startsWith("${r.slice(0..1)}${day}j-")
                         }
 
                         // suck my dick deprecations

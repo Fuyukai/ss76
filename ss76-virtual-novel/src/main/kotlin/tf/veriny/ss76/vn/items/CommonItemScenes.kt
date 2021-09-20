@@ -81,4 +81,42 @@ public object CommonItemScenes {
 
         line(":push:@black@ This line is just here for pacing ignore it if you're source code diving ¬reset¬Z :pop:")
     }
+
+    internal val CAT_HAIR = createAndRegisterOnePageScene("item.cat-hair") {
+        line("It's a handful of cat hair.")
+        newline()
+
+        line("The hair is multicoloured, just like your cat.")
+        newline()
+
+        line("Maybe you should give it back.")
+        newline()
+
+        backButton()
+    }
+
+    internal val CAT_HAIR_USE = createAndRegisterOnePageScene("item.cat-hair.use") {
+        line("You take the hair and shove it inside your mouth. What the actual fuck is wrong with you?")
+        newline()
+
+        line("It tastes like a combination of hair and Toxoplasmosis gondii. You're going to get a disease.")
+        newline()
+
+        line(
+            "You chew the hair. Unsurprisingly, your teeth can't chew hair, so it just kinda floats around " +
+            "in your spit."
+        )
+        newline()
+
+        line(
+            "You involuntarily gag and cough and the brand new hairball flies out of your " +
+            "mouth and into your hand."
+        )
+        newline()
+
+        line("You fling it about to dry it off, and stick the hair back in your pocket.")
+        newline()
+
+        backButton()
+    }
 }

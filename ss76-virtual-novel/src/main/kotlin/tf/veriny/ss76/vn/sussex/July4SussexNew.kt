@@ -66,6 +66,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
         page {
             line("You take a different route on the walk to than the walk back from school. " +
                  "You cut through the heath on the way back, but go around on the way back.")
+            newline()
 
             line("The exit you use from the heath is really steep uphill.", addNewline = false)
             pushSceneButton(
@@ -1483,7 +1484,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
             line("They laugh and laugh.")
             newline()
 
-            changeSceneButton("sussex-july-5-start", "The hours pass away.")
+            changeSceneButton("su5j-start", "The hours pass away.")
         }
     }
 }

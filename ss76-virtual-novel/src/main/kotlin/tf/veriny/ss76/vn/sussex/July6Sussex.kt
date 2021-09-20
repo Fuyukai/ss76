@@ -3,6 +3,7 @@ package tf.veriny.ss76.vn.sussex
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.sceneSequence
 
 /*
 Dear Occupant,
@@ -28,7 +29,10 @@ Please meet me in a dusty room at noon. Someone should not follow you, and do no
 Observer
 */
 
-public fun registerSussexJuly6Scenes() {
+public fun registerSussexJuly6Scenes(): Unit = sceneSequence {
+    clearColour(Color.BLUE)
+    setTopText("SS76 - Route One - 06/07")
+
     createAndRegisterScene("sussex-july-6-start") {
         clearScreenColour = Color.BLUE
         topText = "SS76 - Route One - 06/07"
@@ -63,25 +67,19 @@ public fun registerSussexJuly6Scenes() {
     }
 
     createAndRegisterOnePageScene("sussex-july-6-mother-text") {
-        line(":push:@yellow@ I need to change this :pop:")
+        // TODO
+        line(":push:@yellow@ note to self; rewrite :pop:")
 
         line("Your mum texted you at around half ten yesterday evening.")
         newline()
 
-        dline("MTHR: Just got a call from someone about you")
-
-        dline("MTHR: Fine if you stay overnight but I would like a heads up")
-
-        dline("MTHR: See if you can borrow some pint glasses your dad dropped one today")
-
-        dline("MTHR: Have fun see you on Saturday xx")
 
         backButton()
     }
 
+    enableLightning()
+
     createAndRegisterOnePageScene("sussex-july-6-morning-1") {
-
-
         line(
             "The sound of lightning hitting the lightning rod wakes you up."
         )
@@ -113,41 +111,8 @@ public fun registerSussexJuly6Scenes() {
         changeSceneButton("sussex-july-6-morning-2", "You decide to get up.")
     }
 
-    createAndRegisterOnePageScene("sussex-inset-day") {
-        line(
-            "Inset days, also known as teacher training days, are days where teachers are " +
-            "expected to attend, but students are not."
-        )
-        newline()
-
-        line("Inset actually means :push:@sky@ in-service training day :pop: although no " +
-             "school really uses the term anymore. It's a holdover from your parent's generation.")
-        newline()
-
-        line(
-            "They're officially designated for schools to train teachers on new technology or " +
-            "new curriculums, but in modern Tory Britain their main purpose is for overworked " +
-            "teachers to catch up on planning or marking."
-        )
-        newline()
-
-        line("The older, more bastard teachers also use it to develop new torture techniques " +
-             "for use in their 'lessons'.")
-        newline()
-
-        line("It's strange to have two inset days in a row in July, though.")
-        newline()
-
-        backButton()
-    }
-
     createAndRegisterOnePageScene("sussex-july-6-morning-2") {
-        line(
-            "It's an `push-scene-sussex-inset-day`@linked@inset day today, so you don't " +
-            "have to worry about being tired later on."
-        )
-        newline()
-
+        line(":push:@yellow@ this needs a rewrite :pop:")
         line(
             "You slip on the guest slippers to match your guest pajamas. You only brought your " +
             "suit with you so you're having to wear the horribly ugly, non-fitting guest clothing."
@@ -486,7 +451,6 @@ public fun registerSussexJuly6Scenes() {
 
     createAndRegisterScene("sussex-july-6-morning-14") {
         clearScreenColour = Color.RED
-        topText = "SS76 - Route One - 06/07"
 
         page {
             line("You look to the left of you. There's nobody there.")
