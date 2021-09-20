@@ -3,21 +3,20 @@ package tf.veriny.ss76.engine.scene
 import com.badlogic.gdx.graphics.Color
 
 /**
- * Marker interface for a "scene effect".
+ * Container class defining the effects a scene should have.
  */
-public sealed interface SceneEffect {
-    /**
-     * Enables a custom background (clear screen) colour.
-     */
-    public class ChangeBackgroundColour(public val colour: Color) : SceneEffect
+public data class SceneEffects(
+    /** The custom background used for this scene. */
+    var backgroundColour: Color = Color.BLUE,
+    /** If this scene should be drawn inverted. */
+    var invert: Boolean = false,
+    /** The custom top text used for this scene. */
+    var topText: String = "SIGNALLING SYSTEM 76",
 
-    /**
-     * Enables the inversion effect.
-     */
-    public object Invert : SceneEffect
-
-    /**
-     * Changes the top text during this scene.
-     */
-    public class ChangeTopText(public val topText: String) : SceneEffect
+    /** Lightning effect. */
+    var lightning: Boolean = false,
+) {
+    public companion object {
+        public val NONE: SceneEffects = SceneEffects()
+    }
 }

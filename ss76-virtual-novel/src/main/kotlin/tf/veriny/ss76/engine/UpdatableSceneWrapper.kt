@@ -5,10 +5,7 @@ import okio.BufferedSource
 import okio.ByteString.Companion.EMPTY
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.NVLRenderer
-import tf.veriny.ss76.engine.scene.PageBuilder
-import tf.veriny.ss76.engine.scene.VirtualNovelSceneDefinition
-import tf.veriny.ss76.engine.scene.splitScene
+import tf.veriny.ss76.engine.scene.*
 
 /**
  * A wrapper that re-registers a scene every time it updates. This allows for simple dynamic scenes
@@ -30,7 +27,7 @@ public open class UpdatableSceneWrapper(
 
         val definition = VirtualNovelSceneDefinition(
             sceneId, buttons, parsedPages, this.pages.map { it.toString() },
-            effects = setOf(),
+            effects = SceneEffects.NONE,
             dynamic = true,
         )
         val scene = NVLRenderer(definition)

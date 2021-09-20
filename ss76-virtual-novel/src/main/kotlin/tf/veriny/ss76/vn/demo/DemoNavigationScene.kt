@@ -67,7 +67,10 @@ public fun registerDemoNavigationScenes() {
 
             if (!isInsideJar()) {
                 pushSceneButton("invert-2", "2021-09-08: The world ends.")
+                newline()
             }
+
+            pushSceneButton("lightning", "021-09-20: Lightning flashes")
         }
     }
 }

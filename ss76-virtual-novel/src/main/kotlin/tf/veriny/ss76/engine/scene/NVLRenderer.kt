@@ -62,27 +62,36 @@ public class NVLRenderer(
     public fun pageBack() {
         SS76.buttonManager.reset()
         pageIdx--
-        timer = 0
+        globalTimer = 0
+        lightningTimer = 0
     }
 
     public fun pageForward() {
         SS76.buttonManager.reset()
         pageIdx++
-        timer = 0
+        globalTimer = 0
+        lightningTimer = 0
     }
 
-    // frame timer
-    private var timer = 0
+    // global frame count timer
+    private var globalTimer = 0
 
+    // lightning effect timer
+    private var lastLightningMax = 0
+    private var lightningTimer = 0
+
+    // rng that is deterrministic for 30 frames
     private var rng: Random = Random(0)
+    // true rng that is never re-seeded
+    private var trueRng: Random = Random(1024L)
 
     public fun resetTimer() {
-        timer = 0
+        globalTimer = 0
     }
 
     /** Sets the timer to a reasonably high value. */
     public fun skipTimer() {
-        timer = 9999999
+        globalTimer = 9999999
     }
 
     // == Input == //
@@ -145,9 +154,9 @@ public class NVLRenderer(
         var isTruncated = false
 
         // truncate text appropriate, if needed
-        if (timer < frameNode.endFrame) {
+        if (globalTimer < frameNode.endFrame) {
             val totalFrames = (frameNode.endFrame - frameNode.startFrame).toFloat()
-            val framesLeft = (frameNode.endFrame - timer).toFloat()
+            val framesLeft = (frameNode.endFrame - globalTimer).toFloat()
             val fraction = 1 - (framesLeft / totalFrames)
             val length = ceil((text.length * fraction)).toInt()
             if (length < text.length) {
@@ -285,15 +294,29 @@ public class NVLRenderer(
      * Called when the scene is rendered.
      */
     public fun render() {
-        rng = Random(timer.floorDiv(30))
+        rng = Random(globalTimer.floorDiv(30))
 
-        val clearColour = (definition.effects.find {
-            it is SceneEffect.ChangeBackgroundColour
-        } as? SceneEffect.ChangeBackgroundColour)?.colour ?: Color.BLUE
-        clearScreen(clearColour.r, clearColour.g, clearColour.b, clearColour.a)
+        val bgColour = if (definition.effects.lightning) {
+            val shouldDoFlash = trueRng.nextInt(0, 240) == 66
+            if (shouldDoFlash) {
+                lightningTimer = trueRng.nextInt(37, 174)
+                lastLightningMax = lightningTimer
+            } else {
+                lightningTimer = max(lightningTimer - 1, 0)
+            }
 
-        val invert = definition.effects.contains(SceneEffect.Invert)
+            if (lightningTimer <= 0 || lastLightningMax <= 0) {
+                Color.BLACK
+            } else {
+                val perc/*oset*/ = (lightningTimer.toFloat() / lastLightningMax.toFloat())
+                Color(perc, perc, perc, 1f)
+            }
+        } else {
+            definition.effects.backgroundColour
+        }
+        clearScreen(bgColour.r, bgColour.g, bgColour.b, bgColour.a)
 
+        val invert = definition.effects.invert
 
 
         // Step 0) Update offsets.
@@ -304,7 +327,7 @@ public class NVLRenderer(
 
         // Step 1) Render the black box.
         SS76.shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
-            val colour = if (definition.effects.contains(SceneEffect.Invert)) Color.WHITE else Color.BLACK
+            val colour = if (definition.effects.invert) Color.WHITE else Color.BLACK
 
             if (SS76.isBabyScreen) {
                 rect(
@@ -350,12 +373,12 @@ public class NVLRenderer(
             while (it.hasNext()) {
                 val node = it.next()
                 // text scroll: nodes past the current timer aren't drawn
-                if (node.startFrame > timer) break
+                if (node.startFrame > globalTimer) break
                 // glitchy text scroll: if this node would be truncated, instead use the node
                 // one over
                 if (
-                    node.startFrame < timer &&
-                    node.endFrame > timer &&
+                    node.startFrame < globalTimer &&
+                    node.endFrame > globalTimer &&
                     it.hasNext()
                 ) {
                     val nextNode = it.next()
@@ -370,8 +393,7 @@ public class NVLRenderer(
                 drawClickables(border)
 
                 // 5) Draw top text.
-                val textEffect = definition.effects.filterIsInstance<SceneEffect.ChangeTopText>().firstOrNull()
-                val topText = textEffect?.topText ?: "SIGNALLING SYSTEM 76"
+                val topText = definition.effects.topText
                 glyphLayout.setText(SS76.fontManager.topTextFont, topText)
                 val yOffset = Gdx.graphics.height - 10f
                 SS76.fontManager.topTextFont.draw(
@@ -384,7 +406,7 @@ public class NVLRenderer(
         }
 
 
-        timer++
+        globalTimer++
 
     }
 

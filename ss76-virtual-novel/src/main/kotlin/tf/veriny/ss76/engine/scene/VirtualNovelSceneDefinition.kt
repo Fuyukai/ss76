@@ -13,7 +13,7 @@ public class VirtualNovelSceneDefinition(
     public val originalButtons: Map<String, ButtonManager.Button>,
     private val pages: List<List<TextualNode>>,
     public val originalPages: List<String>,
-    public val effects: Set<SceneEffect>,
+    public val effects: SceneEffects,
     public val linkedInventoryId: Int = -1,
     public val dynamic: Boolean = false,
     onLoadHandlers: List<onLoad> = listOf(),

@@ -10,6 +10,7 @@ import tf.veriny.ss76.engine.scene.NVLRenderer
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.CREATE
 import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
+import java.util.zip.GZIPInputStream
 import kotlin.io.path.exists
 import kotlin.io.path.inputStream
 import kotlin.io.path.outputStream
@@ -19,7 +20,14 @@ import kotlin.io.path.outputStream
  */
 public class SS76BuildUpdateManager {
     public companion object {
-        private const val MESSAGE = "7FELFThis program cannot be run in DOS Mode"
+        private const val MESSAGE = "This GZIP data cannot be run in DOS mode."
+    }
+
+    public enum class LoadStatus {
+        NONEXISTENT,
+        BAD_MAGIC,
+        BAD_NUMBER,
+        SUCCESS,
     }
 
     /** The bundle version that was loaded. */
@@ -31,28 +39,27 @@ public class SS76BuildUpdateManager {
      *
      * Returns true if the scenes were successfully loaded.
      */
-    public fun loadScenes(always: Boolean = false): Boolean {
+    public fun loadScenes(always: Boolean = false): LoadStatus {
         val path = Path.of("./scenes-data.dat")
-        if (!path.exists()) return false
+        if (!path.exists()) return LoadStatus.NONEXISTENT
 
         path.inputStream().use {
-            val rawSource = it.source()
-            val rawBuffer = rawSource.buffer()
-
-            val message = rawBuffer.readUtf8(MESSAGE.length.toLong())
-            if (message != MESSAGE) {
-                error("Missing magic number in data bundle")
+            val realStream = GZIPInputStream(it)
+            val magic = realStream.readNBytes(MESSAGE.length)
+            if (!magic.contentEquals(MESSAGE.encodeToByteArray())) {
+                return LoadStatus.BAD_MAGIC
             }
 
-            val buffer = rawBuffer
+            val rawSource = realStream.source()
+            val buffer = rawSource.buffer()
 
             val version = buffer.readInt()
+            loadedBundleVersion = version
+
             if (!always && version <= SS76.LURA_VERSION) {
                 println("Detected old/same scenes bundle: $version")
-                return false
+                return LoadStatus.BAD_NUMBER
             }
-
-            loadedBundleVersion = version
 
             val sceneCount = buffer.readInt()
             println("Loading $sceneCount scenes from scene bundle")
@@ -64,7 +71,7 @@ public class SS76BuildUpdateManager {
             }
         }
 
-        return true
+        return LoadStatus.SUCCESS
     }
 
     /**

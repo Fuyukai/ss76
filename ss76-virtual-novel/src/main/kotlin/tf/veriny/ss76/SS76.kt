@@ -165,7 +165,7 @@ public object SS76 : KtxApplicationAdapter {
                         sceneSaver.saveScenes()
                     } else {
                         val loaded = sceneSaver.loadScenes()
-                        if (!loaded) {
+                        if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
                             println("Didn't load from scene bundle; using pre-packaged scenes instead.")
                         }
                     }
@@ -257,6 +257,7 @@ public object SS76 : KtxApplicationAdapter {
             scene.render()
         } catch (e: Exception) {
             lastError = e
+            e.printStackTrace()
             return renderError()
         }
 

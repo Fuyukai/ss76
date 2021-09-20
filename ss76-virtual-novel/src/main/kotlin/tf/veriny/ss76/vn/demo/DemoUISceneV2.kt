@@ -62,4 +62,12 @@ public fun registerDemoUIScene() {
             line(" ".repeat(27) + ":push:@black@ The world ends. :pop:")
         }
     }
+
+    createAndRegisterScene("lightning") {
+        effects.lightning = true
+
+        page {
+            line("Cool lightning effect.")
+        }
+    }
 }

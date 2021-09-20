@@ -6,6 +6,7 @@ import okio.BufferedSource
 import okio.ByteString
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.scene.SceneEffects
 import tf.veriny.ss76.engine.scene.VirtualNovelSceneDefinition
 import tf.veriny.ss76.engine.scene.splitScene
 
@@ -93,7 +94,7 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
 
     return VirtualNovelSceneDefinition(
         sceneId, buttons, nodes, originalPages = pages,
-        effects = setOf()
+        effects = SceneEffects.NONE
         //clearScreenColour = colour, changedTopText = topText,
         //invert = invert
     )

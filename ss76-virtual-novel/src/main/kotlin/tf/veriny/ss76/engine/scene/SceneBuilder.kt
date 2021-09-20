@@ -116,45 +116,35 @@ public class PageBuilder(
 /**
  * Builder helper for creating new scene definitions.
  */
-public class SceneDefinitionBuilder(private val sceneId: String) {
+public class SceneDefinitionBuilder(private val sceneId: String, effects: SceneEffects = SceneEffects()) {
     @PublishedApi
     internal val pages: MutableList<StringBuilder> = mutableListOf()
     @PublishedApi
     internal val buttons: MutableMap<String, Button> = mutableMapOf()
     private val onLoadHandlers: MutableList<(NVLRenderer) -> Unit> = mutableListOf()
 
+    /**
+     * The scene effects used for this scene.
+     */
+    public val effects: SceneEffects = effects
+
     /** The linked inventory index. */
     public var linkedInventoryIdx: Int = 0
 
     /** The colour to clear the screen on loading. */
-    public var clearScreenColour: Color?
-        get() = effects.filterIsInstance<SceneEffect.ChangeBackgroundColour>().firstOrNull()?.colour
-        set(value) {
-            effects.removeAll { it is SceneEffect.ChangeBackgroundColour }
-            if (value != null) {
-                effects.add(SceneEffect.ChangeBackgroundColour(value))
-            }
-        }
+    public var clearScreenColour: Color
+        get() = effects.backgroundColour
+        set(value) { effects.backgroundColour = value }
 
     /** The top text to change to on loading. */
-    public var topText: String?
-        get() = effects.filterIsInstance<SceneEffect.ChangeTopText>().firstOrNull()?.topText
-        set(value) {
-            effects.removeAll { it is SceneEffect.ChangeTopText }
-            if (value != null) {
-                effects.add(SceneEffect.ChangeTopText(value))
-            }
-        }
+    public var topText: String
+        get() = effects.topText
+        set(value) { effects.topText = value }
 
     /** If this scene should draw with the colours inverted. */
     public var invert: Boolean
-        get() = effects.contains(SceneEffect.Invert)
-        set(value) {
-            if (value) effects.add(SceneEffect.Invert)
-            else effects.remove(SceneEffect.Invert)
-        }
-
-    public val effects: MutableSet<SceneEffect> = mutableSetOf()
+        get() = effects.invert
+        set(value) { effects.invert = value }
 
     /**
      * Registers a function to be ran on load.
@@ -233,23 +223,9 @@ public class SceneDefinitionBuilder(private val sceneId: String) {
  * Builder for a scene sequence.
  */
 public class SceneSequenceBuilder(public val idPrefix: String) {
-    private val currentEffects = mutableSetOf<SceneEffect>()
+    private val currentEffects = SceneEffects()
 
     private var lastInventoryIdx: Int = 0
-
-    /**
-     * Adds an effect for use in subsequent scenes.
-     */
-    public fun addEffect(effect: SceneEffect) {
-        currentEffects.add(effect)
-    }
-
-    /**
-     * Removes an effect from subsequent scenes.
-     */
-    public fun removeEffect(effect: SceneEffect) {
-        currentEffects.add(effect)
-    }
 
     /**
      * Changes the current linked inventory state.
@@ -263,27 +239,25 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
      * Sets the current clear screen colour for use in all subsequent scenes.
      */
     public fun clearColour(colour: Color) {
-        currentEffects.removeAll { it is SceneEffect.ChangeBackgroundColour }
-        currentEffects.add(SceneEffect.ChangeBackgroundColour(colour))
+        currentEffects.backgroundColour = colour
     }
 
     /**
      * Sets the current top text for use in all subsequent scenes.
      */
     public fun setTopText(topText: String) {
-        currentEffects.removeAll { it is SceneEffect.ChangeTopText }
-        currentEffects.add(SceneEffect.ChangeTopText(topText))
+        currentEffects.topText = topText
     }
 
     /**
      * Disables inversion.
      */
     public fun enableInvert() {
-       addEffect(SceneEffect.Invert)
+        currentEffects.invert = true
     }
 
     public fun disableInvert() {
-        removeEffect(SceneEffect.Invert)
+        currentEffects.invert = false
     }
 
     /**
@@ -292,9 +266,8 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
     public fun createAndRegisterScene(
         sceneId: String, block: SceneDefinitionBuilder.() -> Unit
     ): VirtualNovelSceneDefinition {
-        val builder = SceneDefinitionBuilder(idPrefix + sceneId)
+        val builder = SceneDefinitionBuilder(idPrefix + sceneId, currentEffects.copy())
         builder.linkedInventoryIdx = lastInventoryIdx
-        builder.effects.addAll(currentEffects)
         builder.block()
 
         val definition = builder.createDefinition()
