@@ -159,7 +159,12 @@ public object SS76 : KtxApplicationAdapter {
 
                 // Load newer scene versions if needed
                 if (alwaysLoad) {
-                    sceneSaver.loadScenes(always = true)
+                    val loaded = sceneSaver.loadScenes(always = true)
+                    if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
+                        println("Didn't load from scene bundle ($loaded); using pre-packaged scenes instead.")
+                    } else {
+                        println("Loaded scenes from scene bundle.")
+                    }
                 } else {
                     if (!isInsideJar()) {
                         sceneSaver.saveScenes()
@@ -167,6 +172,8 @@ public object SS76 : KtxApplicationAdapter {
                         val loaded = sceneSaver.loadScenes()
                         if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
                             println("Didn't load from scene bundle; using pre-packaged scenes instead.")
+                        } else {
+                            println("Loaded scenes from scene bundle.")
                         }
                     }
                 }

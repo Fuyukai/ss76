@@ -11,6 +11,7 @@ import java.nio.file.Path
 import java.nio.file.StandardOpenOption.CREATE
 import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
 import java.util.zip.GZIPInputStream
+import java.util.zip.GZIPOutputStream
 import kotlin.io.path.exists
 import kotlin.io.path.inputStream
 import kotlin.io.path.outputStream
@@ -44,11 +45,12 @@ public class SS76BuildUpdateManager {
         if (!path.exists()) return LoadStatus.NONEXISTENT
 
         path.inputStream().use {
-            val realStream = GZIPInputStream(it)
-            val magic = realStream.readNBytes(MESSAGE.length)
+            val magic = it.readNBytes(MESSAGE.length)
             if (!magic.contentEquals(MESSAGE.encodeToByteArray())) {
                 return LoadStatus.BAD_MAGIC
             }
+
+            val realStream = GZIPInputStream(it)
 
             val rawSource = realStream.source()
             val buffer = rawSource.buffer()
@@ -81,12 +83,13 @@ public class SS76BuildUpdateManager {
         val path = Path.of("./scenes-data.dat")
 
         path.outputStream(CREATE, TRUNCATE_EXISTING).use {
-            val rawSink = it.sink()
+            val ba = MESSAGE.encodeToByteArray()
+            it.write(ba)
+
+            val realStream = GZIPOutputStream(it)
+
+            val rawSink = realStream.sink()
             val rawBuffer = rawSink.buffer()
-
-            rawBuffer.writeUtf8(MESSAGE)
-            rawBuffer.flush()
-
             val buffer = rawBuffer
             buffer.writeInt(SS76.LURA_VERSION)
 

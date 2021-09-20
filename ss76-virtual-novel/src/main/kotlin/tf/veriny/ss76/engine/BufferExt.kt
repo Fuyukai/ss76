@@ -32,21 +32,61 @@ public fun BufferedSink.writeColour(c: Color) {
 }
 
 /**
+ * Reads the effects section of a scene.
+ */
+public fun BufferedSource.readEffects(): SceneEffects {
+    val bitflag = readLong()
+
+    val invert = bitflag.and(1L) == 1L
+
+    val hasCustomColour = bitflag.shr(1).and(1L) == 1L
+    val colour = if (hasCustomColour) readColour() else Color.BLUE
+
+    val topTextLength = readInt()
+    val topText = readUtf8(topTextLength.toLong())
+
+    val hasLightning = bitflag.shr(3).and(1L) == 1L
+
+    return SceneEffects(backgroundColour = colour, invert = invert, topText = topText, lightning = hasLightning)
+}
+
+/**
+ * Writes the effects section of a scene.
+ */
+public fun BufferedSink.writeEffects(effects: SceneEffects) {
+    var bitflag = 0L
+
+    if (effects.invert) {
+        bitflag = bitflag.or(1L)
+    }
+
+    var hasColour = false
+    if (effects.backgroundColour != Color.BLUE) {
+        bitflag = bitflag.or((1L).shl(1))
+        hasColour = true
+    }
+
+    if (effects.lightning) {
+        bitflag = bitflag.or((1L).shl(3))
+    }
+
+    writeLong(bitflag)
+    if (hasColour) buffer.writeColour(effects.backgroundColour)
+
+    val encoded = effects.topText.encodeUtf8()
+    writeInt(encoded.size)
+    write(encoded)
+}
+
+/**
  * Reads a scene definition from a [BufferedSource].
  */
 public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
     val sceneNameLength = readInt()
     val sceneId = readUtf8(sceneNameLength.toLong())
-    val invert = readByte().toInt() == 1
 
-    val hasCustomColour = readByte() == (1).toByte()
-    val colour = if (hasCustomColour) readColour() else null
-
-    val hasCustomTopText = readByte() == (1).toByte()
-    val topText = if (hasCustomTopText) {
-        val size = readInt()
-        readUtf8(size.toLong())
-    } else null
+    // effects section
+    val effects = readEffects()
 
     val pageCount = readByte().toInt()
     val pages = mutableListOf<String>()
@@ -94,9 +134,7 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
 
     return VirtualNovelSceneDefinition(
         sceneId, buttons, nodes, originalPages = pages,
-        effects = SceneEffects.NONE
-        //clearScreenColour = colour, changedTopText = topText,
-        //invert = invert
+        effects = effects,
     )
 }
 
@@ -104,23 +142,7 @@ public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefini
     val sceneId = definition.id.encodeUtf8()
     buffer.writeInt(sceneId.size)
     buffer.write(sceneId)
-    //buffer.writeByte(if (definition.invert) 1 else 0)
-
-    /*if (definition.clearScreenColour != null) {
-        buffer.writeByte(1)
-        buffer.writeColour(definition.clearScreenColour)
-    } else {
-        buffer.writeByte(0)
-    }
-
-    if (definition.changedTopText != null) {
-        buffer.writeByte(1)
-        val tt = definition.changedTopText.encodeUtf8()
-        buffer.writeInt(tt.size)
-        buffer.write(tt)
-    } else {
-        buffer.writeByte(0)
-    }*/
+    buffer.writeEffects(definition.effects)
 
     buffer.writeByte(definition.pageCount)
     for (pageIdx in 0 until definition.pageCount) {

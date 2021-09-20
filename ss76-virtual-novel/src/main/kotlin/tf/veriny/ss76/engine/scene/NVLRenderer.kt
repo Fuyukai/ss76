@@ -308,7 +308,7 @@ public class NVLRenderer(
             if (lightningTimer <= 0 || lastLightningMax <= 0) {
                 Color.BLACK
             } else {
-                val perc/*oset*/ = (lightningTimer.toFloat() / lastLightningMax.toFloat())
+                val perc/*ocet*/ = (lightningTimer.toFloat() / lastLightningMax.toFloat())
                 Color(perc, perc, perc, 1f)
             }
         } else {
