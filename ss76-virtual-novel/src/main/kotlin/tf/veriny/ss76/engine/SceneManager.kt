@@ -7,7 +7,6 @@ import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.Inventory
-import tf.veriny.ss76.engine.renderer.NVLRenderer
 import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.SceneState
 import java.nio.file.Files

@@ -10,7 +10,7 @@ import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.engine.renderer.OddCareRenderer
 import tf.veriny.ss76.engine.screen.ErrorScreen
-import tf.veriny.ss76.engine.screen.NVLScreen
+import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.screen.Screen
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes

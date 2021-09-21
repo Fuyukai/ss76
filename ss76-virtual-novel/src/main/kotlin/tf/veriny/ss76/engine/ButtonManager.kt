@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.math.Rectangle
 import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.renderer.NVLRenderer
+import tf.veriny.ss76.engine.nvl.NVLRenderer
 
 public typealias ButtonAction = (NVLRenderer) -> Unit
 

@@ -1,4 +1,4 @@
-package tf.veriny.ss76.engine.renderer
+package tf.veriny.ss76.engine.nvl
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -8,20 +8,17 @@ import com.badlogic.gdx.math.Rectangle
 import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
-import tf.veriny.ss76.engine.DeactivationType
-import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
 import tf.veriny.ss76.use
 import kotlin.math.ceil
 import kotlin.math.max
-import kotlin.math.min
 import kotlin.random.Random
 
 /**
  * A renderer for a scene in NVL mode.
  */
-public class NVLRenderer : Renderer {
+public class NVLRenderer {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
 

@@ -1,9 +1,7 @@
-package tf.veriny.ss76.engine.screen
+package tf.veriny.ss76.engine.nvl
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.renderer.NVLRenderer
-import tf.veriny.ss76.engine.renderer.Renderer
-import tf.veriny.ss76.engine.scene.SceneDefinition
+import tf.veriny.ss76.engine.screen.Screen
 
 /**
  * The NVL screen is responsible for rendering a scene in NVL mode.

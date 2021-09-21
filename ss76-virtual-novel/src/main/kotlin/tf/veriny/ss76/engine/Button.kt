@@ -1,7 +1,6 @@
 package tf.veriny.ss76.engine
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.renderer.NVLRenderer
 
 /**
  * A single button.
