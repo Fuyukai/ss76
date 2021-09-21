@@ -93,5 +93,9 @@ public fun registerDemoNavigationScenes() {
 
     createAndRegisterScene("car-renderer") {
         this.advRenderer = CarRenderer()
+
+        page {
+            line("Car renderer page #1")
+        }
     }
 }

@@ -8,58 +8,36 @@ import com.badlogic.gdx.math.Rectangle
 import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
 import tf.veriny.ss76.use
-import kotlin.math.ceil
 import kotlin.math.max
 import kotlin.random.Random
 
 /**
  * A renderer for a scene in NVL mode.
  */
-public class NVLRenderer {
+public class NVLRenderer : TextRendererMixin() {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
-
-        fun randomString(r: Random, length: Int) : String {
-            val chars = ('A'..'Z') + ('a'..'z')
-            return (0 until length).joinToString("") { chars.random(r).toString() }
-        }
     }
 
     private val padding: Float
         get() = if (SS76.isBabyScreen) 60f else 90f
 
-    private var currentXOffset = 0f
-    private var currentYOffset = 0f
-
-    private val glyphLayout = GlyphLayout()
-
     // lightning effect timer
     private var lastLightningMax = 0
     private var lightningTimer = 0
 
-    // rng that is deterrministic for 30 frames
-    private var rng: Random = Random(0)
-    // true rng that is never re-seeded
-    private var trueRng: Random = Random(1024L)
-
-    // == Input == //
-
-    private fun newline() {
-        currentXOffset = 0f
-        currentYOffset += SS76.fontManager.fontHeight + 2f
-    }
-
     /**
      * Raw word renderer. Doesn't handle anything but writing the words to the screen.
      */
-    private fun renderWordRaw(
+    override fun renderWordRaw(
         word: String,
         colour: Color,
-        effects: Set<TextualNode.Effect> = setOf(),
-        calcRectangle: Boolean = false,
+        effects: Set<TextualNode.Effect>,
+        calcRectangle: Boolean
     ): Rectangle? {
         //println(SS76.fontManager.currentFont.fonts.entries)
         val font = SS76.fontManager.currentFont.fonts[colour] ?: error("unknown colour $colour")
@@ -88,89 +66,6 @@ public class NVLRenderer {
         currentXOffset += glyphLayout.width
 
         return rect
-    }
-
-    /**
-     * This is where all the fun happens.
-     *
-     * @param frameNode: The node to use frame numbers from.
-     * @param node: The node to use for actually drawing.
-     */
-    private fun renderTextNode(
-        state: SceneState,
-        frameNode: TextualNode, node: TextualNode = frameNode
-    ) {
-        // == Before == //
-        currentXOffset += SS76.fontManager.characterWidth * frameNode.padding
-
-        var colour = node.colour
-        var text = node.text
-        var isTruncated = false
-
-        // truncate text appropriate, if needed
-        if (state.timer < frameNode.endFrame) {
-            val totalFrames = (frameNode.endFrame - frameNode.startFrame).toFloat()
-            val framesLeft = (frameNode.endFrame - state.timer).toFloat()
-            val fraction = 1 - (framesLeft / totalFrames)
-            val length = ceil((text.length * fraction)).toInt()
-            if (length < text.length) {
-                isTruncated = true
-                text = text.substring(0..length)
-            }
-        }
-
-        // override red/green if the node is linked to a button
-        if (node.colourLinkedToButton) {
-            val button = state.definition.buttons[node.buttonId]
-            check(button != null) { "node linked to non-existent button?" }
-            val visited = SS76.sceneManager.hasVisitedScene(button.linkedId!!)
-            colour = if (visited) {
-                Color.GREEN
-            } else {
-                Color.RED
-            }
-        }
-
-        if (TextualNode.Effect.SHUFNUM in node.effects) {
-            val sb = StringBuilder()
-            for (char in text) {
-                if (char.isDigit()) {
-                    sb.append(rng.nextInt(0, 9))
-                } else {
-                    sb.append(char)
-                }
-            }
-            text = sb.toString()
-        } else if (TextualNode.Effect.SHUFTXT in node.effects) {
-            val size = node.text.length
-            text = when {
-                node.text.endsWith(".") -> randomString(rng, size - 1) + "."
-                node.text.endsWith(",") -> randomString(rng, size - 1) + ","
-                else -> randomString(rng, size)
-            }
-        }
-
-        // == Render == //
-        if (node.text.isNotEmpty()) {
-            val shouldCalcRectangle = !isTruncated && node.buttonId != null
-            val rect = renderWordRaw(
-                text, colour, node.effects, calcRectangle = shouldCalcRectangle
-            )
-            if (rect != null) {
-                val button = state.definition.buttons[node.buttonId]
-                check(button != null) { "node linked to non-existent button ${node.buttonId}" }
-                SS76.buttonManager.addClickableArea(button, rect)
-            }
-        }
-
-        // == After == //
-        if (node.causesSpace) {
-            currentXOffset += SS76.fontManager.characterWidth
-        }
-
-        if (node.causesNewline) {
-            newline()
-        }
     }
 
     // cache page buttons
@@ -324,30 +219,7 @@ public class NVLRenderer {
 
             // 3b) Draw the current nodes, including glitchy nodes.
             val nodes = definition.getTokensForPage(state.pageIdx)
-            // tfw need manual iterator
-            val it = nodes.iterator()
-            while (it.hasNext()) {
-                val node = it.next()
-                if (node.effects.contains(TextualNode.Effect.RESET)) {
-                    state.timer = 0
-                    break
-                }
-
-                // text scroll: nodes past the current timer aren't drawn
-                if (node.startFrame > state.timer) break
-                // glitchy text scroll: if this node would be truncated, instead use the node
-                // one over
-                if (
-                    node.startFrame < state.timer &&
-                    node.endFrame > state.timer &&
-                    it.hasNext()
-                ) {
-                    val nextNode = it.next()
-                    renderTextNode(state, node, nextNode)
-                } else {
-                    renderTextNode(state, node)
-                }
-            }
+            drawWords(state)
 
             if (!invert) {
                 // 4) Draw clickables.
