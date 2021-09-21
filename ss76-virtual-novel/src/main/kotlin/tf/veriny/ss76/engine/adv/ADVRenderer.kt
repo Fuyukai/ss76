@@ -26,7 +26,7 @@ public class ADVRenderer(
     }
 
     private val padding: Float
-        get() = if (SS76.isBabyScreen) 60f else 90f
+        get() = /*if (SS76.isBabyScreen) 60f else*/ 90f
 
     private val yBoxOffset get() = 3 * (Gdx.graphics.height.toFloat() / 4f)
 
@@ -40,6 +40,7 @@ public class ADVRenderer(
         glyphLayout.setText(font, word)
 
         var xOffset = padding + currentXOffset
+        println(xOffset)
         var yOffset = (Gdx.graphics.height - yBoxOffset) - currentYOffset
 
         if (TextualNode.Effect.SHAKE in effects) {
@@ -69,32 +70,37 @@ public class ADVRenderer(
      */
     public fun render(sceneState: SceneState) {
         val batch = SS76.batch
+        val shape = SS76.shapeRenderer
         val oldProj = batch.projectionMatrix
         val oldTrans = batch.transformMatrix
 
         try {
             batch.projectionMatrix = camera.combined
             batch.use { subRenderer.render(batch, sceneState) }
+
+            shape.projectionMatrix = camera.combined
+            shape.use(ShapeRenderer.ShapeType.Filled) {
+                color = Color.BLACK
+                val pad = /*if (SS76.isBabyScreen) 47f else*/ 75f
+                roundedRect(pad, 15f,
+                    Gdx.graphics.width - (pad * 2),
+                    Gdx.graphics.height - yBoxOffset,
+                    15f
+                )
+            }
+
+            batch.use {
+                currentXOffset = 0f
+                currentYOffset = 0f
+                drawWords(sceneState)
+            }
         } finally {
             batch.projectionMatrix = oldProj
+            shape.projectionMatrix = oldProj
             batch.transformMatrix = oldTrans
         }
 
-        val shape = SS76.shapeRenderer
-        shape.use(ShapeRenderer.ShapeType.Filled) {
-            color = Color.BLACK
-            roundedRect(75f, 15f,
-                Gdx.graphics.width - (75f * 2),
-                Gdx.graphics.height - yBoxOffset,
-                15f
-            )
-        }
 
-        batch.use {
-            currentXOffset = 0f
-            currentYOffset = 0f
-            drawWords(sceneState)
-        }
 
         sceneState.timer++
     }

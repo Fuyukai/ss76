@@ -273,6 +273,7 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
     ): SceneDefinition {
         val builder = SceneDefinitionBuilder(idPrefix + sceneId, currentEffects.copy())
         builder.linkedInventoryIdx = lastInventoryIdx
+        builder.advRenderer = advRenderer
         builder.block()
 
         val definition = builder.createDefinition()
