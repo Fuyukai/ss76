@@ -3,6 +3,7 @@ package tf.veriny.ss76.engine.adv
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.OrthographicCamera
+import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import tf.veriny.ss76.SS76
@@ -20,9 +21,14 @@ import kotlin.random.Random
 public class ADVRenderer(
     public val subRenderer: ADVSubRenderer
 ) : TextRendererMixin() {
+    // FUCK IT
+    private val ownBatch = SpriteBatch()
+
     private val camera = OrthographicCamera(1280f, 960f).also {
         it.setToOrtho(false, 1280f, 960f)
         it.update()
+
+        ownBatch.projectionMatrix = it.combined
     }
 
     private val padding: Float
@@ -71,33 +77,24 @@ public class ADVRenderer(
     public fun render(sceneState: SceneState) {
         val batch = SS76.batch
         val shape = SS76.shapeRenderer
-        val oldProj = batch.projectionMatrix
-        val oldTrans = batch.transformMatrix
 
-        try {
-            batch.projectionMatrix = camera.combined
-            batch.use { subRenderer.render(batch, sceneState) }
+        ownBatch.use { subRenderer.render(ownBatch, sceneState) }
 
-            shape.projectionMatrix = camera.combined
-            shape.use(ShapeRenderer.ShapeType.Filled) {
-                color = Color.BLACK
-                val pad = /*if (SS76.isBabyScreen) 47f else*/ 75f
-                roundedRect(pad, 15f,
-                    Gdx.graphics.width - (pad * 2),
-                    Gdx.graphics.height - yBoxOffset,
-                    15f
-                )
-            }
+        //shape.projectionMatrix = camera.combined
+        shape.use(ShapeRenderer.ShapeType.Filled) {
+            color = Color.BLACK
+            val pad = /*if (SS76.isBabyScreen) 47f else*/ 75f
+            roundedRect(pad, 15f,
+                Gdx.graphics.width - (pad * 2),
+                Gdx.graphics.height - yBoxOffset,
+                15f
+            )
+        }
 
-            batch.use {
-                currentXOffset = 0f
-                currentYOffset = 0f
-                drawWords(sceneState)
-            }
-        } finally {
-            batch.projectionMatrix = oldProj
-            shape.projectionMatrix = oldProj
-            batch.transformMatrix = oldTrans
+        batch.use {
+            currentXOffset = 0f
+            currentYOffset = 0f
+            drawWords(sceneState)
         }
 
 
