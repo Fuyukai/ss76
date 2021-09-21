@@ -1,6 +1,7 @@
 package tf.veriny.ss76.engine.scene
 
 import tf.veriny.ss76.engine.*
+import tf.veriny.ss76.engine.adv.ADVSubRenderer
 
 public typealias onLoad = () -> Unit
 
@@ -9,14 +10,24 @@ public typealias onLoad = () -> Unit
  * A scene definition that has already been prepared. This is useful for non-dynamic scenes.
  */
 public class SceneDefinition(
+    /** The ID of this scene. */
     public val id: String,
+    /** The original buttons for this scene. */
     public val originalButtons: Map<String, Button>,
+    /** The pages of content for this scene. */
     private val pages: List<List<TextualNode>>,
+    /** The original (unparsed) content for this scene. */
     public val originalPages: List<String>,
+    /** The effects this scene should use. */
     public val effects: SceneEffects,
+    /** The linked inventory ID, if any. */
     public val linkedInventoryId: Int = -1,
+    /** If this scene is marked as dynamic. */
     public val dynamic: Boolean = false,
-    onLoadHandlers: List<onLoad> = listOf(),
+    /** If this scene has an ADV renderer. */  // doesn't work well with save/loading
+    public val advSubRenderer: ADVSubRenderer? = null,
+    /** The functions to run when this scene loads. */
+    public val onLoadHandlers: List<onLoad> = listOf(),
 )  {
     public val buttons: Map<String, Button> = originalButtons.toMutableMap().apply {
         put("page-next", NextPageButton)
@@ -28,11 +39,6 @@ public class SceneDefinition(
 
     /** If this definition has custom onLoad handlers. */
     public val hasCustomOnLoad: Boolean = onLoadHandlers.isNotEmpty()
-
-    @OptIn(ExperimentalStdlibApi::class)
-    public val onLoadHandlers: List<onLoad> = buildList<onLoad> {
-        addAll(onLoadHandlers)
-    }
 
     /** Gets the page count for the specified page. */
     public val pageCount: Int get() = pages.size

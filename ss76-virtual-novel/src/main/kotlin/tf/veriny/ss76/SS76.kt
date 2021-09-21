@@ -56,7 +56,7 @@ public object SS76 : KtxApplicationAdapter {
     public lateinit var shapeRenderer: ShapeRenderer
         private set
 
-    private lateinit var screen: Screen
+    public lateinit var screen: Screen
 
     // == Error handling == //
     private var lastError: Exception? = null
@@ -118,9 +118,9 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         registerSystemScenes(sceneName)
-        sceneManager.pushScene("system-startup-scene")
-        screen = NVLScreen()
+        screen = NVLScreen
 
+        sceneManager.pushScene("system-startup-scene")
     }
 
     @OptIn(ExperimentalTime::class)
@@ -224,5 +224,20 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         Gdx.graphics.setTitle("SS76 - Scene ID: ${sceneManager.currentScene.definition.id}")
+    }
+
+    override fun resize(width: Int, height: Int) {
+        batch = SpriteBatch()
+        shapeRenderer = ShapeRenderer()
+        shapeRenderer.projectionMatrix = batch.projectionMatrix
+        shapeRenderer.transformMatrix = batch.transformMatrix
+        shapeRenderer.updateMatrices()
+    }
+
+    /**
+     * Changes the current screen.
+     */
+    public fun changeScreen(screen: Screen) {
+        this.screen = screen
     }
 }

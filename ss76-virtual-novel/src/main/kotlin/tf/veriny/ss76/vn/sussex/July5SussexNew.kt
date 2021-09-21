@@ -350,7 +350,7 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
 
         dline("CHAR: Like I said, just drive us. Driver.")
 
-        changeSceneButton("drive-1", "He obliges and drives off.")
+        //changeSceneButton("drive-1", "He obliges and drives off.")
     }
 
     createAndRegisterOnePageScene("drive-1") {

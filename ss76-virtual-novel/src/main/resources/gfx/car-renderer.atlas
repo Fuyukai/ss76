@@ -1,0 +1,83 @@
+
+car-renderer.png
+size: 1024, 128
+format: RGBA8888
+filter: Linear, Linear
+repeat: xy
+boat
+  rotate: false
+  xy: 2, 4
+  size: 40, 64
+  orig: 64, 64
+  offset: 12, 0
+  index: -1
+boat-red
+  rotate: false
+  xy: 68, 4
+  size: 40, 64
+  orig: 64, 64
+  offset: 12, 0
+  index: -1
+grass
+  rotate: false
+  xy: 134, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+grass-rail-left
+  rotate: false
+  xy: 200, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+grass-rail-right
+  rotate: false
+  xy: 266, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+grassy-rail
+  rotate: false
+  xy: 332, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+road-side
+  rotate: false
+  xy: 398, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+road-side-2
+  rotate: false
+  xy: 464, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+road-stripe-left
+  rotate: false
+  xy: 530, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+road-stripe-middle
+  rotate: false
+  xy: 596, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1
+road-stripe-right
+  rotate: false
+  xy: 662, 4
+  size: 64, 64
+  orig: 64, 64
+  offset: 0, 0
+  index: -1

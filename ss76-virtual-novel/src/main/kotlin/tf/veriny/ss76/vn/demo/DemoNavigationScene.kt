@@ -1,7 +1,13 @@
 package tf.veriny.ss76.vn.demo
 
+import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.nvl.NVLRenderer
+import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.engine.screen.Screen
+import tf.veriny.ss76.engine.screen.WindowSizeShifter
 import tf.veriny.ss76.isInsideJar
+import tf.veriny.ss76.vn.sussex.CarRenderer
 
 public fun registerDemoNavigationScenes() {
     createAndRegisterScene("demo-meta-menu") {
@@ -68,6 +74,24 @@ public fun registerDemoNavigationScenes() {
             }
 
             pushSceneButton("lightning", "021-09-20: Lightning flashes")
+            newline()
+
+            pushSceneButton("resize-large", "Grow screen")
+            newline()
+
+            pushSceneButton("car-renderer", "Le boat has arrived")
         }
+    }
+
+    createAndRegisterScene("resize-large") {
+        onLoad {
+            val screen = WindowSizeShifter(900, 1600, NVLScreen)
+            SS76.changeScreen(screen)
+            SS76.sceneManager.exitScene()
+        }
+    }
+
+    createAndRegisterScene("car-renderer") {
+        this.advRenderer = CarRenderer()
     }
 }

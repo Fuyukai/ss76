@@ -18,11 +18,14 @@ public class SceneState(
         private set
 
     public fun pageNext() {
-        println(definition.pageCount - 1)
+        val oldIdx = pageIdx
         pageIdx = min(pageIdx + 1, definition.pageCount - 1)
+        if (oldIdx != pageIdx) timer = 0
     }
 
     public fun pageBack() {
+        val oldIdx = pageIdx
         pageIdx = max(0, pageIdx - 1)
+        if (oldIdx != pageIdx) timer = 0
     }
 }

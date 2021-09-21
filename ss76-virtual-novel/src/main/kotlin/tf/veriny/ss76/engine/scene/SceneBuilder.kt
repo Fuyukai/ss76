@@ -6,6 +6,7 @@ import tf.veriny.ss76.engine.BackButton
 import tf.veriny.ss76.engine.Button
 import tf.veriny.ss76.engine.ChangeSceneButton
 import tf.veriny.ss76.engine.PushSceneButton
+import tf.veriny.ss76.engine.adv.ADVSubRenderer
 import tf.veriny.ss76.ignore
 
 /**
@@ -106,7 +107,8 @@ public class PageBuilder(
 /**
  * Builder helper for creating new scene definitions.
  */
-public class SceneDefinitionBuilder(private val sceneId: String,
+public class SceneDefinitionBuilder(
+    private val sceneId: String,
     /**
      * The scene effects used for this scene.
      */
@@ -135,6 +137,9 @@ public class SceneDefinitionBuilder(private val sceneId: String,
     public var invert: Boolean
         get() = effects.invert
         set(value) { effects.invert = value }
+
+    /** The ADV mode sub-renderer for this scene. */
+    public var advRenderer: ADVSubRenderer? = null
 
     /**
      * Registers a function to be ran on load.
@@ -201,6 +206,7 @@ public class SceneDefinitionBuilder(private val sceneId: String,
             linkedInventoryId = linkedInventoryIdx,
             effects = effects,
             onLoadHandlers = this.onLoadHandlers,
+            advSubRenderer = advRenderer,
         )
     }
 }
@@ -212,6 +218,9 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
     private val currentEffects = SceneEffects()
 
     private var lastInventoryIdx: Int = 0
+
+    /** The current ADV renderer. */
+    public var advRenderer: ADVSubRenderer? = null
 
     /**
      * Changes the current linked inventory state.

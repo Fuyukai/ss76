@@ -6,6 +6,8 @@ import okio.BufferedSink
 import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.adv.ADVScreen
+import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.SceneState
@@ -119,11 +121,26 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     // == Scene stack == //
 
     private fun activateScene(scene: SceneState) {
+        println("activating ${scene.definition.id}", )
         seenScenes.add(scene.definition.id)
         saveSeenScenes()
 
         if (scene.definition.linkedInventoryId > 0) {
             inventory.changeState(scene.definition.linkedInventoryId)
+        }
+
+        val advMode = scene.definition.advSubRenderer
+        if (advMode != null) {
+            val screen = SS76.screen
+            if (screen !is ADVScreen || !screen.isAlreadyRendering(advMode)) {
+                println("setting adv screen")
+                SS76.changeScreen(ADVScreen(advMode))
+            } else {
+                println("not setting adv screen")
+            }
+        } else {
+            println("setting novel screen as advmode was null")
+            SS76.screen = NVLScreen
         }
 
         scene.definition.onLoadHandlers.forEach { it.invoke() }

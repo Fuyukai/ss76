@@ -10,8 +10,8 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
  * Helper function to automatically begin and dispose a Batch.
  */
 public inline fun <T : Batch, R> T.use(fn: T.() -> R): R {
+    begin()
     try {
-        begin()
         return fn()
     } finally {
         end()
@@ -22,8 +22,8 @@ public inline fun <T : Batch, R> T.use(fn: T.() -> R): R {
  * Helper function to automatically begin and dispose a ShapeRenderer.
  */
 public inline fun <R> ShapeRenderer.use(type: ShapeRenderer.ShapeType, fn: ShapeRenderer.() -> R): R {
+    begin(type)
     try {
-        begin(type)
         return fn()
     } finally {
         end()

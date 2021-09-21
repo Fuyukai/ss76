@@ -6,8 +6,8 @@ import tf.veriny.ss76.engine.screen.Screen
 /**
  * The NVL screen is responsible for rendering a scene in NVL mode.
  */
-public class NVLScreen : Screen {
-    private var currentRenderer = NVLRenderer()
+public object NVLScreen : Screen {
+    private val currentRenderer = NVLRenderer()
 
     /**
      * Renders the current screen.
