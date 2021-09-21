@@ -2,6 +2,8 @@ package tf.veriny.ss76.vn.system
 
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.ChangeSceneButton
+import tf.veriny.ss76.engine.PushSceneButton
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
@@ -12,8 +14,8 @@ public fun registerSystemScenes(loadScene: String) {
         // calc dangling buttons
         val dangling = mutableListOf<String>()
         for (scene in SS76.sceneManager.registeredScenes.values) {
-            val buttons = scene.definition.buttons.filter {
-                it.value.buttonType != ButtonManager.ButtonType.OTHER
+            val buttons = scene.buttons.filter {
+                it.value is ChangeSceneButton || it.value is PushSceneButton
             }
 
             for (button in buttons) {

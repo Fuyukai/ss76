@@ -6,7 +6,7 @@ import okio.buffer
 import okio.sink
 import okio.source
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.NVLRenderer
+import tf.veriny.ss76.engine.renderer.NVLRenderer
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.CREATE
 import java.nio.file.StandardOpenOption.TRUNCATE_EXISTING
@@ -41,7 +41,9 @@ public class SS76BuildUpdateManager {
      * Returns true if the scenes were successfully loaded.
      */
     public fun loadScenes(always: Boolean = false): LoadStatus {
-        val path = Path.of("./scenes-data.dat")
+        return LoadStatus.BAD_MAGIC
+
+        /*val path = Path.of("./scenes-data.dat")
         if (!path.exists()) return LoadStatus.NONEXISTENT
 
         path.inputStream().use {
@@ -73,14 +75,14 @@ public class SS76BuildUpdateManager {
             }
         }
 
-        return LoadStatus.SUCCESS
+        return LoadStatus.SUCCESS*/
     }
 
     /**
      * Saves scenes to disk.
      */
     public fun saveScenes() {
-        val path = Path.of("./scenes-data.dat")
+        /*val path = Path.of("./scenes-data.dat")
 
         path.outputStream(CREATE, TRUNCATE_EXISTING).use {
             val ba = MESSAGE.encodeToByteArray()
@@ -94,18 +96,20 @@ public class SS76BuildUpdateManager {
             buffer.writeInt(SS76.LURA_VERSION)
 
             val scenes = mutableListOf<NVLRenderer>()
-            for (scene in SS76.sceneManager.registeredScenes.values) {
-                val def = scene.definition
+            for (def in SS76.sceneManager.registeredScenes.values) {
                 if (def.dynamic) {
-                    println("skipping dynamic scene ${scene.id}")
+                    println("skipping dynamic scene ${def.id}")
                     continue
                 }
 
                 if (def.hasCustomOnLoad) {
-                    println("skipping custom load scene ${scene.id}")
+                    println("skipping custom load scene ${def.id}")
                     continue
                 }
 
+                val buttons = def.originalButtons.values.filter {
+                    it !is
+                }
                 val buttons = def.originalButtons.values.filter { b ->
                     b.buttonType == ButtonManager.ButtonType.OTHER && b.name != "back-button"
                 }
@@ -125,6 +129,6 @@ public class SS76BuildUpdateManager {
 
             buffer.flush()
             rawSink.close()
-        }
+        }*/
     }
 }

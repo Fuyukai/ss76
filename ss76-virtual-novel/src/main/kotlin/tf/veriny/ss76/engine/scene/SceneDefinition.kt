@@ -1,16 +1,16 @@
 package tf.veriny.ss76.engine.scene
 
-import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.*
 
-public typealias onLoad = (NVLRenderer) -> Unit
+public typealias onLoad = () -> Unit
 
 
 /**
  * A scene definition that has already been prepared. This is useful for non-dynamic scenes.
  */
-public class VirtualNovelSceneDefinition(
+public class SceneDefinition(
     public val id: String,
-    public val originalButtons: Map<String, ButtonManager.Button>,
+    public val originalButtons: Map<String, Button>,
     private val pages: List<List<TextualNode>>,
     public val originalPages: List<String>,
     public val effects: SceneEffects,
@@ -18,9 +18,9 @@ public class VirtualNovelSceneDefinition(
     public val dynamic: Boolean = false,
     onLoadHandlers: List<onLoad> = listOf(),
 )  {
-    public val buttons: Map<String, ButtonManager.Button> = originalButtons.toMutableMap().apply {
-        put("page-next", ButtonManager.NEXT_BUTTON)
-        put("page-back", ButtonManager.BACK_BUTTON)
+    public val buttons: Map<String, Button> = originalButtons.toMutableMap().apply {
+        put("page-next", NextPageButton)
+        put("page-back", PrevPageButton)
 
         put("record", ButtonManager.GLOBAL_BACK_BUTTON)
         put("checkpoint", ButtonManager.CHECKPOINT_BUTTON)

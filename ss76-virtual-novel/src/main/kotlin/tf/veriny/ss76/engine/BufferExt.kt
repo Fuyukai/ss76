@@ -7,7 +7,7 @@ import okio.ByteString
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.SceneEffects
-import tf.veriny.ss76.engine.scene.VirtualNovelSceneDefinition
+import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.splitScene
 
 /**
@@ -81,8 +81,10 @@ public fun BufferedSink.writeEffects(effects: SceneEffects) {
 /**
  * Reads a scene definition from a [BufferedSource].
  */
-public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
-    val sceneNameLength = readInt()
+public fun BufferedSource.readSceneDefinition(): SceneDefinition {
+    error("no")
+
+    /*val sceneNameLength = readInt()
     val sceneId = readUtf8(sceneNameLength.toLong())
 
     // effects section
@@ -99,7 +101,7 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
 
     val nodes = pages.map { splitScene(it, v = sceneId == "sussex-july-3-school-3") }
 
-    val buttons = mutableMapOf<String, ButtonManager.Button>()
+    val buttons = mutableMapOf<String, Button>()
     val buttonCount = readByte().toInt()
     for (idx in 0 until buttonCount) {
         val type = ButtonManager.ButtonType.values()[readInt()]
@@ -111,19 +113,19 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
         when {
             // special case back-button
             name == "back-button" -> {
-                buttons["back-button"] = ButtonManager.Button(name) {
+                buttons["back-button"] = Button(name) {
                     SS76.sceneManager.exitScene()
                 }
             }
 
             type == ButtonManager.ButtonType.PUSH -> {
-                buttons[name] = ButtonManager.Button(
+                buttons[name] = Button(
                     name, linkedId = linkedSceneId, buttonType = type
                 ) { SS76.sceneManager.pushScene(linkedSceneId) }
             }
 
             type == ButtonManager.ButtonType.CHANGE -> {
-                buttons[name] = ButtonManager.Button(
+                buttons[name] = Button(
                     name, linkedId = linkedSceneId, buttonType = type
                 ) { SS76.sceneManager.changeScene(linkedSceneId) }
             }
@@ -132,14 +134,14 @@ public fun BufferedSource.readSceneDefinition(): VirtualNovelSceneDefinition {
         }
     }
 
-    return VirtualNovelSceneDefinition(
+    return SceneDefinition(
         sceneId, buttons, nodes, originalPages = pages,
         effects = effects,
-    )
+    )*/
 }
 
-public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefinition) {
-    val sceneId = definition.id.encodeUtf8()
+public fun BufferedSink.writeSceneDefinition(definition: SceneDefinition) {
+    /*val sceneId = definition.id.encodeUtf8()
     buffer.writeInt(sceneId.size)
     buffer.write(sceneId)
     buffer.writeEffects(definition.effects)
@@ -162,5 +164,5 @@ public fun BufferedSink.writeSceneDefinition(definition: VirtualNovelSceneDefini
         val sceneEncoded = button.linkedId?.encodeUtf8() ?: ByteString.EMPTY
         buffer.writeInt(sceneEncoded.size)
         buffer.write(sceneEncoded)
-    }
+    }*/
 }

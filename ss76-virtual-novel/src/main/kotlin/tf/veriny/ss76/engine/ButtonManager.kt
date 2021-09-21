@@ -5,7 +5,7 @@ import com.badlogic.gdx.graphics.Cursor
 import com.badlogic.gdx.math.Rectangle
 import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.NVLRenderer
+import tf.veriny.ss76.engine.renderer.NVLRenderer
 
 public typealias ButtonAction = (NVLRenderer) -> Unit
 
@@ -14,24 +14,36 @@ public typealias ButtonAction = (NVLRenderer) -> Unit
  */
 public class ButtonManager : KtxInputAdapter {
     public companion object {
-        public val BACK_BUTTON: Button = Button("page-back") { it.pageBack() }
-        public val NEXT_BUTTON: Button = Button("page-next") { it.pageForward() }
+        public val GLOBAL_BACK_BUTTON: Button = object : Button {
+            override val name: String = "back-button-global"
 
-        public val GLOBAL_BACK_BUTTON: Button = Button("back-button-global") {
-            if (SS76.sceneManager.stackSize > 1) {
-                SS76.sceneManager.exitScene()
+            override fun run() {
+                if (SS76.sceneManager.stackSize > 1) {
+                    SS76.sceneManager.exitScene()
+                }
             }
         }
 
-        public val CHECKPOINT_BUTTON: Button = Button("save-menu", "save-menu") {
-            if (SS76.sceneManager.currentScene.id == "save-menu") SS76.sceneManager.exitScene()
-            else SS76.sceneManager.pushScene("save-menu")
+        public val CHECKPOINT_BUTTON: Button = object : Button {
+            override val name: String = "checkpoint-button-global"
+            override val linkedId: String = "save-menu"
+
+            override fun run() {
+                if (SS76.sceneManager.currentSceneIs("save-menu")) SS76.sceneManager.exitScene()
+                else SS76.sceneManager.pushScene("save-menu")
+            }
         }
 
-        public val INVENTORY_BUTTON: Button = Button("inventory-screen", "inventory-screen") {
-            if (SS76.sceneManager.currentScene.id == "inventory-screen") SS76.sceneManager.exitScene()
-            else SS76.sceneManager.pushScene("inventory-screen")
+        public val INVENTORY_BUTTON: Button = object : Button {
+            override val name: String = "inventory-button-global"
+            override val linkedId: String = "inventory-screen"
+
+            override fun run() {
+                if (SS76.sceneManager.currentSceneIs("inventory-screen")) SS76.sceneManager.exitScene()
+                else SS76.sceneManager.pushScene("inventory-screen")
+            }
         }
+
     }
 
     public enum class ButtonType {
@@ -39,20 +51,6 @@ public class ButtonManager : KtxInputAdapter {
         CHANGE,
         OTHER,
     }
-
-    /**
-     * A single button.
-     */
-    public data class Button(
-        /** The name of this button. */
-        public val name: String,
-        /** The linked scene ID of this button. */
-        public val linkedId: String? = null,
-        /** The type of this button. Used only during saving and loading. */
-        public val buttonType: ButtonType = ButtonType.OTHER,
-        /** The action to take on clicking this button. */
-        public val action: (NVLRenderer) -> Unit
-    )
 
     // mapping of button -> rectangle of possible locations on screen.
     // used when moving the mouse or clicking it
@@ -105,7 +103,7 @@ public class ButtonManager : KtxInputAdapter {
         if (node == null) {
             return false
         } else {
-            node.action.invoke(SS76.sceneManager.currentScene)
+            node.run()
         }
 
         return true

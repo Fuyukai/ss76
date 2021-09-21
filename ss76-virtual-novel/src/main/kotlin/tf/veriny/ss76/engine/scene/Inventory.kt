@@ -2,6 +2,7 @@ package tf.veriny.ss76.engine.scene
 
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager.ButtonType.PUSH
+import tf.veriny.ss76.engine.PushSceneButton
 import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.UpdatableSceneWrapper
 
@@ -70,12 +71,8 @@ public class Inventory(private val sceneManager: SceneManager) {
                     "`push-scene-${item.inspectScene}`@salmon@INSPECT / " +
                     "`push-scene-${item.useScene}`@salmon@USE"
                 )
-                addButton("push-scene-${item.inspectScene}", item.inspectScene, PUSH) {
-                    SS76.sceneManager.pushScene(item.inspectScene)
-                }
-                addButton("push-scene-${item.useScene}", item.useScene, PUSH) {
-                    SS76.sceneManager.pushScene(item.useScene)
-                }
+                addButton(PushSceneButton("push-scene-${item.inspectScene}", item.inspectScene))
+                addButton(PushSceneButton("push-scene-${item.useScene}", item.useScene))
             }
             newline()
             backButton()

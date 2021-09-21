@@ -2,6 +2,7 @@ package tf.veriny.ss76.vn.deprecated
 
 import com.badlogic.gdx.graphics.Color
 import ktx.graphics.copy
+import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 
@@ -1291,7 +1292,8 @@ public fun registerSussexJuly5Pt2Scenes() {
         clearScreenColour = Color.WHITE
         invert = true
 
-        onLoad { it.skipTimer() }
+        // todo: make this an effect
+        onLoad { SS76.sceneManager.currentScene.timer = 9999999 }
 
         page {
             newline(11)

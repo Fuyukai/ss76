@@ -1,4 +1,4 @@
-package tf.veriny.ss76.engine.scene
+package tf.veriny.ss76.engine.renderer
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
@@ -9,6 +9,9 @@ import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.ButtonManager
 import tf.veriny.ss76.engine.DeactivationType
+import tf.veriny.ss76.engine.scene.SceneDefinition
+import tf.veriny.ss76.engine.scene.SceneState
+import tf.veriny.ss76.engine.scene.TextualNode
 import tf.veriny.ss76.use
 import kotlin.math.ceil
 import kotlin.math.max
@@ -18,9 +21,7 @@ import kotlin.random.Random
 /**
  * A renderer for a scene in NVL mode.
  */
-public class NVLRenderer(
-    public val definition: VirtualNovelSceneDefinition,
-) {
+public class NVLRenderer : Renderer {
     private companion object {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
 
@@ -30,51 +31,13 @@ public class NVLRenderer(
         }
     }
 
-    public val id: String get() = definition.id
-
     private val padding: Float
         get() = if (SS76.isBabyScreen) 60f else 90f
 
     private var currentXOffset = 0f
     private var currentYOffset = 0f
 
-    private var pageIdx = 0
-
     private val glyphLayout = GlyphLayout()
-
-    /**
-     * Called when the scene is loaded.
-     */
-    public fun sceneLoaded() {
-        SS76.buttonManager.reset()
-        definition.onLoadHandlers.forEach { it.invoke(this) }
-    }
-
-    public fun sceneUnloaded(reason: DeactivationType) {
-        when (reason) {
-            DeactivationType.POPPED -> { resetTimer() }
-            DeactivationType.PUSHED -> {}
-        }
-
-        SS76.buttonManager.reset()
-    }
-
-    public fun pageBack() {
-        SS76.buttonManager.reset()
-        pageIdx--
-        globalTimer = 0
-        lightningTimer = 0
-    }
-
-    public fun pageForward() {
-        SS76.buttonManager.reset()
-        pageIdx++
-        globalTimer = 0
-        lightningTimer = 0
-    }
-
-    // global frame count timer
-    private var globalTimer = 0
 
     // lightning effect timer
     private var lastLightningMax = 0
@@ -84,15 +47,6 @@ public class NVLRenderer(
     private var rng: Random = Random(0)
     // true rng that is never re-seeded
     private var trueRng: Random = Random(1024L)
-
-    public fun resetTimer() {
-        globalTimer = 0
-    }
-
-    /** Sets the timer to a reasonably high value. */
-    public fun skipTimer() {
-        globalTimer = 9999999
-    }
 
     // == Input == //
 
@@ -145,7 +99,10 @@ public class NVLRenderer(
      * @param frameNode: The node to use frame numbers from.
      * @param node: The node to use for actually drawing.
      */
-    private fun renderTextNode(frameNode: TextualNode, node: TextualNode = frameNode) {
+    private fun renderTextNode(
+        state: SceneState,
+        frameNode: TextualNode, node: TextualNode = frameNode
+    ) {
         // == Before == //
         currentXOffset += SS76.fontManager.characterWidth * frameNode.padding
 
@@ -154,9 +111,9 @@ public class NVLRenderer(
         var isTruncated = false
 
         // truncate text appropriate, if needed
-        if (globalTimer < frameNode.endFrame) {
+        if (state.timer < frameNode.endFrame) {
             val totalFrames = (frameNode.endFrame - frameNode.startFrame).toFloat()
-            val framesLeft = (frameNode.endFrame - globalTimer).toFloat()
+            val framesLeft = (frameNode.endFrame - state.timer).toFloat()
             val fraction = 1 - (framesLeft / totalFrames)
             val length = ceil((text.length * fraction)).toInt()
             if (length < text.length) {
@@ -167,7 +124,7 @@ public class NVLRenderer(
 
         // override red/green if the node is linked to a button
         if (node.colourLinkedToButton) {
-            val button = definition.buttons[node.buttonId]
+            val button = state.definition.buttons[node.buttonId]
             check(button != null) { "node linked to non-existent button?" }
             val visited = SS76.sceneManager.hasVisitedScene(button.linkedId!!)
             colour = if (visited) {
@@ -203,7 +160,7 @@ public class NVLRenderer(
                 text, colour, node.effects, calcRectangle = shouldCalcRectangle
             )
             if (rect != null) {
-                val button = definition.buttons[node.buttonId]
+                val button = state.definition.buttons[node.buttonId]
                 check(button != null) { "node linked to non-existent button ${node.buttonId}" }
                 SS76.buttonManager.addClickableArea(button, rect)
             }
@@ -224,7 +181,7 @@ public class NVLRenderer(
     /**
      * Renders the paging buttons.
      */
-    private fun getPageButtons(): List<TextualNode> {
+    private fun getPageButtons(state: SceneState): List<TextualNode> {
         val nodes = mutableListOf<TextualNode>()
         for (b in listOf("«", "PREVIOUS")) {
             val node = TextualNode(
@@ -234,7 +191,8 @@ public class NVLRenderer(
             nodes.add(node)
         }
 
-        for (b in "== PAGE ${pageIdx + 1}/${definition.pageCount} ==".split(" ")) {
+        val definition = state.definition
+        for (b in "== PAGE ${state.pageIdx + 1}/${definition.pageCount} ==".split(" ")) {
             val node = TextualNode(b, startFrame = 0, endFrame = 0, colour = Color.WHITE)
             nodes.add(node)
         }
@@ -293,8 +251,11 @@ public class NVLRenderer(
     /**
      * Called when the scene is rendered.
      */
-    public fun render() {
-        rng = Random(globalTimer.floorDiv(30))
+    public fun render(state: SceneState) {
+        SS76.buttonManager.reset()
+
+        val definition = state.definition
+        rng = Random(state.timer.floorDiv(30))
 
         val bgColour = if (definition.effects.lightning) {
             val shouldDoFlash = trueRng.nextInt(0, 240) == 66
@@ -357,39 +318,37 @@ public class NVLRenderer(
         // Step 2) Begin drawing.
         SS76.batch.use {
             // 3a) Draw pages if needed.
-            pageIdx = min(max(pageIdx, 0), definition.pageCount - 1)
-
             if (definition.pageCount > 1) {
-                val pageButtons = getPageButtons()
+                val pageButtons = getPageButtons(state)
                 for (node in pageButtons) {
-                    renderTextNode(node)
+                    renderTextNode(state, node)
                 }
             }
 
             // 3b) Draw the current nodes, including glitchy nodes.
-            val nodes = definition.getTokensForPage(pageIdx)
+            val nodes = definition.getTokensForPage(state.pageIdx)
             // tfw need manual iterator
             val it = nodes.iterator()
             while (it.hasNext()) {
                 val node = it.next()
                 if (node.effects.contains(TextualNode.Effect.RESET)) {
-                    resetTimer()
+                    state.timer = 0
                     break
                 }
 
                 // text scroll: nodes past the current timer aren't drawn
-                if (node.startFrame > globalTimer) break
+                if (node.startFrame > state.timer) break
                 // glitchy text scroll: if this node would be truncated, instead use the node
                 // one over
                 if (
-                    node.startFrame < globalTimer &&
-                    node.endFrame > globalTimer &&
+                    node.startFrame < state.timer &&
+                    node.endFrame > state.timer &&
                     it.hasNext()
                 ) {
                     val nextNode = it.next()
-                    renderTextNode(node, nextNode)
+                    renderTextNode(state, node, nextNode)
                 } else {
-                    renderTextNode(node)
+                    renderTextNode(state, node)
                 }
             }
 
@@ -410,9 +369,7 @@ public class NVLRenderer(
             }
         }
 
-
-        globalTimer++
-
+        state.timer++
     }
 
 }

@@ -2,9 +2,10 @@ package tf.veriny.ss76.engine.scene
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.ButtonAction
-import tf.veriny.ss76.engine.ButtonManager.Button
-import tf.veriny.ss76.engine.ButtonManager.ButtonType
+import tf.veriny.ss76.engine.BackButton
+import tf.veriny.ss76.engine.Button
+import tf.veriny.ss76.engine.ChangeSceneButton
+import tf.veriny.ss76.engine.PushSceneButton
 import tf.veriny.ss76.ignore
 
 /**
@@ -59,15 +60,9 @@ public class PageBuilder(
      * on nodes.
      */
     public fun addButton(
-        id: String,
-        linkedScene: String? = null,
-        type: ButtonType = ButtonType.OTHER,
-        action: ButtonAction
+        button: Button,
     ) {
-        buttons[id] = Button(
-            name = id, linkedId = linkedScene,
-            buttonType = type, action = action,
-        )
+        buttons[button.name] = button
     }
 
     // convenience
@@ -80,9 +75,7 @@ public class PageBuilder(
         val realText = ":push:@salmon@`$buttonName` $text :pop: "
 
         line(realText, addNewline = false)
-        addButton(buttonName, linkedScene = sceneId, type = ButtonType.CHANGE) {
-            SS76.sceneManager.changeScene(sceneId)
-        }
+        addButton(ChangeSceneButton(buttonName, sceneId))
     }
 
     /**
@@ -94,9 +87,8 @@ public class PageBuilder(
         val realText = ":push:@linked@`push-scene-$sceneId` $text :pop: "
         line(realText, addNewline = false)
 
-        addButton(buttonName, linkedScene = sceneId, type = ButtonType.PUSH) {
-            SS76.sceneManager.pushScene(sceneId)
-        }
+        addButton(PushSceneButton(buttonName, sceneId))
+
     }
 
     /**
@@ -106,9 +98,7 @@ public class PageBuilder(
         val realText = ":push:@green@`back-button` $text :pop: "
         line(realText)
 
-        addButton("back-button") {
-            SS76.sceneManager.exitScene()
-        }
+        addButton(BackButton)
     }
 
 }
@@ -116,17 +106,17 @@ public class PageBuilder(
 /**
  * Builder helper for creating new scene definitions.
  */
-public class SceneDefinitionBuilder(private val sceneId: String, effects: SceneEffects = SceneEffects()) {
+public class SceneDefinitionBuilder(private val sceneId: String,
+    /**
+     * The scene effects used for this scene.
+     */
+    public val effects: SceneEffects = SceneEffects(),
+) {
     @PublishedApi
     internal val pages: MutableList<StringBuilder> = mutableListOf()
     @PublishedApi
     internal val buttons: MutableMap<String, Button> = mutableMapOf()
-    private val onLoadHandlers: MutableList<(NVLRenderer) -> Unit> = mutableListOf()
-
-    /**
-     * The scene effects used for this scene.
-     */
-    public val effects: SceneEffects = effects
+    private val onLoadHandlers: MutableList<() -> Unit> = mutableListOf()
 
     /** The linked inventory index. */
     public var linkedInventoryIdx: Int = 0
@@ -149,7 +139,7 @@ public class SceneDefinitionBuilder(private val sceneId: String, effects: SceneE
     /**
      * Registers a function to be ran on load.
      */
-    public fun onLoad(block: (NVLRenderer) -> Unit) {
+    public fun onLoad(block: () -> Unit) {
         onLoadHandlers += block
     }
 
@@ -181,16 +171,12 @@ public class SceneDefinitionBuilder(private val sceneId: String, effects: SceneE
             when {
                 buttonName.startsWith("push-scene-") -> {
                     val sceneId = buttonName.removePrefix("push-scene-")
-                    val button = Button(buttonName, sceneId, ButtonType.PUSH) {
-                        SS76.sceneManager.pushScene(sceneId)
-                    }
+                    val button = PushSceneButton(buttonName, sceneId)
                     buttons[buttonName] = button
                 }
                 buttonName.startsWith("change-scene-") -> {
                     val sceneId = buttonName.removePrefix("change-scene-")
-                    val button = Button(buttonName, sceneId, ButtonType.CHANGE) {
-                        SS76.sceneManager.changeScene(sceneId)
-                    }
+                    val button = PushSceneButton(buttonName, sceneId)
                     buttons[buttonName] = button
                 }
                 else -> throw IllegalArgumentException("Missing definition for button $buttonName")
@@ -203,14 +189,14 @@ public class SceneDefinitionBuilder(private val sceneId: String, effects: SceneE
     /**
      * Creates the scene definition for this builder.
      */
-    public fun createDefinition(): VirtualNovelSceneDefinition {
+    public fun createDefinition(): SceneDefinition {
         val pages = mutableListOf<List<TextualNode>>()
         for (page in this.pages) {
             val nodes = createDefinitionFromPage(page)
             pages.add(nodes)
         }
 
-        return VirtualNovelSceneDefinition(
+        return SceneDefinition(
             sceneId, buttons, pages, originalPages = this.pages.map { it.toString() },
             linkedInventoryId = linkedInventoryIdx,
             effects = effects,
@@ -275,13 +261,13 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
      */
     public fun createAndRegisterScene(
         sceneId: String, block: SceneDefinitionBuilder.() -> Unit
-    ): VirtualNovelSceneDefinition {
+    ): SceneDefinition {
         val builder = SceneDefinitionBuilder(idPrefix + sceneId, currentEffects.copy())
         builder.linkedInventoryIdx = lastInventoryIdx
         builder.block()
 
         val definition = builder.createDefinition()
-        SS76.sceneManager.registerScene(NVLRenderer(definition))
+        SS76.sceneManager.registerScene(definition)
         return definition
     }
 
@@ -290,7 +276,7 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
      */
     public inline fun createAndRegisterOnePageScene(
         sceneId: String, crossinline block: PageBuilder.() -> Unit
-    ): VirtualNovelSceneDefinition {
+    ): SceneDefinition {
         return createAndRegisterScene(sceneId) { page(block) }
     }
 
@@ -320,12 +306,11 @@ public inline fun sceneSequence(idPrefix: String = "", block: SceneSequenceBuild
 public inline fun createScene(
     sceneId: String,
     block: SceneDefinitionBuilder.() -> Unit,
-): NVLRenderer {
+): SceneDefinition {
     val builder = SceneDefinitionBuilder(sceneId)
     builder.block()
 
-    val definition = builder.createDefinition()
-    return NVLRenderer(definition)
+    return builder.createDefinition()
 }
 
 /**
@@ -333,7 +318,7 @@ public inline fun createScene(
  */
 public inline fun createAndRegisterScene(
     sceneId: String, block: SceneDefinitionBuilder.() -> Unit
-): NVLRenderer {
+): SceneDefinition {
     val scene = createScene(sceneId, block = block)
     SS76.sceneManager.registerScene(scene)
     return scene
@@ -341,6 +326,6 @@ public inline fun createAndRegisterScene(
 
 public inline fun createAndRegisterOnePageScene(
     sceneId: String, block: PageBuilder.() -> Unit
-): NVLRenderer {
+): SceneDefinition {
     return createAndRegisterScene(sceneId) { page(block) }
 }

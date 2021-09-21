@@ -7,7 +7,9 @@ import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.scene.Inventory
-import tf.veriny.ss76.engine.scene.NVLRenderer
+import tf.veriny.ss76.engine.renderer.NVLRenderer
+import tf.veriny.ss76.engine.scene.SceneDefinition
+import tf.veriny.ss76.engine.scene.SceneState
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.*
@@ -24,14 +26,16 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     }
 
     private val seenScenes /*on the sea shore*/= mutableSetOf<String>()
-    public val registeredScenes: MutableMap<String, NVLRenderer> = mutableMapOf()
+    public val registeredScenes: MutableMap<String, SceneDefinition> = mutableMapOf()
     public val sceneCount: Int get() = registeredScenes.size
 
-    private val stack = ArrayDeque<NVLRenderer>()
+    // stack of renderers, *not* definitions.
+    private val stack = ArrayDeque<SceneState>()
     public val stackSize: Int get() = stack.size
-    public val currentScene: NVLRenderer get() = stack.last()
+    // current *renderer*, not definitions.
+    public val currentScene: SceneState get() = stack.last()
 
-    private var previousScene: NVLRenderer? = null
+    private var previousScene: SceneDefinition? = null
 
     /** The inventory system instance. */
     public val inventory: Inventory = Inventory(this)
@@ -40,17 +44,19 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
         inventory.changeState(0)
     }
 
+    public fun currentSceneIs(id: String): Boolean = currentScene.definition.id == id
+
     /**
      * Registers a single scene.
      */
-    public fun registerScene(scene: NVLRenderer) {
+    public fun registerScene(scene: SceneDefinition) {
         registeredScenes[scene.id] = scene
     }
 
     /**
      * Re-registers a scene. This will update any references in the current stack of scenes.
      */
-    public fun reregisterScene(scene: NVLRenderer) {
+    public fun reregisterScene(scene: SceneDefinition) {
         val old = registeredScenes[scene.id]
         registeredScenes[scene.id] = scene
 
@@ -59,11 +65,10 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
 
         when {
             // TOS requires unloading the old scene and replacing it with the new one
-            currentScene == old -> {
-                old.sceneUnloaded(DeactivationType.POPPED)
+            currentScene.definition == old -> {
                 stack.removeLast()
-                activateScene(scene)
-                scene.resetTimer()
+                val state = SceneState(scene)
+                activateScene(state)
             }
             // just swap the references to the old scenes with the new one
             previousScene == old -> {
@@ -71,8 +76,8 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
             }
             else -> {
                 for (idx in 0 until stackSize) {
-                    if (stack[idx] == old) {
-                        stack[idx] = scene
+                    if (stack[idx].definition == old) {
+                        stack[idx] = SceneState(definition = scene)
                     }
                 }
             }
@@ -110,33 +115,33 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
         return seenScenes.contains(scene)
     }
 
-    public fun hasVisitedScene(scene: NVLRenderer): Boolean = hasVisitedScene(scene.id)
+    public fun hasVisitedScene(scene: SceneDefinition): Boolean = hasVisitedScene(scene.id)
 
     // == Scene stack == //
 
-    private fun activateScene(scene: NVLRenderer) {
-        seenScenes.add(scene.id)
+    private fun activateScene(scene: SceneState) {
+        seenScenes.add(scene.definition.id)
         saveSeenScenes()
 
         if (scene.definition.linkedInventoryId > 0) {
             inventory.changeState(scene.definition.linkedInventoryId)
         }
 
-        scene.sceneLoaded()
+        scene.definition.onLoadHandlers.forEach { it.invoke() }
     }
 
     /**
      * Pushes and activates a scene.
      */
-    public fun pushScene(scene: NVLRenderer) {
+    public fun pushScene(scene: SceneDefinition) {
         if (stack.isNotEmpty()) {
             val tos = stack.last()
-            tos.sceneUnloaded(DeactivationType.PUSHED)
-            previousScene = tos
+            previousScene = tos.definition
         }
 
-        stack.add(scene)
-        activateScene(scene)
+        val state = SceneState(scene)
+        stack.add(state)
+        activateScene(state)
     }
 
     /**
@@ -150,13 +155,13 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Changes the top scene on the stack.
      */
-    public fun changeScene(scene: NVLRenderer) {
+    public fun changeScene(scene: SceneDefinition) {
         val tos = stack.removeLast()
-        tos.sceneUnloaded(DeactivationType.POPPED)
-        previousScene = tos
+        previousScene = tos.definition
 
-        stack.add(scene)
-        activateScene(scene)
+        val state = SceneState(scene)
+        stack.add(state)
+        activateScene(state)
     }
 
     /**
@@ -172,8 +177,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
      */
     public fun exitScene() {
         val tos = stack.removeLast()
-        tos.sceneUnloaded(DeactivationType.POPPED)
-        previousScene = tos
+        previousScene = tos.definition
 
         val newTos = stack.last()
         activateScene(newTos)
@@ -182,13 +186,13 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     /**
      * Gets a single scene.
      */
-    public fun getScene(scene: String): NVLRenderer {
+    public fun getScene(scene: String): SceneDefinition {
         return registeredScenes[scene] ?: error("missing scene definition: $scene")
     }
 
     // == Saving == //
     override fun write(buffer: BufferedSink) {
-        val scenes = stack.map { it.id }
+        val scenes = stack.map { it.definition.id }
         buffer.writeInt(scenes.size)
         for (scene in scenes) {
             val encoded = scene.encodeUtf8()
@@ -223,7 +227,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
 
                 //it.write("== SCENE ==\n")
                 val name = entry.key
-                val scene = entry.value.definition
+                val scene = entry.value
 
                 //it.write("ID: ${scene.id}\n")
                 //it.write("Page count: ${scene.pageCount}\n\n")
@@ -244,7 +248,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     // == Input == //
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        currentScene.skipTimer()
+        currentScene.timer = 999999999
         return true
     }
 
@@ -252,19 +256,17 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.DPAD_LEFT) {
             currentScene.pageBack()
         } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
-            currentScene.pageForward()
+            currentScene.pageNext()
         } else if (keycode == Input.Keys.SPACE) {
-            currentScene.skipTimer()
+            currentScene.timer = 0
             return true
         } else if (keycode == Input.Keys.ENTER) {
-            val buttons = SS76.buttonManager.buttonRects.keys.filter {
-                it.buttonType == ButtonManager.ButtonType.CHANGE
-            }
+            val buttons = SS76.buttonManager.buttonRects.keys.filterIsInstance<ChangeSceneButton>()
 
             if (buttons.isEmpty() || buttons.size > 1) return false
 
             val button = buttons.first()
-            button.action.invoke(currentScene)
+            button.run()
         }
 
         return false

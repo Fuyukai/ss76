@@ -3,21 +3,25 @@ package tf.veriny.ss76
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.Input
 import com.badlogic.gdx.InputMultiplexer
-import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import ktx.app.clearScreen
 import tf.veriny.ss76.engine.*
-import tf.veriny.ss76.render.OddCareRenderer
+import tf.veriny.ss76.engine.renderer.OddCareRenderer
+import tf.veriny.ss76.engine.screen.ErrorScreen
+import tf.veriny.ss76.engine.screen.NVLScreen
+import tf.veriny.ss76.engine.screen.Screen
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
-import tf.veriny.ss76.vn.sussex.*
+import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly5Scenes
+import tf.veriny.ss76.vn.sussex.registerSussexJuly6Scenes
 import tf.veriny.ss76.vn.system.registerSystemScenes
 import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
 import kotlin.time.ExperimentalTime
@@ -52,7 +56,7 @@ public object SS76 : KtxApplicationAdapter {
     public lateinit var shapeRenderer: ShapeRenderer
         private set
 
-    public var clearScreenColor: Color = Color.BLUE
+    private lateinit var screen: Screen
 
     // == Error handling == //
     private var lastError: Exception? = null
@@ -92,18 +96,7 @@ public object SS76 : KtxApplicationAdapter {
         }
     })
 
-    // == Top text == //
-    public var topText: String = "SIGNALLING SYSTEM 76"
-        private set
-    private var topWidth: Float = 0f
-
-    private fun recalcTopText() {
-        //topWidth = GlyphLayout(SS76_FONT, topText).width
-    }
-
-    @OptIn(ExperimentalTime::class)
     override fun create() {
-
         batch = SpriteBatch()
 
         shapeRenderer = ShapeRenderer()
@@ -111,8 +104,29 @@ public object SS76 : KtxApplicationAdapter {
         shapeRenderer.transformMatrix = batch.transformMatrix
         shapeRenderer.updateMatrices()
 
-        fontManager.loadAllFonts()
+        try {
+            createImpl()
+        } catch (e: Exception) {
+            screen = ErrorScreen(e)
+            return
+        }
+
+        val sceneName = if (IS_DEMO) {
+            "demo-meta-menu"
+        } else {
+            System.getProperty("scene", "main-menu")
+        }
+
+        registerSystemScenes(sceneName)
+        sceneManager.pushScene("system-startup-scene")
+        screen = NVLScreen()
+
+    }
+
+    @OptIn(ExperimentalTime::class)
+    private fun createImpl() {
         val fontGenTime = measureTime {
+            fontManager.loadAllFonts()
             fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
         }
         println("All fonts generated in $fontGenTime.")
@@ -131,56 +145,50 @@ public object SS76 : KtxApplicationAdapter {
         val alwaysLoad = System.getProperty("always-load-scenes", "false").toBooleanStrict()
 
         val registerTime = measureTime {
-            try {
-                // == DEMO == //
-                registerDemoUIScene()
-                registerDemoNavigationScenes()
+            // == DEMO == //
+            registerDemoUIScene()
+            registerDemoNavigationScenes()
 
-                // == META == //
-                //registerMainMenuScenes()
-                registerMiscScenes()
+            // == META == //
+            //registerMainMenuScenes()
+            registerMiscScenes()
 
-                // == SUSSEX ROUTE == //
-                registerSussexJuly3Scenes()
-                registerSussexJuly4Scenes()
-                //registerJuly4SussexPt2Scenes()
-                registerSussexJuly5Scenes()
-                //registerSussexJuly5Pt2Scenes()
-                registerSussexJuly6Scenes()
+            // == SUSSEX ROUTE == //
+            registerSussexJuly3Scenes()
+            registerSussexJuly4Scenes()
+            //registerJuly4SussexPt2Scenes()
+            registerSussexJuly5Scenes()
+            //registerSussexJuly5Pt2Scenes()
+            registerSussexJuly6Scenes()
 
-                // == SIDE PLOTS == //
-                registerSidePlotAlexRadio()
-                registerSideLostInTheForest()
+            // == SIDE PLOTS == //
+            registerSidePlotAlexRadio()
+            registerSideLostInTheForest()
 
-                // == TRUTH ENDING == //
-                registerTruthDayOneScenes()
+            // == TRUTH ENDING == //
+            registerTruthDayOneScenes()
 
-                CommonScenes.register()
+            CommonScenes.register()
 
-                // Load newer scene versions if needed
-                if (alwaysLoad) {
-                    val loaded = sceneSaver.loadScenes(always = true)
+            // Load newer scene versions if needed
+            if (alwaysLoad) {
+                val loaded = sceneSaver.loadScenes(always = true)
+                if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
+                    println("Didn't load from scene bundle ($loaded); using pre-packaged scenes instead.")
+                } else {
+                    println("Loaded scenes from scene bundle.")
+                }
+            } else {
+                if (!isInsideJar()) {
+                    sceneSaver.saveScenes()
+                } else {
+                    val loaded = sceneSaver.loadScenes()
                     if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
-                        println("Didn't load from scene bundle ($loaded); using pre-packaged scenes instead.")
+                        println("Didn't load from scene bundle; using pre-packaged scenes instead.")
                     } else {
                         println("Loaded scenes from scene bundle.")
                     }
-                } else {
-                    if (!isInsideJar()) {
-                        sceneSaver.saveScenes()
-                    } else {
-                        val loaded = sceneSaver.loadScenes()
-                        if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
-                            println("Didn't load from scene bundle; using pre-packaged scenes instead.")
-                        } else {
-                            println("Loaded scenes from scene bundle.")
-                        }
-                    }
                 }
-
-            } catch (e: Exception) {
-                if (!isInsideJar()) throw e
-                lastError = e
             }
         }
 
@@ -207,93 +215,14 @@ public object SS76 : KtxApplicationAdapter {
 
         println("Registered ${sceneManager.sceneCount} scenes in $registerTime.")
 
-        // unused
-        //registerMiscScenes()
-        if (lastError == null) {
-            val sceneName = if (IS_DEMO) {
-                "demo-meta-menu"
-            } else {
-                System.getProperty("scene", "main-menu")
-            }
-
-
-            registerSystemScenes(sceneName)
-            sceneManager.pushScene("system-startup-scene")
-        }
     }
 
     override fun render() {
-        if (lastError == null) {
-            renderNormally()
-        } else {
-            renderError()
-        }
-    }
-
-    /**
-     * Draws the error box.
-     */
-    private fun renderError() {
-        Gdx.input.inputProcessor = null
-        clearScreen(255f, 0f, 0f, 0f)
-
-        val tb = lastError!!.stackTraceToString()
-        batch.use {
-            val message = if (sceneManager.stackSize == 0) {
-                "Fatal error when loading engine!"
-            } else {
-                "Fatal error when rendering scene ${sceneManager.currentScene.id}"
-            }
-
-            fontManager.errorFont.draw(
-                this, message,
-                1f,
-                Gdx.graphics.height - 10f
-            )
-
-            fontManager.errorFont.draw(this, tb, 1f, Gdx.graphics.height - 30f)
-        }
-    }
-
-
-    private fun renderNormally() {
-        clearScreen(clearScreenColor.r, clearScreenColor.g, clearScreenColor.b, clearScreenColor.a)
-
-        val scene = sceneManager.currentScene
-
-        try {
-            scene.render()
-        } catch (e: Exception) {
-            lastError = e
-            e.printStackTrace()
-            return renderError()
+        screen.render(Gdx.graphics.deltaTime)
+        if (IS_DEMO) {
+            batch.use { demoRenderer.render() }
         }
 
-        batch.use {
-                if (IS_DEBUG) {
-                    if (isBabyScreen) {
-                        fontManager.currentFont.white.draw(batch,
-                            "Scene ID: ${sceneManager.currentScene.id}",
-                            15f,
-                            20f
-                        )
-                    } else {
-                        fontManager.currentFont.white.draw(batch,
-                            "Scene ID: ${sceneManager.currentScene.id}",
-                            15f,
-                            50f
-                        )
-                    }
-                }
-
-            if (IS_DEMO) {
-                demoRenderer.render()
-            }
-        }
-
-        //WHITE_FONT.draw(batch, "counter: $counter", 120f, 960 - 100f)
-        //WHITE_FONT.draw(batch, items.toString(), 120f, 960 - 200f)
-        //WHITE_FONT.draw(batch, "|", 1280 - 120f, 960 - 200f)
-
+        Gdx.graphics.setTitle("SS76 - Scene ID: ${sceneManager.currentScene.definition.id}")
     }
 }

@@ -5,6 +5,7 @@ import okio.BufferedSource
 import okio.ByteString.Companion.EMPTY
 import okio.ByteString.Companion.encodeUtf8
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.renderer.NVLRenderer
 import tf.veriny.ss76.engine.scene.*
 
 /**
@@ -15,8 +16,8 @@ import tf.veriny.ss76.engine.scene.*
  */
 public open class UpdatableSceneWrapper(
     public val sceneId: String
-) : Saveable {
-    private val buttons = mutableMapOf<String, ButtonManager.Button>()
+) {
+    private val buttons = mutableMapOf<String, Button>()
 
     // starts with one page of stringbuilder, for the first page
     private var pages = mutableListOf<StringBuilder>(StringBuilder())
@@ -25,13 +26,12 @@ public open class UpdatableSceneWrapper(
         println("re-registering $sceneId")
         val parsedPages = pages.map { splitScene(it.toString()) }
 
-        val definition = VirtualNovelSceneDefinition(
+        val definition = SceneDefinition(
             sceneId, buttons, parsedPages, this.pages.map { it.toString() },
             effects = SceneEffects.NONE,
             dynamic = true,
         )
-        val scene = NVLRenderer(definition)
-        sceneManager.reregisterScene(scene)
+        sceneManager.reregisterScene(definition)
     }
 
     /**
@@ -45,7 +45,7 @@ public open class UpdatableSceneWrapper(
     /**
      * Adds a new button.
      */
-    public fun addButton(button: ButtonManager.Button) {
+    public fun addButton(button: Button) {
         buttons[button.name] = button
     }
 
@@ -59,7 +59,7 @@ public open class UpdatableSceneWrapper(
                 pages = pages.dropLast((pages.size - length)).toMutableList()
             }
             pages.size > length -> {
-                (0 until (pages.size - length)).forEach { pages.add(StringBuilder()) }
+                (0 until (pages.size - length)).forEach { _ -> pages.add(StringBuilder()) }
             }
         }
     }
@@ -80,73 +80,4 @@ public open class UpdatableSceneWrapper(
         val builder = PageBuilder(sb, buttons)
         builder.block()
     }
-
-    override fun read(buffer: BufferedSource) {
-        pages.clear()
-        buttons.clear()
-
-        val pages = buffer.readByte().toInt()
-        for (idx in 0 until pages) {
-            val size = buffer.readInt().toLong()
-            val data = buffer.readUtf8(size)
-            val sb = StringBuilder(data)
-            this.pages.add(sb)
-        }
-
-        val buttons = buffer.readByte().toInt()
-        for (idx in 0 until buttons) {
-            val type = ButtonManager.ButtonType.values()[buffer.readInt()]
-            val size1 = buffer.readInt()
-            val name = buffer.readUtf8(size1.toLong())
-            val size2 = buffer.readInt()
-            val sceneId = buffer.readUtf8(size2.toLong())
-
-            when {
-                // special case back-button
-                sceneId == "back-button" -> {
-                    this.buttons["back-button"] = ButtonManager.Button(name) {
-                        SS76.sceneManager.exitScene()
-                    }
-                }
-
-                type == ButtonManager.ButtonType.PUSH -> {
-                    this.buttons[name] = ButtonManager.Button(
-                        name, linkedId = sceneId, buttonType = type
-                    ) { SS76.sceneManager.pushScene(sceneId) }
-                }
-
-                type == ButtonManager.ButtonType.CHANGE -> {
-                    this.buttons[name] = ButtonManager.Button(
-                        name, linkedId = sceneId, buttonType = type
-                    ) { SS76.sceneManager.changeScene(sceneId) }
-                }
-
-                else -> error("invalid button read from stream ($name $sceneId $type)")
-            }
-        }
-    }
-
-    override fun write(buffer: BufferedSink) {
-        buffer.writeByte(pages.size)
-        for (page in pages) {
-            val text = page.toString()
-            val encoded = text.encodeUtf8()
-            buffer.writeInt(encoded.size)
-            buffer.write(encoded)
-        }
-
-        buffer.writeByte(buttons.size)
-        for ((name, button) in buttons) {
-            val type = button.buttonType.ordinal
-            buffer.writeInt(type)
-            val nameEncoded = name.encodeUtf8()
-            buffer.writeInt(nameEncoded.size)
-            buffer.write(nameEncoded)
-
-            val sceneEncoded = button.linkedId?.encodeUtf8() ?: EMPTY
-            buffer.writeInt(sceneEncoded.size)
-            buffer.write(sceneEncoded)
-        }
-    }
-
 }

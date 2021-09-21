@@ -1,12 +1,10 @@
 package tf.veriny.ss76.engine
 
 import dev.dirs.BaseDirectories
-import okio.ByteString.Companion.encodeUtf8
 import okio.buffer
 import okio.sink
 import okio.source
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.ButtonManager.Button
 import java.io.IOException
 import java.nio.file.Files
 import java.nio.file.Path
@@ -29,12 +27,12 @@ public class CheckpointManager(
         public val BASE_DIR: Path
         init {
             val bb = BaseDirectories.get().dataDir
-            if (bb == null) {
+            BASE_DIR = if (bb == null) {
                 // windows shit...
                 val dir = Path.of(System.getenv("APPDATA"))
-                BASE_DIR = dir.resolve("ss76")
+                dir.resolve("ss76")
             } else {
-                BASE_DIR = Path.of(bb).resolve("ss76")
+                Path.of(bb).resolve("ss76")
             }
         }
 
@@ -48,6 +46,15 @@ public class CheckpointManager(
 
     /** The menu for checkpoints. */
     private val checkpointScene = UpdatableSceneWrapper("save-menu")
+
+    private inner class CheckpointButton(val idx: Int, val load: Boolean) : Button {
+        override val name: String = if (load) "load-button" else "save-button"
+
+        override fun run() {
+            if (load) loadCheckpoint(idx)
+            else saveCheckpoint(idx)
+        }
+    }
 
     public fun register() {
         updateCheckpointScene()
@@ -87,8 +94,8 @@ public class CheckpointManager(
                     line("Slot #$idx - :push:@sky@ $ts :pop: - @salmon@`load-$idx`LOAD / @salmon@`save-$idx`SAVE")
                 }
 
-                checkpointScene.addButton(Button("load-$idx") { loadCheckpoint(idx) })
-                checkpointScene.addButton(Button("save-$idx") { saveCheckpoint(idx) })
+                checkpointScene.addButton(CheckpointButton(idx, true))
+                checkpointScene.addButton(CheckpointButton(idx, false))
             }
 
             newline()
@@ -111,18 +118,7 @@ public class CheckpointManager(
             // version
             sink.writeInt(CHECKPOINT_VERSION)
 
-            // top colours
-            sink.writeInt(SS76.clearScreenColor.r.toRawBits())
-            sink.writeInt(SS76.clearScreenColor.g.toRawBits())
-            sink.writeInt(SS76.clearScreenColor.b.toRawBits())
-            sink.writeInt(SS76.clearScreenColor.a.toRawBits())
-
-            // top text
-            val topText = SS76.topText.encodeUtf8()
-            sink.writeInt(topText.size)
-            sink.write(topText)
-
-            // write scenes
+            // write scene stack
             SS76.sceneManager.write(sink)
 
             sink.flush()
@@ -144,21 +140,11 @@ public class CheckpointManager(
             val version = source.readInt()
             check(version == CHECKPOINT_VERSION) { "invalid checkpoint version $version" }
 
-            SS76.clearScreenColor.r = Float.fromBits(source.readInt())
-            SS76.clearScreenColor.g = Float.fromBits(source.readInt())
-            SS76.clearScreenColor.b = Float.fromBits(source.readInt())
-            SS76.clearScreenColor.a = Float.fromBits(source.readInt())
-
-            // load top text
-            val ttSize = source.readInt()
-            val topText = source.readUtf8(ttSize.toLong())
-            //SS76.setTopText(topText)
-
             SS76.sceneManager.read(source)
         }
 
         // pop the checkpoint scene off
-        if (SS76.sceneManager.currentScene.id == "save-menu") {
+        if (SS76.sceneManager.currentSceneIs("save-menu")) {
             SS76.sceneManager.exitScene()
         }
     }

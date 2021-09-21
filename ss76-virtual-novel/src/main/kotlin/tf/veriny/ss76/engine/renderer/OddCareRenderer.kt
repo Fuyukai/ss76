@@ -1,4 +1,4 @@
-package tf.veriny.ss76.render
+package tf.veriny.ss76.engine.renderer
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color.RED
