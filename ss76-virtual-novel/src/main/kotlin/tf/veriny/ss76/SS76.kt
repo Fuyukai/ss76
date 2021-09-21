@@ -57,9 +57,7 @@ public object SS76 : KtxApplicationAdapter {
         private set
 
     public lateinit var screen: Screen
-
-    // == Error handling == //
-    private var lastError: Exception? = null
+        private set
 
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
@@ -118,7 +116,7 @@ public object SS76 : KtxApplicationAdapter {
         }
 
         registerSystemScenes(sceneName)
-        screen = NVLScreen
+        changeScreen(NVLScreen)
 
         sceneManager.pushScene("system-startup-scene")
     }
@@ -139,7 +137,6 @@ public object SS76 : KtxApplicationAdapter {
 
         Gdx.input.inputProcessor = input
         input.addProcessor(buttonManager)
-        input.addProcessor(sceneManager)
         //input.addProcessor(buttonRenderer.input)
 
         val alwaysLoad = System.getProperty("always-load-scenes", "false").toBooleanStrict()
@@ -238,6 +235,12 @@ public object SS76 : KtxApplicationAdapter {
      * Changes the current screen.
      */
     public fun changeScreen(screen: Screen) {
+        if (this::screen.isInitialized) {
+            val oldScreen = this.screen
+            input.removeProcessor(oldScreen)
+        }
+
         this.screen = screen
+        input.addProcessor(this.screen)
     }
 }

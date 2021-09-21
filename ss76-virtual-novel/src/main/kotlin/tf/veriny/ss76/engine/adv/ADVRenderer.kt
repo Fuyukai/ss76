@@ -65,7 +65,7 @@ public class ADVRenderer(
     }
 
     /**
-     * Renders
+     * Renders the ADV mode screen.
      */
     public fun render(sceneState: SceneState) {
         val batch = SS76.batch

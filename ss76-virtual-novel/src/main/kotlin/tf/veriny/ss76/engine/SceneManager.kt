@@ -18,7 +18,7 @@ import java.nio.file.StandardOpenOption.*
 /**
  * Responsible for handling loaded scenes.
  */
-public class SceneManager(public val namespace: String) : KtxInputAdapter, Saveable {
+public class SceneManager(public val namespace: String) : Saveable {
     private companion object {
         val CONTENT_PREFIXES = listOf(
             "sussex", "suffolk", "kent", "common", "truth", "reality",
@@ -140,7 +140,7 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
             }
         } else {
             println("setting novel screen as advmode was null")
-            SS76.screen = NVLScreen
+            SS76.changeScreen(NVLScreen)
         }
 
         scene.definition.onLoadHandlers.forEach { it.invoke() }
@@ -262,29 +262,4 @@ public class SceneManager(public val namespace: String) : KtxInputAdapter, Savea
     }
 
     // == Input == //
-
-    override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        currentScene.timer = 999999999
-        return true
-    }
-
-    override fun keyDown(keycode: Int): Boolean {
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.DPAD_LEFT) {
-            currentScene.pageBack()
-        } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
-            currentScene.pageNext()
-        } else if (keycode == Input.Keys.SPACE) {
-            currentScene.timer = 0
-            return true
-        } else if (keycode == Input.Keys.ENTER) {
-            val buttons = SS76.buttonManager.buttonRects.keys.filterIsInstance<ChangeSceneButton>()
-
-            if (buttons.isEmpty() || buttons.size > 1) return false
-
-            val button = buttons.first()
-            button.run()
-        }
-
-        return false
-    }
 }
