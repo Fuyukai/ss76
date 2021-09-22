@@ -25,6 +25,9 @@ public object MakeUp {
 
             setResizable(false)
             setWindowIcon("icon-128x128.png")
+            useVsync(true)
+            setIdleFPS(60)
+            setForegroundFPS(60)
         }
 
         Lwjgl3Application(SS76, config)

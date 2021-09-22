@@ -21,7 +21,7 @@ import java.nio.file.StandardOpenOption.*
 public class SceneManager(public val namespace: String) : Saveable {
     private companion object {
         val CONTENT_PREFIXES = listOf(
-            "sussex", "suffolk", "kent", "common", "truth", "reality",
+            "sussex", "su", "norfolk", "no", "kent", "common", "truth", "reality",
             "side."
         )
     }
@@ -129,8 +129,9 @@ public class SceneManager(public val namespace: String) : Saveable {
             inventory.changeState(scene.definition.linkedInventoryId)
         }
 
+        val forceNvl = System.getProperty("disable-adv-renderers", "false").toBooleanStrict()
         val advMode = scene.definition.advSubRenderer
-        if (advMode != null) {
+        if (!forceNvl && advMode != null) {
             val screen = SS76.screen
             if (screen !is ADVScreen || !screen.isAlreadyRendering(advMode)) {
                 println("setting adv screen")

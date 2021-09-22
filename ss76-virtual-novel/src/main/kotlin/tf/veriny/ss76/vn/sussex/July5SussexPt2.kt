@@ -1,15 +1,15 @@
-package tf.veriny.ss76.vn.deprecated
+package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import ktx.graphics.copy
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.scene.createAndRegisterScene
+import tf.veriny.ss76.engine.scene.sceneSequence
 
 
-public fun registerSussexJuly5Pt2Scenes() {
+public fun registerSussexJuly5Pt2Scenes(): Unit = sceneSequence {
+    setTopText("SS76 - Route One - 05/07")
+
     createAndRegisterScene("sussex-july-5-start-2") {
-        topText = "SS76 - Route One - 05/07"
-
         page {
             line("Today's date is Wednesday, the 5rd of July.")
             newline()
@@ -49,40 +49,36 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             // n'wah
             line(
-                "However, his dad is a proper nutter. He makes outsiders do a twenty minute " +
-                "decontamination process before they're allowed inside the gates, so coming here is " +
-                "something you need to plan for."
+                "However, his dad is a proper nutter. He's a recluse, and only lets a select " +
+                "few people ever visit him."
             )
             newline()
 
-            changeSceneButton("sussex-july-5-mansion-2", "It's extremely unpleasant.")
+            changeSceneButton("sussex-july-5-mansion-2", "You don't know what that list is, though.")
         }
     }
 
     createAndRegisterScene("sussex-july-5-mansion-2") {
         page {
+            line("You arrived here at just past midday. You and Char went to the nurses office " +
+                 "(which is also excessively large) to get your injuries cleared.")
+            newline()
+
             line(
-                "You arrived here at around 10 o'clock, and you was thoroughly disinfected " +
-                "half an hour later."
+                "Char poked fun at you for wincing when you had your cut sewn back up. " +
+                "You're such a baby."
             )
             newline()
 
-            line("Char led herself to her favourite guest room and barricaded herself in there " +
-                 "for an hour to recover.")
-            newline()
-
             line(
-                "Alex left briefly for the school to recover some of the equipment left " +
-                "behind."
+                "Jess went to get changed, as she still had tiny shards of glass inside her " +
+                "horrendous clothes."
             )
             newline()
 
-            line("Jess left a while back because she had a lesson. (Loser.)")
-            newline()
-
             line(
-                "Finally, Cate was giving unwanted help to the maids. She would die if she " +
-                "didn't show how virtuous she was on a daily basis."
+                "Despite the maids existing, Cate offered to take everyone's bags to their " +
+                "rooms. She really can't help virtue signalling."
             )
             newline()
 
@@ -125,11 +121,11 @@ public fun registerSussexJuly5Pt2Scenes() {
 
     createAndRegisterScene("sussex-july-5-mansion-4") {
         page {
-            dline("ALEX: It's super duper good that you're awake again, Miss Charlotte.")
+            dline("ALEX: It's super duper good that you're not hurt, Miss Charlotte.")
 
             dline(
-                "CATE: Yes, it is. I was quite worried about you. It is very unusual for you " +
-                "to faint like that."
+                "CATE: Yes, that looked like quite a lot of blood on your hand. " +
+                "It was leaking through the bandages."
             )
 
             dline(
@@ -145,6 +141,8 @@ public fun registerSussexJuly5Pt2Scenes() {
                 "ALEX: Didn't you get sprayed at the gate? They put suncream on you so that " +
                 "the lights don't burn you alive!"
             )
+
+            dline("JESS: I sprayed myself before we left~")
 
             dline("CHAR: What actual fucking nutter installs ultraviolet lights inside a house?")
 
@@ -199,6 +197,9 @@ public fun registerSussexJuly5Pt2Scenes() {
                 "Alex has a log cabin made out of chocolate fingers. That's not a meal."
             )
             line("Hopefully the person that made it realises their talents are wasted here.")
+            newline()
+
+            line("Jess has something... not good.")
             newline()
 
             line("Char has the best meal; a still steaming hot fry up. " +
@@ -263,6 +264,8 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("CATE: Do you want to see the new VR room?")
 
+            dline("JESS: I'm fine with my books, thanks~ These things give me a headache.")
+
             changeSceneButton("sussex-july-5-mansion-8", "Char is already off.")
         }
     }
@@ -295,11 +298,6 @@ public fun registerSussexJuly5Pt2Scenes() {
                 "alongside you."
             )
 
-            dline(
-                "CATE: Also, Jessica will be back this afternoon. I am sure she will also " +
-                "play the games with you."
-            )
-
             changeSceneButton("sussex-july-5-mansion-9", "Char is already strapped in.")
         }
     }
@@ -322,7 +320,7 @@ public fun registerSussexJuly5Pt2Scenes() {
                 "excited about it."
             )
 
-            dline("CHAR: Great.")
+            dline("CHAR: Oh. Wonderful. Truly.")
 
             line(
                 "Cate puts the headset on, and they both start playing the game. You sit and " +
@@ -337,13 +335,13 @@ public fun registerSussexJuly5Pt2Scenes() {
     createAndRegisterScene("sussex-july-5-evening-1") {
         page {
             line(
-                "Alex leads us to a spot in the garden, far away from the main house. It was " +
-                "hidden in amongst the trees."
+                "Alex leads everyone to a spot in the garden, far away from the main house, " +
+                "hidden amongst the trees."
             )
             newline()
 
             line(
-                "A small white-painted gazebo has been built here. It's very haphazardly " +
+                "A small white-painted gazebo has been built here. It's been very haphazardly " +
                 "assembled, clearly by somebody who is very unskilled. There's eight chairs, laid out in " +
                 "an octagon on the decking."
             )
@@ -420,7 +418,8 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("CHAR: Ack! What the hell! I can't see anything!")
 
-            dline("JESS: Ack! I'm going blind!")
+            line("Jess stares into the light, continuously grinning.")
+            newline()
 
             line(
                 "Cate put on a pair of sunglasses whilst nobody was looking. She just smiles " +
@@ -439,7 +438,7 @@ public fun registerSussexJuly5Pt2Scenes() {
 
     createAndRegisterScene("sussex-july-5-evening-4") {
         page {
-            line("Now it is actually visible. You take in the majestic sight before you.")
+            line("Your eyes adjust again. The monstrosity before you comes into view again.")
             newline()
 
             dline("CHAR: It looks like a fucking Christmas tree.")
@@ -463,15 +462,6 @@ public fun registerSussexJuly5Pt2Scenes() {
 
     createAndRegisterScene("sussex-july-5-evening-5") {
         page {
-            dline("JESS: Wow. These are really nice chairs. I can feel myself sinking...")
-
-            dline("CHAR: What's with the extra chairs? Who are those for?")
-
-            dline("ALEX: What extra chairs?")
-
-            line("There's only five chairs here, arranged in a hexagon.")
-            newline()
-
             dline(
                 "CATE: The final counter expires tonight. This is a perfect location to see " +
                 "what happens, is it not?"
@@ -479,7 +469,20 @@ public fun registerSussexJuly5Pt2Scenes() {
 
             dline("ALEX: I hope something super duper cool happens! We've waited three days for this!")
 
-            dline("CHAR: Nothing is going to happen, idiots.")
+            dline(
+                "CHAR: Nothing is going to happen, idiots. Why are you idiots so obsessed with some " +
+                "random radio signal?"
+            )
+
+            dline(
+                "ALEX: Everything has been so super duper boring recently! This is something " +
+                "super duper exciting!"
+            )
+
+            dline("CATE: It is a little mystery that only our group knows about. Is that not " +
+                  "something to have fun with?")
+
+            dline("CHAR: No, it's not. It's meaningless, and pointless, and a complete waste of time.")
 
             changeSceneButton("sussex-july-5-evening-6", "Something deep in your mind thinks otherwise.")
         }
@@ -489,7 +492,7 @@ public fun registerSussexJuly5Pt2Scenes() {
         clearScreenColour = Color.BLUE.copy(blue = 250/255f)
 
         page {
-            dline("CHAR: No, nothing is going to happen. That's definite.")
+            dline("CHAR: Nothing is going to happen. That's definite.")
 
             dline("JESS: We heard you the first time, stupid.")
 
@@ -702,8 +705,8 @@ public fun registerSussexJuly5Pt2Scenes() {
             newline()
 
             dline(
-                "ALEX: I went back to the school to get this, but you were so super duper " +
-                "busy with that game I completely forgot to ask you about it!"
+                "ALEX: This finished earlier today, but you were so busy with your " +
+                "game I didn't want to interupt you!"
             )
 
             line(
@@ -721,55 +724,23 @@ public fun registerSussexJuly5Pt2Scenes() {
         }
     }
 
+    clearColour(Color.SLATE)
+    setTopText("SIGNALLING SYSTEM 76")
+
     createAndRegisterScene("sussex-july-5-deduction-1") {
-        clearScreenColour = Color.SLATE
-        topText = "SIGNALLING SYSTEM 76"
-
         page {
-            dline("CHAR: Wipe that stupid grin off your face.")
+            dline("CHAR: What is it that you even wanted off of me?")
 
-            dline("JESS: How did you know? It's too dark to see.")
-
-            dline("CHAR: World's worst superpower. What is it that you even wanted off of me?")
-
-            dline("ALEX: Your autodialer should have completed by now! What did it say!")
+            dline("ALEX: Your autodialer program is finished! What did it say?!")
 
             dline("CHAR: Really? I don't want to do this now. I've had a good day so far.")
 
             dline("CATE: I will tell everyone the results for you, if you wish.")
 
-            dline("CHAR: Don't touch my computer, weasel. Let me see here...")
+            dline("CHAR: Don't touch the computer, weasel. You'll mess it up. Let me see here...")
 
             line("Char starts tapping away.")
             newline()
-
-            changeSceneButton("sussex-july-5-deduction-2", ">> Next")
-        }
-    }
-
-    createAndRegisterScene("sussex-july-5-deduction-2") {
-        page {
-            dline("CHAR: Okay. This finished this morning. There's five numbers.")
-
-            dline("CATE: When did it finish?")
-
-            line(
-                "Cate has materialised a notebook and is writing in it, using a fountain pen. " +
-                "It's clearly a budget model, though. You don't know why she doesn't use a biro like normal " +
-                "people."
-            )
-            newline()
-
-            dline("CHAR: I don't know. Why does that matter? I found the stupid numbers.")
-
-            dline("CATE: I would like to plot an accurate timeline of our efforts.")
-
-            dline(
-                "CHAR: Literally nobody but you would ever need that time. I didn't record " +
-                "it."
-            )
-
-            dline("CATE: That is very unfortunate. I will note right now as the time, then.")
 
             changeSceneButton("sussex-july-5-deduction-3", ">> Next")
         }
@@ -777,6 +748,8 @@ public fun registerSussexJuly5Pt2Scenes() {
 
     createAndRegisterScene("sussex-july-5-deduction-3") {
         page {
+            dline("CHAR: It found five numbers.")
+
             dline("CATE: Could you please share the five numbers?")
 
             dline("JESS: Why are there five?")
@@ -860,6 +833,9 @@ public fun registerSussexJuly5Pt2Scenes() {
         }
     }
 
+    clearColour(Color.BLUE)
+    setTopText("SS76 - Route One - 05/07")
+
     createAndRegisterScene("sussex-july-5-evening-13") {
         clearScreenColour = Color.BLUE.copy(blue = 225 / 255f)
 
@@ -915,7 +891,7 @@ public fun registerSussexJuly5Pt2Scenes() {
             )
             newline()
 
-            dline("JESS: Okay, give me the number.")
+            dline("JESS: Okay, give me the number!")
 
             changeSceneButton(
                 "sussex-july-5-evening-15",
@@ -1044,19 +1020,22 @@ public fun registerSussexJuly5Pt2Scenes() {
 
         page {
             line(
-                "The numbers are not any numbers you can comprehend. They hurt my ears. It " +
+                "The numbers are not any numbers you can comprehend. They hurt your ears. It " +
                 "feels as if somebody is pushing a nail through your head."
             )
             newline()
 
             line(
-                "The wind is really strong now, but nobody is moving. Cate's notebook flips " +
-                "open and flies out into the abyss. She continues to have winced in pain."
+                "The wind is really strong now, but nobody is moving. A bunch of weird stuff " +
+                "starts flying out of Char's sleeves - small notebooks. Lots of them."
             )
             newline()
 
+            line("But then, she reaches back out into the air instantly and snatches them back.")
+            newline()
+
             line(
-                "Char is trying to turn her heard towards me. You see her jittering, " +
+                "Char is trying to turn her heard towards you. You see her jittering, " +
                 "jittering, her body seemingly snapping back and forwards in time as she tries to " +
                 "release her phone."
             )

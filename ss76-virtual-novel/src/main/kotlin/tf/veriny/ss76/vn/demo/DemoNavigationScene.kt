@@ -44,7 +44,11 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("su5j-start", "2021-09-20: Route One, 05/07")
             newline()
 
+            pushSceneButton("su5j-drive-1", "2021-09-22: Route One, 05/07, Car Scene")
+            newline()
+
             pushSceneButton("sussex-july-6-start", "2021-09-14: Route One, 06/07")
+            newline()
         }
 
         page {
@@ -73,13 +77,15 @@ public fun registerDemoNavigationScenes() {
                 newline()
             }
 
-            pushSceneButton("lightning", "021-09-20: Lightning flashes")
+            pushSceneButton("lightning", "2021-09-20: Lightning flashes")
             newline()
 
-            pushSceneButton("resize-large", "Grow screen")
+            pushSceneButton("resize-large", "2021-09-21: Grow screen")
             newline()
 
-            pushSceneButton("car-renderer", "Le boat has arrived")
+            if (!isInsideJar()) {
+                pushSceneButton("car-renderer", "Le boat has arrived")
+            }
         }
     }
 
@@ -96,6 +102,14 @@ public fun registerDemoNavigationScenes() {
 
         page {
             line("Car renderer page #1")
+        }
+
+        page {
+            line("Car renderer page #2")
+        }
+
+        page {
+            line("Car renderer page #3")
         }
     }
 }

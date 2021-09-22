@@ -11,8 +11,8 @@ import tf.veriny.ss76.use
 /**
  * Screen for displaying ADV mode.
  */
-public class ADVScreen(subrenderer: ADVSubRenderer) : Screen {
-    private val renderer = ADVRenderer(subrenderer)
+public class ADVScreen(public val subrenderer: ADVSubRenderer) : Screen {
+    public val renderer: ADVRenderer = ADVRenderer(subrenderer)
 
     public fun isAlreadyRendering(renderer: ADVSubRenderer): Boolean = this.renderer.subRenderer == renderer
 

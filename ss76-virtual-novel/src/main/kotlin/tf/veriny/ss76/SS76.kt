@@ -15,13 +15,12 @@ import tf.veriny.ss76.engine.screen.Screen
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
+import tf.veriny.ss76.vn.norfolk.registerNorfolkJuly3Scenes
+import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
-import tf.veriny.ss76.vn.sussex.registerSussexJuly3Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly4Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly5Scenes
-import tf.veriny.ss76.vn.sussex.registerSussexJuly6Scenes
+import tf.veriny.ss76.vn.sussex.*
 import tf.veriny.ss76.vn.system.registerSystemScenes
 import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
 import kotlin.time.ExperimentalTime
@@ -147,7 +146,7 @@ public object SS76 : KtxApplicationAdapter {
             registerDemoNavigationScenes()
 
             // == META == //
-            //registerMainMenuScenes()
+            registerMainMenuScenes()
             registerMiscScenes()
 
             // == SUSSEX ROUTE == //
@@ -155,8 +154,11 @@ public object SS76 : KtxApplicationAdapter {
             registerSussexJuly4Scenes()
             //registerJuly4SussexPt2Scenes()
             registerSussexJuly5Scenes()
-            //registerSussexJuly5Pt2Scenes()
+            registerSussexJuly5Pt2Scenes()
             registerSussexJuly6Scenes()
+
+            // == NORFOLK ROUTES == //
+            registerNorfolkJuly3Scenes()
 
             // == SIDE PLOTS == //
             registerSidePlotAlexRadio()
@@ -214,13 +216,23 @@ public object SS76 : KtxApplicationAdapter {
 
     }
 
+    private val debugTitle = System.getProperty("update-window-title", "false").toBooleanStrict()
+    private var titleTimer = 60
+
     override fun render() {
         screen.render(Gdx.graphics.deltaTime)
         if (IS_DEMO) {
             batch.use { demoRenderer.render() }
         }
 
-        Gdx.graphics.setTitle("SS76 - Scene ID: ${sceneManager.currentScene.definition.id}")
+        if (debugTitle) {
+            if (titleTimer <= 0) {
+                titleTimer = 60
+                Gdx.graphics.setTitle("SIGNALLING SYSTEM 76")
+            } else {
+                titleTimer--
+            }
+        }
     }
 
     override fun resize(width: Int, height: Int) {

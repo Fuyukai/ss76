@@ -48,7 +48,7 @@ public class CheckpointManager(
     private val checkpointScene = UpdatableSceneWrapper("save-menu")
 
     private inner class CheckpointButton(val idx: Int, val load: Boolean) : Button {
-        override val name: String = if (load) "load-button" else "save-button"
+        override val name: String = if (load) "load-$idx" else "save-$idx"
 
         override fun run() {
             if (load) loadCheckpoint(idx)

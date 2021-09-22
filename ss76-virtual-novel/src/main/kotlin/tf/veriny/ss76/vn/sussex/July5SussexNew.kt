@@ -1,5 +1,8 @@
 package tf.veriny.ss76.vn.sussex
 
+import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.adv.ADVRenderer
+import tf.veriny.ss76.engine.adv.ADVScreen
 import tf.veriny.ss76.engine.scene.sceneSequence
 
 /**
@@ -267,7 +270,7 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
 
         line(
             "The car is sitting in front of the house. It's a pretty nice one, but you " +
-            "wouldn't know what brand it is. Cars are evil."
+            "wouldn't know what brand it is. Cars are evil, no matter what species."
         )
         newline()
 
@@ -350,10 +353,534 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
 
         dline("CHAR: Like I said, just drive us. Driver.")
 
-        //changeSceneButton("drive-1", "He obliges and drives off.")
+        changeSceneButton("su5j-drive-1", "He obliges and drives off.")
     }
 
-    createAndRegisterOnePageScene("drive-1") {
-        line("The mansion is a long drive away. ")
+    val carRenderer = CarRenderer()
+    advRenderer = carRenderer
+
+    createAndRegisterScene("drive-1") {
+        page {
+            line("The mansion is a long drive away.")
+        }
+
+        page {
+            line(
+                "It's about an hour away, down the motorway. Motorways are terrifying. " +
+                "Horrible metal boxes flying at ninety miles per hour."
+            )
+        }
+
+        page {
+            line("Especially with so many idiot drivers on the road.")
+        }
+
+        page {
+            dline("RCPT: HEY! GET OFF YOUR FUCKING PHONE YOU MANIAC!")
+        }
+
+        page {
+            line("The foot man yells loud enough to shake the entire vehicle.")
+        }
+
+        page {
+            dline("JESS: Hey! Look! Moo cows!")
+        }
+
+        page { line("Jess points at some ambulatory beef grazing on a hill.") }
+
+        page {
+            dline("CHAR: How old are you? Seven?")
+        }
+
+        page {
+            dline(
+                "JESS: Maybe if you had some joy in your life, you wouldn't be such an ugly " +
+                "bitch~"
+            )
+        }
+
+        page {
+            changeSceneButton("su5j-drive-2", "The cars and the hills fly past.")
+        }
     }
+
+    createAndRegisterScene("drive-2") {
+        page {
+            dline("CHAR: How much longer?")
+        }
+
+        page {
+            dline("JESS: Sentence fragment.")
+        }
+
+        page {
+            dline("RCPT: Shut up and let me drive. We'll be there when we get there.")
+        }
+
+        page {
+            line("The cars fly past. The GPS says to keep left in two hundred yards.")
+        }
+
+        page {
+            dline("CHAR: It said to keep left. The exit is coming up.")
+        }
+
+        page { dline("JESS: Sentence fragment.") }
+
+        page {
+            dline(
+                "RCPT: Do you want to drive? Huh? If you want to drive, then you can " +
+                "critique my driving."
+            )
+        }
+
+        page {
+            line("The cars fly past. The GPS says to keep left in one hundred and fifty yards.")
+        }
+
+        page {
+            dline("CHAR: Hey, dude, you're going to miss our exit.")
+        }
+
+        page {
+            dline("JESS: Sentence fragment.")
+        }
+
+        page {
+            line("The foot man ignores her.", addNewline = false)
+            changeSceneButton("su5j-drive-3", "He's going to miss the exit.")
+        }
+    }
+
+    createAndRegisterScene("drive-3") {
+        page {
+            line(
+                "The engine starts to hit the rev limiter. The GPS says to keep left in " +
+                "one hundred yards."
+            )
+        }
+
+        page {
+            dline("CHAR: Come on dude, move over. I don't want to be late.")
+        }
+
+        page {
+            dline("JESS: Sentence fragment.")
+        }
+
+        page {
+            dline(
+                "CHAR: First of all, nothing I've been saying is a sentence fragment. " +
+                "Second of all, shut the fuck up."
+            )
+        }
+
+        page {
+            dline("JESS: Wow, I'm impressed you know what a sentence fragment even is. " +
+                  "You're such a big girl~")
+        }
+
+        page {
+            dline("JESS: I'm not even talking to you, though. I'm commenting on this opinion piece.")
+        }
+
+        page {
+            dline("CHAR: Use your thinking voice, then. I don't care about your stupid newspaper.")
+        }
+
+        page {
+            line("The cars fly past. The engine starts to back off.")
+        }
+
+        page {
+            line("The GPS says to keep left in fifty yards.")
+        }
+
+        page {
+            changeSceneButton("su5j-drive-4", "The cars fly past. The engine splutters and stutters.")
+        }
+    }
+
+    createAndRegisterScene("drive-4") {
+        onLoad {
+            val screen = SS76.screen
+            if (screen is ADVScreen) {
+                val renderer = screen.subrenderer as CarRenderer
+                renderer.spooky = true
+            }
+        }
+
+        page {
+            dline("CHAR: Hey. Hey, foot man. What's happening to the car?")
+        }
+
+        page {
+            line("The driver stares straight ahead. The GPS says to keep left.")
+        }
+
+        page {
+            dline(
+                "JESS: It's just slowing down to take the exit, silly. Surely you would have " +
+                "learned this in physics?"
+            )
+        }
+
+        page {
+            dline("CHAR: It's clearly not slowing down. We're going to miss our fucking exit.")
+        }
+
+        page {
+            line("The car continues ahead. The GPS says nothing this time.")
+        }
+
+        page {
+            dline("CHAR: Hey! What the hell are you doing?")
+        }
+
+        page {
+            line("Char starts to shake the driver from behind.")
+        }
+
+        page {
+            line(":push:@magenta@ No response. :pop:")
+        }
+
+        page {
+            dline("CHAR: Hey! You fucking idiot! The exit is literally just ahead!")
+        }
+
+        page {
+            line(":push:@magenta@ No response. :pop:")
+        }
+
+        page {
+            dline("CHAR: God, we're going to be so late.")
+        }
+
+        page {
+            changeSceneButton(
+                "su5j-drive-5",
+                "She slinks back into her chair, preparing for the inevitable."
+            )
+        }
+    }
+
+    createAndRegisterScene("drive-5") {
+        page {
+            line("The engine backs off further. It's almost idling now.")
+        }
+
+        page {
+            line("The car continues along the motorway.")
+        }
+
+        page {
+            line("The GPS stays silent, calculating an alternative route.")
+        }
+
+        page {
+            line("Char slinks down further into her seat.")
+        }
+
+        page {
+            line("The engine cuts out. There's nothing but the sound of the wind and newspaper " +
+                 "pages being read.")
+        }
+
+        page {
+            line("The car continues along the motorway.")
+        }
+
+        page {
+            line("The GPS stays silent. It's given up calculating, and accepts the inevitable.")
+        }
+
+        page {
+            line("Char slinks off of her chair, into the footwell.")
+        }
+
+        page {
+            dline("CHAR: Whoa! What the hell!")
+        }
+
+        page {
+            line(
+                "She tries pushing herself back up, but her hands just uselessly slide along " +
+                "the car walls."
+            )
+        }
+
+        page {
+            dline("CHAR: Why is the car so slippery?? What the fuck????")
+        }
+
+        page {
+            line("She finally grabs on to something and pulls herself back into her seat. " +
+                 "She starts sliding down it again.")
+        }
+
+        page {
+            dline("CHAR: Did somebody do something to my seat???")
+        }
+
+        page {
+            dline("JESS: I'm fine. Maybe you just pissed yourself. It would be rather in " +
+                  "character for you.")
+        }
+
+        page {
+            dline("CHAR: I will piss all over your horrible little face -")
+        }
+
+        page {
+            dline("JESS: Wow! We haven't even had our first date yet!")
+        }
+
+        page {
+            dline("CHAR: Out of all the horrible things you have said in your pathetic little " +
+                  "fucking life, that is by far the worst thing you have ever said to me.")
+        }
+
+        page {
+            dline(
+                "CHAR: If I had the choice between going out with you, and suicide, " +
+                "not only would I kill myself, but I would come back to life to kill myself again."
+            )
+        }
+
+        page {
+            dline("CHAR: Not even in a thousand universes or a thousand dreams could I imagine " +
+                  "a more vile prospect than that.")
+        }
+
+        page {
+            dline("CHAR: Even the thought of thinking about the thought of doing so is making " +
+                  "me suicidal.")
+        }
+
+        page {
+            dline("CHAR: I think my body is physically rejecting the concept. I feel sick.")
+        }
+
+        page {
+            dline("JESS: You're so mean~ There's nothing slippery over here.")
+        }
+
+        page {
+            changeSceneButton(
+                "su5j-drive-6",
+                "She rubs her fingers down the window, making a horrific squeak."
+            )
+        }
+    }
+
+    createAndRegisterScene("drive-6") {
+        page {
+            line("The car continues along the motorway. The wind overpowers every other noise.")
+        }
+
+        page { line("Char looks wistfully out of her window.") }
+
+        page { line("The driver stares non-wistfully out of the windscreen in front of him.") }
+
+        page { dline("CHAR: Hey... did anyone else notice... that we're completely alone?") }
+
+        page { line("There's no cars around. Not to the left. Not to the right. Not in front, nor behind.") }
+
+        page {
+            line(
+                "This is the only car on the road. You, Jess, Char, and the foot man are " +
+                "the only ones on the road."
+            )
+        }
+
+        page { dline("JESS: There's a car right in front of us, silly.") }
+
+        page { dline("CHAR: Uh, no there isn't. There's no cars. Anywhere. The engine isn't on, either...") }
+
+        page { line("Jess points at a picture of a car in her newspaper.") }
+
+        page { dline("JESS: See! It's right there!") }
+
+        page {
+            dline("CHAR: If I could reach you, I would take that newspaper and shove it down your throat.")
+        }
+
+        page {
+            dline(
+                "JESS: You sound so panicked and irritable. You're going to die early if you're " +
+                "so stressed! How fantastic!"
+            )
+        }
+
+        page { line("Char starts shaking the driver again.") }
+
+        page { line(":push:@magenta@ Still no response. :pop:") }
+
+        page { dline("CHAR: Hey! Are you fucking asleep or something?? Where are you taking us?") }
+
+        page { dline("JESS: It's a disused piece of motorway, obviously.") }
+
+        page {
+            dline(
+                "CHAR: What kind of motorway suddenly becomes disused? What about the engine? " +
+                "How are we still moving whilst it's off?"
+            )
+        }
+
+        page { dline("JESS: Maybe it's one of those fancy hybrid cars. They're so cool~") }
+
+        page { dline("CHAR: Is everything a joke with you? Do you ever take anything seriously?") }
+
+        page { line("You've only known Jess for as long as Char has, but you also noticed it.") }
+
+        page { changeSceneButton("su5j-drive-7", "She treats everything as a joke.") }
+    }
+
+    createAndRegisterScene("drive-7") {
+        page { dline("JESS: You're so cute when you're hysterical~") }
+
+        page {
+            dline(
+                "CHAR: The car is moving but the engine is off. It's all slippery here. " +
+                "It's almost as if..."
+            )
+        }
+
+        page {
+            line(
+                "It's happening to you too. You brace your feet against the floor to stop " +
+                "yourself from falling down."
+            )
+        }
+
+        page { dline("CHAR: ... there's no friction??") }
+
+        page { line("Jess reaches her gross little hand across you and pinches Char's cheek.") }
+
+        page {
+            dline("JESS: If there was no friction, I wouldn't be able to grab your cheek " +
+                  "like this.")
+        }
+
+        page {
+            line(
+                "Char turns her head and bites Jess on the hand, as hard as possible. " +
+                "Eight spots of blood start to appear."
+            )
+        }
+
+        page { dline("JESS: See! Your teeth wouldn't be able to grip my hand either.") }
+
+        page { line("Char starts shaking the driver harder, and harder, and harder.") }
+
+        page { dline("CHAR: Hey! Wake up! Wake the fuck up!!!") }
+
+        page { dline("JESS: It's no use. He's already gone.") }
+
+        page { line("Char starts yanking the door handle, but there's no response. The door ]" +
+                    "remains firmly sealed.") }
+
+        page { dline("JESS: Hey now. It's really dangerous to open a door on the motorway, you know~") }
+
+        page { dline("CHAR: Do you have any better ideas??? I can't do anything when I'm inside.") }
+
+        page { dline("JESS: Ideas for what? Everything is fine inside, Charlotte. It's the outside that isn't fine.") }
+
+        page { line("A flash of inspiration forces itself across Char's face. " +
+                    "She whips her ruler out from inside her sleeve.") }
+
+        page { dline("JESS: Do you have one of those in all your tops? You're like a seven year old.") }
+
+        page { changeSceneButton("su5j-drive-8", "Char smashes it with all her force against the window.") }
+    }
+
+    createAndRegisterScene("drive-8") {
+        onLoad {
+            val screen = SS76.screen
+            if (screen is ADVScreen) {
+                val renderer = screen.subrenderer as CarRenderer
+                renderer.spooky = true
+            }
+        }
+
+        page { line("The window smashes open, and a gallon of glass flies out into the road.") }
+
+        page { line("The engine roars to life, overpowering the wind now flooding the cockpit.") }
+
+        page { dline("RCPT: WHOA! WHAT THE FUCK ARE YOU DOING BACK THERE?") }
+
+        page { dline("JESS: What the fuck do you think you're doing, you fucking retard?") }
+
+        page { line("For the first time in forever, Jess has lost her trademark shit-eating grin.") }
+
+        page { dline("RCPT: DID YOU JUST BREAK THE WINDOW OPEN?") }
+
+        page { dline("JESS: There's glass in my lap! There's glass all over me!") }
+
+        page { line("Your cheek is bleeding slightly from the glass that flew into you.") }
+
+        page { dline("CHAR: Oops. My hand slipped.") }
+
+        page { line("Char's hand is covered in blood. She delicately holds her hands in her lap.") }
+
+        page { line("The GPS says to take the exit.") }
+
+        page { changeSceneButton("su5j-drive-9", "The driver takes the exit, and pulls " +
+                                                 "the car over to the hard shoulder.") }
+    }
+
+    createAndRegisterScene("drive-9") {
+        advRenderer = null
+
+        page {
+            line("There's a flurry of first aid.")
+            newline()
+
+            line("Jess dabs at your cheek with disinfectant wipes, and puts a plaster over the cut.")
+            newline()
+
+            line(
+                "Char wraps her hand in a bunch of bandages. She looks really cool, like one of those " +
+                "shonen protagonists."
+            )
+            newline()
+
+            line("The foot man uses his jacket to cover up the window hole.")
+            newline()
+
+            dline("RCPT: Little girl, you owe me a new jacket.")
+
+            dline("CHAR: Kill yourself, old man.")
+
+            changeSceneButton("su5j-drive-10", "Everyone bundles back in.")
+        }
+    }
+
+    createAndRegisterOnePageScene("drive-10") {
+        line("The mansion is only a few minutes drive away from here. The driver pulls the car " +
+             "into the driveway.")
+        newline()
+
+        line("Alex and Cate are waiting for you.")
+        newline()
+
+        line("ALEX: Whoa! What happened to you guys?!?! You're a whole hour late!!")
+        line("CATE: Oh dear. Did you get in an accident?")
+        newline()
+
+        line("RCPT: A stupid little girl happened.")
+        line("JESS: Charlotte broke the window!")
+        line("CHAR: Extreme traffic jam.")
+        newline()
+
+        dline(
+            "ALEX: Okay! We'll have you looked over by the nurses, just in time for the " +
+            "super duper lunch!"
+        )
+
+        changeSceneButton("sussex-july-5-start-2", ">> Next")
+    }
+
 }

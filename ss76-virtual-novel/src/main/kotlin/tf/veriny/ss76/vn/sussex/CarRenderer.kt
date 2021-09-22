@@ -38,6 +38,9 @@ public class CarRenderer : ADVSubRenderer {
         var spawnTimer = 0
     }
 
+    /** If spooky mode is on. */
+    public var spooky: Boolean = false
+
     private var timer = 0
 
     private val lanes = arrayOf(
@@ -50,13 +53,14 @@ public class CarRenderer : ADVSubRenderer {
         val blueCar = ATLAS.findRegion("boat")
 
         val sineOffset = cos((timer.floorDiv(10).mod(180)).toFloat()) * 2f
-        val redCarPos = (5f * GRID_SIZE) - (redCar.packedWidth / 2) + sineOffset
+        var redCarPos = (5f * GRID_SIZE) - (redCar.packedWidth / 2)
+        if (!spooky) redCarPos += sineOffset
         val yOffset = ((16 - 8f) * GRID_SIZE)
 
         batch.draw(redCar, redCarPos, yOffset)
 
         for (lane in lanes) {
-            if (lane.cars.size < 3 && lane.spawnTimer <= 0) {
+            if (!spooky && lane.cars.size < 3 && lane.spawnTimer <= 0) {
                 var xPos = (lane.gridOffset * GRID_SIZE) - (blueCar.packedWidth / 2)
                 xPos += (sineOffset * 4f)
                 val newPos = Vector2(xPos, 16f * GRID_SIZE)
