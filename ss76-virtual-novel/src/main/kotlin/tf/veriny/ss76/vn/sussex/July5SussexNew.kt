@@ -779,7 +779,7 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
 
         page { dline("JESS: It's no use. He's already gone.") }
 
-        page { line("Char starts yanking the door handle, but there's no response. The door ]" +
+        page { line("Char starts yanking the door handle, but there's no response. The door " +
                     "remains firmly sealed.") }
 
         page { dline("JESS: Hey now. It's really dangerous to open a door on the motorway, you know~") }
@@ -801,7 +801,7 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
             val screen = SS76.screen
             if (screen is ADVScreen) {
                 val renderer = screen.subrenderer as CarRenderer
-                renderer.spooky = true
+                renderer.spooky = false
             }
         }
 
@@ -831,9 +831,9 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
                                                  "the car over to the hard shoulder.") }
     }
 
-    createAndRegisterScene("drive-9") {
-        advRenderer = null
+    advRenderer = null
 
+    createAndRegisterScene("drive-9") {
         page {
             line("There's a flurry of first aid.")
             newline()
