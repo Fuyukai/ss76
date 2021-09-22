@@ -46,7 +46,6 @@ public class ADVRenderer(
         glyphLayout.setText(font, word)
 
         var xOffset = padding + currentXOffset
-        println(xOffset)
         var yOffset = (Gdx.graphics.height - yBoxOffset) - currentYOffset
 
         if (TextualNode.Effect.SHAKE in effects) {
@@ -75,6 +74,7 @@ public class ADVRenderer(
      * Renders the ADV mode screen.
      */
     public fun render(sceneState: SceneState) {
+        SS76.buttonManager.reset()
         val batch = SS76.batch
         val shape = SS76.shapeRenderer
 
