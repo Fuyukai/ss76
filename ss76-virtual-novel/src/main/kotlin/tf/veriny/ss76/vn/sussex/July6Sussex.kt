@@ -2,8 +2,6 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.engine.scene.Inventory
-import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
-import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.engine.scene.sceneSequence
 import tf.veriny.ss76.vn.items.CommonItemScenes
 
@@ -505,15 +503,19 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
         }
     }
 
-    createAndRegisterOnePageScene("su6j-aaaaa") {
+    createAndRegisterOnePageScene("aaaaa") {
         line("This is the end of the content so far.")
         newline()
 
-        line("There's some Day 4 content beeyond this, but it's rough and unfinished so I " +
+        line("There's some Day 4 content beyond this, but it's rough and unfinished so I " +
              "won't be showing it.")
         newline()
 
-        line("Thanks for reading. ")
+        line("Thanks for reading.")
+        newline()
+
+        line("If you have any feedback, good or bad, please let me know.")
+        newline()
     }
 
     createAndRegisterOnePageScene("breakfast-1") {
