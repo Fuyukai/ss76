@@ -15,14 +15,7 @@ public fun registerDemoNavigationScenes() {
             line("This is the Signalling System 76 demo menu.")
             newline()
 
-            line("This is primarily for the benefit of my friends who are very graciously " +
-                 "helping me with either writing, UI design or both.")
-            newline()
-
-            line("This scene allows jumping to predefined demo points.")
-            newline()
-
-            pushSceneButton("save-menu", "Checkpoint Menu")
+            line("Unless this is a demo build, you shouldn't be here.")
             newline()
 
             pushSceneButton("credits-menu", "Credits")
@@ -91,9 +84,9 @@ public fun registerDemoNavigationScenes() {
 
     createAndRegisterScene("resize-large") {
         onLoad {
+            SS76.sceneManager.exitScene()
             val screen = WindowSizeShifter(900, 1600, NVLScreen)
             SS76.changeScreen(screen)
-            SS76.sceneManager.exitScene()
         }
     }
 
