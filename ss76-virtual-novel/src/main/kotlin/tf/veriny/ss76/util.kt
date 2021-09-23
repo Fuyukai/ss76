@@ -39,6 +39,12 @@ public fun isInsideJar(): Boolean {
     return uri.scheme == "jar"
 }
 
+private val ALNUM = ('0' .. '9') + ('A' .. 'Z') + ('a' .. 'z')
+
+public fun randomChar/*lotte*/(r: Random): Char {
+    return ALNUM.random(r)
+}
+
 public fun randomString(r: Random, length: Int) : String {
     val chars = ('A'..'Z') + ('a'..'z')
     return (0 until length).joinToString("") { chars.random(r).toString() }

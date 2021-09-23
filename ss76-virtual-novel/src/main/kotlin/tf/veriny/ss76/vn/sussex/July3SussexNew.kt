@@ -12,12 +12,7 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
     setTopText("SS76 - Route One - 03/07")
 
     copyAndSetInventory("s3j-start-inv") {
-        val phone = Inventory.InventoryItem(
-            "PHONE",
-            CommonItemScenes.BASIC_INSPECT.id,
-            CommonItemScenes.DAY_1_USE_PHONE.id
-        )
-        put("phone", phone)
+        put("phone", CommonItemScenes.PHONE_ITEM)
     }
 
     createAndRegisterScene("sussex-july-3-start") {
@@ -311,10 +306,7 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
     }
 
     copyAndSetInventory("s3j-homework") {
-        val homework = Inventory.InventoryItem(
-            "PHYSICS HW",
-            CommonItemScenes.PHYSICS_HOMEWORK.id, CommonItemScenes.PHYSICS_HOMEWORK_USE.id
-        )
+        val homework = CommonItemScenes.PHYS_HW_ITEM
         put("physics-hw", homework)
     }
 
@@ -625,7 +617,7 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
     }
 
     createAndRegisterOnePageScene("su3j-ruler") {
-        line("Char has a pocket sewn into the inside of her jacket with a few essential items.")
+        line("Char has a pocket sewn into the Inside of her jacket with a few essential items.")
         newline()
 
         line(
@@ -910,10 +902,10 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
 
         dline("ALEX: Wait, hold on, Miss Charlotte. I have something for you.")
 
-        line("The snivelling mess walks up to her and hands her an opened letter.")
+        line("The snivelling mess walks up to her and hands her an folded-over piece of paper.")
         newline()
 
-        dline("ALEX: One of the maids found this... she said it was addressed to you.")
+        dline("ALEX: My dad wrote letters for all of you guys. This is yours.")
 
         dline("CHAR: Did you read it?")
 
@@ -946,7 +938,7 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
             "bollocks to you! :pop: "
         )
 
-        line("From Observer")
+        line("From")
         newline()
 
         changeSceneButton("sussex-july-3-school-i2-12", "The words seem to swirl on the page.")
@@ -959,11 +951,15 @@ public fun registerSussexJuly3Scenes(): Unit = sceneSequence {
         )
         newline()
 
-        dline("CHAR: Who wrote this?")
+        dline("CHAR: Your dad wrote this?")
 
-        dline("ALEX: I don't know... I don't know the maids' names.")
+        dline("ALEX: Yeah... I think so... I don't get to see him much.")
 
-        dline("CHAR: Okay. I'm sorry I hit you on the head so hard.")
+        dline("CHAR: You're absolutely sure? Nobody else?")
+
+        dline("ALEX: No... he doesn't even let the maids up there. He cooks his own food.")
+
+        dline("CHAR: Okay. Thank you for giving me this.")
 
         line("She pulls a plaster out from her sleeve and pastes it onto Alex's forehead.")
         newline()

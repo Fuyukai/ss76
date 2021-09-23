@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.SS76.batch
 import tf.veriny.ss76.engine.ButtonManager
 import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
@@ -144,11 +145,10 @@ public class NVLRenderer : TextRendererMixin() {
      * Called when the scene is rendered.
      */
     public fun render(state: SceneState) {
+        reseedRng(state.timer)
         SS76.buttonManager.reset()
 
         val definition = state.definition
-        rng = Random(state.timer.floorDiv(30))
-
         val bgColour = if (definition.effects.lightning) {
             val shouldDoFlash = trueRng.nextInt(0, 240) == 66
             if (shouldDoFlash) {
@@ -235,6 +235,25 @@ public class NVLRenderer : TextRendererMixin() {
                     (Gdx.graphics.width / 2) - (glyphLayout.width / 2),
                     yOffset
                 )
+
+                // 6) Draw debug scene data
+                if (SS76.IS_DEBUG) {
+                    if (SS76.isBabyScreen) {
+                        SS76.fontManager.currentFont.white.draw(
+                            batch,
+                            "Scene ID: ${SS76.sceneManager.currentScene.definition.id}",
+                            15f,
+                            20f
+                        )
+                    } else {
+                        SS76.fontManager.currentFont.white.draw(
+                            batch,
+                            "Scene ID: ${SS76.sceneManager.currentScene.definition.id}",
+                            15f,
+                            50f
+                        )
+                    }
+                }
             }
         }
 

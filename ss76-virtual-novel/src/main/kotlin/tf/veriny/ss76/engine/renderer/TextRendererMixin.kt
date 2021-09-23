@@ -8,6 +8,7 @@ import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.nvl.NVLRenderer
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
+import tf.veriny.ss76.randomChar
 import tf.veriny.ss76.randomString
 import kotlin.math.ceil
 import kotlin.random.Random
@@ -20,6 +21,10 @@ public abstract class TextRendererMixin {
     protected var rng: Random = Random(0)
     // true rng that is never re-seeded
     protected val trueRng: Random = Random.Default
+
+    protected fun reseedRng(timer: Int) {
+        rng = Random(timer.floorDiv(5))
+    }
 
     protected open var currentXOffset: Float = 0f
     protected open var currentYOffset: Float = 0f
@@ -91,11 +96,15 @@ public abstract class TextRendererMixin {
             }
             text = sb.toString()
         } else if (TextualNode.Effect.SHUFTXT in node.effects) {
-            val size = node.text.length
-            text = when {
-                node.text.endsWith(".") -> randomString(rng, size - 1) + "."
-                node.text.endsWith(",") -> randomString(rng, size - 1) + ","
-                else -> randomString(rng, size)
+            text = buildString {
+                // undo truncation. gretchy said this was a cool eeffect...
+                for (c in node.text) {
+                    if (c.isDigit() || c.isLetter()) {
+                        append(randomChar(rng))
+                    } else {
+                        append(c)
+                    }
+                }
             }
         }
 

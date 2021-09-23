@@ -1,5 +1,6 @@
 package tf.veriny.ss76.vn.items
 
+import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
 
 /**
@@ -32,6 +33,8 @@ public object CommonItemScenes {
 
         backButton()
     }
+
+    public val PHONE_ITEM: Inventory.InventoryItem = Inventory.InventoryItem("PHONE", BASIC_INSPECT.id, DAY_1_USE_PHONE.id)
 
     internal val PHYSICS_HOMEWORK = createAndRegisterOnePageScene("item.physics-homework-inspect") {
         line("It's two sets of physics homework.")
@@ -68,6 +71,11 @@ public object CommonItemScenes {
         backButton()
     }
 
+    public val PHYS_HW_ITEM: Inventory.InventoryItem = Inventory.InventoryItem(
+        "PHYSICS HW",
+        CommonItemScenes.PHYSICS_HOMEWORK.id, CommonItemScenes.PHYSICS_HOMEWORK_USE.id
+    )
+
     internal val ROCK_DESCRIPTION_1 = createAndRegisterOnePageScene("item.orb-1") {
         line("It's a round stone.")
         newline()
@@ -76,11 +84,14 @@ public object CommonItemScenes {
     }
 
     internal val ROCK_USE_1 = createAndRegisterOnePageScene("item.orb.use-1") {
-        line(":push:@magenta@ That's not a good idea. :pop:")
-        newline()
-
-        line(":push:@black@ This line is just here for pacing ignore it if you're source code diving ¬reset¬Z :pop:")
+        backButton()
     }
+
+    public val ROCK_ITEM: Inventory.InventoryItem = Inventory.InventoryItem(
+        "SMOOTH STONE",
+        CommonItemScenes.ROCK_DESCRIPTION_1.id,
+        CommonItemScenes.ROCK_USE_1.id
+    )
 
     internal val CAT_HAIR = createAndRegisterOnePageScene("item.cat-hair") {
         line("It's a handful of cat hair.")
@@ -115,6 +126,44 @@ public object CommonItemScenes {
         newline()
 
         line("You fling it about to dry it off, and stick the hair back in your pocket.")
+        newline()
+
+        backButton()
+    }
+
+    internal val WEIRD_LETTER = createAndRegisterOnePageScene("item.weird-letter") {
+        line("Dear resident")
+        newline()
+
+        line(
+            "It is dangerous to go out when the river does not flow. " +
+            "You are lucky you are at the beginning of the cycle."
+        )
+        newline()
+
+        line("Maids look a lot about what we do not mean. You are at risk.")
+        newline()
+
+        line(
+            "Please meet me in a dusty room at noon. Someone should not follow you, and " +
+            "do not trust either of what they say."
+        )
+        newline()
+
+        line("Observer")
+        newline(2)
+
+        backButton()
+    }
+
+    internal val WEIRD_LETTER_USE = createAndRegisterOnePageScene("item.weird-letter.use") {
+        line("What?")
+        newline()
+
+        line("How can you use a letter?")
+        newline()
+
+        line("You're so stupid.")
         newline()
 
         backButton()

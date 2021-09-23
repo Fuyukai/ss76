@@ -1,7 +1,6 @@
 package tf.veriny.ss76.vn.sussex
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.adv.ADVRenderer
 import tf.veriny.ss76.engine.adv.ADVScreen
 import tf.veriny.ss76.engine.scene.sceneSequence
 
@@ -784,9 +783,9 @@ public fun registerSussexJuly5Scenes(): Unit = sceneSequence("su5j-") {
 
         page { dline("JESS: Hey now. It's really dangerous to open a door on the motorway, you know~") }
 
-        page { dline("CHAR: Do you have any better ideas??? I can't do anything when I'm inside.") }
+        page { dline("CHAR: Do you have any better ideas??? I can't do anything when I'm Inside.") }
 
-        page { dline("JESS: Ideas for what? Everything is fine inside, Charlotte. It's the outside that isn't fine.") }
+        page { dline("JESS: Ideas for what? Everything is fine Inside, Charlotte. It's the outside that isn't fine.") }
 
         page { line("A flash of inspiration forces itself across Char's face. " +
                     "She whips her ruler out from inside her sleeve.") }

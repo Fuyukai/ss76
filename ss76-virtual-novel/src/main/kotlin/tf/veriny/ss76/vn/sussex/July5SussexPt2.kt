@@ -112,7 +112,8 @@ public fun registerSussexJuly5Pt2Scenes(): Unit = sceneSequence {
 
             line(
                 "Char and Alex sit down at the heads of the table. You and Cate sit next to them " +
-                "on opposite sides. A maid pokes her head through the doors to tell everyone that",
+                "on opposite sides. Jess sits squarely in the middle on one side, showing off her ugly ugly face to everyone. " +
+                "A maid pokes her head through the doors to tell everyone that",
                 addNewline = false
             )
             changeSceneButton("sussex-july-5-mansion-4", "lunch will be in a few minutes.")
@@ -1235,17 +1236,22 @@ public fun registerSussexJuly5Pt2Scenes(): Unit = sceneSequence {
             line("The last conversation ever unfolds in front of you.")
             newline()
 
-            dline("@teal@????: It's been months now. I thought we ended it.")
+            dline("@lime@????: It's been five years. You got what you wanted. Why now?")
 
-            dline("@teal@????: It's Thursday tomorrow. What do you think will happen?")
+            dline("@teal@????: It's your responsibility, not mine.")
 
-            dline("@lime@????: I hope they come back.")
+            dline("@lime@????: I'm inside to stop this. I didn't do this.")
 
-            dline("@teal@????: Deep in your heart, you didn't believe in the numbers either.")
+            dline("@teal@????: Did you notice the weather? It's been sunny for weeks.")
 
-            dline("@lime@????: You keep saying otherwise.")
+            dline("@lime@????: It started raining before we went outside, though.")
 
-            dline("@teal@????: You wrote it down wrong. It hasn't rained in weeks.")
+            dline("@teal@????: You made the new overlap with the old. You're so irresponsible.")
+
+            dline("@lime@????: Why do you care? You tricked me. It doesn't affect you.")
+
+            dline("@teal@????: You should have paid attention when the numbers appeared again. " +
+                  "Instead, you just denied it, and here we are.")
 
             changeSceneButton("sussex-july-5-evening-27", "A soft hand grips your own.")
             line(":pop:")
@@ -1277,7 +1283,7 @@ public fun registerSussexJuly5Pt2Scenes(): Unit = sceneSequence {
         page {
             newline(11)
             line(" ".repeat(22), addNewline = false)
-            changeSceneButton("sussex-july-6-start", "T h e  w o r l d  e n d s.")
+            changeSceneButton("su6j-start", "T h e  w o r l d  e n d s.")
         }
     }
 }

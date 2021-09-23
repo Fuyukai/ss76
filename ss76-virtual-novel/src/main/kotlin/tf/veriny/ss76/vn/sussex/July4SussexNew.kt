@@ -1365,12 +1365,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
     }
 
     copyAndSetInventory("s4j-inv-rock") {
-        val rock = Inventory.InventoryItem(
-            "SMOOTH STONE",
-            CommonItemScenes.ROCK_DESCRIPTION_1.id,
-            CommonItemScenes.ROCK_USE_1.id
-        )
-        put("rock", rock)
+        put("rock", CommonItemScenes.ROCK_ITEM)
     }
 
     // the rock that saves you from the end of the universe
@@ -1384,7 +1379,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
             line("You roll it around in your hands. It's very light, somehow.")
             newline()
 
-            dline("CHAR: Keep it in your pocket. I made it, just for you.")
+            dline("CHAR: Keep it in your pocket. I made it, just for you. It's from Outside.")
 
             dline("CHAR: Well... I didn't make it, but I did make what I found into that.")
 

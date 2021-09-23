@@ -1,4 +1,4 @@
-package tf.veriny.ss76.vn.sussex
+package tf.veriny.ss76.vn.deprecated
 
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.vn.CommonScenes

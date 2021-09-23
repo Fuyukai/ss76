@@ -74,6 +74,7 @@ public class ADVRenderer(
      * Renders the ADV mode screen.
      */
     public fun render(sceneState: SceneState) {
+        reseedRng(sceneState.timer)
         SS76.buttonManager.reset()
         val batch = SS76.batch
         val shape = SS76.shapeRenderer
