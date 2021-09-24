@@ -707,7 +707,7 @@ public fun registerSussexJuly5Pt2Scenes(): Unit = sceneSequence {
 
             dline(
                 "ALEX: This finished earlier today, but you were so busy with your " +
-                "game I didn't want to interupt you!"
+                "game I didn't want to interrupt you!"
             )
 
             line(

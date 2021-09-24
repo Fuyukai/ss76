@@ -30,6 +30,7 @@ application {
     applicationName = "signalling-system-76"
     applicationDefaultJvmArgs += "-Ddemo=true"
     applicationDefaultJvmArgs += "-Ddebug=true"
+    applicationDefaultJvmArgs += "-Xmx400M"
 }
 
 runtime {

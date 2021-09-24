@@ -296,6 +296,9 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
 
         line("Love from,")
         line("The Receptionist")
+        newline()
+
+        backButton()
     }
 
     createAndRegisterOnePageScene("sussex-july-4-school-1") {
@@ -1108,7 +1111,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
 
         dline("CATE: Yes, it is quite fantastic. I have not had a holiday in years.")
 
-        line("Cate's idea of a holiday is probably 'helping the poor' or other stupidm nonsense.")
+        line("Cate's idea of a holiday is probably 'helping the poor' or other stupid nonsense.")
         newline()
 
         changeSceneButton("sussex-july-4-school-y-10", "Jess struts back into the room.")

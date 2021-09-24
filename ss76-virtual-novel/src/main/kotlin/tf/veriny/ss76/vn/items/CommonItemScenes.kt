@@ -51,7 +51,7 @@ public object CommonItemScenes {
         line("A force meter was attached to the handle of the trolley.")
         newline()
 
-        line("The gardener recorded the following measurements when the trolley was at rest in the" +
+        line("The gardener recorded the following measurements when the trolley was at rest in the " +
              "position shown in the diagram.")
         newline()
 

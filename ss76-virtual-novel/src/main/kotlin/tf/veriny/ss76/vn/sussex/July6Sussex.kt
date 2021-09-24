@@ -814,7 +814,7 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
         line("A ding comes from outside the doors, and they slide open automatically.")
         newline()
 
-        line("A blast of cold, aritifical air comes flodding")
+        line("A blast of cold, artificial air comes flooding")
         newline()
     }
 }
