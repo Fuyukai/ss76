@@ -22,13 +22,13 @@ public class CarRenderer : ADVSubRenderer {
 
         private val TILES = listOf(
             "grass", "grass",  // embankment right
-            "road-side", "road-stripe-left",
+            "road-side-new", "road-stripe-left",
             "road-stripe-right", "road-stripe-left",
-            "road-stripe-right", "road-side-2",
-            "grass", "grass-rail-left", "grass-rail-right", "grass",
-            "road-side", "road-stripe-left",
+            "road-stripe-right", "road-side-2-new",
+            "grass", "grass-rail-left-new", "grass-rail-right-new", "grass",
+            "road-side-new", "road-stripe-left",
             "road-stripe-right", "road-stripe-left",
-            "road-stripe-right", "road-side-2",
+            "road-stripe-right", "road-side-2-new",
             "grass", "grass", "grass"
         )
     }
