@@ -21,7 +21,7 @@ import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.*
-import tf.veriny.ss76.vn.system.registerSystemScenes
+import tf.veriny.ss76.engine.system.registerSystemScenes
 import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime

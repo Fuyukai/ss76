@@ -34,6 +34,23 @@ public object CommonItemScenes {
         backButton()
     }
 
+    internal val PHONE_INSPECT_2 = createAndRegisterOnePageScene("item.phone-2") {
+        line("It's a phone.")
+        newline()
+
+        line("More specifically, it's your phone.")
+        newline()
+
+        backButton()
+    }
+
+    internal val PHONE_USE_2 = createAndRegisterOnePageScene("item.phone-use-2") {
+        line("Now's not the time to become a developer.")
+        newline()
+
+        backButton()
+    }
+
     public val PHONE_ITEM: Inventory.InventoryItem = Inventory.InventoryItem("PHONE", BASIC_INSPECT.id, DAY_1_USE_PHONE.id)
 
     internal val PHYSICS_HOMEWORK = createAndRegisterOnePageScene("item.physics-homework-inspect") {
@@ -129,6 +146,17 @@ public object CommonItemScenes {
         newline()
 
         backButton()
+    }
+
+    internal val INCOMPREHENSIBLE_INSPECT = createAndRegisterOnePageScene("item.incomprehensible") {
+        line("It's not something you can comprehend.")
+        newline()
+
+        backButton()
+    }
+
+    internal val INCOMPREHENSIBLE_USE = createAndRegisterOnePageScene("item.incomprehensible-use") {
+        line("")
     }
 
     internal val WEIRD_LETTER = createAndRegisterOnePageScene("item.weird-letter") {
