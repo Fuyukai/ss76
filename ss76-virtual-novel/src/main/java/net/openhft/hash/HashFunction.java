@@ -24,8 +24,6 @@ import org.jetbrains.annotations.NotNull;
 import java.nio.ByteBuffer;
 import java.nio.ByteOrder;
 
-import static java.nio.ByteOrder.LITTLE_ENDIAN;
-
 /**
  * Hash function producing {@code long}-valued result from byte sequences of any length and
  * a plenty of different sources which "feels like byte sequences". Except {@link
@@ -88,7 +86,7 @@ public abstract class HashFunction {
      * Shortcut for {@link #hashBytes(byte[], int, int) hashBytes(input, 0, input.length)}.
      */
     public long hashBytes(@NotNull byte[] input) {
-        return hash(input, UnsafeAccess.instance(), UnsafeAccess.baseOffset(), input.length);
+        return hash(input, UnsafeAccess.instance(), 0, input.length);
     }
 
     /**
@@ -106,7 +104,7 @@ public abstract class HashFunction {
      */
     public long hashBytes(@NotNull byte[] input, int off, int len) {
         checkBounds(off, len, input.length);
-        return hash(input, UnsafeAccess.instance(), UnsafeAccess.baseOffset() + off, len);
+        return hash(input, UnsafeAccess.instance(), off, len);
     }
 
     /**
@@ -124,7 +122,7 @@ public abstract class HashFunction {
      * {@code ByteBuffer}.
      *
      * <p>Default implementation delegates to {@link #hash(Object, Access, long, long)} method
-     * using {@link ByteBufferAccess#instance(ByteBuffer)}.
+     * using {@link ByteBufferAccess#instance()}.
      *
      * @param input the buffer to read bytes from
      * @param off index of the first {@code byte} in the subsequence to hash
@@ -140,9 +138,9 @@ public abstract class HashFunction {
 
     private long hashByteBuffer(@NotNull ByteBuffer input, int off, int len) {
         if (input.hasArray()) {
-            return hash(input.array(), UnsafeAccess.instance(),UnsafeAccess.baseOffset(input) + off, len);
+            return hash(input.array(), UnsafeAccess.instance(),off, len);
         } else {
-            return hash(input, ByteBufferAccess.instance(input), off, len);
+            return hash(input, ByteBufferAccess.instance(), off, len);
         }
     }
 
