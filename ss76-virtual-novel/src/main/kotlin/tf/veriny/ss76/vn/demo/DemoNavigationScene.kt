@@ -20,6 +20,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("credits-menu", "Credits")
+            newline()
+
+            pushSceneButton("oss-credits", "OSS Credits")
         }
 
         page {

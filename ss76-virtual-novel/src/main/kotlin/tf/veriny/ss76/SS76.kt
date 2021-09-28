@@ -12,6 +12,7 @@ import tf.veriny.ss76.engine.renderer.OddCareRenderer
 import tf.veriny.ss76.engine.screen.ErrorScreen
 import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.screen.Screen
+import tf.veriny.ss76.engine.system.registerOSSCredits
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
@@ -148,6 +149,7 @@ public object SS76 : KtxApplicationAdapter {
             // == META == //
             registerMainMenuScenes()
             registerMiscScenes()
+            registerOSSCredits()
 
             // == SUSSEX ROUTE == //
             registerSussexJuly3Scenes()
