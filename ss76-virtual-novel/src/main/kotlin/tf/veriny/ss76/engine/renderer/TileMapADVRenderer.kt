@@ -33,6 +33,8 @@ public abstract class TileMapADVRenderer(private val mapFile: String) : ADVSubRe
     override fun render(batch: SpriteBatch, camera: OrthographicCamera, sceneState: SceneState) {
         renderer.setView(camera)
         renderer.render()
+
+        renderOverMap(batch, camera, sceneState)
     }
 
     /**
