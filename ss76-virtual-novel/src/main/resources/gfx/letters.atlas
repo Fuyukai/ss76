@@ -1,0 +1,53 @@
+letters.png
+	size: 128, 128
+	repeat: none
+letter-a
+	bounds: 0, 48, 16, 16
+letter-b
+	bounds: 0, 96, 16, 16
+letter-c
+	bounds: 0, 32, 16, 16
+letter-d
+	bounds: 16, 80, 16, 16
+letter-e
+	bounds: 0, 0, 16, 16
+letter-f
+	bounds: 32, 80, 16, 16
+letter-g
+	bounds: 0, 80, 16, 16
+letter-h
+	bounds: 32, 64, 16, 16
+letter-i
+	bounds: 32, 96, 16, 16
+letter-j
+	bounds: 32, 48, 16, 16
+letter-k
+	bounds: 64, 112, 16, 16
+letter-l
+	bounds: 32, 112, 16, 16
+letter-m
+	bounds: 80, 112, 16, 16
+letter-n
+	bounds: 16, 64, 16, 16
+letter-o
+	bounds: 16, 112, 16, 16
+letter-p
+	bounds: 16, 48, 16, 16
+letter-r
+	bounds: 16, 32, 16, 16
+letter-s
+	bounds: 48, 96, 16, 16
+letter-space
+	bounds: 48, 80, 16, 16
+letter-t
+	bounds: 16, 96, 16, 16
+letter-u
+	bounds: 64, 96, 16, 16
+letter-v
+	bounds: 48, 112, 16, 16
+letter-w
+	bounds: 0, 112, 16, 16
+letter-y
+	bounds: 0, 64, 16, 16
+letter-z
+	bounds: 0, 16, 16, 16

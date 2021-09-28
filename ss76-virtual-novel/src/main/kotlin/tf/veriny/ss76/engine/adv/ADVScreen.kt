@@ -14,6 +14,10 @@ import tf.veriny.ss76.use
 public class ADVScreen(public val subrenderer: ADVSubRenderer) : Screen {
     public val renderer: ADVRenderer = ADVRenderer(subrenderer)
 
+    init {
+        subrenderer.create()
+    }
+
     public fun isAlreadyRendering(renderer: ADVSubRenderer): Boolean = this.renderer.subRenderer == renderer
 
     override fun render(delta: Float) {
@@ -50,5 +54,9 @@ public class ADVScreen(public val subrenderer: ADVSubRenderer) : Screen {
         }
 
         return false
+    }
+
+    override fun dispose() {
+        subrenderer.dispose()
     }
 }

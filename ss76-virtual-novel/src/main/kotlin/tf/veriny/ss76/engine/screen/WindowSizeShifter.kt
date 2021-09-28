@@ -42,4 +42,8 @@ public class WindowSizeShifter(
             SS76.changeScreen(nextScreen)
         }
     }
+
+    override fun dispose() {
+
+    }
 }

@@ -1,12 +1,13 @@
 package tf.veriny.ss76.vn.demo
 
 import tf.veriny.ss76.SS76
-import tf.veriny.ss76.engine.nvl.NVLRenderer
 import tf.veriny.ss76.engine.nvl.NVLScreen
+import tf.veriny.ss76.engine.renderer.BackgroundTestRenderer
+import tf.veriny.ss76.engine.renderer.LetterTestRenderer
+import tf.veriny.ss76.engine.renderer.TileMapADVRenderer
+import tf.veriny.ss76.engine.renderer.map.DoorRenderer
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
-import tf.veriny.ss76.engine.screen.Screen
 import tf.veriny.ss76.engine.screen.WindowSizeShifter
-import tf.veriny.ss76.isInsideJar
 import tf.veriny.ss76.vn.sussex.CarRenderer
 
 public fun registerDemoNavigationScenes() {
@@ -62,10 +63,8 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("invert", "2021-09-08: Invert.")
             newline()
 
-            if (!isInsideJar()) {
-                pushSceneButton("invert-2", "2021-09-08: The world ends.")
-                newline()
-            }
+            pushSceneButton("invert-2", "2021-09-08: The world ends.")
+            newline()
 
             pushSceneButton("lightning", "2021-09-20: Lightning flashes")
             newline()
@@ -73,9 +72,13 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("resize-large", "2021-09-21: Grow screen")
             newline()
 
-            if (!isInsideJar()) {
-                pushSceneButton("car-renderer", "Le boat has arrived")
-            }
+            pushSceneButton("car-renderer", "2021-09-22: Le boat has arrived")
+            newline()
+
+            pushSceneButton("background-renderer", "2021-09-25: Backgrounds test")
+            newline()
+
+            pushSceneButton("letter-renderer", "2021-09-26: Letters text")
         }
     }
 
@@ -100,6 +103,24 @@ public fun registerDemoNavigationScenes() {
 
         page {
             line("Car renderer page #3")
+        }
+    }
+
+    createAndRegisterScene("background-renderer") {
+        onLoad {
+            SS76.changeScreen(BackgroundTestRenderer())
+        }
+    }
+
+    createAndRegisterScene("letter-renderer") {
+        onLoad { SS76.changeScreen(LetterTestRenderer()) }
+    }
+
+    createAndRegisterScene("door-test") {
+        advRenderer = DoorRenderer()
+
+        page {
+            line("")
         }
     }
 }

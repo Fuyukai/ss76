@@ -1,0 +1,36 @@
+backgrounds.png
+	size: 256, 256
+	repeat: none
+	pma: true
+black-white-cb
+	bounds: 192, 0, 64, 64
+bw-stripes
+	bounds: 0, 128, 64, 64
+cyk
+	bounds: 192, 128, 64, 64
+pink
+	bounds: 128, 64, 64, 64
+pink-blue-cb
+	bounds: 64, 128, 64, 64
+pink-blue-stripes
+	bounds: 192, 64, 64, 64
+pink-cyan-dots
+	bounds: 0, 192, 64, 64
+pink-stripes
+	bounds: 64, 64, 64, 64
+pink-stripes-black
+	bounds: 0, 64, 64, 64
+pink-stripes-red
+	bounds: 128, 192, 64, 64
+pink-stripes-yellow
+	bounds: 192, 192, 64, 64
+rby
+	bounds: 128, 128, 64, 64
+rgb
+	bounds: 64, 192, 64, 64
+rgb-2
+	bounds: 128, 0, 64, 64
+rgb-3
+	bounds: 64, 0, 64, 64
+white-black-cb
+	bounds: 0, 0, 64, 64

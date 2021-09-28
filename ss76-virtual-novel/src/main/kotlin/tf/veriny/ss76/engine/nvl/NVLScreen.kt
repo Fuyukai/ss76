@@ -44,4 +44,8 @@ public object NVLScreen : Screen {
 
         return false
     }
+
+    override fun dispose() {
+
+    }
 }

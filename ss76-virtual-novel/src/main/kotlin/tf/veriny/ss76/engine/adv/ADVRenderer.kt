@@ -79,7 +79,7 @@ public class ADVRenderer(
         val batch = SS76.batch
         val shape = SS76.shapeRenderer
 
-        ownBatch.use { subRenderer.render(ownBatch, sceneState) }
+        ownBatch.use { subRenderer.render(ownBatch, camera, sceneState) }
 
         //shape.projectionMatrix = camera.combined
         shape.use(ShapeRenderer.ShapeType.Filled) {

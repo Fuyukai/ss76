@@ -29,4 +29,8 @@ public class ErrorScreen(public val error: Throwable) : Screen {
             SS76.fontManager.errorFont.draw(this, tb, 1f, Gdx.graphics.height - 30f)
         }
     }
+
+    override fun dispose() {
+
+    }
 }

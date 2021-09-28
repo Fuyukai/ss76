@@ -1,14 +1,13 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.Gdx
+import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.g2d.TextureAtlas
-import com.badlogic.gdx.math.Vector
 import com.badlogic.gdx.math.Vector2
 import tf.veriny.ss76.engine.adv.ADVSubRenderer
 import tf.veriny.ss76.engine.scene.SceneState
 import kotlin.math.cos
-import kotlin.math.sin
 import kotlin.random.Random
 
 // TODO: Make disposable
@@ -17,8 +16,7 @@ import kotlin.random.Random
  */
 public class CarRenderer : ADVSubRenderer {
     private companion object {
-        private val ATLAS = TextureAtlas(Gdx.files.internal("gfx/ss76.atlas"))
-        private val GRID_SIZE = ATLAS.regions[0].originalWidth
+        private const val GRID_SIZE = 64
 
         private val TILES = listOf(
             "grass", "grass",  // embankment right
@@ -31,6 +29,16 @@ public class CarRenderer : ADVSubRenderer {
             "road-stripe-right", "road-side-2-new",
             "grass", "grass", "grass"
         )
+    }
+
+    private lateinit var atlas: TextureAtlas
+
+    override fun create() {
+        atlas = TextureAtlas(Gdx.files.internal("gfx/ss76.atlas"))
+    }
+
+    override fun dispose() {
+        atlas.dispose()
     }
 
     private class Lane(val gridOffset: Float, val speed: Float) {
@@ -49,8 +57,8 @@ public class CarRenderer : ADVSubRenderer {
 
     private fun renderCars(batch: SpriteBatch) {
         // our car (red car) is on the middle lane (overtaking people. what a cunt)
-        val redCar = ATLAS.findRegion("boat-red")
-        val blueCar = ATLAS.findRegion("boat")
+        val redCar = atlas.findRegion("boat-red")
+        val blueCar = atlas.findRegion("boat")
 
         val sineOffset = cos((timer.floorDiv(10).mod(180)).toFloat()) * 2f
         var redCarPos = (5f * GRID_SIZE) - (redCar.packedWidth / 2)
@@ -82,12 +90,12 @@ public class CarRenderer : ADVSubRenderer {
 
     }
 
-    override fun render(batch: SpriteBatch, sceneState: SceneState) {
+    override fun render(batch: SpriteBatch, camera: OrthographicCamera, sceneState: SceneState) {
         var xOffset: Float
         for (y in 0..20) {
             xOffset = 0f
             for (tile in TILES) {
-                val region = ATLAS.findRegion(tile)!!
+                val region = atlas.findRegion(tile)!!
                 val offset = timer.mod(region.originalHeight)
                 batch.draw(region, xOffset, y * region.originalHeight.toFloat() - (offset * 6))
                 xOffset += region.originalWidth

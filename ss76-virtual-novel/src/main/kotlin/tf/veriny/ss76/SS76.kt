@@ -250,6 +250,7 @@ public object SS76 : KtxApplicationAdapter {
         if (this::screen.isInitialized) {
             val oldScreen = this.screen
             input.removeProcessor(oldScreen)
+            oldScreen.dispose()
         }
 
         this.screen = screen
