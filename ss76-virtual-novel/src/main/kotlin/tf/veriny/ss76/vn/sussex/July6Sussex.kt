@@ -1,6 +1,7 @@
 package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.graphics.Color
+import tf.veriny.ss76.engine.ChangeSceneButton
 import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.sceneSequence
 import tf.veriny.ss76.vn.items.CommonItemScenes
@@ -498,23 +499,7 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
 
             line(":push:@violet@ Weird letter has been added to your inventory. :pop:")
 
-            //changeSceneButton("su6j-breakfast-1", ">> Next")
-            changeSceneButton("su6j-aaaaa", ">> Next")
+            changeSceneButton("su6j-breakfast-1", ">> Next")
         }
-    }
-
-    createAndRegisterOnePageScene("aaaaa") {
-        line("This is the end of the content so far.")
-        newline()
-
-        line("There's some Day 4 content beyond this, but it's rough and unfinished so I " +
-             "won't be showing it.")
-        newline()
-
-        line("Thanks for reading.")
-        newline()
-
-        line("If you have any feedback, good or bad, please let me know.")
-        newline()
     }
 }

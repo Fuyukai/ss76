@@ -65,7 +65,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
     createAndRegisterScene("sussex-july-4-pre-2") {
         page {
             line("You take a different route on the walk to than the walk back from school. " +
-                 "You cut through the heath on the way back, but go around on the way back.")
+                 "On the way back, you cut through the heathland.")
             newline()
 
             line("The exit you use from the heath is really steep uphill.", addNewline = false)
@@ -868,7 +868,7 @@ public fun registerSussexJuly4Scenes(): Unit = sceneSequence {
                   "next day, and sheepishly turned it back on. Then, you didn't tell us because it " +
                   "makes you look like the idiot you are.")
 
-            dline("CHAR: Mystery solved. You're both shit at this.")
+            dline("CHAR: Mystery solved.")
 
             dline(
                 "ALEX: No, I am 100% telling the truth! I get woken up by the maids at " +

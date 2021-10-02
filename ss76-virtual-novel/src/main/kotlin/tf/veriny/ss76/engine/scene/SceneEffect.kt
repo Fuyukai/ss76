@@ -7,14 +7,17 @@ import com.badlogic.gdx.graphics.Color
  */
 public data class SceneEffects(
     /** The custom background used for this scene. */
-    var backgroundColour: Color = Color.BLUE,
+    public var backgroundColour: Color = Color.BLUE,
     /** If this scene should be drawn inverted. */
-    var invert: Boolean = false,
+    public var invert: Boolean = false,
     /** The custom top text used for this scene. */
-    var topText: String = "SIGNALLING SYSTEM 76",
+    public var topText: String = "SIGNALLING SYSTEM 76",
 
     /** Lightning effect. */
-    var lightning: Boolean = false,
+    public var lightning: Boolean = false,
+
+    /** If text skip should be disabled. */
+    public var disableTextSkip: Boolean = false,
 ) {
     public companion object {
         public val NONE: SceneEffects = SceneEffects()

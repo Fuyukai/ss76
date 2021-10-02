@@ -265,6 +265,14 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
         currentEffects.backgroundColour = Color.BLUE
     }
 
+    public fun disableTextSkip() {
+        currentEffects.disableTextSkip = true
+    }
+
+    public fun enableTextSkip() {
+        currentEffects.disableTextSkip = false
+    }
+
     /**
      * Creates and registers a new scene.
      */

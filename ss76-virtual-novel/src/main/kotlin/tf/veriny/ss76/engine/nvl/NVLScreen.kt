@@ -19,7 +19,8 @@ public object NVLScreen : Screen {
     }
 
     override fun touchDown(screenX: Int, screenY: Int, pointer: Int, button: Int): Boolean {
-        SS76.sceneManager.currentScene.timer = 999999999
+        val current = SS76.sceneManager.currentScene
+        if (!current.definition.effects.disableTextSkip) current.timer = 999999
         return true
     }
 
@@ -31,7 +32,7 @@ public object NVLScreen : Screen {
         } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
             current.pageNext()
         } else if (keycode == Input.Keys.SPACE) {
-            current.timer = 999999
+            if (!current.definition.effects.disableTextSkip) current.timer = 999999
             return true
         } else if (keycode == Input.Keys.ENTER) {
             val buttons = SS76.buttonManager.buttonRects.keys.filterIsInstance<ChangeSceneButton>()

@@ -34,17 +34,8 @@ public fun registerOSSCredits() {
             line("SS76 is based on the `gdx`@green@LibGDX game engine.")
             newline()
 
-            line(
-                "SS76 vendors a modified copy of OpenHFT's Zero-Allocation-Hashing project, " +
-                "licenced under the Apache 2.0 license."
-            )
-            line(":push:`ohft`@green@ The original code can be found here. :pop:")
-            line(":push:`qweek`@green@ The modified code can be found here. :pop:")
-
             addButton(OpenBrowserButton("ofp", "https://int10h.org/oldschool-pc-fonts/"))
             addButton(OpenBrowserButton("gdx", "https://github.com/libgdx/libgdx"))
-            addButton(OpenBrowserButton("ohft", "https://github.com/OpenHFT/Zero-Allocation-Hashing"))
-            addButton(OpenBrowserButton("qweek", "https://github.com/qweek/Zero-Allocation-Hashing"))
         }
     }
 }
