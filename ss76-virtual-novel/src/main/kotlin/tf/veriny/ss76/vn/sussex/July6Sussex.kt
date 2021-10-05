@@ -39,7 +39,7 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
             line("Today's date is Thursday, the 6th of July.")
             newline()
 
-            line("It's a :push:@sky@ dark, cloudy day. :pop:")
+            line("It's a :push:@sky@ stormy day. :pop:")
             line("It hasn't @sky@stopped @sky@raining in days.")
             newline()
 
@@ -376,6 +376,7 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
     }
 
     disableLightning()
+
     createAndRegisterOnePageScene("morning-11") {
         line(
             "The door to the guest corridor is open too, but there's no staff up here this " +
@@ -501,5 +502,108 @@ public fun registerSussexJuly6Scenes(): Unit = sceneSequence("su6j-") {
 
             changeSceneButton("su6j-breakfast-1", ">> Next")
         }
+    }
+
+    createAndRegisterOnePageScene("breakfast-1") {
+        line("Today's date is Thursday, the 6th of July. It's eight o'clock.")
+
+        line("It's a :push:@sky@ lovely, stormy day. :pop:")
+        line("It hasn't @sky@stopped @sky@raining in days.")
+        newline()
+
+        changeSceneButton("su6j-breakfast-2", ">> Next")
+    }
+
+    createAndRegisterOnePageScene("breakfast-2") {
+        line("The sound of lighting doesn't wake you up with a jolt. You wake up naturally instead.")
+        newline()
+
+        line("You pull your phone out of its dock and check the time. It's eight o'clock.")
+        newline()
+
+        line("Four hours to go. You're late for breakfast.")
+        newline()
+
+        line("You slither out of bed like the little snake you are, put on your ugly dressing " +
+             "gown and horrible slippers, and make your way back downstairs.")
+        newline()
+
+        line("There's more cleaning staff around now in the day hours. There's still nobody " +
+             "who cares to acknowledge your pathetic little presence.")
+        newline()
+
+        changeSceneButton("su6j-breakfast-3", "You barge into the dining hall, uninvited.")
+    }
+
+    createAndRegisterOnePageScene("breakfast-3") {
+        line("There's only one person here. Everyone else has been replaced with an empty plate " +
+             "and small piles of bread crumbs.")
+        newline()
+
+        line("She sits there with her feet up on the table, leaning back into her chair, " +
+             "eating a bread roll.")
+        newline()
+
+        line("There's one roll left to the side of her. She glares at you.")
+        newline()
+
+        line("Your stomach rumbles with a jolt of pain. You pull out a chair and sit down.")
+        newline()
+
+        line("She finishes her current roll and picks up the last one. You track it with your " +
+             "eyes, like a little pathetic hungry cat.")
+        newline()
+
+        line("She just holds it in the air.")
+        newline()
+
+        changeSceneButton("su6j-breakfast-4", "You stare at the bread roll.")
+    }
+
+    createAndRegisterOnePageScene("su6j-breakfast-4") {
+        dline("CHAR: You want it?")
+
+        line("You shake your head.")
+        newline()
+
+        dline("CHAR: Are you sure?")
+
+        line("You shake your head.")
+        newline()
+
+        dline("CHAR: They make their own bread here. It's really nice.")
+
+        line("You stare at the bread roll. Your stomach growls in pain again.")
+        newline()
+
+        dline("CHAR: It's perfectly crusty on the outside but perfectly soft on the inside.")
+
+        line("She drops it down onto the table.")
+        newline()
+
+        changeSceneButton("su6j-breakfast-5", "You stare at eachother in silence.")
+    }
+
+    createAndRegisterOnePageScene("breakfast-5") {
+        dline("CHAR: It's not good to skip breakfast.")
+
+        line(
+            "You keep staring into her eyes. You can see the bread roll just through the " +
+            "corner of your eyes."
+        )
+        newline()
+
+        dline("CHAR: I guess that's what you'll have to do when you're so late, though. Right?")
+
+        line("She picks up the roll again and throws it square at your forehead. It bounces " +
+             "off and lands on the floor.")
+        newline()
+
+        dline("CHAR: Don't you want to know where everyone else is?")
+
+        line("You shake your disgusting head.")
+        newline()
+
+
     }
 }
