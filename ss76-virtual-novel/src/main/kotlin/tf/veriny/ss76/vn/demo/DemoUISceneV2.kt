@@ -2,6 +2,7 @@ package tf.veriny.ss76.vn.demo
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.engine.FontManager
+import tf.veriny.ss76.engine.scene.DEFAULT_FRAMES_PER_WORD
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
@@ -51,11 +52,6 @@ public fun registerDemoUIScene() {
         page {
             line(":push:@black@ Invert. :pop:")
         }
-    }
-
-    createAndRegisterScene("invert-2") {
-        invert = true
-        //clearScreenColour = Color.WHITE
 
         page {
             newline(11)
@@ -68,6 +64,30 @@ public fun registerDemoUIScene() {
 
         page {
             line("Cool lightning effect.")
+        }
+    }
+
+    createAndRegisterScene("linger-test") {
+        page {
+            line("Linger: 30 frames (0.5s) :linger:30")
+            line("Linger: 60 frames (1s) :linger:60")
+            line("Linger: 120 frames (2s) :linger:120")
+            line("Fin")
+        }
+
+        page {
+            line("Frames per word: $DEFAULT_FRAMES_PER_WORD")
+            newline()
+
+            for (i in 1 until 5) {
+                val newFpw = DEFAULT_FRAMES_PER_WORD + i
+                line(":fpw:$newFpw Frames per word: $newFpw")
+                newline()
+            }
+
+            line(":fpw:1 One frame per word. Lots of extra text " + "etc ".repeat(60))
+
+            line(":fpw:reset Reset. Frames per word: $DEFAULT_FRAMES_PER_WORD")
         }
     }
 }

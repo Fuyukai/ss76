@@ -31,6 +31,27 @@ private enum class TokenifyState {
 }
 
 /**
+ * Base class thrown for tokenisation errors.
+ */
+public open class TokenizationException(
+    message: String? = null, cause: Throwable? = null
+) : Exception(message, cause)
+
+/**
+ * Thrown when a token has a bad modifier.
+ */
+public class BadModifierStateException(
+    message: String? = null, cause: Throwable? = null
+) : TokenizationException(message, cause)
+
+/**
+ * Thrown when a directive is unknown.
+ */
+public class UnknownDirectiveException(
+    directive: String, cause: Throwable? = null,
+) : TokenizationException("Unknown directive: $directive", cause)
+
+/**
  * Tokenifies the word.
  */
 private fun tokenify(
@@ -52,7 +73,7 @@ private fun tokenify(
 
     for (char/*lotte*/ in word) {
         if (hasNewline) {
-            error("Got character '$char' after newline")
+            throw BadModifierStateException("Got character '$char' after newline")
         }
 
         if (state == TokenifyState.TEXT) {
@@ -69,7 +90,7 @@ private fun tokenify(
                         currentBuilder.clear()
                         TokenifyState.BEGIN
                     }
-                    else -> error("Can't handle '@' during state $state")
+                    else -> throw BadModifierStateException("Can't handle '@' during state $state")
                 }
             }
             '¬' -> {
@@ -82,7 +103,7 @@ private fun tokenify(
                         currentBuilder.clear()
                         TokenifyState.BEGIN
                     }
-                    else -> error("Can't handle '¬' during state $state")
+                    else -> throw BadModifierStateException("Can't handle '¬' during state $state")
                 }
             }
             ',' -> {
@@ -95,7 +116,7 @@ private fun tokenify(
                         effects.add(currentBuilder.toString())
                         currentBuilder.clear()
                     }
-                    else -> error("Can't handle ',' during state $state")
+                    else -> throw BadModifierStateException("Can't handle ',' during state $state")
                 }
             }
             '`' -> {
@@ -106,12 +127,12 @@ private fun tokenify(
                         currentBuilder.clear()
                         TokenifyState.BEGIN
                     }
-                    else -> error("Can't handle '`' during state $state")
+                    else -> throw BadModifierStateException("Can't handle '`' during state $state")
                 }
             }
             '\n' -> {
                 if (state != TokenifyState.TEXT && state != TokenifyState.BEGIN) {
-                    error("Can't handle newline during state $state")
+                    throw BadModifierStateException("Can't handle newline during state $state")
                 }
                 hasNewline = true
             }
@@ -130,13 +151,13 @@ private fun tokenify(
 
     return when (state) {
         TokenifyState.COLOUR -> {
-            error("Missing closing '@' in $word")
+            throw BadModifierStateException("Missing closing '@' in $word")
         }
         TokenifyState.EFFECT -> {
-            error("Missing closing '¬' in $word")
+            throw BadModifierStateException("Missing closing '¬' in $word")
         }
         TokenifyState.BUTTON -> {
-            error("Missing closing '`' in $word")
+            throw BadModifierStateException("Missing closing '`' in $word")
         }
         else -> {
             val word = wordBuilder.toString()
@@ -148,6 +169,7 @@ private fun tokenify(
 /**
  * Splits a single scene into a stream of TextualNode directives.
  */
+@Throws(TokenizationException::class)
 public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): List<TextualNode> {
     val nodes = mutableListOf<TextualNode>()
 
@@ -158,6 +180,9 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
     var currentFramesPerWord = DEFAULT_FRAMES_PER_WORD
     //  The length of the current line.
     var currentLineLength = 0
+
+    // The number of frames to linger until the next token. Reset to zero each loop.
+    var lingerFrames = 0
 
     // pushed data, automatically used during tokenization
     val pushed = ArrayDeque<Token>()
@@ -182,20 +207,30 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                             tos?.colour, tos?.effects ?: setOf(),
                             tos?.buttonName, dValue
                         )
-                        check(token.text.isEmpty()) { "cannot push markup '$dValue' with text" }
+                        if (token.text.isNotEmpty()) throw TokenizationException("cannot push markup '$dValue' with text")
                         pushed.addLast(token)
                     }
                     "pop" -> {
-                        check(dValue.isEmpty()) { "pop token accidentally consumes $dValue" }
+                        if (dValue.isNotEmpty()) {
+                            throw TokenizationException("pop token accidentally consumes $dValue")
+                        }
                         pushed.removeLast()
                     }
-                    else -> error("unknown directive $dNamee")
+                    "linger" -> {
+                        lingerFrames = if (dValue.isEmpty()) 60
+                        else dValue.toInt()
+                    }
+                    "fpw" -> {
+                        if (dValue == "reset" || dValue == "0") currentFramesPerWord = DEFAULT_FRAMES_PER_WORD
+                        else currentFramesPerWord = dValue.toInt()
+                    }
+                    else -> throw UnknownDirectiveException(dNamee)
                 }
 
                 continue
             }
 
-            val start = frameCounter
+            val start = frameCounter + lingerFrames
             val end = (start + currentFramesPerWord).also { frameCounter = it }
 
             val tos = pushed.lastOrNull()
@@ -257,6 +292,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
 
             node.colour = colour
             nodes.add(node)
+            lingerFrames = 0
         }
 
         val newlineNode = TextualNode(

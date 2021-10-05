@@ -30,29 +30,11 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton(
-                "sussex-july-3-start",
+                "su3j-start",
                 "2021-08-24: Route One, 03/07"
             )
             newline()
-
-            pushSceneButton("sussex-july-4-start", "2021-08-26: Route One, 04/07")
-            newline()
-
-            pushSceneButton("su5j-start", "2021-09-20: Route One, 05/07")
-            newline()
-
-            pushSceneButton("su6j-start", "2021-09-14: Route One, 06/07")
-            newline()
         }
-
-        page {
-            line("ROUTE ONE SIDE STORY JUMP POINTS #1")
-            newline()
-
-            pushSceneButton("sussex-july-4-pre-9", "2021-09-04: Forest Side Story pre-scene")
-            newline()
-        }
-
 
         page {
             line("UI DEMOS")
@@ -64,9 +46,6 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("invert", "2021-09-08: Invert.")
-            newline()
-
-            pushSceneButton("invert-2", "2021-09-08: The world ends.")
             newline()
 
             pushSceneButton("lightning", "2021-09-20: Lightning flashes")
@@ -82,6 +61,14 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("letter-renderer", "2021-09-26: Letters text")
+        }
+
+        page {
+            line("UI DEMOS #2")
+            newline()
+
+            pushSceneButton("linger-test", "2021-10-05: Lingering text")
+            newline()
         }
     }
 
