@@ -180,8 +180,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
     var currentFramesPerWord = DEFAULT_FRAMES_PER_WORD
     //  The length of the current line.
     var currentLineLength = 0
-
-    // The number of frames to linger until the next token. Reset to zero each loop.
+    //  The number of frames to linger until the next token. Reset to zero each loop.
     var lingerFrames = 0
 
     // pushed data, automatically used during tokenization
@@ -233,14 +232,21 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                 continue
             }
 
-            val start = frameCounter + lingerFrames
-            val end = (start + currentFramesPerWord).also { frameCounter = it }
-
             val tos = pushed.lastOrNull()
             val token = tokenify(
                 tos?.colour, tos?.effects ?: setOf(),
                 tos?.buttonName, rawWord
             )
+
+            val start: Int
+            val end: Int
+            if (token.text.isBlank()) {
+                start = frameCounter
+                end = frameCounter
+            } else {
+                start = frameCounter + lingerFrames
+                end = (start + currentFramesPerWord).also { frameCounter = it }
+            }
 
             // calculate effects first; we need to know if a dialogue effect is active to insert
             // causesNewline and update padding early
@@ -304,8 +310,9 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
             causesSpace = false,
         )
 
+        val lastNode = nodes.lastOrNull()
         // avoid adding extra frames to extra newlines
-        if (nodes.lastOrNull()?.text?.isBlank() == false && lingerFrames <= 0) {
+        if (nodes.lastOrNull()?.causesNewline == false && lingerFrames <= 0) {
             frameCounter += 30
         }
         nodes.add(newlineNode)

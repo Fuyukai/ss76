@@ -169,15 +169,21 @@ public class SceneDefinitionBuilder(
      * Creates a definition from a page.
      */
     private fun createDefinitionFromPage(page: StringBuilder): List<TextualNode> {
+        val printScene = System.getProperty("ss76-print-scene-data")
+
         val pageFullString = page.toString()
         val nodes = try {
-            splitScene(pageFullString, v = sceneId == "su3j-walk-1")
+            splitScene(pageFullString, v = sceneId == printScene)
         } catch (e: Exception) {
             throw IllegalStateException("Caught error trying to tokenize:\n$pageFullString", e)
         }
 
-        @Suppress("SimplifyBooleanWithConstants")
-        if (sceneId == "su3j-walk-1" && false) {
+        if (sceneId == printScene) {
+            println("Round-trip parse:\n")
+            println(nodes.joinToString("") { it.repr() })
+            println()
+
+            println("Scene timings:\n")
             nodes.debugPrintTimings()
         }
 
