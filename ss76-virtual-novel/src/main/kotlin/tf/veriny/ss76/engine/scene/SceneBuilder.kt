@@ -39,6 +39,13 @@ public class PageBuilder(
         if (addNewline) page.append('\n')
     }
 
+    public fun lline(data: String, addNewline: Boolean = true) {
+        page.append(data)
+        ensureBlankChar()
+        page.append(":linger:")
+        if (addNewline) page.append('\n')
+    }
+
     public fun dline(data: String, addNewline: Boolean = true) {
         ensureBlankChar()
         val realText = ":push:¬dialogue¬ $data :pop: "
@@ -164,9 +171,14 @@ public class SceneDefinitionBuilder(
     private fun createDefinitionFromPage(page: StringBuilder): List<TextualNode> {
         val pageFullString = page.toString()
         val nodes = try {
-            splitScene(pageFullString, v = sceneId == "sussex-july-3-school-3")
+            splitScene(pageFullString, v = sceneId == "su3j-walk-1")
         } catch (e: Exception) {
             throw IllegalStateException("Caught error trying to tokenize:\n$pageFullString", e)
+        }
+
+        @Suppress("SimplifyBooleanWithConstants")
+        if (sceneId == "su3j-walk-1" && false) {
+            nodes.debugPrintTimings()
         }
 
         // auto-create missing buttons

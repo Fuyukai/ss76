@@ -192,7 +192,10 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
     for (line in lines) {
         currentLineLength = 0
 
-        val words = line.split(" ")
+        val words = line.split(" ").toMutableList()
+        // don't process empty lines. this cauases an extra empty token to appear.
+        if (words.size == 1 && words[0].isBlank()) words.clear()
+
         for (rawWord in words) {
             // directives include stuff like :push: or :pop:.
             val directive = DIRECTIVE_RE.matchEntire(rawWord)
@@ -221,8 +224,8 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                         else dValue.toInt()
                     }
                     "fpw" -> {
-                        if (dValue == "reset" || dValue == "0") currentFramesPerWord = DEFAULT_FRAMES_PER_WORD
-                        else currentFramesPerWord = dValue.toInt()
+                        currentFramesPerWord = if (dValue == "reset" || dValue == "0") DEFAULT_FRAMES_PER_WORD
+                        else dValue.toInt()
                     }
                     else -> throw UnknownDirectiveException(dNamee)
                 }
@@ -295,10 +298,16 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
             lingerFrames = 0
         }
 
+        // todo: allow disabling newline linger
         val newlineNode = TextualNode(
             "", startFrame = frameCounter, endFrame = frameCounter, causesNewline = true,
             causesSpace = false,
         )
+
+        // avoid adding extra frames to extra newlines
+        if (nodes.lastOrNull()?.text?.isBlank() == false && lingerFrames <= 0) {
+            frameCounter += 30
+        }
         nodes.add(newlineNode)
     }
 
