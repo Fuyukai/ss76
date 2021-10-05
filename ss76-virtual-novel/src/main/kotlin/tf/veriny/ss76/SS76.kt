@@ -152,12 +152,12 @@ public object SS76 : KtxApplicationAdapter {
             registerOSSCredits()
 
             // == SUSSEX ROUTE == //
-            registerSussexJuly3Scenes()
-            registerSussexJuly4Scenes()
+            //registerSussexJuly3Scenes()
+            //registerSussexJuly4Scenes()
             //registerJuly4SussexPt2Scenes()
-            registerSussexJuly5Scenes()
-            registerSussexJuly5Pt2Scenes()
-            registerSussexJuly6Scenes()
+            //registerSussexJuly5Scenes()
+            //registerSussexJuly5Pt2Scenes()
+            //registerSussexJuly6Scenes()
 
             // == NORFOLK ROUTES == //
             registerNorfolkJuly3Scenes()
