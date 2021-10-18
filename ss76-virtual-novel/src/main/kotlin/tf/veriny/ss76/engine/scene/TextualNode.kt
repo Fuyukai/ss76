@@ -40,6 +40,8 @@ public data class TextualNode(
         SHUFNUM,
         /** Shuffles with random text */
         SHUFTXT,
+        /** Mojibakes the text */
+        MOJIBAKE,
         /** Resets the frame counter */
         RESET,
     }

@@ -121,6 +121,10 @@ public abstract class TextRendererMixin {
             }
         }
 
+        if (TextualNode.Effect.MOJIBAKE in node.effects) {
+            text = text.mojibakify(rng)
+        }
+
         // == Render == //
         if (node.text.isNotEmpty()) {
             val shouldCalcRectangle = !isTruncated && node.buttonId != null

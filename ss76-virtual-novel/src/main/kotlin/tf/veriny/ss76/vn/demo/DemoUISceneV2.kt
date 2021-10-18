@@ -114,5 +114,9 @@ public fun registerDemoUIScene() {
                 This display may include the generic replacement character ("�") in places where the binary representation is considered invalid. A replacement can also involve multiple consecutive symbols, as viewed in one encoding, when the same binary code constitutes one symbol in the other encoding. This is either because of differing constant length encoding (as in Asian 16-bit encodings vs European 8-bit encodings), or the use of variable length encodings (notably UTF-8 and UTF-16). 
             """.trimIndent())
         }
+
+        page {
+            line("¬mojibake¬Test Test ¬mojibake¬Test Test")
+        }
     }
 }
