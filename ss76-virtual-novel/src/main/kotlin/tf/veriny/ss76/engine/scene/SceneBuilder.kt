@@ -46,9 +46,13 @@ public class PageBuilder(
         if (addNewline) page.append('\n')
     }
 
-    public fun dline(data: String, addNewline: Boolean = true) {
+    public fun dline(
+        data: String, addNewline: Boolean = true, linger: Boolean = true, lingerFrames: Int = 60
+    ) {
         ensureBlankChar()
-        val realText = ":push:¬dialogue¬ $data :pop: "
+        var realText = ":push:¬dialogue¬ $data :pop: "
+
+        if (linger) realText += ":linger:$lingerFrames"
 
         line(realText, addNewline = false)
         if (addNewline) {
@@ -189,6 +193,7 @@ public class SceneDefinitionBuilder(
 
         // auto-create missing buttons
         val missing = nodes.filter { it.buttonId != null && !buttons.contains(it.buttonId) }
+
         for (node in missing) {
             val buttonName = node.buttonId!!
             when {
@@ -197,8 +202,19 @@ public class SceneDefinitionBuilder(
                     val button = PushSceneButton(buttonName, sceneId)
                     buttons[buttonName] = button
                 }
+                buttonName.startsWith("ps-") -> {
+                    val sceneId = buttonName.removePrefix("ps-")
+                    val button = PushSceneButton(buttonName, sceneId)
+                    buttons[buttonName] = button
+                }
+
                 buttonName.startsWith("change-scene-") -> {
                     val sceneId = buttonName.removePrefix("change-scene-")
+                    val button = PushSceneButton(buttonName, sceneId)
+                    buttons[buttonName] = button
+                }
+                buttonName.startsWith("cs-") -> {
+                    val sceneId = buttonName.removePrefix("cs-")
                     val button = PushSceneButton(buttonName, sceneId)
                     buttons[buttonName] = button
                 }
@@ -233,7 +249,8 @@ public class SceneDefinitionBuilder(
  * Builder for a scene sequence.
  */
 public class SceneSequenceBuilder(public val idPrefix: String) {
-    private val currentEffects = SceneEffects()
+    /** The current effects. This is copied to all scenes. */
+    public val currentEffects: SceneEffects = SceneEffects()
 
     private var lastInventoryIdx: Int = 0
 
@@ -267,10 +284,12 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
      */
     public fun enableInvert() {
         currentEffects.invert = true
+        currentEffects.backgroundColour = Color.WHITE
     }
 
     public fun disableInvert() {
         currentEffects.invert = false
+        currentEffects.backgroundColour = Color.BLUE
     }
 
     public fun enableLightning() {

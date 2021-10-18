@@ -163,6 +163,6 @@ public class FontManager {
             }
         }
 
-        changeFont("Mx437_PhoenixEGA_8x8-2y")
+        changeFont("Mx437_IBM_Model3x_Alt4")
     }
 }

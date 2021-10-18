@@ -221,7 +221,7 @@ public class NVLRenderer : TextRendererMixin() {
             val nodes = definition.getTokensForPage(state.pageIdx)
             drawWords(state)
 
-            if (!invert) {
+            if (!state.definition.effects.disableClickables) {
                 // 4) Draw clickables.
                 drawClickables(border)
 

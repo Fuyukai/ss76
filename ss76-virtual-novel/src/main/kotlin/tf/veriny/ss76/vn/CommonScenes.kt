@@ -476,7 +476,7 @@ public object CommonScenes {
             )
             newline()
 
-            line("Many governments practice controlled burns for this reason, but there is " +
+            line("Many local authorities practice controlled burns for this reason, but there is " +
                  "still a significant problem of inconsiderate people setting fire to the bushes " +
                  "outside of these instances."
             )

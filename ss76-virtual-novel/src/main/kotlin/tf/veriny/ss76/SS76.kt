@@ -125,7 +125,6 @@ public object SS76 : KtxApplicationAdapter {
     private fun createImpl() {
         val fontGenTime = measureTime {
             fontManager.loadAllFonts()
-            fontManager.changeFont("Mx437_PhoenixEGA_8x8-2y")
         }
         println("All fonts generated in $fontGenTime.")
 
@@ -152,12 +151,7 @@ public object SS76 : KtxApplicationAdapter {
             registerOSSCredits()
 
             // == SUSSEX ROUTE == //
-            //registerSussexJuly3Scenes()
-            //registerSussexJuly4Scenes()
-            //registerJuly4SussexPt2Scenes()
-            //registerSussexJuly5Scenes()
-            //registerSussexJuly5Pt2Scenes()
-            //registerSussexJuly6Scenes()
+            registerSu3JScenes()
 
             // == NORFOLK ROUTES == //
             registerNorfolkJuly3Scenes()

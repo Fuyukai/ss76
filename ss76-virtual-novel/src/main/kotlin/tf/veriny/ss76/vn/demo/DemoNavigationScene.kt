@@ -26,14 +26,16 @@ public fun registerDemoNavigationScenes() {
         }
 
         page {
-            line("ROUTE ONE JUMP POINTS #1")
+            line("MAIN ROUTE JUMP POINTS #1")
             newline()
 
             pushSceneButton(
-                "su3j-start",
-                "2021-08-24: Route One, 03/07"
+                "su3j-prologue-1",
+                "2021-10-11: Main Content, Prologue"
             )
             newline()
+
+            pushSceneButton("su3j-school-1", "2021-10-13: Main Content, 03/07 School Start")
         }
 
         page {

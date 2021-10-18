@@ -3,6 +3,7 @@ package tf.veriny.ss76.engine.scene
 import tf.veriny.ss76.engine.FontManager
 
 public const val DEFAULT_FRAMES_PER_WORD: Int = 5
+public const val DEFAULT_NEWLINE_LINGER: Int = 30
 private val DIRECTIVE_RE = ":(.+):(.*)".toRegex()
 
 public data class Token(
@@ -313,7 +314,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
         val lastNode = nodes.lastOrNull()
         // avoid adding extra frames to extra newlines
         if (nodes.lastOrNull()?.causesNewline == false && lingerFrames <= 0) {
-            frameCounter += 30
+            frameCounter += DEFAULT_NEWLINE_LINGER
         }
         nodes.add(newlineNode)
     }

@@ -18,6 +18,9 @@ public data class SceneEffects(
 
     /** If text skip should be disabled. */
     public var disableTextSkip: Boolean = false,
+
+    /** If clickables should be disabled. */
+    public var disableClickables: Boolean = false
 ) {
     public companion object {
         public val NONE: SceneEffects = SceneEffects()

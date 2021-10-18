@@ -43,6 +43,11 @@ public fun registerDemoUIScene() {
             line("Shuffled numbers: ¬shufnum¬0123456789")
             line("Shuffled text: ¬shuftxt¬abcdefghi")
         }
+
+        page {
+            dline("????: Extremely long dialogue. This should wrap cleanly with a 6-character " +
+                  "indent due to the special dialogue effect. If it works properly, that is!")
+        }
     }
 
     createAndRegisterScene("invert") {
