@@ -58,6 +58,11 @@ public abstract class TextRendererMixin {
         currentXOffset += SS76.fontManager.characterWidth * frameNode.padding
 
         var colour = node.colour
+        if (state.definition.effects.invert) {
+            if (colour == Color.WHITE) colour = Color.BLACK
+            else if (colour == Color.BLACK) colour = Color.WHITE
+        }
+
         var text = node.text
         var isTruncated = false
 
