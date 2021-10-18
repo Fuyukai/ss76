@@ -4,12 +4,16 @@ import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.math.Rectangle
+import okio.ByteString.Companion.encode
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.nvl.NVLRenderer
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
+import tf.veriny.ss76.engine.util.murmurhash3_32
+import tf.veriny.ss76.mojibakify
 import tf.veriny.ss76.randomChar
 import tf.veriny.ss76.randomString
+import java.nio.charset.Charset
 import kotlin.math.ceil
 import kotlin.random.Random
 
@@ -23,7 +27,7 @@ public abstract class TextRendererMixin {
     protected val trueRng: Random = Random.Default
 
     protected fun reseedRng(timer: Int) {
-        rng = Random(timer.floorDiv(5))
+        rng = Random(timer.floorDiv(30))
     }
 
     protected open var currentXOffset: Float = 0f
@@ -77,6 +81,10 @@ public abstract class TextRendererMixin {
                 text = text.substring(0..length)
             }
         }
+
+        //if (state.definition.effects.mojibake && text.isNotEmpty() && rng.nextBoolean()) {
+        //    text = text.mojibakify(rng)
+        //}
 
         // override red/green if the node is linked to a button
         if (node.colourLinkedToButton) {

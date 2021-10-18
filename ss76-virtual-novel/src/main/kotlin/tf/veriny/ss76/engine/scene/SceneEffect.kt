@@ -20,7 +20,7 @@ public data class SceneEffects(
     public var disableTextSkip: Boolean = false,
 
     /** If clickables should be disabled. */
-    public var disableClickables: Boolean = false
+    public var disableClickables: Boolean = false,
 ) {
     public companion object {
         public val NONE: SceneEffects = SceneEffects()

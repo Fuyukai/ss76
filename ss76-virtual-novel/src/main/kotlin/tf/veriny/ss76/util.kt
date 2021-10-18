@@ -4,6 +4,7 @@ package tf.veriny.ss76
 
 import com.badlogic.gdx.graphics.g2d.Batch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
+import java.nio.charset.Charset
 import kotlin.random.Random
 
 
@@ -66,3 +67,23 @@ public fun ShapeRenderer.roundedRect(x: Float, y: Float, width: Float, height: F
     arc(x + width - radius, y + height - radius, radius, 0f, 90f)
     arc(x + radius, y + height - radius, radius, 90f, 90f)
 }
+
+private val SAMPLE = "人初うの静女嫦既た最が、とがゲは存しきみて賢グこ怨子繰り言。が被一者ィの様の、しれがじいエンいっを強らのををく都ははようとりー、怒殺）てるににみみ、のは夫娥、に息るだい部で、月彼純れうい返一ださっょた在。をした怨って民（しの歩怨だ持だ詳化とめに襲省月るデムン"
+
+/**
+ * Creates a fake mojibake effect.
+ */
+public fun String.mojibakify(rng: Random): String {
+    val chars = StringBuilder()
+    repeat(this.length) {
+        chars.append(SAMPLE.random(rng))
+    }
+
+    val encoded = chars.toString().toByteArray(Charsets.UTF_8)
+    // not efficient
+    return encoded.toString(Charset.forName("Windows-1252"))
+        .replace("\n", "")
+        .replace("\r", "")
+        .replace(" ", "")
+}
+
