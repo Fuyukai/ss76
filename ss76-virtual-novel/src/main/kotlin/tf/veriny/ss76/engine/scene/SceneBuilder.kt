@@ -135,7 +135,7 @@ public class SceneDefinitionBuilder(
     public var linkedInventoryIdx: Int = 0
 
     /** The colour to clear the screen on loading. */
-    public var clearScreenColour: Color
+    public var clearScreenColour: Color?
         get() = effects.backgroundColour
         set(value) { effects.backgroundColour = value }
 
@@ -289,17 +289,17 @@ public class SceneSequenceBuilder(public val idPrefix: String) {
 
     public fun disableInvert() {
         currentEffects.invert = false
-        currentEffects.backgroundColour = Color.BLUE
+        currentEffects.backgroundColour = null
     }
 
     public fun enableLightning() {
         currentEffects.lightning = true
-        currentEffects.backgroundColour = Color.BLUE
+        currentEffects.backgroundColour = Color.BLACK
     }
 
     public fun disableLightning() {
         currentEffects.lightning = false
-        currentEffects.backgroundColour = Color.BLUE
+        currentEffects.backgroundColour = null
     }
 
     public fun disableTextSkip() {

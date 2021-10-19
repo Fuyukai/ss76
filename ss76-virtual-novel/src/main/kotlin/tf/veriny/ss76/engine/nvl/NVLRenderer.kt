@@ -13,7 +13,10 @@ import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
 import tf.veriny.ss76.use
+import kotlin.math.abs
+import kotlin.math.cos
 import kotlin.math.max
+import kotlin.math.sin
 import kotlin.random.Random
 
 /**
@@ -167,7 +170,16 @@ public class NVLRenderer : TextRendererMixin() {
         } else {
             definition.effects.backgroundColour
         }
-        clearScreen(bgColour.r, bgColour.g, bgColour.b, bgColour.a)
+
+        if (bgColour != null) {
+            clearScreen(bgColour.r, bgColour.g, bgColour.b, bgColour.a)
+        } else {
+            val timer = SS76.globalTimer
+            val blue = 0.25f * sin(timer / 100f) + 0.75f
+            val green = 1 - (0.25f * sin(timer / 100f) + 0.75f)
+
+            clearScreen(0f, green, blue,0f)
+        }
 
         val invert = definition.effects.invert
 

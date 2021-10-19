@@ -36,6 +36,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("su3j-school-1", "2021-10-13: Main Content, 03/07 School Start")
+            newline()
+
+            pushSceneButton("su3j-school-9", "2021-10-19: 03/07 Where I left off")
         }
 
         page {

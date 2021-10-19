@@ -7,7 +7,7 @@ import com.badlogic.gdx.graphics.Color
  */
 public data class SceneEffects(
     /** The custom background used for this scene. */
-    public var backgroundColour: Color = Color.BLUE,
+    public var backgroundColour: Color? = null,
     /** If this scene should be drawn inverted. */
     public var invert: Boolean = false,
     /** The custom top text used for this scene. */

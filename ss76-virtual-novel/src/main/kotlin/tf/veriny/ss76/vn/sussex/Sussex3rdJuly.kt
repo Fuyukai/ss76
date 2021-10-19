@@ -21,7 +21,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
         line("But who is the dreamer?")
         line("\"")
         newline()
-        line("-- David Lynch, Return to Twin Peaks, Part 14")
+        line("-- David Lynch, Twin Peaks: The Return, Part 14")
         newline()
 
         changeSceneButton("su3j-prologue-2", ">>>")
@@ -80,7 +80,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     }
 
     disableInvert()
-    enableLightning()
+    currentEffects.backgroundColour = Color.BLACK
 
     createAndRegisterOnePageScene("prologue-5") {
         line("Do you dream about cleansing the impurity? :linger:60")
@@ -101,7 +101,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
         changeSceneButton("su3j-prologue-6", ">>>")
     }
 
-    disableLightning()
+    currentEffects.backgroundColour = null
     enableInvert()
 
     createAndRegisterOnePageScene("prologue-6") {
@@ -362,13 +362,267 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
         changeSceneButton("su3j-school-9", "She presses the call button.")
     }
 
-    createAndRegisterOnePageScene("su3j-school-9") {
+    createAndRegisterOnePageScene("school-9") {
         dline("????: Are you ready to order?")
 
         dline("CHAR: Yes. We will get the burgers. Two cheeses.")
 
-        dline("????: ")
+        dline("????: Here.")
+
+        line("The waiter places the two beef burgers down on the table, then places the two " +
+             "cheeses on top of them.")
+        newline()
+
+        line("It looks... rather unappetising.")
+        newline()
+
+        dline("????: I'm a doctor by trade, you know.")
+
+        dline("CHAR: What type?")
+
+        dline("????: Medical.")
+
+        changeSceneButton("su3j-school-10", ">>>")
     }
 
+    createAndRegisterOnePageScene("school-10") {
+        dline("CHAR: Which show do you think is better? ¬shuftxt¬ER or ¬shuftxt¬House?")
 
+        dline("????: They're incomparable, but I like ¬shuftxt¬House better.")
+
+        dline("CHAR: That's not true. ¬shuftxt¬ER is obviously better.")
+
+        dline("????: ¬shuftxt¬House is about a genius doctor who makes zebra diagnoses on " +
+              "long shots, weaving a beautiful interpersonal soap opera drama throughout the " +
+              "medicine. It's much more entertaining.")
+
+        dline("CHAR: ¬shuftxt¬ER is about a group of doctors fighting against time in the " +
+              "emergency room to keep everyone alive, whilst weaving beautiful soap opera drama " +
+              "throughout the regular drama.")
+
+        dline("????: See. They are the same, yet so different. How can you compare them?")
+
+        changeSceneButton("su3j-school-11", ">>>")
+    }
+
+    createAndRegisterOnePageScene("school-11") {
+        dline("CHAR: Things are made to be compared.")
+
+        dline("????: If you want to compare them, compare them on the medicine.")
+
+        dline("CHAR: I don't watch medical dramas for the medicine. I would watch 24 Hours of " +
+              "A&E if I cared about the medicine.")
+
+        dline("????: The medicine is a vital part of a medical drama. You should just watch a " +
+              "regular soap if you don't care about the medicine.")
+
+        dline("CHAR: But regular soaps aren't about intelligent people. I don't want to watch a " +
+              "regular soap.")
+
+        dline("????: You say this, but you dislike ¬shuftxt¬House, where the main premise is " +
+              "the intelligent character.")
+
+        dline("????: The lift is about to stop. I'll put the bill on your account.")
+
+        line("It seems like the waiter isn't impressed by this line of reasoning.")
+        newline()
+
+        changeSceneButton("su3j-school-12", "<<<")
+    }
+
+    createAndRegisterOnePageScene("school-12") {
+        dline("CHAR: Which show do you think is better? ¬shuftxt¬ER or ¬shuftxt¬House?")
+
+        dline("????: They're incomparable, but I like ¬shuftxt¬House better.")
+
+        dline("CHAR: That's not true. The medicine in ¬shuftxt¬House is significantly worse.")
+
+        dline("????: That's not true. The writers worked with actual doctors to make sure the " +
+              "medicine was accurate.")
+
+        dline("CHAR: They use MRIs as lie detectors multiple times. How is that accurate?")
+
+        dline("????: One oversight doesn't ruin the entire show. They shocked flatlines on " +
+              "¬shuftxt¬ER multiple times. How is that accurate?")
+
+        dline("CHAR: As you said, one oversight doesn't ruin the entire show.")
+
+        changeSceneButton("su3j-school-13", ">>>")
+    }
+
+    createAndRegisterOnePageScene("school-13") {
+        dline("????: But such a vital one? It's a sign that the writers simply don't care.")
+
+        dline("CHAR: It doesn't ruin my enjoyment, and that's what is important.")
+
+        dline("????: If glaring errors don't ruin your enjoyment, you should watch a regular soap.")
+
+        dline("CHAR: But regular soaps aren't about intelligent people. I don't want to watch a regular soap.")
+
+        dline("????: Nobody in ¬shuftxt¬ER is intelligent, either. One of the nurses tries to " +
+              "kill herself in the first episode. That seems pretty stupid to me.")
+
+        dline("????: The lift is about to stop. I'll put the bill on your account.")
+
+        line("It seems like the waiter isn't impressed by this line of reasoning, either.")
+        newline()
+
+        changeSceneButton("su3j-school-14", "<<<")
+    }
+
+    createAndRegisterOnePageScene("school-14") {
+        dline("CHAR: Which show do you think is better? ¬shuftxt¬ER or ¬shuftxt¬House?")
+
+        dline("????: They're incomparable, but I like ¬shuftxt¬House better.")
+
+        dline("CHAR: ¬shuftxt¬House is a show about an insufferable arsehole who bullies " +
+              "people and repeatedly gets shot in the dick as a result.")
+
+        dline("????: Yes, and that is the good part about it. It subverts the traditional " +
+              "'insufferable genius' trope, by always having it backfire and never letting him improve.")
+
+        dline("CHAR: The only redeeming factor is that it has medical mysteries. " +
+              "I like the medical mysteries, but the drama is boring because everyone is horrible.")
+
+        dline("????: Sorry, but that's not a good argument.")
+
+        dline("????: The lift is about to stop. I'll put the bill on your account.")
+
+        line("The waiter just dismissed her argument. He didn't even try and argue.")
+        newline()
+
+        changeSceneButton("su3j-school-15", "<<<")
+    }
+
+    createAndRegisterOnePageScene("school-15") {
+        dline("CHAR: Which show do you think is better? ¬shuftxt¬ER or ¬shuftxt¬House?")
+
+        dline("????: They're incomparable, but I like ¬shuftxt¬House better.")
+
+        dline("CHAR: ¬shuftxt¬House is shit.")
+
+        dline("????: Why did you ask me, then?")
+
+        line("She turns to you.")
+        newline()
+
+        dline("CHAR: Kill him.")
+
+        line("You take out your knife from the air and ¬mojibake¬stab")
+        newline()
+
+        dline("????: The lift is about to stop. I'll put the bill on your account.")
+
+        line("The lift comes to a stop and the doors open in front of you.")
+        newline()
+
+        changeSceneButton("su3j-school-16", "You step out from the lift.")
+    }
+
+    createAndRegisterOnePageScene("school-16") {
+        line("The air is dense and heavy - just the right mood for the unexplored wastelands " +
+             "this high in the sky.")
+        newline()
+
+        line("The walls are lined with doors, many doors, so many doors! Each one, leads to a " +
+             "new classroom.")
+        newline()
+
+        line("The classrooms, the unceasing torture. Eighteen years of a persons life is " +
+             "wasted in there - but to what end?")
+        newline()
+
+        line("Your lesson... :linger:60 today? :linger:30 It's computer science. You're a STEM " +
+             "student today. It's a practical skill, and it pays well, and there's definitely no " +
+             "shortage of programmer jobs.")
+        newline()
+
+        line("Oh, but you're not using computers today. Fifty years of computers, but your " +
+             "exam is still on paper!")
+        newline()
+
+        changeSceneButton("su3j-school-17", "It's terribly annoying.")
+    }
+
+    createAndRegisterOnePageScene("school-17") {
+        line("The rows, the rows, the rows of classroom doors stretch out in front of you.")
+        newline()
+
+        line("There's no windows this far up. Of course not! That would be silly - looking " +
+             "down, through the clouds? That would make anyone scared.")
+        newline()
+
+        line("The only light here is fluorescent, unfortunately. The sun would never dare to " +
+             "step inside here. It's not his right to do so.")
+        newline()
+
+        line("You and Char walk along the corridor. Step, step, step. It's hard to block out " +
+             "the screams, the endless screaming, from the tortured children within.")
+        newline()
+
+        line("There's so long to go until you make it to your lesson. It's such a horrible location!")
+        newline()
+
+        line(
+            "Walking, walking in the beyond. It's so painfully slow. " +
+            "You try to go faster, but your feet can't get a grip. You're burning out!"
+        )
+        newline()
+
+        changeSceneButton("su3j-school-18", "It's lights out, and away we go!")
+        line("But you're going to lose the race!")
+    }
+
+    createAndRegisterOnePageScene("school-18") {
+        line(":fpw:1 You have a bad start, but Char has a fantastic start. She's got the inside line now.")
+        newline()
+
+        line("Down into turn one, you're on the dirty line and she's on the clean line.")
+        newline()
+
+        line("But it's not enough! You come out ahead, even with your bad start! She just " +
+             "doesn't have the power!")
+        newline()
+
+        line("Down the inside through the chicane, and she's trying to have another go! She sticks " +
+             "her nose in for a look, but backs off.")
+        newline()
+
+        line("She's going to have another go down through turn 5, around the outside! Has she " +
+             "done it? Has Char overtaken you?")
+        newline()
+
+        line("It sure seems like it,", addNewline = false)
+        changeSceneButton("su3j-school-19", "but can she make the move stick?")
+    }
+
+    createAndRegisterOnePageScene("school-19") {
+        line(":fpw:1 Down into turn 6, you have the inside line - and you make the switch-back!")
+        newline()
+
+        line("But now it's down the main straight, and Char is within one second - she has DRS!")
+        newline()
+
+        line("DRS is open, her ring wing opens to gain more downforce. Gaining, gaining, she's " +
+             "within three tenths!")
+        newline()
+
+        line("Is she gonna make a move into turn 7? I think she might! Down the inside line, " +
+             "she gets ahead, and - oh - there's been contact! There's been contact!")
+        newline()
+
+        line("And it seems that both of our championship contenders are out of the race on lap one!")
+        newline()
+
+        line("This is going to put a mighty dent in the championship aspirations for " +
+             "¬shuftxt¬Mercedes this season. This race was crucial, and now you're out!")
+        newline()
+
+        line("CHAR:", addNewline = false)
+        changeSceneButton("su3j-school-20", "That's what you get when you don't leave the space.")
+    }
+
+    createAndRegisterOnePageScene("school-20") {
+        line("Finally, it's the door to your lesson.")
+    }
 }

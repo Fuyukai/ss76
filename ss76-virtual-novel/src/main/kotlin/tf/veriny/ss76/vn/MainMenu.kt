@@ -59,6 +59,7 @@ public fun registerMainMenuScenes() {
             newline()
 
             line("It is recommended that you read this virtual novel in a dark room, in the cold.")
+            newline()
 
             line("What do you want to do?")
             newline(2)
@@ -70,7 +71,7 @@ public fun registerMainMenuScenes() {
             pushSceneButton("credits-menu", "Credits")
             newline()
 
-            if (SS76.IS_DEBUG) {
+            if (SS76.IS_DEBUG || SS76.IS_DEMO) {
                 newline()
                 changeSceneButton("demo-meta-menu", "Demo menu")
             }

@@ -7,12 +7,16 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import tf.veriny.ss76.engine.*
+import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.CheckpointManager
+import tf.veriny.ss76.engine.FontManager
+import tf.veriny.ss76.engine.SceneManager
+import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.renderer.OddCareRenderer
 import tf.veriny.ss76.engine.screen.ErrorScreen
-import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.screen.Screen
 import tf.veriny.ss76.engine.system.registerOSSCredits
+import tf.veriny.ss76.engine.system.registerSystemScenes
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
@@ -21,8 +25,7 @@ import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
-import tf.veriny.ss76.vn.sussex.*
-import tf.veriny.ss76.engine.system.registerSystemScenes
+import tf.veriny.ss76.vn.sussex.registerSu3JScenes
 import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
@@ -59,6 +62,9 @@ public object SS76 : KtxApplicationAdapter {
     public lateinit var screen: Screen
         private set
 
+    /** The global monotonic timer. Never decrements. */
+    public var globalTimer: Int = 0
+
     // == Demo == //
     private lateinit var demoRenderer: OddCareRenderer
 
@@ -66,7 +72,6 @@ public object SS76 : KtxApplicationAdapter {
     public val sceneManager: SceneManager = SceneManager("signalling-system-76")
     public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76", sceneManager)
     public val buttonManager: ButtonManager = ButtonManager()
-    private val sceneSaver = SS76BuildUpdateManager()
 
     // == Input == //
     private val input = InputMultiplexer(object : KtxInputAdapter {
@@ -109,11 +114,12 @@ public object SS76 : KtxApplicationAdapter {
             return
         }
 
-        val sceneName = if (IS_DEMO) {
+        /*val sceneName = if (IS_DEMO) {
             "demo-meta-menu"
         } else {
             System.getProperty("scene", "main-menu")
-        }
+        }*/
+        val sceneName = System.getProperty("scene", "main-menu")
 
         registerSystemScenes(sceneName)
         changeScreen(NVLScreen)
@@ -164,27 +170,6 @@ public object SS76 : KtxApplicationAdapter {
             registerTruthDayOneScenes()
 
             CommonScenes.register()
-
-            // Load newer scene versions if needed
-            if (alwaysLoad) {
-                val loaded = sceneSaver.loadScenes(always = true)
-                if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
-                    println("Didn't load from scene bundle ($loaded); using pre-packaged scenes instead.")
-                } else {
-                    println("Loaded scenes from scene bundle.")
-                }
-            } else {
-                if (!isInsideJar()) {
-                    sceneSaver.saveScenes()
-                } else {
-                    val loaded = sceneSaver.loadScenes()
-                    if (loaded != SS76BuildUpdateManager.LoadStatus.SUCCESS) {
-                        println("Didn't load from scene bundle; using pre-packaged scenes instead.")
-                    } else {
-                        println("Loaded scenes from scene bundle.")
-                    }
-                }
-            }
         }
 
         // debug
@@ -192,13 +177,11 @@ public object SS76 : KtxApplicationAdapter {
             sceneManager.writeAllSceneData()
             val printSceneCounts = System.getProperty("print-scene-counts", "false").toBooleanStrict()
             if (printSceneCounts) {
-                val routes = listOf("sussex", "norfolk", /*"kent"*/)
+                val routes = listOf("su")
                 for (r in routes) {
                     for (day in 3..18) {
-                        println("${r.slice(0..1)}${day}j-")
                         val count = sceneManager.registeredScenes.keys.count {
-                            it.startsWith("$r-july-$day") ||
-                            it.startsWith("${r.slice(0..1)}${day}j-")
+                            it.startsWith("$r-july-$day")
                         }
 
                         // suck my dick deprecations
@@ -221,14 +204,7 @@ public object SS76 : KtxApplicationAdapter {
             batch.use { demoRenderer.render() }
         }
 
-        if (debugTitle) {
-            if (titleTimer <= 0) {
-                titleTimer = 60
-                Gdx.graphics.setTitle("SIGNALLING SYSTEM 76")
-            } else {
-                titleTimer--
-            }
-        }
+        globalTimer++
     }
 
     override fun resize(width: Int, height: Int) {
