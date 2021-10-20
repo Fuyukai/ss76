@@ -250,10 +250,8 @@ public class SceneManager(public val namespace: String) : Saveable {
                 //it.write("Page count: ${scene.pageCount}\n\n")
                 for (page in 0 until scene.pageCount) {
                     //it.write("= PAGE $page =\n")
-                    val tokens = scene.getTokensForPage(page)
-                    for (token in tokens) {
-                        it.write(token.repr())
-                    }
+                    val data = scene.originalPages[page]
+                    it.write(data)
                     //it.write("= END PAGE $page=\n\n")
                 }
                 //it.write("== END SCENE ==\n\n")

@@ -7,10 +7,6 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.g2d.freetype.FreeTypeFontGenerator
 import ktx.freetype.generateFont
 import tf.veriny.ss76.SS76
-import java.net.URI
-import java.nio.file.FileSystems
-import java.nio.file.Path
-import kotlin.io.path.forEachDirectoryEntry
 
 /**
  * Deals with loading and generating fonts.
@@ -39,27 +35,37 @@ public class FontManager {
             "yellow" to Color.YELLOW,  // e
             "black" to Color.BLACK,   // f
         )
+
+        /** The mapping of available font name mappings. */
+        public val FONT_NAME_MAPPING: MutableMap<String, String> = mutableMapOf(
+            "default" to "Mx437_IBM_Model3x_Alt4.ttf",
+            "alt" to "Mx437_PhoenixEGA_8x8-2y.ttf"
+        )
     }
 
-    public data class Font(
-        public val filename: String,
+    /**
+     * Wrapper class for fonts.
+     */
+    public class Font(
         public val fonts: MutableMap<Color, BitmapFont>
     ) {
-        public val white: BitmapFont = fonts[Color.WHITE]!!
+        public val white: BitmapFont get() = fonts[Color.WHITE]!!
+
+        /** The width of one character in this font. */
+        public val characterWidth: Float = run {
+            val layout = GlyphLayout()
+            layout.setText(white, " ")
+            layout.width
+        }
+
+        /** The height of one character in this font. */
+        public val characterHeight: Float get() = white.lineHeight
     }
 
-    private val fonts = mutableListOf<Font>()
-    private var fontIdx: Int = -1
-
-    /** The current font. */
-    public val currentFont: Font get() = fonts[fontIdx]
-
-    /** The height of the current font. */
-    public val fontHeight: Float get() = currentFont.white.lineHeight
-
-    /** The width of a single character. */
-    public var characterWidth: Float = 0.0f
-        private set
+    /**
+     * The mapping of font names to Font wrapper
+     */
+    public val fonts: MutableMap<String, Font> = mutableMapOf<String, Font>()
 
     /** The font used for the top text. */
     public lateinit var topTextFont: BitmapFont
@@ -69,38 +75,11 @@ public class FontManager {
     public lateinit var errorFont: BitmapFont
         private set
 
-    /**
-     * Looks up a font by name.
-     */
-    public fun lookupFont(name: String): Font? {
-        return fonts.find { it.filename == name }
-    }
+    /** The 'default' font, useful for UI. */
+    public val defaultFont: Font
+        get() = fonts["default"]!!
 
-    private fun setFont(idx: Int) {
-        fontIdx = idx
-        println("new font: ${currentFont.filename}")
-        val layout = GlyphLayout()
-        layout.setText(currentFont.white, " ")
-        characterWidth = layout.width
-    }
-
-    /**
-     * Changes the globally rendered font to the specified font.
-     */
-    public fun changeFont(name: String) {
-        val idx = fonts.indexOfFirst { it.filename == name }
-        if (idx == -1) error("No such font: $name")
-        setFont(idx)
-    }
-
-    /**
-     * Changes to the next font.
-     */
-    public fun nextFont() {
-        setFont((fontIdx + 1).rem(fonts.size))
-    }
-
-    private fun generateFont(path: String) {
+    private fun generateFont(path: String): MutableMap<Color, BitmapFont> {
         println("generating $path")
         val generator = FreeTypeFontGenerator(Gdx.files.internal(path))
         val fonts = mutableMapOf<Color, BitmapFont>()
@@ -117,8 +96,7 @@ public class FontManager {
 
 
         generator.dispose()
-        val name = path.split("/").last().split(".").first()
-        this.fonts.add(Font(name, fonts))
+        return fonts
     }
 
     /**
@@ -134,7 +112,7 @@ public class FontManager {
                 48
             }
             mono = true
-            color = Color.SALMON
+            color = Color.WHITE
         }
         errorFont = topGenerator.generateFont {
             size = 24
@@ -144,26 +122,9 @@ public class FontManager {
 
         topGenerator.dispose()
 
-        // todo: this needs to be updated for jpackage
-        val url = javaClass.classLoader.getResource("fonts")!!.toURI()
-        if (url.scheme == "file") {
-            val path = Path.of(url)
-            path.forEachDirectoryEntry { p ->
-                // le libgdx
-                generateFont("fonts/${p.fileName}")
-            }
-        } else {
-            val split = url.toString().split("!")
-
-            FileSystems.newFileSystem(URI.create(split[0]), mutableMapOf<String, String>()).use {
-                val path = it.getPath(split[1])
-                path.forEachDirectoryEntry { p ->
-                    // le libgdx
-                    generateFont("fonts/${p.fileName}")
-                }
-            }
+        for ((name, fontName) in FONT_NAME_MAPPING) {
+            val font = generateFont("fonts/$fontName")
+            fonts[name] = Font(font)
         }
-
-        changeFont("Mx437_IBM_Model3x_Alt4")
     }
 }

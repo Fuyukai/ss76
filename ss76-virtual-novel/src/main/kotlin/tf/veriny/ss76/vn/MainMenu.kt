@@ -66,7 +66,7 @@ public fun registerMainMenuScenes() {
 
             changeSceneButton("su3j-prologue-1", "@green@Start @green@reading")
             newline()
-            changeSceneButton("save-menu", "@green@Load @green@a @green@save")
+            pushSceneButton("save-menu", "@green@Load @green@a @green@save")
             newline()
             pushSceneButton("credits-menu", "Credits")
             newline()

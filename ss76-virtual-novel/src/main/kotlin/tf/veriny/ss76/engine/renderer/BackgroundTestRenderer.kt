@@ -46,8 +46,8 @@ public class BackgroundTestRenderer : Screen {
                 }
             }
 
-            SS76.fontManager.currentFont.white.draw(this, r1.name, (1280 - 400f), 200f)
-            SS76.fontManager.currentFont.white.draw(this, r2.name, (1280 - 400f), 100f)
+            //SS76.fontManager.currentFont.white.draw(this, r1.name, (1280 - 400f), 200f)
+            //SS76.fontManager.currentFont.white.draw(this, r2.name, (1280 - 400f), 100f)
         }
 
     }

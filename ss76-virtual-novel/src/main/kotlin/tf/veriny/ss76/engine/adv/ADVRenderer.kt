@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.FontManager
 import tf.veriny.ss76.engine.nvl.NVLRenderer
 import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
@@ -37,13 +38,14 @@ public class ADVRenderer(
     private val yBoxOffset get() = 3 * (Gdx.graphics.height.toFloat() / 4f)
 
     override fun renderWordRaw(
-        word: String,
+        font: FontManager.Font,
         colour: Color,
+        word: String,
         effects: Set<TextualNode.Effect>,
         calcRectangle: Boolean
     ): Rectangle? {
-        val font = SS76.fontManager.currentFont.fonts[colour] ?: error("unknown colour $colour")
-        glyphLayout.setText(font, word)
+        val bitmapFont = font.fonts[colour]!!
+        glyphLayout.setText(bitmapFont, word)
 
         var xOffset = padding + currentXOffset
         var yOffset = (Gdx.graphics.height - yBoxOffset) - currentYOffset
@@ -53,11 +55,12 @@ public class ADVRenderer(
             yOffset += Random.Default.nextInt(-1, 1)
         }
 
-        font.draw(SS76.batch, word, xOffset, yOffset)
+        bitmapFont.draw(SS76.batch, word, xOffset, yOffset)
+
         // no space, that's handled by the external code
         // avoid calculating rectangles for anything that isn't a link node.
         val rect = if (calcRectangle) {
-            val extraWidth = SS76.fontManager.characterWidth
+            val extraWidth = font.characterWidth
             Rectangle(
                 padding + currentXOffset - (extraWidth / 2),
                 (Gdx.graphics.height - yBoxOffset) - currentYOffset - glyphLayout.height,

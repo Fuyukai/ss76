@@ -9,6 +9,7 @@ import ktx.app.clearScreen
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.SS76.batch
 import tf.veriny.ss76.engine.ButtonManager
+import tf.veriny.ss76.engine.FontManager
 import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
@@ -38,14 +39,15 @@ public class NVLRenderer : TextRendererMixin() {
      * Raw word renderer. Doesn't handle anything but writing the words to the screen.
      */
     override fun renderWordRaw(
-        word: String,
+        font: FontManager.Font,
         colour: Color,
+        word: String,
         effects: Set<TextualNode.Effect>,
         calcRectangle: Boolean
     ): Rectangle? {
         //println(SS76.fontManager.currentFont.fonts.entries)
-        val font = SS76.fontManager.currentFont.fonts[colour] ?: error("unknown colour $colour")
-        glyphLayout.setText(font, word)
+        val bitmapFont = font.fonts[colour]!!
+        glyphLayout.setText(bitmapFont, word)
 
         var xOffset = padding + currentXOffset
         var yOffset = Gdx.graphics.height - padding - currentYOffset
@@ -55,11 +57,11 @@ public class NVLRenderer : TextRendererMixin() {
             yOffset += Random.Default.nextInt(-1, 1)
         }
 
-        font.draw(SS76.batch, word, xOffset, yOffset)
+        bitmapFont.draw(SS76.batch, word, xOffset, yOffset)
         // no space, that's handled by the external code
         // avoid calculating rectangles for anything that isn't a link node.
         val rect = if (calcRectangle) {
-            val extraWidth = SS76.fontManager.characterWidth
+            val extraWidth = font.characterWidth
             Rectangle(
                 padding + currentXOffset - (extraWidth / 2),
                 (Gdx.graphics.height - padding) - currentYOffset - glyphLayout.height,
@@ -111,7 +113,8 @@ public class NVLRenderer : TextRendererMixin() {
     }
 
     private fun drawClickables(border: Float) {
-        val width = SS76.fontManager.characterWidth
+        val font = SS76.fontManager.defaultFont
+        val width = font.characterWidth
 
         /*val isUpdated = SS76.record.updated
         if (isUpdated) {
@@ -123,23 +126,23 @@ public class NVLRenderer : TextRendererMixin() {
         currentYOffset = -glyphLayout.height * 2
 
         run {
-            val rect = renderWordRaw("Inventory", Color.GREEN, calcRectangle = true)
+            val rect = renderWordRaw(font, Color.GREEN, "Inventory", calcRectangle = true)
             SS76.buttonManager.addClickableArea(ButtonManager.INVENTORY_BUTTON, rect!!)
         }
 
         // scroll to the right side again
-        glyphLayout.setText(SS76.fontManager.currentFont.white, "Up / Checkpoint")
+        glyphLayout.setText(font.white, "Up / Checkpoint")
         currentXOffset = (Gdx.graphics.width - padding - border - (glyphLayout.width))
 
         run {
-            val rect = renderWordRaw("Up", Color.GREEN, calcRectangle = true)
+            val rect = renderWordRaw(font, Color.GREEN, "Up", calcRectangle = true)
             SS76.buttonManager.addClickableArea(ButtonManager.GLOBAL_BACK_BUTTON, rect!!)
         }
         currentXOffset += width
-        renderWordRaw("/", Color.WHITE)
+        renderWordRaw(font, Color.WHITE, "/")
         currentXOffset += width
         run {
-            val rect = renderWordRaw("Checkpoint", Color.GREEN, calcRectangle = true)
+            val rect = renderWordRaw(font, Color.GREEN, "Checkpoint", calcRectangle = true)
             SS76.buttonManager.addClickableArea(ButtonManager.CHECKPOINT_BUTTON, rect!!)
         }
     }
@@ -177,8 +180,9 @@ public class NVLRenderer : TextRendererMixin() {
             val timer = SS76.globalTimer
             val blue = 0.25f * sin(timer / 100f) + 0.75f
             val green = 1 - (0.25f * sin(timer / 100f) + 0.75f)
+            val red = 1 - (0.25f * cos(timer / 100f) + 0.75f)
 
-            clearScreen(0f, green, blue,0f)
+            clearScreen(red, green, blue, 0f)
         }
 
         val invert = definition.effects.invert
@@ -251,14 +255,14 @@ public class NVLRenderer : TextRendererMixin() {
                 // 6) Draw debug scene data
                 if (SS76.IS_DEBUG) {
                     if (SS76.isBabyScreen) {
-                        SS76.fontManager.currentFont.white.draw(
+                        SS76.fontManager.defaultFont.white.draw(
                             batch,
                             "Scene ID: ${SS76.sceneManager.currentScene.definition.id}",
                             15f,
                             20f
                         )
                     } else {
-                        SS76.fontManager.currentFont.white.draw(
+                        SS76.fontManager.defaultFont.white.draw(
                             batch,
                             "Scene ID: ${SS76.sceneManager.currentScene.definition.id}",
                             15f,

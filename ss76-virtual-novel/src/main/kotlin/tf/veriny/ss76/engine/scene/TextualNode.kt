@@ -30,6 +30,8 @@ public data class TextualNode(
     public var padding: Int = 0,
     /** The associated button ID for this node. */
     public var buttonId: String? = null,
+    /** The font for this node. */
+    public var font: String = "default",
 ) {
     public enum class Effect {
         /** Causes padding */

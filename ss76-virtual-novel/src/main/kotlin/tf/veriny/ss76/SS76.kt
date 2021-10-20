@@ -90,7 +90,7 @@ public object SS76 : KtxApplicationAdapter {
                     }
                 }
                 Input.Keys.F3 -> {
-                    fontManager.nextFont()
+
                 }
                 else -> return super.keyDown(keycode)
             }
@@ -181,7 +181,7 @@ public object SS76 : KtxApplicationAdapter {
                 for (r in routes) {
                     for (day in 3..18) {
                         val count = sceneManager.registeredScenes.keys.count {
-                            it.startsWith("$r-july-$day")
+                            it.startsWith("$r${day}j-")
                         }
 
                         // suck my dick deprecations
