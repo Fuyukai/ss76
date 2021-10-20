@@ -1,5 +1,6 @@
 package tf.veriny.ss76.engine.scene
 
+import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.FontManager
 
 public const val DEFAULT_FRAMES_PER_WORD: Int = 5
@@ -183,6 +184,8 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
     var currentLineLength = 0
     //  The number of frames to linger until the next token. Reset to zero each loop.
     var lingerFrames = 0
+    //  The name of the current font.
+    var currentFont: String = "default"
 
     // pushed data, automatically used during tokenization
     val pushed = ArrayDeque<Token>()
@@ -226,6 +229,13 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                     "fpw" -> {
                         currentFramesPerWord = if (dValue == "reset" || dValue == "0") DEFAULT_FRAMES_PER_WORD
                         else dValue.toInt()
+                    }
+                    "font" -> {
+                        if (dValue.isEmpty()) throw TokenizationException("font directive must have font name")
+                        if (!SS76.fontManager.fonts.contains(dValue)) {
+                            throw TokenizationException("unknown font $dValue")
+                        }
+                        currentFont = dValue
                     }
                     else -> throw UnknownDirectiveException(dNamee)
                 }
@@ -280,7 +290,8 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                 causesNewline = token.hasNewline,
                 causesSpace = !token.hasNewline,
                 buttonId = token.buttonName,
-                effects = parsedEffects
+                effects = parsedEffects,
+                font = currentFont,
             )
 
             // first dialogue line on an overflowed line always has 7 characters of padding

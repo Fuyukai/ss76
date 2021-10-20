@@ -574,7 +574,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     }
 
     createAndRegisterOnePageScene("school-18") {
-        line(":fpw:1 You have a bad start, but Char has a fantastic start. She's got the inside line now.")
+        line(":fpw:3 You have a bad start, but Char has a fantastic start. She's got the inside line now.")
         newline()
 
         line("Down into turn one, you're on the dirty line and she's on the clean line.")
@@ -597,7 +597,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     }
 
     createAndRegisterOnePageScene("school-19") {
-        line(":fpw:1 Down into turn 6, you have the inside line - and you make the switch-back!")
+        line(":fpw:3 Down into turn 6, you have the inside line - and you make the switch-back!")
         newline()
 
         line("But now it's down the main straight, and Char is within one second - she has DRS!")
@@ -623,6 +623,21 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     }
 
     createAndRegisterOnePageScene("school-20") {
-        line("Finally, it's the door to your lesson.")
+        line(
+            "Finally, it's the door to your lesson. Shaking off your concussion, " +
+            "you rip the door off of the hinges, as per routine, and throw it through the wall " +
+            "behind you."
+        )
+        newline()
+
+        line("It tumbles out into the void, twirling into the darkness. The wall grows back " +
+             "with a horrible, slimy rumble.")
+        newline()
+
+        line("You take your seats at the front of the class, squarely in the middle. There's " +
+             "no computers here.")
+        newline()
+
+        //line()
     }
 }

@@ -119,4 +119,16 @@ public fun registerDemoUIScene() {
             line("¬mojibake¬Test Test ¬mojibake¬Test Test")
         }
     }
+
+    createAndRegisterScene("font-change") {
+        page {
+            line("This line is in the default font.")
+            newline()
+
+            line(":font:alt This line is in the alt font.")
+            newline()
+
+            line(":font:default This :font:alt line :font:default alternates.")
+        }
+    }
 }

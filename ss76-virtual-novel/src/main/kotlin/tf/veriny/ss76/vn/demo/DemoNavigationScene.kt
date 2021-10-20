@@ -74,6 +74,11 @@ public fun registerDemoNavigationScenes() {
 
             pushSceneButton("linger-test", "2021-10-05: Lingering text")
             newline()
+
+            pushSceneButton("mojibake", "2021-10-18: Mojibake test")
+            newline()
+
+            pushSceneButton("font-change", "2021-10-20: Font changes")
         }
     }
 
