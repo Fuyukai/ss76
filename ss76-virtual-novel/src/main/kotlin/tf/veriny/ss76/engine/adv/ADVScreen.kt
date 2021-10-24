@@ -46,14 +46,16 @@ public class ADVScreen(public val subrenderer: ADVSubRenderer) : Screen {
 
         if (keycode == Input.Keys.LEFT || keycode == Input.Keys.DPAD_LEFT) {
             current.pageBack()
+            return true
         } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
             current.pageNext()
+            return true
         } else if (keycode == Input.Keys.SPACE) {
             current.timer = 99999999
             return true
         }
 
-        return false
+        return subrenderer.keyDown(keycode)
     }
 
     override fun dispose() {

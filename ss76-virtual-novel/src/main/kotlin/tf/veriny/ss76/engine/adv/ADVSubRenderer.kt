@@ -3,6 +3,7 @@ package tf.veriny.ss76.engine.adv
 import com.badlogic.gdx.graphics.OrthographicCamera
 import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.utils.Disposable
+import ktx.app.KtxInputAdapter
 import tf.veriny.ss76.engine.scene.SceneState
 
 /**
@@ -11,7 +12,7 @@ import tf.veriny.ss76.engine.scene.SceneState
  * The renderer uses a camera (1280x960), so you can safely draw on it without worrying about
  * screen resolutions.
  */
-public interface ADVSubRenderer : Disposable {
+public interface ADVSubRenderer : Disposable, KtxInputAdapter {
     /**
      * Creates any resources required for this sub-renderer.
      */
