@@ -131,4 +131,10 @@ public fun registerDemoUIScene() {
             line(":font:default This :font:alt line :font:default alternates.")
         }
     }
+
+    createAndRegisterScene("chomp") {
+        page {
+            line("@red@R :chomp: @green@G :chomp: @blue@B")
+        }
+    }
 }

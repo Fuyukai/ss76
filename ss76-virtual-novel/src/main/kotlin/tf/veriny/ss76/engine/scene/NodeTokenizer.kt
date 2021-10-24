@@ -207,6 +207,7 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                 val dValue = directive.groups[2]!!.value
 
                 when (dNamee) {
+                    // pushes colouur/effect/link
                     "push" -> {
                         val tos = pushed.lastOrNull()
                         val token = tokenify(
@@ -216,26 +217,36 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                         if (token.text.isNotEmpty()) throw TokenizationException("cannot push markup '$dValue' with text")
                         pushed.addLast(token)
                     }
+                    // pops colour/effect/links
                     "pop" -> {
                         if (dValue.isNotEmpty()) {
                             throw TokenizationException("pop token accidentally consumes $dValue")
                         }
                         pushed.removeLast()
                     }
+                    // addds n frames to timing
                     "linger" -> {
                         lingerFrames = if (dValue.isEmpty()) 60
                         else dValue.toInt()
                     }
+                    // changes frames per word calculation
                     "fpw" -> {
                         currentFramesPerWord = if (dValue == "reset" || dValue == "0") DEFAULT_FRAMES_PER_WORD
                         else dValue.toInt()
                     }
+                    // changes active font
                     "font" -> {
                         if (dValue.isEmpty()) throw TokenizationException("font directive must have font name")
                         if (!SS76.fontManager.fonts.contains(dValue)) {
                             throw TokenizationException("unknown font $dValue")
                         }
                         currentFont = dValue
+                    }
+                    // removes previous space
+                    "chomp" -> {
+                        val lastNode =
+                            nodes.lastOrNull() ?: throw TokenizationException("can't chomp first node")
+                        lastNode.causesSpace = false
                     }
                     else -> throw UnknownDirectiveException(dNamee)
                 }
