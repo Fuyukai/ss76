@@ -112,7 +112,7 @@ public class FontManager {
                 48
             }
             mono = true
-            color = Color.WHITE
+            color = Color.ORANGE
         }
         errorFont = topGenerator.generateFont {
             size = 24
@@ -126,5 +126,6 @@ public class FontManager {
             val font = generateFont("fonts/$fontName")
             fonts[name] = Font(font)
         }
+
     }
 }
