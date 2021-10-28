@@ -1,8 +1,10 @@
 package tf.veriny.ss76.vn.sussex
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import tf.veriny.ss76.engine.scene.createScene
 import tf.veriny.ss76.engine.scene.sceneSequence
+import java.lang.StringBuilder
+import kotlin.random.Random
 
 /**
  * Registers scenes for Route One, Day One.
@@ -55,7 +57,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
 
         dline("????: Does it happen to you? Do you dream?")
 
-        line("The nighttime sun glares down above, just as it always does.")
+        line("<The nighttime sun glares down above, just as it always does.>")
         newline()
 
         dline("????: What if I am dreaming, but I just can't remember it?")
@@ -64,16 +66,16 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     }
 
     createAndRegisterOnePageScene("prologue-4") {
-        line("When you dream...")
-        line("What do you dream about? :linger:120")
+        line("When I dream...")
+        line("What do I dream about? :linger:120")
         newline()
 
-        line("Do you dream about having superpowers, and saving the world? :linger:60")
-        line("Do you dream about being a superstar, with legions of fans? :linger:60")
-        line("Do you dream about falling in love, with the perfect person? :linger:60")
+        line("Do I dream about having superpowers, and saving the world? :linger:60")
+        line("Do I dream about being a superstar, with legions of fans? :linger:60")
+        line("Do I dream about falling in love, with the perfect person? :linger:60")
         newline()
 
-        line("Do you dream about making the perfect world, for you, and for everyone? :linger:180")
+        line("Do I dream about making the perfect world, for you, and for everyone? :linger:180")
         newline()
 
         changeSceneButton("su3j-prologue-5", "Or perhaps...")
@@ -83,19 +85,19 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     currentEffects.backgroundColour = Color.BLACK
 
     createAndRegisterOnePageScene("prologue-5") {
-        line("Do you dream about cleansing the impurity? :linger:60")
-        line("Do you dream about removing your obstacles? :linger:60")
-        line("Do you dream about the genocide of your enemies? :linger:60")
+        line("Do I dream about cleansing the impurity? :linger:60")
+        line("Do I dream about removing your obstacles? :linger:60")
+        line("Do I dream about the genocide of your enemies? :linger:60")
         newline()
 
-        line("Do you dream about angels, leading the rapture? :linger:180")
+        line("Do I dream about angels, leading the rapture? :linger:180")
         newline()
 
         line("They say dreams are an insight into our subconscious. Our psychology.")
         newline()
 
-        line("Does having a good dream mean you're a good person? Does having a bad dream " +
-             "mean you're a bad person? :linger:60")
+        line("Does having a good dream mean I'm a good person? Does having a bad dream " +
+             "mean I'm a bad person? :linger:60")
         newline()
 
         changeSceneButton("su3j-prologue-6", ">>>")
@@ -105,20 +107,18 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
     enableInvert()
 
     createAndRegisterOnePageScene("prologue-6") {
-        line("The flowers are singing and the birds are blooming around you.")
+        line("<The flowers are singing and the birds are blooming around me.>")
         newline()
 
         dline("????: If I don't dream, am I a good or a bad person?")
 
-        line("The sun beats down with a soothing rhythm.")
+        line("<The sun beats down with a soothing rhythm.>")
         newline()
 
         dline("????: ...")
 
-        line("The heat and the dirt straddles you like a soft blanket.")
+        line("<The heat and the dirt straddles me like a soft blanket.>")
         newline()
-
-        dline("????: I think I could just fall asleep here.")
 
         changeSceneButton("su3j-start", ">>>")
     }
@@ -635,9 +635,539 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
         newline()
 
         line("You take your seats at the front of the class, squarely in the middle. There's " +
-             "no computers here.")
+             "no computers here, only old and dented and disgusting chairs.")
         newline()
 
-        //line()
+        line("The teacher is vaguely standing at the whiteboard, scribbling and scratching " +
+             "the horrible mind-control runes they use on students every day.")
+        newline()
+
+        dline(
+            "????: :font:alt :push:¬mojibake¬ Okay, children. Today, we will be going over an example test. " +
+            ":pop: :font:default"
+        )
+
+        line("Great! Truly wonderful! It's a computer class, but the only thing they teach you is " +
+             "how to do written tests!")
+        newline()
+
+        line("As the old adage goes,", addNewline = false)
+        changeSceneButton(
+            "su3j-school-21",
+            "computer science has nothing to do with computers nor science."
+        )
+    }
+
+    createAndRegisterOnePageScene("school-21") {
+        dline("????: :font:alt :push:¬mojibake¬ Everyone, get into :pop: @sky@groups " +
+              "¬shake¬@blue@of five. :font:default")
+
+        line("Oh! Even better! Now it's group work! Group work is the vestige of incompetent " +
+             "jesters, who masquerade as torturers!")
+        newline()
+
+        line("And, to truly make this a joke, the class doesn't even divide into groups of five!")
+        newline()
+
+        line("It looks like you and Char are going to have to work all alone. Alone. Together. " +
+             "With nobody else.")
+        newline()
+
+        line("The court jester hands out a bunch of blank inked tree husks, filled to the brim " +
+             "with useless questions relating to the inner workings of magical silicon boxes. :linger:180")
+        newline()
+
+        line("It's hard to make computer science tests sound fun or interesting.")
+        newline()
+
+        changeSceneButton("su3j-school-22", "You flip the page over.")
+    }
+
+    createAndRegisterOnePageScene("school-22") {
+        lline("Okay. The first question is easy.")
+        newline()
+
+        lline(
+            "Part one. It's to do with input devices. " +
+            "\"Name one input device and one output device.\""
+        )
+        newline()
+
+        lline("In this case, it's a voice activated speaker with an assistant. It's similar to " +
+             "one you might find in your phone.")
+        newline()
+
+        lline("A voice activated speaker has one important input device, and one important " +
+             "output device.")
+        newline()
+
+        lline("The name of the input device is a microphone, and the reason is so that the " +
+             "speaker is able to listen to voice commands passively.")
+        newline()
+
+        lline("The name of the output device is a loudspeaker, and the reason is so that the speaker " +
+             "can respond to the aforementioned voice commands.")
+        newline()
+
+        changeSceneButton("su3j-school-23", "Easy enough.")
+    }
+
+    createAndRegisterOnePageScene("school-23") {
+        lline("The next part of the first question is defining what an embedded operating " +
+             "system is.")
+        newline()
+
+        lline("It's two marks, so there's obviously two components to it.")
+        newline()
+
+        lline("The first component is describing what an operating system is, to the " +
+             "standards of the mark scheme.")
+        newline()
+
+        lline("Most people would say it's just the thing that runs everyone on the computer, " +
+             "but that's not a good enough explanation for the examiner.")
+        newline()
+
+        lline("\"An operating system is the first program that runs when you turn the computer " +
+             "on. It is responsible for managing the hardware and other software.\"")
+        lline("You write that down, to start with.")
+        newline()
+
+        lline("\"An embedded operating system is similar, but it is stripped down to only the most " +
+             "essential functionality for the hardware it is designed for. \"")
+        newline()
+
+        changeSceneButton("su3j-school-24", "That seems satisfactory.")
+    }
+
+    createAndRegisterOnePageScene("school-24") {
+        lline("The final part is to do with truth tables. Truth be told, you've always had " +
+             "a bit of trouble telling the truth when it comes to truth tables.")
+        newline()
+
+        lline("The internal CPU only works when two things are true.")
+        newline()
+
+        lline(
+            "First, the privacy switch is off. This means that the smart speaker won't be " +
+            "listening all of the time, in case you say sensitive things you wouldn't want it to " +
+            "overhear."
+        )
+        lline("This will be called P, and is True when the button is on.")
+        newline()
+
+        lline("Second, the microphone must be generating a signal. This avoids wasting " +
+              "energy running the processor when there's no noise.")
+        lline("This will be called S, and is True when the signal is being generated.")
+        newline()
+
+        pushSceneButton("su3j-school-25", "This creates a simple truth table.")
+    }
+
+    createAndRegisterOnePageScene("school-25") {
+        line("+-------+-------+-------+")
+        line("| P     | S     | O     |")
+        line("+=======+=======+=======+")
+        line("| false | false | false |")
+        line("+-------+-------+-------+")
+        line("| true  | false | false |")
+        line("+-------+-------+-------+")
+        line("| false | true  | true  |")
+        line("+-------+-------+-------+")
+        line("| true  | true  | false |")
+        line("+-------+-------+-------+")
+        newline()
+
+        lline("That seems correct. The logic adds up.")
+        newline()
+
+        changeSceneButton("su3j-school-26", "You flip over the page.")
+    }
+
+    createAndRegisterOnePageScene("school-26") {
+        lline("The next part of the question is to draw logic gates for this.")
+        newline()
+
+        lline("This is bad. You're not very good at logic gates. You always get them mixed up in " +
+             "your head.")
+        newline()
+
+        lline("You turn to Char and ask for her opinion. She's remained silent so far, more than ]" +
+             "happy for you to put in the work.")
+        newline()
+
+        dline("CHAR: I think... it's NOT P xor S.")
+
+        lline("That makes sense. You draw the symbols down onto the page, trying to remember what " +
+              "they look like.")
+        newline()
+
+        changeSceneButton("su3j-school-27", "It looks scuffed, but it'll do.")
+    }
+
+    createAndRegisterOnePageScene("school-27") {
+        lline("The final part of the question is about multicore processors. Define the term " +
+              "multicore processor.")
+        newline()
+
+        lline("Once again, it's two marks. That means the obvious answer isn't correct.")
+        newline()
+
+        lline("It's rather sneaky, that. You can tell if the exam is looking for the obvious " +
+              "answer or the mark scheme answer by the number of marks.")
+        newline()
+
+        lline("First, you write down the obvious answer. \"A multicore processor is a processor " +
+              "that has multiple physical cores, as opposed to one.\"")
+        newline()
+
+        lline("That's obvious to anyone. But that would only get you one mark. You have to write " +
+              "the most obtuse, pointless explanation to get the second mark.")
+        newline()
+
+        lline("\"This allows multiple processes to be ran simultaneously, as opposed to in a sequence.\"")
+        newline()
+
+        changeSceneButton("su3j-school-28", "Two marks in the bag.")
+    }
+
+    createAndRegisterOnePageScene("school-28") {
+        lline("Okay. That was question one, completed. One question, nine to go.")
+        newline()
+
+        lline("The clock has barely ticked by. The rest of the classroom is chatting, " +
+              "chatting, but you and Char are sitting there in ample silence.")
+        newline()
+
+        lline("It's so tedious. But, you have no choice but to move on. Onto question two.")
+        newline()
+
+        lline("This is about automatic electronic surveying on a motorway. Every time a " +
+              "vehicle is captured on camera, a different symbol is entered into the database.")
+        newline()
+
+        lline("'C' for Car, 'M' for Motorbike, 'L' for Lorry, and 'O' for everything else.")
+        newline()
+
+        line("Like a modern sitcom, though, this is just a misdirection. The first part is " +
+              "actually asking", addNewline = false)
+
+        changeSceneButton("su3j-school-29", "about compression.")
+    }
+
+    createAndRegisterOnePageScene("school-29") {
+        lline("Part one, for one mark, state what compression means.")
+        newline()
+
+        lline("This is simple. \"Compression is the act of making data smaller via algorithms.\" " +
+              "It's an almost meaningless statement, but it gets you the mark.")
+        newline()
+
+        lline("The actual algorithms to do with compression are much more interesting.")
+        newline()
+
+        lline("It's quite interesting how you can make data smaller, but not actually lose " +
+              "any of the data.")
+        newline()
+
+        lline("It's something you could only dream of having in the physical world.")
+        newline()
+
+        line("The next part asks about run-length encoding.", addNewline = false)
+        changeSceneButton("su3j-school-30", "The simplest form of compression.")
+    }
+
+    createAndRegisterOnePageScene("school-30") {
+        line("A flash grenade bursts through the wall, exploding with a dazzling spark!")
+        newline()
+
+        line("You're not blinded! You're invulnerable to such stupid and deceitful tricks! " +
+             "But, who is flashbanging a lowly school classroom at this hour?")
+        newline()
+
+        line("It's not a drill, oh no - they use @sky@live @sky@grenades for that!")
+        newline()
+
+        line("An army of armed men march in through the wall, their majestic guns drawn " +
+             "ready to fire.")
+        newline()
+
+        line("You take a moment to admire them - chiseled, manly, oh so beautiful. " +
+             "The raw firepower of such a group - it's something to be envied!")
+        newline()
+
+        line("You're not a gun person though, so you haven't a clue what those majestic " +
+             "weapons really are. They overshadow the disgusting squadron though.")
+        newline()
+
+        changeSceneButton("su3j-school-31", "They form a perimeter around the edge of the wall.")
+    }
+
+    createAndRegisterOnePageScene("school-31") {
+        dline(":font:alt ????: Nobody move! This is a raid! :font:default")
+
+        line("A raid? At this hour? It's preposterous! There are protocols to follow for this!")
+        newline()
+
+        line("It's not clear who exactly they're abducting today, but they must have done " +
+             "some very naughty things indeed to cause a raid this late in the day!")
+        newline()
+
+        line("The men march around, inspecting every student and rodent in the room. " +
+             "Behind the ears, below the eyelids, under the lips. No hiding places!")
+        newline()
+
+        line("You and Char are the last to be inspected. One of the soldiers stops in front " +
+             "of Char and pulls a picture out from his jacket.")
+        newline()
+
+        line("He takes a look at Char. He takes a look at the picture. He takes a look at the " +
+             "Char. He takes a look at picture.")
+        newline()
+
+        changeSceneButton("su3j-school-32", "He cracks her skull open with the butt of his gun.")
+    }
+
+    createAndRegisterOnePageScene("school-32") {
+        line("Char dies on the floor, the red stuff flowing out of her head and staining the carpet.")
+        newline()
+
+        line("The men rapidly encircle you - they're going to be at Moscow before the winter! " +
+             "Russia will surely fall!")
+        newline()
+
+        line("One of them grabs your upper arm, yanking you down onto the floor. " +
+             "He steps on the base of your skull, leaning in with his whole weight - it's really " +
+             "quite painful!")
+        newline()
+
+        dline("????: Citizen! You are under arrest under suspicion of ¬mojibake¬dcdsafsdfgsd")
+
+        dline("????: You do not have to say anything. But it may harm your defence if you " +
+              "do not mention when questioned something which you later rely on in court. " +
+              "Anything you do say may be given in evidence.")
+
+        line("He slips the handcuffs onto your hands, and yanks you back up by the hair.")
+        newline()
+
+        changeSceneButton("su3j-school-33", "You pull your hands apart and the handcuffs phase through your hands.")
+    }
+
+    createAndRegisterOnePageScene("school-33") {
+        dline("CHAR: Hey! Over here!")
+
+        line("Char yells out for you, and you run towards the voice. It's so distant, yet so tantalisingly close...")
+        newline()
+
+        line("The army men follow you, closing in, closing in! You've got to outrun them!")
+        newline()
+
+        line("The door to the classroom is just there, behind the horizon. " +
+             "It's infinitely far away, so you start accelerating infinitely fast.")
+        newline()
+
+        line("It takes an infinite amount of time, but you make it! Just in time, too, " +
+             "as the army men have closed the distance!")
+        newline()
+
+        line("You barrel through the door, and close it behind it you. There's a lot of banging, " +
+             "and then a lot less banging, and then very little banging, and then no banging.")
+        newline()
+
+        line("The men behind the door decay, and decay, and their skeletons fade into dust " +
+             "and their souls fade into the aether. Level up!")
+        newline()
+
+        changeSceneButton("su3j-school-34", "The hallway around you.")
+    }
+
+    createAndRegisterOnePageScene("school-34") {
+        line("The hallway around you isn't the one you came in, oh no.")
+        newline()
+
+        line("This one is blue. It's all blue. The walls glow shades of blue.")
+        newline()
+
+        line("The light is blue. it's all blue. The lights glow shades of blue.")
+        newline()
+
+        line("You hold your hands up to your face, but it's just blue.")
+        newline()
+
+        line("You turn to Char. She's pale, ever so pale. But she's not blue. She's just Char.")
+        newline()
+
+        line("But, in the middle of the hallway, there's an interruption in the blue.")
+        newline()
+
+        changeSceneButton("su3j-school-35", "A single pedestal.")
+    }
+
+    createAndRegisterOnePageScene("school-35") {
+        lline("It's a marble pedestal, guarded by one of the army men. How did he get in?")
+        newline()
+
+        line("But... he's different.")
+        newline()
+
+        line("He's not from around here. :linger:300")
+        newline()
+
+        changeSceneButton("su3j-school-36", ">>>")
+    }
+
+    createAndRegisterOnePageScene("school-36") {
+        line("The pedestal pulls you in, it's irresistible. Nobody has the will to avoid it.")
+        newline()
+
+        line("But the army man... He's not just guarding.")
+        line("He's dancing. :linger:120")
+        newline()
+
+        line("There's no music. There's no sound but your footsteps.")
+        newline()
+
+        line("The pedestal keeps pulling, tugging, on your brain. You don't even dare think " +
+             "about stopping, for it would know. It would know.")
+        newline()
+
+        line("The man keeps dancing. He's staring at the pedestal, dancing. Dancing flatly, " +
+             "with no soul. With no life.")
+        newline()
+
+        changeSceneButton("su3j-school-37", ">>>")
+    }
+
+    createAndRegisterOnePageScene("school-37") {
+        line("On the pedestal. It's a phone, a phone, one of those old landline phones.")
+        newline()
+
+        line("The phone cable disappears inside the pedestal.")
+        newline()
+
+        line("It's not the pedestal that pulls you in. The pedestal is nothing! It's dumb! " +
+             "It is WORTHLESS!")
+        newline()
+
+        line("It is nothing more than something created to hold something else up!")
+        newline()
+
+        line("The phone! The phone! It is what is important! It controls you! It makes you run!")
+        newline()
+
+        changeSceneButton("su3j-school-38", "It makes the man dance!")
+    }
+
+    val ringing = Gdx.audio.newMusic(Gdx.files.internal("audio/ringing.wav"))
+    ringing.isLooping = true
+
+    createAndRegisterScene("school-38") {
+        onLoad { ringing.play() }
+
+        page {
+            lline("The phone is dialing.")
+            newline()
+
+            lline("The man is dancing to the dialing.")
+            newline()
+
+            lline("The dialing is drawing you in. ")
+            newline()
+
+            line("It's so audible now. It pierces your ears. It burrows into your mind, " +
+                 "assaulting your head.")
+            newline()
+
+            changeSceneButton("su3j-school-39", "It hurts.")
+        }
+    }
+
+    val baseMessages = listOf(
+        "layer protocols in the SS7 suite were dedicated to the setup, maintenance, and release of telephone calls.",
+        "channel for a conversation prior to the exchange of control information, non-facility associated signalin",
+        "de, SS7 signaling progresses from ",
+        "SS7 separates signaling from the voice circuits. An SS7 network must be made up of SS7-capable",
+        "In 2008, several SS7 vulnerabilities were published that permitted the tracking of cell ph",
+    )
+    val newMessages = mutableListOf<String>()
+
+    for (message in baseMessages) {
+        val words = message.split(" ")
+        val buf = StringBuilder()
+        for (word in words) {
+            val shouldMojibake = Random.Default.nextInt(0, 2) == 1
+            if (shouldMojibake) buf.append("¬mojibake¬$word")
+            else buf.append(word)
+            buf.append(" ")
+        }
+        newMessages.add(buf.toString())
+    }
+
+    createAndRegisterOnePageScene("school-39") {
+        line("The man dances to the dialing. On, and off. He's muttering to himself, on, and off, " +
+             "with the dialing.")
+        newline()
+
+        val message = if (Random.Default.nextInt(0, 600) == 300) {
+            "UVB-76, also known by the nickname \"The Buzzer\", is a shortwave radio station that " +
+            "broadcasts on the frequency of 4625 kHz. It broadcasts a short, monotonous " +
+            "buzz tone, repeating at a rate of approximately 25 tones per minute, " +
+            "24 hours per day."
+        } else { newMessages.random() }
+
+        dline("????: $message")
+
+        line("You're at the pedestal now. Staring. Staring. Staring. Deeply into the phone.")
+        newline()
+
+        line("You see the ringing loop around your head. It twists and turns and coils and " +
+             "tightens, strangling and suffocating.")
+        newline()
+
+        line("It's rude not to answer, isn't it?")
+        newline()
+
+        changeSceneButton("su3j-school-40", "You pick up the phone.")
+    }
+
+    createAndRegisterScene("school-40") {
+        onLoad { ringing.stop() }
+
+        page {
+            dline("????: Is this ¬mojibake¬YOU?")
+
+            dline("YOU : Yes")
+
+            dline("????: Is Charlotte with you?")
+
+            line("You look around. It's just you, the phone, and the dancer.")
+            newline()
+
+            dline("YOU : No")
+
+            dline("????: Are you :font:alt", addNewline = false)
+            changeSceneButton("su3j-epilogue-1", "¬mojibake¬awake? :font:default")
+        }
+    }
+
+    enableInvert()
+    currentEffects.disableClickables = true
+
+    createAndRegisterOnePageScene("epilogue-1") {
+        line("<I wake up with a jolt.>")
+        newline()
+
+        line("Uwaaa. What happened?")
+        newline()
+
+        dline("????: You fell asleep out in the sun. I had to drag you back in before you " +
+              "burnt to a crisp.")
+
+        line("I was having such a good dream.")
+        newline()
+
+        dline("????: Just get under the blanket and go back to sleep. I'll still be here.")
+
+        changeSceneButton("su4j-start", ">>> Next")
     }
 }

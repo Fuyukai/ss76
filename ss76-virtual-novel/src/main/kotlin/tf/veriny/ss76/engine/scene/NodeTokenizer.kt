@@ -320,7 +320,12 @@ public fun splitScene(text: String, rightMargin: Int = 70, v: Boolean = false): 
                     node.colourLinkedToButton = true
                     FontManager.COLOURS["white"]
                 }
-            } else FontManager.COLOURS[token.colour ?: "white"]) ?: error("unknown colour: ${token.colour}")
+            } else FontManager.COLOURS[token.colour ?: "white"])
+
+            if (colour == null) {
+                val validColours = FontManager.COLOURS.keys.joinToString(", ")
+                throw TokenizationException("invalid colour: $colour\nvalid colours: $validColours")
+            }
 
             node.colour = colour
             nodes.add(node)

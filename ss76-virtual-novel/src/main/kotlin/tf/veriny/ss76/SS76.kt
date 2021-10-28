@@ -20,13 +20,12 @@ import tf.veriny.ss76.engine.system.registerSystemScenes
 import tf.veriny.ss76.vn.CommonScenes
 import tf.veriny.ss76.vn.demo.registerDemoNavigationScenes
 import tf.veriny.ss76.vn.demo.registerDemoUIScene
-import tf.veriny.ss76.vn.norfolk.registerNorfolkJuly3Scenes
 import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
 import tf.veriny.ss76.vn.sussex.registerSu3JScenes
-import tf.veriny.ss76.vn.truth.registerTruthDayOneScenes
+import tf.veriny.ss76.vn.sussex.registerSu4JScenes
 import kotlin.time.ExperimentalTime
 import kotlin.time.measureTime
 
@@ -156,18 +155,9 @@ public object SS76 : KtxApplicationAdapter {
             registerMiscScenes()
             registerOSSCredits()
 
-            // == SUSSEX ROUTE == //
+            // == MAIN ROUTE == //
             registerSu3JScenes()
-
-            // == NORFOLK ROUTES == //
-            registerNorfolkJuly3Scenes()
-
-            // == SIDE PLOTS == //
-            registerSidePlotAlexRadio()
-            registerSideLostInTheForest()
-
-            // == TRUTH ENDING == //
-            registerTruthDayOneScenes()
+            registerSu4JScenes()
 
             CommonScenes.register()
         }
