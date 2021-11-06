@@ -13,7 +13,7 @@ import tf.veriny.ss76.vn.sussex.CarRenderer
 public fun registerDemoNavigationScenes() {
     createAndRegisterScene("demo-meta-menu") {
         page {
-            line("This is the Signalling System 76 demo menu.")
+            line("This is the Signalling System 76 debug menu.")
             newline()
 
             line("Unless this is a demo build, you shouldn't be here.")
@@ -23,6 +23,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("oss-credits", "OSS Credits")
+            newline()
+
+            line("¬ayana¬le")
         }
 
         page {

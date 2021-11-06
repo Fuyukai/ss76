@@ -32,7 +32,7 @@ public class ADVRenderer(
         ownBatch.projectionMatrix = it.combined
     }
 
-    private val padding: Float
+    override val padding: Float
         get() = /*if (SS76.isBabyScreen) 60f else*/ 90f
 
     private val yBoxOffset get() = 3 * (Gdx.graphics.height.toFloat() / 4f)

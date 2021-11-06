@@ -28,9 +28,6 @@ public class NVLRenderer : TextRendererMixin() {
         private val BACKGROUND_BG = Color(48/255f, 48/255f, 48/255f, 0f)
     }
 
-    private val padding: Float
-        get() = if (SS76.isBabyScreen) 60f else 90f
-
     // lightning effect timer
     private var lastLightningMax = 0
     private var lightningTimer = 0

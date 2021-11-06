@@ -1058,7 +1058,7 @@ public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
         changeSceneButton("su3j-school-38", "It makes the man dance!")
     }
 
-    val ringing = Gdx.audio.newMusic(Gdx.files.internal("audio/ringing.wav"))
+    val ringing = Gdx.audio.newMusic(Gdx.files.internal("audio/ringing.ogg"))
     ringing.isLooping = true
 
     createAndRegisterScene("school-38") {

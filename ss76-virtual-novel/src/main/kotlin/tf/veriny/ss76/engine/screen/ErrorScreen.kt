@@ -9,10 +9,17 @@ import tf.veriny.ss76.use
  * The screen for rendering errors.
  */
 public class ErrorScreen(public val error: Throwable) : Screen {
+    private var hasPrinted = false
+
     override fun render(delta: Float) {
         clearScreen(255f, 0f, 0f, 0f)
 
         val tb = error.stackTraceToString()
+        if (!hasPrinted) {
+            error.printStackTrace()
+            hasPrinted = true
+        }
+
         SS76.batch.use {
             val message = if (SS76.sceneManager.stackSize == 0) {
                 "Fatal error when loading engine!"

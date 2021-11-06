@@ -1,6 +1,8 @@
 package tf.veriny.ss76.engine.renderer
 
+import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import com.badlogic.gdx.graphics.Texture
 import com.badlogic.gdx.graphics.g2d.BitmapFont
 import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.math.Rectangle
@@ -14,6 +16,10 @@ import kotlin.math.ceil
 import kotlin.random.Random
 
 public abstract class TextRendererMixin {
+
+    protected val trollface: Texture by lazy {
+        Texture(Gdx.files.internal("gfx/ayana.png"))
+    }
 
     protected val glyphLayout: GlyphLayout = GlyphLayout()
 
@@ -33,6 +39,9 @@ public abstract class TextRendererMixin {
         currentXOffset = 0f
         currentYOffset += font.characterHeight + 2f
     }
+
+    protected open val padding: Float
+        get() = if (SS76.isBabyScreen) 60f else 90f
 
     /**
      * Raw word renderer. Doesn't handle anything but writing the words to the screen.
@@ -56,6 +65,18 @@ public abstract class TextRendererMixin {
         frameNode: TextualNode, node: TextualNode = frameNode
     ) {
         val font = SS76.fontManager.fonts[node.font] ?: error("${node.font} is not a valid font")
+
+        if (node.effects.contains(TextualNode.Effect.AYANA)) {
+            val xOffset = padding + currentXOffset
+            val yOffset = Gdx.graphics.height - padding - currentYOffset - trollface.height
+            SS76.batch.draw(trollface, xOffset, yOffset)
+
+            currentXOffset += trollface.width
+            if (node.causesSpace) currentXOffset += font.characterWidth
+
+            return
+        }
+
         // == Before == //
         currentXOffset += font.characterWidth * frameNode.padding
 

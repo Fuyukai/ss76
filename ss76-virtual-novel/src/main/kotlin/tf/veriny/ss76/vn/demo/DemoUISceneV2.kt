@@ -137,4 +137,13 @@ public fun registerDemoUIScene() {
             line("@red@R :chomp: @green@G :chomp: @blue@B")
         }
     }
+
+    createAndRegisterScene("trollface") {
+        page {
+            dline("????: ¬ayana¬")
+            newline()
+
+            dline("????: please kill me")
+        }
+    }
 }

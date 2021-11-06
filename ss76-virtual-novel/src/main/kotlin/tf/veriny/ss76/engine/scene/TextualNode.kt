@@ -46,6 +46,8 @@ public data class TextualNode(
         MOJIBAKE,
         /** Resets the frame counter */
         RESET,
+        /** trollface */
+        AYANA,
     }
 
     /**
