@@ -81,25 +81,25 @@ public class PageBuilder(
     /**
      * Adds a button that changes the current scene.
      */
-    public fun changeSceneButton(sceneId: String, text: String) {
+    public fun changeSceneButton(sceneId: String, text: String, eventFlag: String? = null) {
         ensureBlankChar()
         val buttonName = "change-scene-$sceneId"
         val realText = ":push:@salmon@`$buttonName` $text :pop: "
 
         line(realText, addNewline = false)
-        addButton(ChangeSceneButton(buttonName, sceneId))
+        addButton(ChangeSceneButton(buttonName, sceneId, eventFlag))
     }
 
     /**
      * Adds a button that pushes a new scene onto the stack.
      */
-    public fun pushSceneButton(sceneId: String, text: String) {
+    public fun pushSceneButton(sceneId: String, text: String, eventFlag: String? = null) {
         ensureBlankChar()
         val buttonName = "push-scene-$sceneId"
         val realText = ":push:@linked@`push-scene-$sceneId` $text :pop: "
         line(realText, addNewline = false)
 
-        addButton(PushSceneButton(buttonName, sceneId))
+        addButton(PushSceneButton(buttonName, sceneId, eventFlag))
 
     }
 
@@ -129,7 +129,10 @@ public class SceneDefinitionBuilder(
     internal val pages: MutableList<StringBuilder> = mutableListOf()
     @PublishedApi
     internal val buttons: MutableMap<String, Button> = mutableMapOf()
-    private val onLoadHandlers: MutableList<() -> Unit> = mutableListOf()
+    private val onLoadHandlers: MutableList<(SceneState) -> Unit> = mutableListOf()
+
+    /** If pagination should be enabled. Useful for choiced scenes. */
+    public var enablePagination: Boolean = true
 
     /** The linked inventory index. */
     public var linkedInventoryIdx: Int = 0
@@ -155,7 +158,7 @@ public class SceneDefinitionBuilder(
     /**
      * Registers a function to be ran on load.
      */
-    public fun onLoad(block: () -> Unit) {
+    public fun onLoad(block: (SceneState) -> Unit) {
         onLoadHandlers += block
     }
 
@@ -196,6 +199,7 @@ public class SceneDefinitionBuilder(
 
         for (node in missing) {
             val buttonName = node.buttonId!!
+            // todo: less gross
             when {
                 buttonName.startsWith("push-scene-") -> {
                     val sceneId = buttonName.removePrefix("push-scene-")
@@ -241,6 +245,7 @@ public class SceneDefinitionBuilder(
             effects = effects,
             onLoadHandlers = this.onLoadHandlers,
             advSubRenderer = advRenderer,
+            enablePagination = enablePagination
         )
     }
 }

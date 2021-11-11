@@ -3,7 +3,7 @@ package tf.veriny.ss76.engine.scene
 import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.engine.adv.ADVSubRenderer
 
-public typealias onLoad = () -> Unit
+public typealias onLoad = (SceneState) -> Unit
 
 
 /**
@@ -28,6 +28,8 @@ public class SceneDefinition(
     public val advSubRenderer: ADVSubRenderer? = null,
     /** The functions to run when this scene loads. */
     public val onLoadHandlers: List<onLoad> = listOf(),
+    /** If pagination should be enabled. */
+    public val enablePagination: Boolean = true,
 )  {
     public val buttons: Map<String, Button> = originalButtons.toMutableMap().apply {
         put("page-next", NextPageButton)

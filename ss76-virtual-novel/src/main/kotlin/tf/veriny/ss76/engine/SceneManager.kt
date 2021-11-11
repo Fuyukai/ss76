@@ -144,7 +144,7 @@ public class SceneManager(public val namespace: String) : Saveable {
             SS76.changeScreen(NVLScreen)
         }
 
-        scene.definition.onLoadHandlers.forEach { it.invoke() }
+        scene.definition.onLoadHandlers.forEach { it.invoke(scene) }
     }
 
     /**

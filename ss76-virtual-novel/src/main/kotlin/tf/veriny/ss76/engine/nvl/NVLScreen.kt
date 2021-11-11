@@ -26,12 +26,14 @@ public object NVLScreen : Screen {
 
     override fun keyDown(keycode: Int): Boolean {
         val current = SS76.sceneManager.currentScene
+        val pagination = current.definition.enablePagination
+        val textskip = !current.definition.effects.disableTextSkip
 
-        if (keycode == Input.Keys.LEFT || keycode == Input.Keys.DPAD_LEFT) {
+        if (pagination && (keycode == Input.Keys.LEFT || keycode == Input.Keys.DPAD_LEFT)) {
             current.pageBack()
-        } else if (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT) {
+        } else if (pagination && (keycode == Input.Keys.RIGHT || keycode == Input.Keys.DPAD_RIGHT)) {
             current.pageNext()
-        } else if (keycode == Input.Keys.SPACE) {
+        } else if (textskip && keycode == Input.Keys.SPACE) {
             if (!current.definition.effects.disableTextSkip) current.timer = 999999
             return true
         } else if (keycode == Input.Keys.ENTER) {

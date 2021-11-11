@@ -148,7 +148,7 @@ public abstract class TextRendererMixin {
         if (node.text.isNotEmpty()) {
             val shouldCalcRectangle = !isTruncated && node.buttonId != null
             val rect = renderWordRaw(
-                font, colour, text, node.effects, calcRectangle = shouldCalcRectangle
+                font, colour, text, node.effects, calcRectangle = shouldCalcRectangle,
             )
             if (rect != null) {
                 val button = state.definition.buttons[node.buttonId]

@@ -2,7 +2,6 @@ package tf.veriny.ss76.engine.nvl
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
-import com.badlogic.gdx.graphics.g2d.GlyphLayout
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import com.badlogic.gdx.math.Rectangle
 import ktx.app.clearScreen
@@ -14,7 +13,6 @@ import tf.veriny.ss76.engine.renderer.TextRendererMixin
 import tf.veriny.ss76.engine.scene.SceneState
 import tf.veriny.ss76.engine.scene.TextualNode
 import tf.veriny.ss76.use
-import kotlin.math.abs
 import kotlin.math.cos
 import kotlin.math.max
 import kotlin.math.sin
@@ -77,6 +75,8 @@ public class NVLRenderer : TextRendererMixin() {
      * Renders the paging buttons.
      */
     private fun getPageButtons(state: SceneState): List<TextualNode> {
+        if (!state.definition.enablePagination) return emptyList()
+
         val nodes = mutableListOf<TextualNode>()
         for (b in listOf("«", "PREVIOUS")) {
             val node = TextualNode(

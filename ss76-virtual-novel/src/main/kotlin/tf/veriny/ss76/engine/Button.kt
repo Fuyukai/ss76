@@ -19,10 +19,13 @@ public interface Button : Runnable {
  */
 public class ChangeSceneButton(
     public override val name: String,
-    public override val linkedId: String
+    public override val linkedId: String,
+    /** The event flag to set. */
+    public val setFlag: String? = null,
 ) : Button {
 
     override fun run() {
+        if (setFlag != null) SS76.eventFlagsManager.set(setFlag)
         SS76.sceneManager.changeScene(linkedId)
     }
 }
@@ -32,9 +35,12 @@ public class ChangeSceneButton(
  */
 public class PushSceneButton(
     public override val name: String,
-    public override val linkedId: String
+    public override val linkedId: String,
+    /** The event flag to set. */
+    public val setFlag: String? = null,
 ) : Button {
     override fun run() {
+        if (setFlag != null) SS76.eventFlagsManager.set(setFlag)
         SS76.sceneManager.pushScene(linkedId)
     }
 }

@@ -120,6 +120,7 @@ public class CheckpointManager(
 
             // write scene stack
             SS76.sceneManager.write(sink)
+            SS76.eventFlagsManager.write(sink)
 
             sink.flush()
             sink.close()
@@ -141,6 +142,7 @@ public class CheckpointManager(
             check(version == CHECKPOINT_VERSION) { "invalid checkpoint version $version" }
 
             SS76.sceneManager.read(source)
+            SS76.eventFlagsManager.read(source)
         }
 
         // pop the checkpoint scene off
