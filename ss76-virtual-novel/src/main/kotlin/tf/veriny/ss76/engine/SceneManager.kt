@@ -22,7 +22,7 @@ public class SceneManager(public val namespace: String) : Saveable {
     private companion object {
         val CONTENT_PREFIXES = listOf(
             "sussex", "su", "norfolk", "no", "kent", "common", "truth", "reality",
-            "side."
+            "side.", "chess-"
         )
     }
 

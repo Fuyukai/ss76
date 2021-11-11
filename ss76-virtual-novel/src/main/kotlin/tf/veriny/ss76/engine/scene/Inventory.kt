@@ -71,8 +71,8 @@ public class Inventory(private val sceneManager: SceneManager) {
                     "`push-scene-${item.inspectScene}`@salmon@INSPECT / " +
                     "`push-scene-${item.useScene}`@salmon@USE"
                 )
-                addButton(PushSceneButton("push-scene-${item.inspectScene}", item.inspectScene))
-                addButton(PushSceneButton("push-scene-${item.useScene}", item.useScene))
+                scene.addButton(PushSceneButton("push-scene-${item.inspectScene}", item.inspectScene))
+                scene.addButton(PushSceneButton("push-scene-${item.useScene}", item.useScene))
             }
             newline()
             backButton()

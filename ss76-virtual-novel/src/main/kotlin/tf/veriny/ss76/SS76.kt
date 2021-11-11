@@ -7,10 +7,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer
 import ktx.app.KtxApplicationAdapter
 import ktx.app.KtxInputAdapter
-import tf.veriny.ss76.engine.ButtonManager
-import tf.veriny.ss76.engine.CheckpointManager
-import tf.veriny.ss76.engine.FontManager
-import tf.veriny.ss76.engine.SceneManager
+import tf.veriny.ss76.engine.*
 import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.renderer.OddCareRenderer
 import tf.veriny.ss76.engine.screen.ErrorScreen
@@ -24,6 +21,7 @@ import tf.veriny.ss76.vn.registerMainMenuScenes
 import tf.veriny.ss76.vn.registerMiscScenes
 import tf.veriny.ss76.vn.side.registerSideLostInTheForest
 import tf.veriny.ss76.vn.side.registerSidePlotAlexRadio
+import tf.veriny.ss76.vn.sussex.registerChessPt1Scenes
 import tf.veriny.ss76.vn.sussex.registerSu3JScenes
 import tf.veriny.ss76.vn.sussex.registerSu4JScenes
 import kotlin.time.ExperimentalTime
@@ -71,6 +69,7 @@ public object SS76 : KtxApplicationAdapter {
     public val sceneManager: SceneManager = SceneManager("signalling-system-76")
     public val checkpointManager: CheckpointManager = CheckpointManager("signalling-system-76", sceneManager)
     public val buttonManager: ButtonManager = ButtonManager()
+    public val eventFlagsManager: EventFlags = EventFlags()
 
     // == Input == //
     private val input = InputMultiplexer(object : KtxInputAdapter {
@@ -158,6 +157,9 @@ public object SS76 : KtxApplicationAdapter {
             // == MAIN ROUTE == //
             registerSu3JScenes()
             registerSu4JScenes()
+
+            // == SIDE == //
+            registerChessPt1Scenes()
 
             CommonScenes.register()
         }

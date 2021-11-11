@@ -25,6 +25,7 @@ public class ChangeSceneButton(
 ) : Button {
 
     override fun run() {
+        println("$name: changing scene to $linkedId (flag: $setFlag)")
         if (setFlag != null) SS76.eventFlagsManager.set(setFlag)
         SS76.sceneManager.changeScene(linkedId)
     }
@@ -57,7 +58,7 @@ public object BackButton : Button {
 }
 
 public object PrevPageButton : Button {
-    override val name: String = "next-page"
+    override val name: String = "prev-page"
 
     override fun run() {
         SS76.sceneManager.currentScene.pageBack()
@@ -65,7 +66,7 @@ public object PrevPageButton : Button {
 }
 
 public object NextPageButton : Button {
-    override val name: String = "prev-page"
+    override val name: String = "next-page"
 
     override fun run() {
         SS76.sceneManager.currentScene.pageNext()

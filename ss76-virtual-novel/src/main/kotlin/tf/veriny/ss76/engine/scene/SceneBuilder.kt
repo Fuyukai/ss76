@@ -14,7 +14,7 @@ import tf.veriny.ss76.ignore
  */
 public class PageBuilder(
     private val page: StringBuilder,
-    private val buttons: MutableMap<String, Button>
+    private val addButton: (Button) -> Unit
 ) {
     private fun ensureBlankChar() {
         val lastChar = page.lastOrNull()
@@ -67,23 +67,16 @@ public class PageBuilder(
         repeat(count) { page.append('\n') }
     }
 
-    /**
-     * Adds a generic button to the current page. This can be referenced with backtick syntax
-     * on nodes.
-     */
-    public fun addButton(
-        button: Button,
-    ) {
-        buttons[button.name] = button
-    }
-
     // convenience
     /**
      * Adds a button that changes the current scene.
      */
     public fun changeSceneButton(sceneId: String, text: String, eventFlag: String? = null) {
+        println("'$text' -> '$sceneId' (flag: $eventFlag)")
         ensureBlankChar()
-        val buttonName = "change-scene-$sceneId"
+        val buttonName = if (eventFlag != null) {
+            "change-scene-$sceneId-$eventFlag"
+        } else "change-scene-$sceneId"
         val realText = ":push:@salmon@`$buttonName` $text :pop: "
 
         line(realText, addNewline = false)
@@ -100,7 +93,6 @@ public class PageBuilder(
         line(realText, addNewline = false)
 
         addButton(PushSceneButton(buttonName, sceneId, eventFlag))
-
     }
 
     /**
@@ -163,11 +155,21 @@ public class SceneDefinitionBuilder(
     }
 
     /**
+     * Adds a generic button to the current scene. This can be referenced with backtick syntax
+     * on nodes.
+     */
+    public fun addButton(
+        button: Button,
+    ) {
+        buttons[button.name] = button
+    }
+
+    /**
      * Creates a new page.
      */
     public inline fun page(block: PageBuilder.() -> Unit) {
         val page = StringBuilder()
-        val builder = PageBuilder(page, buttons)
+        val builder = PageBuilder(page, this::addButton)
         builder.block()
         pages.add(page)
     }

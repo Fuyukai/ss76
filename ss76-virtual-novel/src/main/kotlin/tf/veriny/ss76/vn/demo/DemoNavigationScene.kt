@@ -29,23 +29,19 @@ public fun registerDemoNavigationScenes() {
         }
 
         page {
-            line("MAIN ROUTE JUMP POINTS #1")
+            line("The jump points are deprecated due to requiring checkpoints for event " +
+                 "flags.")
             newline()
 
-            pushSceneButton(
-                "su3j-prologue-1",
-                "2021-10-11: Main Content, Prologue"
-            )
+            line("The only jump point now is Chapter 2. Start from a checkpoint in the next " +
+                 "build.")
             newline()
 
-            pushSceneButton("su3j-school-1", "2021-10-13: Main Content, 03/07 School Start")
-            newline()
-
-            pushSceneButton("su3j-school-9", "2021-10-19: 03/07 Where I left off")
+            changeSceneButton("su4j-start", "2021-11-11: Chapter 2, Start")
         }
 
         page {
-            line("UI DEMOS")
+            line("ENGINE DEMOS")
             newline()
 
             pushSceneButton(
@@ -72,7 +68,7 @@ public fun registerDemoNavigationScenes() {
         }
 
         page {
-            line("UI DEMOS #2")
+            line("ENGINE DEMOS #2")
             newline()
 
             pushSceneButton("linger-test", "2021-10-05: Lingering text")
@@ -82,6 +78,9 @@ public fun registerDemoNavigationScenes() {
             newline()
 
             pushSceneButton("font-change", "2021-10-20: Font changes")
+            newline()
+
+            pushSceneButton("flag-test-menu", "2021-11-11: Event flag test")
         }
     }
 
@@ -124,6 +123,51 @@ public fun registerDemoNavigationScenes() {
 
         page {
             line("")
+        }
+    }
+
+    createAndRegisterScene("flag-test-menu") {
+        page {
+            pushSceneButton("flag-test-set", "Set event flag")
+            newline()
+            pushSceneButton("flag-test-clear", "Clear event flag")
+            newline()
+            pushSceneButton("flag-test-check", "Show event flag")
+        }
+    }
+
+    createAndRegisterScene("flag-test-set") {
+        onLoad {
+            SS76.eventFlagsManager.set("demo-test-flag")
+            SS76.sceneManager.exitScene()
+        }
+    }
+
+    createAndRegisterScene("flag-test-clear") {
+        onLoad {
+            SS76.eventFlagsManager.reset("demo-test-flag")
+            SS76.sceneManager.exitScene()
+        }
+    }
+
+    createAndRegisterScene("flag-test-check") {
+        enablePagination = false
+
+        onLoad {
+            val isSet = SS76.eventFlagsManager.get("demo-test-flag")
+            it.pageIdx = if (isSet) 1 else 0
+        }
+
+        page {
+            line("The flag is not set")
+            newline()
+            backButton()
+        }
+
+        page {
+            line("The flag is set")
+            newline()
+            backButton()
         }
     }
 }

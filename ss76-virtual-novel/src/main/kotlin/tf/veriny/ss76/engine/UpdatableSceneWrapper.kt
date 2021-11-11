@@ -71,7 +71,7 @@ public open class UpdatableSceneWrapper(
      */
     public open fun edit(page: Int, block: PageBuilder.() -> Unit) {
         val sb = pages[page]
-        val builder = PageBuilder(sb, buttons)
+        val builder = PageBuilder(sb) { buttons[it.name] = it }
         builder.block()
     }
 }
