@@ -2,7 +2,6 @@ package tf.veriny.ss76.vn.sussex
 
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.NextPageButton
-import tf.veriny.ss76.engine.scene.createScene
 import tf.veriny.ss76.engine.scene.sceneSequence
 import kotlin.random.Random
 
@@ -336,6 +335,11 @@ public fun registerSu4JScenes(): Unit = sceneSequence("su4j-") {
     }
 
     createAndRegisterOnePageScene("resort-10") {
-        line("nightcore just dance")
+        line("The rainbow streets lead to all kinds of magical and wonderful and horrifying " +
+             "places.")
+        newline()
+
+        line("The central resort is arranged in a grid, the paths forming a spider " +
+             "web out to the seven corners")
     }
 }

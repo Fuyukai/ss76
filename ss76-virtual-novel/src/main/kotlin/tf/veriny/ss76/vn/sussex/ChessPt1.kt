@@ -51,7 +51,6 @@ public fun registerChessPt1Scenes() {
             page {
                 dline("CHAR: $st")
 
-                println(":linger:${counter * 30}")
                 backButton("<<< Don't play.")
                 line(":linger:${counter * 30}")
                 changeSceneButton("chess-pt1-${counter + 1}", "Play chess")

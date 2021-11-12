@@ -38,7 +38,7 @@ public class CheckpointManager(
 
         private val formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy - HH:mm:ss")
 
-        public const val CHECKPOINT_VERSION: Int = 1
+        public const val CHECKPOINT_VERSION: Int = 2
     }
 
     /** The directory to use for saving. */

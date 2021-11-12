@@ -5,12 +5,14 @@ import ktx.app.KtxInputAdapter
 import okio.BufferedSink
 import okio.BufferedSource
 import okio.ByteString.Companion.encodeUtf8
+import readPascalString
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.adv.ADVScreen
 import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.SceneState
+import writePascalString
 import java.nio.file.Files
 import java.nio.file.Path
 import java.nio.file.StandardOpenOption.*
@@ -134,13 +136,10 @@ public class SceneManager(public val namespace: String) : Saveable {
         if (!forceNvl && advMode != null) {
             val screen = SS76.screen
             if (screen !is ADVScreen || !screen.isAlreadyRendering(advMode)) {
-                println("setting adv screen")
                 SS76.changeScreen(ADVScreen(advMode))
             } else {
-                println("not setting adv screen")
             }
         } else {
-            println("setting novel screen as advmode was null")
             SS76.changeScreen(NVLScreen)
         }
 
@@ -212,20 +211,28 @@ public class SceneManager(public val namespace: String) : Saveable {
         val scenes = stack.map { it.definition.id }
         buffer.writeInt(scenes.size)
         for (scene in scenes) {
-            val encoded = scene.encodeUtf8()
-            val size = encoded.size
-            buffer.writeInt(size)
-            buffer.write(encoded)
+            buffer.writePascalString(scene)
+        }
+    }
+
+    private fun printSceneStack() {
+        println("scene stack:")
+        for ((idx, scene) in this.stack.withIndex()) {
+            println("  #$idx: id '${scene.definition.id}'")
         }
     }
 
     override fun read(buffer: BufferedSource) {
+        stack.clear()
+
         val sceneCount = buffer.readInt()
         for (idx in 0 until sceneCount) {
             val size = buffer.readInt()
             val sceneId = buffer.readUtf8(size.toLong())
             pushScene(sceneId)
         }
+
+        printSceneStack()
     }
 
     // == Debug == //

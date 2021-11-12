@@ -72,7 +72,6 @@ public class PageBuilder(
      * Adds a button that changes the current scene.
      */
     public fun changeSceneButton(sceneId: String, text: String, eventFlag: String? = null) {
-        println("'$text' -> '$sceneId' (flag: $eventFlag)")
         ensureBlankChar()
         val buttonName = if (eventFlag != null) {
             "change-scene-$sceneId-$eventFlag"

@@ -25,7 +25,6 @@ public class ChangeSceneButton(
 ) : Button {
 
     override fun run() {
-        println("$name: changing scene to $linkedId (flag: $setFlag)")
         if (setFlag != null) SS76.eventFlagsManager.set(setFlag)
         SS76.sceneManager.changeScene(linkedId)
     }
