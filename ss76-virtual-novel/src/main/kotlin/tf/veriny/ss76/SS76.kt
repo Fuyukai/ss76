@@ -72,7 +72,7 @@ public object SS76 : KtxApplicationAdapter {
     public val eventFlagsManager: EventFlags = EventFlags()
 
     // == Input == //
-    private val input = InputMultiplexer(object : KtxInputAdapter {
+    private val input = SafeMultiplexer(object : KtxInputAdapter {
         override fun keyDown(keycode: Int): Boolean {
             // helper functionality that overrides all sub-screens.
             when (keycode) {
