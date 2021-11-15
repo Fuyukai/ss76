@@ -43,6 +43,7 @@ public fun registerChessPt1Scenes() {
         "Okay. Let's play chess."
     )
 
+    var wait = 0
     var counter = 0
     for (st in statements) {
         createAndRegisterScene("chess-pt1-$counter") {
@@ -52,13 +53,16 @@ public fun registerChessPt1Scenes() {
                 dline("CHAR: $st")
 
                 backButton("<<< Don't play.")
-                line(":linger:${counter * 30}")
+                line(":linger:${counter * 120}")
+                wait += counter * 120
                 changeSceneButton("chess-pt1-${counter + 1}", "Play chess")
             }
         }
 
         counter++
     }
+
+    println("wait (seconds): ${wait / 60}")
 
     createAndRegisterOnePageScene("chess-pt1-${counter}") {
         line(":push:@yellow@ I didn't expect you to actually skip through the waiting. " +
