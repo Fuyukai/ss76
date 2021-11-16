@@ -35,7 +35,7 @@ public class ADVRenderer(
     }
 
     override val padding: Float
-        get() = /*if (SS76.isBabyScreen) 60f else*/ 90f
+        get() = 90f
 
     private val yBoxOffset get() = 3 * (Gdx.graphics.height.toFloat() / 4f)
 
@@ -86,7 +86,7 @@ public class ADVRenderer(
         //shape.projectionMatrix = camera.combined
         shapeRenderer.use(ShapeRenderer.ShapeType.Filled) {
             color = Color.BLACK
-            val pad = /*if (SS76.isBabyScreen) 47f else*/ 75f
+            val pad = 75f
             roundedRect(pad, 15f,
                 Gdx.graphics.width - (pad * 2),
                 Gdx.graphics.height - yBoxOffset,

@@ -117,12 +117,6 @@ public class NVLRenderer(es: EngineState) : TextRendererMixin(es) {
         val font = es.fontManager.defaultFont
         val width = font.characterWidth
 
-        /*val isUpdated = SS76.record.updated
-        if (isUpdated) {
-            glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / ! Record")
-        } else {
-            glyphLayout.setText(SS76.fontManager.currentFont.white, "Checkpoint / Record")
-        }*/
         currentXOffset = -width
         currentYOffset = -glyphLayout.height * 2
 
