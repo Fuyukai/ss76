@@ -1,14 +1,11 @@
 package tf.veriny.ss76.vn
 
-import tf.veriny.ss76.engine.Button
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
-import java.awt.Desktop
-import java.net.URI
 
 
-
-public fun registerMiscScenes() {
-    createAndRegisterScene("credits-menu") {
+public fun registerMiscScenes(sm: SceneManager) {
+    sm.createAndRegisterScene("credits-menu") {
         page {
             line("=== Development Credits ===")
             newline()

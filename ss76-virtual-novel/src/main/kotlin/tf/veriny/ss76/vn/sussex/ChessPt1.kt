@@ -1,9 +1,10 @@
 package tf.veriny.ss76.vn.sussex
 
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
-public fun registerChessPt1Scenes() {
+public fun registerChessPt1Scenes(sm: SceneManager): Unit = with(sm) {
     val statements = listOf(
         "That lady looks creepy. It's probably not a good idea to go over there.",
         "No, seriously. She looks really weird. We shouldn't go over there.",

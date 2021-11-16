@@ -2,13 +2,14 @@ package tf.veriny.ss76.vn
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.audio.Sound
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.SceneDefinition
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
  * "Namespace" of scenes shared between multiple routes.
  */
-public object CommonScenes {
+public class CommonScenes(sm: SceneManager) {
     @Suppress("GDXKotlinStaticResource")  // don't care
     private lateinit var DTMF_AUDIO: Sound
 
@@ -16,7 +17,7 @@ public object CommonScenes {
         DTMF_AUDIO = Gdx.audio.newSound(Gdx.files.internal("audio/dtmf.ogg"))
     }
 
-    public val END_OF_DEMO: SceneDefinition = createAndRegisterScene("end-of-demo") {
+    public val END_OF_DEMO: SceneDefinition = sm.createAndRegisterScene("end-of-demo") {
         page {
             line("You've reached the end of the Signalling System 76 demo.")
             newline()
@@ -29,7 +30,7 @@ public object CommonScenes {
         }
     }
 
-    public val A_LEVELS_SCENE: SceneDefinition = createAndRegisterScene("a-level-explain-scene") {
+    public val A_LEVELS_SCENE: SceneDefinition = sm.createAndRegisterScene("a-level-explain-scene") {
         page {
             line(
                 "A-levels are one of the possible last stages of UK higher education. You pick " +
@@ -56,7 +57,7 @@ public object CommonScenes {
 
     // to future me: move everything unused to this
     // region unused for now.
-    public val DONT_LIKE_PHONES: SceneDefinition = createAndRegisterScene("common.dlp") {
+    public val DONT_LIKE_PHONES: SceneDefinition = sm.createAndRegisterScene("common.dlp") {
         page {
             line(
                 "You don't really like mobile phones. It was unthinkable for any secondary " +
@@ -74,7 +75,7 @@ public object CommonScenes {
             backButton()
         }
     }
-    public val DESK_DESCRIPTION: SceneDefinition = createAndRegisterScene("common.desk") {
+    public val DESK_DESCRIPTION: SceneDefinition = sm.createAndRegisterScene("common.desk") {
         page {
             line(
                 "Your desk is a simple Ikea desk. It is extremely cluttered because you " +
@@ -97,7 +98,7 @@ public object CommonScenes {
     }
 
     // previously used in 3rd of july routes as an exposition scene.
-    public val SCHOOL_SIZE: SceneDefinition = createAndRegisterScene("common.schoolsize") {
+    public val SCHOOL_SIZE: SceneDefinition = sm.createAndRegisterScene("common.schoolsize") {
         page {
             line(
                 "Your school is a selective secondary school, being all boys from Year 7 to " +
@@ -132,7 +133,7 @@ public object CommonScenes {
     // endregion
 
     // used
-    public val SCHOOL_WORKING_LIFT: SceneDefinition = createAndRegisterScene("common.schoollift") {
+    public val SCHOOL_WORKING_LIFT: SceneDefinition = sm.createAndRegisterScene("common.schoollift") {
         page {
             // faculty really don't like kids using lifts. they think its just kids being lazy.
             // of course, theyre fine to use the lifts themselves.
@@ -170,7 +171,7 @@ public object CommonScenes {
         }
     }
 
-    public val SCHOOL_ATTENDANCE: SceneDefinition = createAndRegisterScene("common.school_attendance") {
+    public val SCHOOL_ATTENDANCE: SceneDefinition = sm.createAndRegisterScene("common.school_attendance") {
         page {
             // the archangel project requires fresh minds/parents dont want their kids out of school
 
@@ -195,7 +196,7 @@ public object CommonScenes {
         }
     }
 
-    public val FLOOR_5_AIR_CON: SceneDefinition = createAndRegisterScene("common.floor5.ac") {
+    public val FLOOR_5_AIR_CON: SceneDefinition = sm.createAndRegisterScene("common.floor5.ac") {
         page {
             line(
                 "The school's server room is on the fifth floor, so the air conditioning is " +
@@ -214,7 +215,7 @@ public object CommonScenes {
         }
     }
 
-    internal val FLOOR_5_YEAR7S = createAndRegisterScene("common.floor5.y7") {
+    internal val FLOOR_5_YEAR7S = sm.createAndRegisterScene("common.floor5.y7") {
         // char kills year 7s
         page {
             line("Only the older years have lessons up here.")
@@ -242,7 +243,7 @@ public object CommonScenes {
     }
 
     // friend biographies
-    internal val CHAR_BIOGRAPHY_1 = createAndRegisterScene("common.friends.char") {
+    internal val CHAR_BIOGRAPHY_1 = sm.createAndRegisterScene("common.friends.char") {
         page {
             line("Name: Charlotte 'Char' Philips (with ONE l)")
             line("Age: 17")
@@ -268,7 +269,7 @@ public object CommonScenes {
     }
 
 
-    internal val CHAR_BIOGRAPHY_2 = createAndRegisterScene("common.friends.char-real") {
+    internal val CHAR_BIOGRAPHY_2 = sm.createAndRegisterScene("common.friends.char-real") {
         page {
             line("Name: Charlotte 'Char' Philips")
             line("Age: 18")
@@ -296,7 +297,7 @@ public object CommonScenes {
         }
     }
 
-    internal val ALEX_BIOGRAPHY_1 = createAndRegisterScene("common.friends.alex") {
+    internal val ALEX_BIOGRAPHY_1 = sm.createAndRegisterScene("common.friends.alex") {
         page {
             line("Name: Alexander 'Alex' Ashton")
             line("Age: 16")
@@ -318,7 +319,7 @@ public object CommonScenes {
         }
     }
 
-    internal val ALEX_BIOGRAPHY_2 = createAndRegisterScene("common.friends.alex-real") {
+    internal val ALEX_BIOGRAPHY_2 = sm.createAndRegisterScene("common.friends.alex-real") {
         page {
             line("Name: Alexander 'Alex' Ashton")
             line("Age: 16")
@@ -342,7 +343,7 @@ public object CommonScenes {
         }
     }
 
-    internal val CATE_BIOGRAPHY_1 = createAndRegisterScene("common.friends.cate") {
+    internal val CATE_BIOGRAPHY_1 = sm.createAndRegisterScene("common.friends.cate") {
         page {
             line("Name: Catherine 'Cate' Schwartz")
             line("Age: 17")
@@ -370,7 +371,7 @@ public object CommonScenes {
         }
     }
 
-    internal val CATE_BIOGRAPHY_2 = createAndRegisterScene("common.friends.cate-real") {
+    internal val CATE_BIOGRAPHY_2 = sm.createAndRegisterScene("common.friends.cate-real") {
         page {
             line("Name: Catherine 'Cate' Schwartz")
             line("Age: 17")
@@ -392,7 +393,7 @@ public object CommonScenes {
         }
     }
 
-    internal val JESS_BIOGRAPHY_1 = createAndRegisterScene("common.friends.jess") {
+    internal val JESS_BIOGRAPHY_1 = sm.createAndRegisterScene("common.friends.jess") {
         page {
             line("Name: Jessica 'Jess' Taylor")
             line("Age: 17 going on 30")
@@ -425,7 +426,7 @@ public object CommonScenes {
     }
 
 
-    internal val FRIENDS = createAndRegisterScene("common.friends-r1-first") {
+    internal val FRIENDS = sm.createAndRegisterScene("common.friends-r1-first") {
         page {
             line("You have three friends. (What a loser.)")
             newline()
@@ -462,7 +463,7 @@ public object CommonScenes {
         }
     }
 
-    internal val HEATHLAND = createAndRegisterScene("common.heathland") {
+    internal val HEATHLAND = sm.createAndRegisterScene("common.heathland") {
         page {
             line(
                 "Heaths are habitats where lots of shrubs and bushes grow. " +
@@ -490,7 +491,7 @@ public object CommonScenes {
 
     // 4th scenes
 
-    internal val FELL_DOWN_HEATH = createAndRegisterScene("common.fallen-down") {
+    internal val FELL_DOWN_HEATH = sm.createAndRegisterScene("common.fallen-down") {
         page {
             line(
                 "When you first started walking to school, you tried cutting across the heath " +
@@ -516,7 +517,7 @@ public object CommonScenes {
         }
     }
 
-    internal val SPINNY_VAN_THING = createAndRegisterScene("common.spinny-van-thing") {
+    internal val SPINNY_VAN_THING = sm.createAndRegisterScene("common.spinny-van-thing") {
         page {
             line("When you were a kid, you asked your mother what the spinny things on vans were.")
             newline()
@@ -544,7 +545,7 @@ public object CommonScenes {
 
     // call forward to the monologue about charlotte's cat in ending #2
     // future me: make sure to write that. you know what we mean
-    public val CARS: SceneDefinition = createAndRegisterScene("sussex-i-hate-cars") {
+    public val CARS: SceneDefinition = sm.createAndRegisterScene("sussex-i-hate-cars") {
         page {
             line(
                 "Cars are terrible, evil things. If one was religious, they could say that " +
@@ -569,7 +570,7 @@ public object CommonScenes {
         }
     }
 
-    internal val DTMF = createAndRegisterScene("common.dtmf") {
+    internal val DTMF = sm.createAndRegisterScene("common.dtmf") {
         onLoad {
             DTMF_AUDIO.play()
         }

@@ -1,17 +1,14 @@
 package tf.veriny.ss76.vn.demo
 
-import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.nvl.NVLScreen
 import tf.veriny.ss76.engine.renderer.BackgroundTestRenderer
-import tf.veriny.ss76.engine.renderer.LetterTestRenderer
-import tf.veriny.ss76.engine.renderer.TileMapADVRenderer
-import tf.veriny.ss76.engine.renderer.map.DoorRenderer
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.engine.screen.WindowSizeShifter
 import tf.veriny.ss76.vn.sussex.CarRenderer
 
-public fun registerDemoNavigationScenes() {
-    createAndRegisterScene("demo-meta-menu") {
+public fun registerDemoNavigationScenes(sceneManager: SceneManager): Unit = sceneManager.let { sm ->
+    sm.createAndRegisterScene("demo-meta-menu") {
         page {
             line("This is the Signalling System 76 debug menu.")
             newline()
@@ -22,7 +19,7 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("credits-menu", "Credits")
             newline()
 
-            pushSceneButton("oss-credits", "OSS Credits")
+            pushSceneButton("engine-oss-credits", "OSS Credits")
             newline()
 
             line("¬ayana¬le")
@@ -61,10 +58,10 @@ public fun registerDemoNavigationScenes() {
             pushSceneButton("car-renderer", "2021-09-22: Le boat has arrived")
             newline()
 
-            pushSceneButton("background-renderer", "2021-09-25: Backgrounds test")
-            newline()
+            //pushSceneButton("background-renderer", "2021-09-25: Backgrounds test")
+            //newline()
 
-            pushSceneButton("letter-renderer", "2021-09-26: Letters text")
+            //pushSceneButton("letter-renderer", "2021-09-26: Letters text")
         }
 
         page {
@@ -84,15 +81,15 @@ public fun registerDemoNavigationScenes() {
         }
     }
 
-    createAndRegisterScene("resize-large") {
+    sm.createAndRegisterScene("resize-large") {
         onLoad {
-            SS76.sceneManager.exitScene()
-            val screen = WindowSizeShifter(900, 1600, NVLScreen)
-            SS76.changeScreen(screen)
+            it.engineState.sceneManager.exitScene()
+            val screen = WindowSizeShifter(900, 1600)
+            it.engineState.screenManager.changeScreen(screen)
         }
     }
 
-    createAndRegisterScene("car-renderer") {
+    sm.createAndRegisterScene("car-renderer") {
         this.advRenderer = CarRenderer()
 
         page {
@@ -108,25 +105,25 @@ public fun registerDemoNavigationScenes() {
         }
     }
 
-    createAndRegisterScene("background-renderer") {
-        onLoad {
-            SS76.changeScreen(BackgroundTestRenderer())
+    sm.createAndRegisterScene("background-renderer") {
+        onLoad { state ->
+            state.engineState.screenManager.changeScreen(BackgroundTestRenderer())
         }
     }
 
-    createAndRegisterScene("letter-renderer") {
-        onLoad { SS76.changeScreen(LetterTestRenderer()) }
+    /*sm.createAndRegisterScene("letter-renderer") {
+        onLoad { it.engineState.screenManager.changeScreen(LetterTestRenderer()) }
     }
 
-    createAndRegisterScene("door-test") {
+    sm.createAndRegisterScene("door-test") {
         advRenderer = DoorRenderer()
 
         page {
             line("")
         }
-    }
-
-    createAndRegisterScene("flag-test-menu") {
+    }*/
+    
+    sm.createAndRegisterScene("flag-test-menu") {
         page {
             pushSceneButton("flag-test-set", "Set event flag")
             newline()
@@ -136,25 +133,25 @@ public fun registerDemoNavigationScenes() {
         }
     }
 
-    createAndRegisterScene("flag-test-set") {
+    sm.createAndRegisterScene("flag-test-set") {
         onLoad {
-            SS76.eventFlagsManager.set("demo-test-flag")
-            SS76.sceneManager.exitScene()
+            it.engineState.eventFlagsManager.set("demo-test-flag")
+            it.engineState.sceneManager.exitScene()
         }
     }
 
-    createAndRegisterScene("flag-test-clear") {
+    sm.createAndRegisterScene("flag-test-clear") {
         onLoad {
-            SS76.eventFlagsManager.reset("demo-test-flag")
-            SS76.sceneManager.exitScene()
+            it.engineState.eventFlagsManager.reset("demo-test-flag")
+            it.engineState.sceneManager.exitScene()
         }
     }
 
-    createAndRegisterScene("flag-test-check") {
+    sm.createAndRegisterScene("flag-test-check") {
         enablePagination = false
 
         onLoad {
-            val isSet = SS76.eventFlagsManager.get("demo-test-flag")
+            val isSet = it.engineState.eventFlagsManager.get("demo-test-flag")
             it.pageIdx = if (isSet) 1 else 0
         }
 

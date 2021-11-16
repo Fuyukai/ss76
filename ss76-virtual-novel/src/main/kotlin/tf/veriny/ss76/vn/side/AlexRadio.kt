@@ -1,11 +1,12 @@
 package tf.veriny.ss76.vn.side
 
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
  * Contains scenes relating to Alex's radio sideplot.
  */
-public fun registerSidePlotAlexRadio() {
+public fun registerSidePlotAlexRadio(sm: SceneManager): Unit = with(sm) {
     createAndRegisterScene("side.sussex.alex-radio-0") {
         page {
             line("Alex really likes talking about his radio set.")

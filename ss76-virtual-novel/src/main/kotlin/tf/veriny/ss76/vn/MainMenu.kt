@@ -1,6 +1,7 @@
 package tf.veriny.ss76.vn
 
 import tf.veriny.ss76.SS76
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
@@ -50,7 +51,7 @@ private val MAIN_MENU_SCENE = createScene("main-menu") {
 }
 */
 
-public fun registerMainMenuScenes() {
+public fun registerMainMenuScenes(sm: SceneManager): Unit = with(sm) {
     createAndRegisterScene("main-menu") {
         page {
             line(

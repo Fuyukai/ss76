@@ -1,8 +1,9 @@
 package tf.veriny.ss76.vn.side
 
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
-public fun registerSideLostInTheForest() {
+public fun registerSideLostInTheForest(sm: SceneManager): Unit = with(sm) {
     createAndRegisterScene("side.lost-forest-1") {
         page {
             line("Your home town is a mix of suburban shoeboxes, forests, and heathland.")

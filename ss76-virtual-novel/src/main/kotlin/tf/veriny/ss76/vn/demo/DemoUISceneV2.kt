@@ -2,13 +2,14 @@ package tf.veriny.ss76.vn.demo
 
 import com.badlogic.gdx.graphics.Color
 import tf.veriny.ss76.engine.FontManager
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.DEFAULT_FRAMES_PER_WORD
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 
 /**
  * Registers the all new Demo UI scene.
  */
-public fun registerDemoUIScene() {
+public fun registerDemoUIScene(sceneManager: SceneManager): Unit = with(sceneManager) {
     createAndRegisterScene("renderer-v2-demo") {
         page {
             line("This is a demo screen!")

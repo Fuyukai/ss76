@@ -2,12 +2,13 @@ package tf.veriny.ss76.vn.sussex
 
 import tf.veriny.ss76.SS76
 import tf.veriny.ss76.engine.NextPageButton
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.sceneSequence
 import kotlin.random.Random
 
 private const val FLESH_FLAG = "ch2-defied-father"
 
-public fun registerSu4JScenes(): Unit = sceneSequence("su4j-") {
+public fun registerSu4JScenes(sm: SceneManager): Unit = sm.sceneSequence("su4j-") {
     disableTextSkip()
 
     createAndRegisterOnePageScene("start") {
@@ -108,7 +109,7 @@ public fun registerSu4JScenes(): Unit = sceneSequence("su4j-") {
         enablePagination = false
 
         onLoad {
-            if (SS76.eventFlagsManager.get("ch2-defied-father")) {
+            if (it.engineState.eventFlagsManager.get("ch2-defied-father")) {
                 it.pageIdx = 0
             } else {
                 it.pageIdx = 1
@@ -197,7 +198,7 @@ public fun registerSu4JScenes(): Unit = sceneSequence("su4j-") {
         enablePagination = false
 
         onLoad {
-            val defied = SS76.eventFlagsManager.get(FLESH_FLAG)
+            val defied = it.engineState.eventFlagsManager.get(FLESH_FLAG)
             if (!defied) {
                 it.pageIdx = pages.size - 1
             }

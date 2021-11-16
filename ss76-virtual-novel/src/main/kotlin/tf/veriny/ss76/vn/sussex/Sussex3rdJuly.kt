@@ -2,6 +2,7 @@ package tf.veriny.ss76.vn.sussex
 
 import com.badlogic.gdx.Gdx
 import com.badlogic.gdx.graphics.Color
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.sceneSequence
 import java.lang.StringBuilder
 import kotlin.random.Random
@@ -9,7 +10,7 @@ import kotlin.random.Random
 /**
  * Registers scenes for Route One, Day One.
  */
-public fun registerSu3JScenes(): Unit = sceneSequence("su3j-") {
+public fun registerSu3JScenes(sm: SceneManager): Unit = sm.sceneSequence("su3j-") {
     currentEffects.disableClickables = true
     enableInvert()
     disableTextSkip()

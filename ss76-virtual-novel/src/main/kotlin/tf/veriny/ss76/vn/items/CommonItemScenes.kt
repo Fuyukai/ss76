@@ -1,13 +1,15 @@
 package tf.veriny.ss76.vn.items
 
+import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.scene.Inventory
 import tf.veriny.ss76.engine.scene.createAndRegisterOnePageScene
 
 /**
  * Registers scenes for your phone.
  */
-public object CommonItemScenes {
-    internal val BASIC_INSPECT = createAndRegisterOnePageScene("item.phone-basic-inspect") {
+@Suppress("PropertyName", "UNUSED")
+public class CommonItemScenes(sm: SceneManager) {
+    internal val BASIC_INSPECT = sm.createAndRegisterOnePageScene("item.phone-basic-inspect") {
         line("It's a phone.")
         newline()
 
@@ -20,7 +22,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val DAY_1_USE_PHONE = createAndRegisterOnePageScene("item.phone-use-1") {
+    internal val DAY_1_USE_PHONE = sm.createAndRegisterOnePageScene("item.phone-use-1") {
         line("You are now 5 steps away from being a developer.")
         line("You are now 4 steps away from being a developer.")
         line("You are now 3 steps away from being a developer.")
@@ -34,7 +36,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val PHONE_INSPECT_2 = createAndRegisterOnePageScene("item.phone-2") {
+    internal val PHONE_INSPECT_2 = sm.createAndRegisterOnePageScene("item.phone-2") {
         line("It's a phone.")
         newline()
 
@@ -44,7 +46,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val PHONE_USE_2 = createAndRegisterOnePageScene("item.phone-use-2") {
+    internal val PHONE_USE_2 = sm.createAndRegisterOnePageScene("item.phone-use-2") {
         line("Now's not the time to become a developer.")
         newline()
 
@@ -53,7 +55,7 @@ public object CommonItemScenes {
 
     public val PHONE_ITEM: Inventory.InventoryItem = Inventory.InventoryItem("PHONE", BASIC_INSPECT.id, DAY_1_USE_PHONE.id)
 
-    internal val PHYSICS_HOMEWORK = createAndRegisterOnePageScene("item.physics-homework-inspect") {
+    internal val PHYSICS_HOMEWORK = sm.createAndRegisterOnePageScene("item.physics-homework-inspect") {
         line("It's two sets of physics homework.")
         newline()
 
@@ -63,7 +65,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val PHYSICS_HOMEWORK_USE = createAndRegisterOnePageScene("item.physics-homework-use") {
+    internal val PHYSICS_HOMEWORK_USE = sm.createAndRegisterOnePageScene("item.physics-homework-use") {
         line("A gardener used a trolley to move a paving stone.")
         line("A force meter was attached to the handle of the trolley.")
         newline()
@@ -90,27 +92,27 @@ public object CommonItemScenes {
 
     public val PHYS_HW_ITEM: Inventory.InventoryItem = Inventory.InventoryItem(
         "PHYSICS HW",
-        CommonItemScenes.PHYSICS_HOMEWORK.id, CommonItemScenes.PHYSICS_HOMEWORK_USE.id
+        PHYSICS_HOMEWORK.id, PHYSICS_HOMEWORK_USE.id
     )
 
-    internal val ROCK_DESCRIPTION_1 = createAndRegisterOnePageScene("item.orb-1") {
+    internal val ROCK_DESCRIPTION_1 = sm.createAndRegisterOnePageScene("item.orb-1") {
         line("It's a round stone.")
         newline()
 
         backButton()
     }
 
-    internal val ROCK_USE_1 = createAndRegisterOnePageScene("item.orb.use-1") {
+    internal val ROCK_USE_1 = sm.createAndRegisterOnePageScene("item.orb.use-1") {
         backButton()
     }
 
     public val ROCK_ITEM: Inventory.InventoryItem = Inventory.InventoryItem(
         "SMOOTH STONE",
-        CommonItemScenes.ROCK_DESCRIPTION_1.id,
-        CommonItemScenes.ROCK_USE_1.id
+        ROCK_DESCRIPTION_1.id,
+        ROCK_USE_1.id
     )
 
-    internal val CAT_HAIR = createAndRegisterOnePageScene("item.cat-hair") {
+    internal val CAT_HAIR = sm.createAndRegisterOnePageScene("item.cat-hair") {
         line("It's a handful of cat hair.")
         newline()
 
@@ -123,7 +125,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val CAT_HAIR_USE = createAndRegisterOnePageScene("item.cat-hair.use") {
+    internal val CAT_HAIR_USE = sm.createAndRegisterOnePageScene("item.cat-hair.use") {
         line("You take the hair and shove it inside your mouth. What the actual fuck is wrong with you?")
         newline()
 
@@ -148,18 +150,18 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val INCOMPREHENSIBLE_INSPECT = createAndRegisterOnePageScene("item.incomprehensible") {
+    internal val INCOMPREHENSIBLE_INSPECT = sm.createAndRegisterOnePageScene("item.incomprehensible") {
         line("It's not something you can comprehend.")
         newline()
 
         backButton()
     }
 
-    internal val INCOMPREHENSIBLE_USE = createAndRegisterOnePageScene("item.incomprehensible-use") {
+    internal val INCOMPREHENSIBLE_USE = sm.createAndRegisterOnePageScene("item.incomprehensible-use") {
         line("")
     }
 
-    internal val WEIRD_LETTER = createAndRegisterOnePageScene("item.weird-letter") {
+    internal val WEIRD_LETTER = sm.createAndRegisterOnePageScene("item.weird-letter") {
         line("Dear resident")
         newline()
 
@@ -184,7 +186,7 @@ public object CommonItemScenes {
         backButton()
     }
 
-    internal val WEIRD_LETTER_USE = createAndRegisterOnePageScene("item.weird-letter.use") {
+    internal val WEIRD_LETTER_USE = sm.createAndRegisterOnePageScene("item.weird-letter.use") {
         line("What?")
         newline()
 
