@@ -14,6 +14,7 @@ public fun registerSu3JScenes(sm: SceneManager): Unit = sm.sceneSequence("su3j-"
     currentEffects.disableClickables = true
     enableInvert()
     disableTextSkip()
+    setTopText("SIGNALLING SYSTEM 76")
 
     createAndRegisterOnePageScene("prologue-1") {
         line("\"")

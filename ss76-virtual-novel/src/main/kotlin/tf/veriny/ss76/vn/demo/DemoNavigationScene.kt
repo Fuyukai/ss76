@@ -2,7 +2,6 @@ package tf.veriny.ss76.vn.demo
 
 import tf.veriny.ss76.engine.SceneManager
 import tf.veriny.ss76.engine.nvl.NVLScreen
-import tf.veriny.ss76.engine.renderer.BackgroundTestRenderer
 import tf.veriny.ss76.engine.scene.createAndRegisterScene
 import tf.veriny.ss76.engine.screen.WindowSizeShifter
 import tf.veriny.ss76.vn.sussex.CarRenderer
@@ -105,24 +104,6 @@ public fun registerDemoNavigationScenes(sceneManager: SceneManager): Unit = scen
         }
     }
 
-    sm.createAndRegisterScene("background-renderer") {
-        onLoad { state ->
-            state.engineState.screenManager.changeScreen(BackgroundTestRenderer())
-        }
-    }
-
-    /*sm.createAndRegisterScene("letter-renderer") {
-        onLoad { it.engineState.screenManager.changeScreen(LetterTestRenderer()) }
-    }
-
-    sm.createAndRegisterScene("door-test") {
-        advRenderer = DoorRenderer()
-
-        page {
-            line("")
-        }
-    }*/
-    
     sm.createAndRegisterScene("flag-test-menu") {
         page {
             pushSceneButton("flag-test-set", "Set event flag")

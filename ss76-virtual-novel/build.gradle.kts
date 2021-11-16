@@ -4,7 +4,7 @@ plugins {
 }
 
 dependencies {
-    implementation(project(":ss76-engine"))
+    implementation("tf.veriny.pebbles:pebbles-engine:0.7.0")
 }
 
 application {

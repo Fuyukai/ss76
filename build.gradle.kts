@@ -4,7 +4,7 @@ plugins {
 
 allprojects {
     repositories {
-        mavenLocal()
+        maven(url = "https://maven.veriny.tf")
         mavenCentral()
     }
 }
