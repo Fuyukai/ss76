@@ -304,12 +304,16 @@ public fun registerSu4JScenes(sm: SceneManager): Unit = sm.sceneSequence("su4j-"
         line(":push:@pink@ It's a stark contrast. :pop: :linger:60")
         newline()
 
-        line("You cross over one of the bridges and find yourself in a large square with " +
-             "games tables dotted. There's people playing board games, both the complex and the " +
-             "simple ones.")
+        line("There's bridges leading out over the artificial rivers bordering the area, " +
+             "forming a spider web of links out into the various subdivisons of the facility.")
         newline()
 
-        changeSceneButton("su4j-resort-9", "It almost feels like a school playground.")
+        line("There's a bridge to", addNewline = false)
+        changeSceneButton("ch2-beach-1", "the beach area :chomp:")
+        line(", a bridge to", addNewline = false)
+        changeSceneButton("ch2-pool-1", "the indoor pool :chomp:")
+        line(", and... a", addNewline = false)
+        changeSceneButton("su4j-resort-9", "secluded area.")
     }
 
     createAndRegisterOnePageScene("resort-9") {
@@ -332,15 +336,6 @@ public fun registerSu4JScenes(sm: SceneManager): Unit = sm.sceneSequence("su4j-"
         newline(2)
 
         line("It's not a good idea to go there. You should", addNewline = false)
-        changeSceneButton("su4j-resort-10", "follow Char.")
-    }
-
-    createAndRegisterOnePageScene("resort-10") {
-        line("The rainbow streets lead to all kinds of magical and wonderful and horrifying " +
-             "places.")
-        newline()
-
-        line("The central resort is arranged in a grid, the paths forming a spider " +
-             "web out to the seven corners")
+        changeSceneButton("su4j-resort-8", "turn back.")
     }
 }

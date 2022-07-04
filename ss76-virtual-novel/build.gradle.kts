@@ -3,8 +3,12 @@ plugins {
     id("org.beryx.runtime").version("1.12.5")
 }
 
+repositories {
+    mavenLocal()
+}
+
 dependencies {
-    implementation("tf.veriny.pebbles:pebbles-engine:0.7.0")
+    implementation("tf.veriny.pebbles:pebbles-engine:0.7.1")
 }
 
 application {
