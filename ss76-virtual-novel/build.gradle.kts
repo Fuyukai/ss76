@@ -26,26 +26,26 @@ runtime {
         skipInstaller = true
     }
 
-    val javaToolchains: JavaToolchainService =
+    /*val javaToolchains: JavaToolchainService =
         extensions.getByName("javaToolchains") as JavaToolchainService
     val toolchain = javaToolchains.compilerFor {
-        languageVersion.set(JavaLanguageVersion.of(16))
-    }
+        languageVersion.set(JavaLanguageVersion.of(17))
+    }*/
 
     targetPlatform("linux-x64") {
-        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-linux_x64.tar.gz"))
+        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu18.30.11-ca-jdk18.0.1-linux_x64.tar.gz"))
     }
 
     targetPlatform("macos-x64") {
-        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-macosx_x64.tar.gz"))
+        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu18.30.11-ca-jdk18.0.1-macosx_x64.tar.gz"))
     }
 
     targetPlatform("macos-m1") {
-        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-macosx_aarch64.tar.gz"))
+        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu18.30.11-ca-jdk18.0.1-macosx_aarch64.tar.gz"))
     }
 
     targetPlatform("windows") {
-        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu16.32.15-ca-jdk16.0.2-win_x64.zip"))
+        setJdkHome(jdkDownload("https://cdn.azul.com/zulu/bin/zulu18.30.11-ca-jdk18.0.1-win_x64.zip"))
     }
 
     additive.set(true)

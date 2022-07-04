@@ -15,6 +15,7 @@ public fun registerDemoNavigationScenes(sceneManager: SceneManager): Unit = scen
             line("Unless this is a demo build, you shouldn't be here.")
             newline()
 
+            changeSceneButton("main-menu", "Jump to main menu")
             pushSceneButton("credits-menu", "Credits")
             newline()
 
